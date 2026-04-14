@@ -1,0 +1,73 @@
+{
+  "metric": "behavioral_variance",
+  "description": {
+    "prediction_entropy": "0=전원동의, 1=극단분기 (Shannon entropy of A/B votes)",
+    "reasoning_diversity": "0=동일한 이유, 1=완전 다른 이유 (avg Jaccard distance)"
+  },
+  "arm_a_demo_only": {
+    "avg_prediction_entropy": 0.282,
+    "avg_reasoning_diversity": 0.855,
+    "case_entropies": [
+      0.971,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      0.722,
+      -0.0,
+      -0.0,
+      0.722,
+      -0.0,
+      0.971,
+      -0.0
+    ],
+    "case_diversities": [
+      0.902,
+      0.886,
+      0.834,
+      0.897,
+      0.867,
+      0.871,
+      0.861,
+      0.816,
+      0.799,
+      0.847,
+      0.856,
+      0.829
+    ]
+  },
+  "arm_b_41r": {
+    "avg_prediction_entropy": 0.604,
+    "avg_reasoning_diversity": 0.91,
+    "case_entropies": [
+      0.722,
+      0.722,
+      0.971,
+      0.722,
+      -0.0,
+      0.971,
+      0.722,
+      0.971,
+      -0.0,
+      0.722,
+      0.722,
+      -0.0
+    ],
+    "case_diversities": [
+      0.915,
+      0.918,
+      0.933,
+      0.906,
+      0.887,
+      0.894,
+      0.905,
+      0.918,
+      0.908,
+      0.899,
+      0.911,
+      0.924
+    ]
+  },
+  "delta_entropy": 0.322,
+  "delta_diversity": 0.055
+}

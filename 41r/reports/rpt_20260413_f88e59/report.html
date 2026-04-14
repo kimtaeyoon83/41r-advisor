@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Predictive Report — rpt_20260413_f88e59</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 28px; color: #111; margin-bottom: 8px; }
+  h2 { font-size: 22px; color: #2563eb; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #2563eb; }
+  h3 { font-size: 18px; color: #374151; margin: 24px 0 12px; }
+  .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+  .exec-summary { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 20px; margin: 24px 0; border-radius: 0 8px 8px 0; font-size: 16px; }
+  .prediction-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 20px; margin: 16px 0; }
+  .prediction-box.low { background: #fef2f2; border-color: #fca5a5; }
+  .prediction-box.medium { background: #fffbeb; border-color: #fcd34d; }
+  .segment { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 12px 0; }
+  .segment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .segment-name { font-weight: 700; font-size: 16px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .badge-complete { background: #dcfce7; color: #166534; }
+  .badge-abandoned { background: #fee2e2; color: #991b1b; }
+  .badge-max { background: #fef3c7; color: #92400e; }
+  .issue { padding: 12px 16px; margin: 8px 0; border-radius: 6px; }
+  .issue-critical { background: #fef2f2; border-left: 4px solid #ef4444; }
+  .issue-high { background: #fff7ed; border-left: 4px solid #f97316; }
+  .issue-medium { background: #fffbeb; border-left: 4px solid #eab308; }
+  .issue-low { background: #f0f9ff; border-left: 4px solid #3b82f6; }
+  .recommendation { padding: 12px 16px; margin: 8px 0; background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 0 6px 6px 0; }
+  .priority { font-weight: 700; color: #166534; margin-right: 8px; }
+  .funnel { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .funnel th { background: #f3f4f6; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #d1d5db; }
+  .funnel td { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; }
+  .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #9ca3af; }
+  .actions-list { list-style: none; padding: 0; }
+  .actions-list li { padding: 4px 0; }
+  .actions-list li::before { content: "→ "; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<h1>41R Predictive A/B Report</h1>
+<div class="meta">
+  Report ID: rpt_20260413_f88e59 | Generated: 2026-04-13T13:37:02 UTC | Personas: p_impulsive
+</div>
+
+<h2>https://www.figma.com/pricing</h2>
+<div class="exec-summary">Figma pricing 페이지는 가격 정보의 즉시 가시성 측면에서 긍정적인 초기 반응을 유도하나, 충동형 유저(p_impulsive) 세션 분석 결과 유료 플랜으로의 실질적 전환은 발생하지 않았습니다. 핵심 문제는 Starter(무료) 플랜이 개인 사용자에게 지나치게 &#x27;충분한 옵션&#x27;으로 포지셔닝되어 있어, 개인 마케터·프리랜서 세그먼트의 Professional 업그레이드 동기를 원천적으로 차단하고 있다는 점입니다. 또한 동일 비교 영역을 5턴에 걸쳐 반복 확인하는 행동 패턴은, 충동형 유저조차 핵심 플랜 차이를 한눈에 파악하지 못했음을 시사하며 정보 구조 개선이 필요합니다. 즉각 실행 가능한 개선안으로는 ① Starter 카드에 무료 플랜의 구체적 한계 명시, ② 플랜 비교 정보의 시각적 단순화, ③ 개인/팀 사용자 분리 탐색 경험 제공이 있으며, 이를 통해 개인 사용자의 Professional 전환율 개선을 기대할 수 있습니다. 현재 단일 페르소나 데이터만 확보된 상태이므로, 신중형·비교형 등 추가 페르소나 세션 분석을 통해 인사이트를 보강할 것을 권장합니다.</div>
+
+        <div class="prediction-box low">
+          <h3>전환 예측</h3>
+          <p><strong>전환 신호:</strong> 낮음 | <strong>신뢰도:</strong> 보통</p>
+          <p>p_impulsive(민수)는 8턴 만에 태스크를 완료했으나, 결론이 &#x27;무료 Starter 플랜으로 충분&#x27;이었다. 즉, 페이지를 탐색하고 의사결정을 완료했음에도 유료 플랜으로의 전환(결제 버튼 클릭)은 발생하지 않았다. 충동형 유저가 빠르게 가격 정보를 파악하고 &#x27;무료로 충분&#x27;이라는 결론에 도달했다는 것은, 무료 플랜의 포지셔닝이 유료 업그레이드 욕구를 충분히 자극하지 못했음을 시사한다. 단일 페르소나 데이터이므로 신뢰도는 보통으로 평가.</p>
+        </div>
+<h3>세그먼트별 행동 분석</h3>
+
+            <div class="segment">
+              <div class="segment-header">
+                <span class="segment-name">충동형 유저 (Impulsive Shopper)</span>
+                <span class="badge badge-complete">완료 · 8턴</span>
+              </div>
+              <p>가격 정보를 턴 1에서 즉시 시각 스캔 후, 쿠키 팝업 처리(턴 2)를 제외한 나머지 6턴(턴 3~8) 전체를 Starter vs Professional 비교에 집중. 스크롤 1회 후 동일 영역(Starter 카드 하단 &#x27;적합한 경우&#x27; 불릿)을 5회 반복 read하며 &#x27;무료로 충분&#x27;이라는 결론을 확정. 단 한 번도 유료 플랜 CTA(버튼 클릭)로 진입하지 않음.</p>
+              <p><strong>주요 행동:</strong></p>
+              <ul class="actions-list">
+                <li>턴 1: 4개 플랜 가격 즉시 시각 스캔 (Free / $16 / $55 / $90)</li><li>턴 2: 쿠키 팝업 즉각 허용 (privacy_sensitivity 0.2, 탐색 방해 요소 제거)</li><li>턴 3: 스크롤로 플랜 기능 비교 영역 탐색</li><li>턴 4~8: Starter &#x27;적합한 경우&#x27; 불릿 리스트 반복 read → &#x27;무료 충분&#x27; 결론 확정</li>
+              </ul>
+              <p><strong>마찰 지점:</strong> 쿠키 동의 팝업이 탐색 초반(턴 2)에 개입하여 흐름 방해, Starter vs Professional 비교 의사결정에 턴 4~8까지 5턴 소요 — 충동형 유저에게는 비교 정보가 충분히 간결하지 않았음을 시사, 유료 플랜의 차별화 가치(무제한 파일, 팀 협업 등)가 &#x27;개인 사용자도 필요할 수 있는 상황&#x27;으로 연결되지 않아 업그레이드 동기 미발생</p>
+              <p><strong>감정:</strong> 전반적으로 긍정적(가격 정보 즉시 파악에 만족). 다만 비교 과정에서 반복 확인 행동이 나타나 잠재적 혼란 존재. 최종 결론 도달 시 만족감으로 세션 종료.</p>
+            </div>
+<h3>발견된 UX 문제</h3>
+
+            <div class="issue issue-critical">
+              <strong>[CRITICAL]</strong> Starter 무료 플랜이 개인 사용자에게 지나치게 &#x27;충분한 옵션&#x27;으로 포지셔닝되어 있어, 충동형 유저의 유료 플랜 전환 동기를 원천 차단
+              <br><em>근거:</em> p_impulsive 턴 4~8에 걸쳐 Starter &#x27;적합한 경우&#x27; 불릿(&#x27;개인 프로젝트&#x27;, &#x27;기본 디자인 도구&#x27;, &#x27;Figma 체험&#x27;)을 반복 읽으며 &#x27;혼자 쓰는 마케터에겐 무료로 충분&#x27;이라는 결론을 확정. 단 한 번도 Professional CTA 클릭으로 이어지지 않음.
+              <br><em>개선:</em> Starter 플랜 설명에 &#x27;무료로 할 수 없는 것&#x27;(예: 파일 개수 제한, 히스토리 버전 제한 등)을 명시적으로 노출. 또는 Professional 카드에 &#x27;개인도 이런 경우엔 필요해요&#x27; 시나리오(예: 클라이언트 공유, 버전 관리)를 추가해 개인 사용자의 업그레이드 니즈를 환기.
+            </div>
+
+            <div class="issue issue-high">
+              <strong>[HIGH]</strong> 충동형 유저가 동일 콘텐츠(Starter &#x27;적합한 경우&#x27; 불릿)를 5턴(턴 4~8)에 걸쳐 반복 read — 핵심 비교 정보가 한눈에 파악되지 않는 구조적 문제
+              <br><em>근거:</em> p_impulsive 턴 4, 5, 6, 7, 8 모두 Starter 카드 하단 동일 영역을 반복 타겟으로 지정. 충동형 페르소나임에도 단번에 결론을 내리지 못하고 같은 텍스트를 재확인하는 패턴 발생.
+              <br><em>개선:</em> Starter vs Professional 핵심 차이를 2~3개 bullet 비교 테이블 또는 &#x27;Free로 충분한가요? 체크리스트&#x27; 형태의 인터랙티브 요소로 플랜 카드 상단에 배치. 충동형 유저가 1~2턴 내 결론 도달 가능하도록 정보 밀도 최적화.
+            </div>
+
+            <div class="issue issue-high">
+              <strong>[HIGH]</strong> 초기 탐색 흐름을 끊는 쿠키 동의 팝업 — 가격 정보 확인 직후 즉각 개입
+              <br><em>근거:</em> p_impulsive 턴 1에서 가격 스캔 완료 후, 턴 2에서 쿠키 팝업 처리에 1턴 소요. 충동형 유저는 즉시 허용으로 처리했으나, 탐색 모멘텀 단절 가능성 존재. privacy_sensitivity가 높은 페르소나라면 이탈로 이어질 수 있음.
+              <br><em>개선:</em> 쿠키 팝업을 페이지 로드 즉시가 아닌 5~10초 지연 노출 또는 스크롤 후 노출로 변경. 혹은 팝업 크기를 최소화(하단 배너형)하여 페이지 콘텐츠 탐색을 방해하지 않도록 개선.
+            </div>
+
+            <div class="issue issue-medium">
+              <strong>[MEDIUM]</strong> Organization($55), Enterprise($90) 플랜이 초기 스캔에서 &#x27;너무 비싼 옵션&#x27;으로 앵커링되어 Professional($16)의 상대적 가치를 희석할 가능성
+              <br><em>근거:</em> p_impulsive 턴 1에서 Free/$16/$55/$90을 동시에 시각 스캔. 이후 비교 대상이 즉시 Free vs $16으로 좁혀짐. $55/$90은 탐색 범위에서 완전히 제외되었으며, 역설적으로 $16 플랜도 &#x27;개인 무료로 충분&#x27;이라는 결론에 가려짐.
+              <br><em>개선:</em> 개인 사용자 진입 시 Starter/Professional만 강조하고 Organization/Enterprise는 &#x27;팀용&#x27; 섹션으로 분리하는 레이아웃 테스트 고려. 또는 &#x27;혼자 시작하기&#x27;와 &#x27;팀으로 시작하기&#x27; 토글을 제공해 개인 사용자의 비교 범위를 좁혀줌.
+            </div>
+<h3>전환 퍼널</h3>
+<table class="funnel">
+          <tr><th>단계</th><th>도달</th><th>이탈</th><th>이탈 이유</th></tr>
+<tr>
+              <td>1. 페이지 진입 및 가격 인지</td>
+              <td>p_impulsive</td>
+              <td></td>
+              <td>해당 없음</td>
+            </tr>
+<tr>
+              <td>2. 플랜 비교 탐색 (스크롤 + 기능 확인)</td>
+              <td>p_impulsive</td>
+              <td></td>
+              <td>해당 없음</td>
+            </tr>
+<tr>
+              <td>3. 플랜 선택 의사결정 (Free vs 유료 판단)</td>
+              <td>p_impulsive</td>
+              <td></td>
+              <td>해당 없음 — 단, 의사결정 결과가 &#x27;무료 선택&#x27;으로 귀결됨</td>
+            </tr>
+<tr>
+              <td>4. 유료 플랜 CTA 클릭 (결제/가입 전환)</td>
+              <td></td>
+              <td>p_impulsive</td>
+              <td>Starter &#x27;적합한 경우&#x27; 설명이 개인 사용자의 무료 플랜 선택을 강하게 지지. Professional 업그레이드 필요성을 인식하지 못한 채 &#x27;무료로 충분&#x27; 결론으로 세션 종료. 유료 CTA 버튼 클릭 없음.</td>
+            </tr>
+</table>
+<h3>개선 제안 (우선순위순)</h3>
+
+            <div class="recommendation">
+              <span class="priority">#1</span>
+              Starter 플랜 카드에 &#x27;이런 경우엔 무료 플랜이 부족해요&#x27; 섹션 추가 — 파일 개수 제한, 버전 히스토리 일수 제한, 외부 공유 제약 등 구체적 한계를 Starter 카드 하단 또는 Professional 카드 상단에 명시
+              <br><em>예상 효과:</em> 개인 사용자의 Professional 업그레이드 전환율 개선. 충동형 유저가 &#x27;무료로 충분&#x27;이라는 조기 결론에 도달하는 것을 방지하고, 유료 플랜 CTA 클릭률 증가 기대. | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#2</span>
+              Starter vs Professional 핵심 차이를 3줄 이내 시각 비교 요소(아이콘 + 짧은 텍스트)로 플랜 카드 상단에 배치 — 충동형 유저가 5턴이 아닌 1~2턴 내 비교 완료 가능하도록 정보 구조 단순화
+              <br><em>예상 효과:</em> 충동형/저관여 유저의 의사결정 속도 향상 및 이탈 감소. 현재 턴 4~8에 집중된 반복 read 행동을 1~2턴으로 압축. | <em>난이도:</em> medium
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#3</span>
+              &#x27;개인 사용자&#x27;와 &#x27;팀/조직&#x27; 사용자를 구분하는 토글 또는 &#x27;나에게 맞는 플랜 찾기&#x27; 인터랙티브 추천 위젯 도입 — 개인 사용자 진입 시 Starter/Professional 비교에 집중, 팀 사용자에게는 Organization/Enterprise 강조
+              <br><em>예상 효과:</em> 세그먼트별 플랜 선택 정확도 향상. 개인 사용자가 불필요한 고가 플랜 비교로 인한 가격 충격 없이 Professional의 상대적 합리성을 인식하도록 유도. | <em>난이도:</em> medium
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#4</span>
+              쿠키 팝업 노출 타이밍을 페이지 로드 즉시 → 15초 지연 또는 스크롤 30% 도달 후로 변경. 팝업 UI를 전체 화면 오버레이에서 하단 고정 배너로 교체하여 탐색 모멘텀 보호
+              <br><em>예상 효과:</em> 초기 탐색 흐름 유지 및 이탈률 감소. 특히 privacy_sensitivity가 높은 신중형 유저의 이탈 방지. | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#5</span>
+              Professional 플랜 카드에 &#x27;개인 프리랜서/마케터가 이 플랜을 선택하는 이유&#x27; 소셜 프루프(사용 사례 또는 짧은 후기 1~2줄) 추가
+              <br><em>예상 효과:</em> 개인 사용자가 Professional을 &#x27;팀용&#x27;이 아닌 &#x27;나도 해당되는 플랜&#x27;으로 인식하게 하여 업그레이드 전환 동기 강화. | <em>난이도:</em> low
+            </div>
+
+<div class="footer">
+  <p>Generated by 41R Persona Market. 모든 관찰은 콘텐츠 해시로 추적 가능합니다.</p>
+  <p>Lineage: rpt_20260413_f88e59/lineage.json | Analysis: rpt_20260413_f88e59/analysis.json</p>
+</div>
+
+</body>
+</html>

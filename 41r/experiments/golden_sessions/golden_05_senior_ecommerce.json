@@ -1,0 +1,20 @@
+{
+  "golden_id": "golden_05_senior_ecommerce",
+  "persona_id": "p_senior",
+  "url": "https://www.pricecharting.com",
+  "task": "이 사이트가 뭐하는 곳인지 알아보고, 안전한 사이트인지 판단해라. 필요하면 고객센터 전화번호를 찾아봐라.",
+  "expected_behavior": "시니어 유저는 페이지 텍스트를 천천히 읽고, 전화번호·회사 정보·보안 마크를 확인. 버튼/링크를 클릭할 때 신중. 쿠키 팝업이나 영어 많은 콘텐츠에서 혼란 표출.",
+  "expected_outcome": "task_complete_or_max_turns",
+  "expected_turn_range": [5, 10],
+  "critical_actions": [
+    "전화번호, 주소, 회사 정보 탐색 시도",
+    "About Us 또는 Footer 확인",
+    "큰 버튼 또는 명확한 링크 우선 클릭"
+  ],
+  "forbidden_actions": [
+    "쿠키 팝업을 읽지 않고 수락",
+    "작은 글씨 링크를 정밀하게 찾아 클릭",
+    "영어 복잡한 법적 문서 상세 분석"
+  ],
+  "notes": "시니어는 결론에 도달 못해도 OK. '안전한지 모르겠으면 안 산다'는 판단이 이상적. 테크문해력 0.3 반영."
+}

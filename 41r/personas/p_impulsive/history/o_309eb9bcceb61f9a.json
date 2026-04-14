@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Figma pricing page showing plan options with seat selection, add-ons, and comprehensive feature comparison. Includes FAQs and social proof from enterprise customers.\", \"action\": \"read\", \"reason\": \"민수는 가격과 플랜 이름만 빠르게 스캔한다. 화면에 4개 플랜(Starter/Professional/Organization/Enterprise)과 가격($16, $55, $90)이 바로 눈에 들어온다. 0.5초 내 판단을 위해 이 숫자들만 빠르게 읽는다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"화면 딱 보니까 무료 있고 $16짜리 있네 — 바로 결정 가능할 것 같아서 기분 좋음\"}",
+  "timestamp": "2026-04-13T09:45:30.036076+00:00",
+  "obs_id": "o_309eb9bcceb61f9a"
+}

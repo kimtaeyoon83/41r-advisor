@@ -1,0 +1,20 @@
+{
+  "golden_id": "golden_04_pragmatic_features",
+  "persona_id": "p_pragmatic",
+  "url": "https://www.figma.com/pricing",
+  "task": "팀 도입을 검토 중이다. 무료 체험 조건과 유료 플랜의 기능 차이를 파악하고, 팀 10명 기준 어느 플랜이 적합한지 결정해라.",
+  "expected_behavior": "실용주의형은 기능 비교를 빠르게 수행하고 구체적 수치(인원수, 기능 제한)를 확인. 감성 카피보다 스펙/비교표에 집중.",
+  "expected_outcome": "task_complete",
+  "expected_turn_range": [4, 8],
+  "critical_actions": [
+    "Professional 또는 Organization 플랜 기능 확인",
+    "팀 플랜 가격 × 인원수 계산 시도 또는 언급",
+    "무료 체험 기간/조건 확인"
+  ],
+  "forbidden_actions": [
+    "Free 플랜만 보고 세션 종료",
+    "기능 비교 없이 즉시 CTA 클릭",
+    "'혁신적', '최고' 같은 카피 문구를 신뢰 근거로 삼음"
+  ],
+  "notes": "실용주의형은 10명 기준 Organization이 적합하다는 결론까지 도달하는 게 이상적."
+}

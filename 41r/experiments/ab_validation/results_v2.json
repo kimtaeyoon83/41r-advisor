@@ -1,0 +1,481 @@
+{
+  "total_cases": 12,
+  "correct": 8,
+  "accuracy_pct": 66.7,
+  "swapped_count": 10,
+  "swapped_correct": 6,
+  "swapped_accuracy_pct": 60.0,
+  "unswapped_count": 2,
+  "unswapped_correct": 2,
+  "unswapped_accuracy_pct": 100.0,
+  "results": [
+    {
+      "case_id": "hubspot_social_proof",
+      "company": "HubSpot",
+      "test_description": "랜딩 페이지 CTA 근처에 고객 로고(소셜 프루프) 배치 여부",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 24,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "민수는 시각 의존도 0.9로 시각적 요소에 즉각 반응하며, 소셜프루프 가중치 0.7로 타인의 선택에 강하게 영향받는다. CTA 바로 위에 배치된 유명 기업 로고는 0.5초 결정 사이클 안에 '많은 사람이 쓰는 서비스'라는 즉각적 신호를 시각으로 전달하여 전환 마찰을 줄인다. 단, 엔터프라이즈 브랜드 로고가 충동형 소비자에게 완전히 어필되지 않을 수 있어 확신도를 5로 주지 않는다.",
+          "persona_behavior_a": "로고들을 0.3초 훑어보며 '아 이거 큰 회사들도 쓰는 거구나'라고 무의식적으로 인식하고 바로 이메일을 입력한다.",
+          "persona_behavior_b": "텍스트 위주의 깔끔한 레이아웃에서 시각적 자극이 부족해 '뭔가 검증이 안 된 느낌'을 받고 폼 입력을 망설이다 스크롤하거나 이탈한다.",
+          "persona_id": "p_impulsive",
+          "case_id": "hubspot_social_proof",
+          "tokens": {
+            "input_tokens": 1041,
+            "output_tokens": 428
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 신뢰 신호를 꼼꼼히 확인하며, 신뢰 요소로 '고객 사례 3개+'를 명시적으로 중요하게 여긴다. 소셜프루프 가중치는 0.5로 중간 수준이지만, 엔터프라이즈 브랜드 로고는 '이 서비스가 검증된 회사들도 쓴다'는 신뢰 근거로 기능하므로 의사결정을 강화할 수 있다. 단, 로고만으로는 그녀가 요구하는 리뷰 100개+, 환불정책, 회사연혁 등 텍스트 기반 신뢰 정보를 대체할 수 없어 확신도는 낮다.",
+          "persona_behavior_a": "CTA 폼 위 로고를 보며 '알려진 기업들도 사용하는구나'라고 긍정적 신호를 받아 폼 작성에 한 걸음 더 가까워지지만, 여전히 환불정책과 회사 정보를 찾아 페이지를 스크롤하며 추가 검증을 시도한다.",
+          "persona_behavior_b": "로고 없이 헤드라인과 텍스트만 있는 깔끔한 레이아웃에서 시각적 소셜프루프 부재로 인해 신뢰 근거가 부족하다고 느끼고, 이메일 입력을 망설이며 이탈하거나 다른 신뢰 정보를 찾아 이동한다.",
+          "persona_id": "p_cautious",
+          "case_id": "hubspot_social_proof",
+          "tokens": {
+            "input_tokens": 1039,
+            "output_tokens": 546
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "basecamp_long_form",
+      "company": "Basecamp (37signals)",
+      "test_description": "랜딩 페이지 길이 — 짧은 미니멀 vs 긴 상세 페이지",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 37.5,
+      "predicted_winner": "B",
+      "match": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "민수는 결정 속도가 0.5초이고 시각 의존도가 0.9로, 단순하고 명확한 시각적 CTA에 즉각 반응하는 충동형 유저다. Variant B는 스크롤 없이 단일 CTA만 존재해 이 성향과 정확히 일치한다. 반면 Variant A는 스크롤 3회 이상이 좌절 트리거인 민수에게 이탈 요인으로 작용하며, 풍부한 정보(기능 설명, FAQ)는 리서치 깊이 0.1인 그에게 전혀 유효하지 않다.",
+          "persona_behavior_a": "민수는 Variant A에서 첫 CTA를 지나쳐 스크롤을 내리다가 3회 이상 스크롤이 필요한 시점에 좌절감을 느끼고 페이지를 이탈할 가능성이 높다.",
+          "persona_behavior_b": "민수는 Variant B에서 간단한 카피를 0.5초 안에 인식하고 눈에 띄는 단일 CTA 버튼을 즉각 클릭해 전환을 완료할 가능성이 높다.",
+          "persona_id": "p_impulsive",
+          "case_id": "basecamp_long_form",
+          "tokens": {
+            "input_tokens": 1051,
+            "output_tokens": 415
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 정보를 확인하려는 성향이 강하며, 신뢰 조건으로 고객사례 3개+, 환불정책, 리뷰 100개+를 명시적으로 요구한다. Variant A는 상세 기능 설명, 고객 후기, FAQ를 모두 제공하여 이 신뢰 체크리스트를 충족시킬 가능성이 높다. 반면 Variant B는 카피 1~2줄만 존재하여 지영의 좌절 트리거인 '리뷰 부족', '회사정보 없음', '환불정책 불명확'을 동시에 발동시켜 이탈로 이어질 것이다.",
+          "persona_behavior_a": "지영은 페이지를 처음부터 끝까지 꼼꼼히 스크롤하며 FAQ, 고객 후기, 환불정책 항목을 순서대로 확인한 뒤 신뢰 조건이 충족되면 CTA를 클릭할 것이다.",
+          "persona_behavior_b": "지영은 카피 1~2줄만 보고 충분한 정보가 없다고 판단하여 신뢰를 형성하지 못한 채 페이지를 즉시 이탈할 것이다.",
+          "persona_id": "p_cautious",
+          "case_id": "basecamp_long_form",
+          "tokens": {
+            "input_tokens": 1049,
+            "output_tokens": 452
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "obama_2008_hero",
+      "company": "Obama 2008 Campaign",
+      "test_description": "히어로 영역 — 비디오 vs 가족사진, CTA 텍스트 — Sign Up vs Learn More",
+      "swapped": false,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "B",
+      "lift_pct": 40,
+      "predicted_winner": "B",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "민수는 시각 의존도 0.9로 강렬한 시각 자극에 즉각 반응하며, 결정 속도가 0.5초로 극단적으로 빠르다. 비디오는 정적 이미지보다 강한 시각적 자극을 주어 충동형 페르소나의 주의를 즉시 포착하고, 'Sign Up'이라는 직접적 행동 유도 CTA는 그의 충동적 결정 패턴과 정확히 맞아 떨어진다. 반면 'Learn More'는 추가 탐색을 암시해 리서치 깊이 0.1인 민수에게는 오히려 이탈 신호로 작용할 수 있다.",
+          "persona_behavior_a": "히어로 비디오에 시선이 즉시 고정되고, 영상이 재생되는 순간 'Sign Up' 버튼에 반사적으로 클릭할 가능성이 높다.",
+          "persona_behavior_b": "가족 사진은 시각적 임팩트가 약해 민수의 주의를 끌기 어렵고, 'Learn More' 텍스트를 보는 순간 '읽어야 하나?'라는 부담감으로 스크롤을 내리거나 이탈한다.",
+          "persona_id": "p_impulsive",
+          "case_id": "obama_2008_hero",
+          "tokens": {
+            "input_tokens": 1011,
+            "output_tokens": 438
+          }
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 정보를 확인하려 하지만 인내심이 10초로 짧아, 비디오 재생을 기다리며 정보를 수집하기보다 텍스트와 이미지를 빠르게 스캔하는 방식을 선호한다. 'Sign Up'은 아직 신뢰가 충분히 형성되지 않은 상태에서 즉각적 개인정보 제공을 요구해 프라이버시 민감도 0.8인 지영에게 저항감을 주지만, 'Learn More'는 더 많은 정보를 먼저 확인할 수 있다는 신호로 그녀의 꼼꼼한 성향과 부합한다. 가족 사진은 시각 의존도가 낮은 지영에게 큰 설득력을 갖진 않지만, 진입장벽을 낮추는 CTA가 신뢰 형성 단계를 거치도록 허용해 최종 전환 가능성을 높인다.",
+          "persona_behavior_a": "비디오 로딩 또는 재생 시간을 기다리지 못하고, 'Sign Up' 버튼에서 개인정보 제공 부담을 느껴 페이지를 이탈할 가능성이 높다.",
+          "persona_behavior_b": "'Learn More'를 클릭해 상세 페이지에서 회사 연혁, 환불정책, 고객 사례, 리뷰 수 등을 꼼꼼히 확인한 후 신뢰 기준이 충족되면 전환을 결정할 가능성이 높다.",
+          "persona_id": "p_cautious",
+          "case_id": "obama_2008_hero",
+          "tokens": {
+            "input_tokens": 1009,
+            "output_tokens": 554
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "kaya_skin_form",
+      "company": "Kaya Skin Clinic",
+      "test_description": "리드 생성 폼 복잡도 — 6필드 vs 3필드",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 137,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 결정 속도 0.5초, 인내심 2초의 극단적 충동형으로, 입력 필드가 늘어날수록 즉시 이탈한다. 3필드는 시각적으로 가볍고 완료까지의 마찰이 최소화되어 충동적 제출을 유도하는 반면, 6필드는 '생각해야 할 것이 많다'는 인지 부하를 유발해 좌절 트리거로 작동한다. 프라이버시 민감도가 0.2로 낮아 정보 제공 자체에는 거부감이 없지만, 귀찮음(편의성 우선 성향)이 이탈의 핵심 원인이 된다.",
+          "persona_behavior_a": "이름·이메일·전화번호 3칸을 눈에 들어오는 순간 거의 반사적으로 채워 넣고 제출 버튼을 누른다.",
+          "persona_behavior_b": "도시, 피부 고민, 선호 지점 필드를 보는 순간 '귀찮다'는 인식이 생겨 폼을 스크롤하다 이탈하거나 탭을 닫는다.",
+          "persona_id": "p_impulsive",
+          "case_id": "kaya_skin_form",
+          "tokens": {
+            "input_tokens": 1009,
+            "output_tokens": 415
+          }
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 정보를 확인하려는 성향이 강하며, 프라이버시 민감도 0.8로 '제출 후 추가 수집'이라는 불투명한 프로세스를 강한 불신의 신호로 받아들일 가능성이 높다. Variant B는 수집 항목이 처음부터 명시적으로 노출되어 '내 정보가 어떻게 활용되는지' 예측 가능성을 제공하고, 신중형 페르소나 특성상 폼 필드 수가 많더라도 입력 완료 후의 불확실성이 줄어드는 구조를 선호한다. 인내심이 10초로 낮지 않고 결정 속도도 꼼꼼한 비교형이므로, 필드 6개 자체가 이탈 원인이 되기보다는 정보 투명성 부재가 더 큰 이탈 트리거로 작용한다.",
+          "persona_behavior_a": "제출 후 추가 정보 수집 예고를 보고 '나중에 뭘 더 요구하려는 거지?'라는 경계심이 발동해 폼 제출을 주저하거나 이탈한다.",
+          "persona_behavior_b": "6개 필드를 순서대로 꼼꼼히 읽고 입력하며, 요구 항목이 사전에 모두 공개되어 있다는 점에서 신뢰감을 형성해 제출 버튼을 클릭한다.",
+          "persona_id": "p_cautious",
+          "case_id": "kaya_skin_form",
+          "tokens": {
+            "input_tokens": 1007,
+            "output_tokens": 527
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "humana_banner",
+      "company": "Humana",
+      "test_description": "홈페이지 배너 — 복잡한 다중 메시지 vs 깔끔한 단일 메시지",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 433,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 시각 의존도가 0.9로 극도로 높고 결정 속도가 0.5초에 불과하여, 시각적 초점이 명확한 단일 CTA에 즉각 반응한다. Variant B처럼 여러 메시지와 CTA가 경쟁하는 환경은 민수의 즉각적인 시선을 분산시켜 어디를 클릭해야 할지 인지 부하를 유발하고, 결국 0.5초 안에 행동을 유도하지 못하면 이탈로 이어진다. Variant A의 단일 CTA는 민수의 충동적 클릭 성향과 정확히 맞아떨어져 전환 확률을 극대화한다.",
+          "persona_behavior_a": "배너를 보자마자 0.5초 이내에 명확한 CTA 버튼에 시선이 고정되어 별다른 고민 없이 즉시 클릭한다.",
+          "persona_behavior_b": "여러 이미지와 링크가 시선을 분산시켜 어디를 눌러야 할지 순간적으로 혼란을 느끼고, 결정하지 못한 채 스크롤하거나 페이지를 이탈한다.",
+          "persona_id": "p_impulsive",
+          "case_id": "humana_banner",
+          "tokens": {
+            "input_tokens": 1038,
+            "output_tokens": 428
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 깊이가 0.95로 모든 정보를 꼼꼼히 확인하지만, 인내심이 10초로 짧고 텍스트 위주(시각 의존도 0.3)로 정보를 처리한다. Variant B처럼 시각적으로 복잡하고 CTA가 여러 개 경쟁하는 배너는 '무엇을 먼저 봐야 하는지' 파악하는 데 인지 부하를 유발해 10초 이내에 이탈할 가능성이 높다. 반면 Variant A의 단일 메시지는 핵심 가치 제안을 즉시 텍스트로 파악하게 해주어 다음 단계(상세 정보 확인)로 넘어가는 진입 장벽을 낮춘다.",
+          "persona_behavior_a": "단일 메시지에서 서비스의 핵심 가치를 빠르게 파악한 뒤 CTA를 클릭해 상세 페이지로 이동, 회사 연혁·환불정책·고객사례 등 신뢰 정보를 본격적으로 탐색한다.",
+          "persona_behavior_b": "복수의 메시지와 CTA가 시각적으로 경쟁하는 배너를 보고 '어디서 시작해야 하나' 혼란을 느끼며, 10초 인내심 내에 우선순위를 정하지 못해 스크롤을 내리거나 페이지를 이탈한다.",
+          "persona_id": "p_cautious",
+          "case_id": "humana_banner",
+          "tokens": {
+            "input_tokens": 1036,
+            "output_tokens": 517
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "groove_pricing",
+      "company": "Groove",
+      "test_description": "가격 페이지 — 상세 기능비교 테이블 vs 단순화된 단일 플랜 강조",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 25,
+      "predicted_winner": "B",
+      "match": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 결정 속도 0.5초, 리서치 깊이 0.1로 기능 비교 테이블을 읽을 인내심이 전혀 없으며, 복잡한 정보량은 오히려 좌절 트리거로 작용할 가능성이 높다. Variant A의 단일 플랜 강조 구조는 시각 의존도 0.9인 민수가 즉시 CTA를 인식하고 반응하기에 최적화되어 있으며, 고객 수 표시(소셜 프루프)는 소셜프루프 가중치 0.7인 민수의 전환 결정을 추가로 가속시킨다.",
+          "persona_behavior_a": "민수는 페이지 진입 즉시 강조된 단일 플랜과 고객 수 숫자를 시각적으로 포착하고, 1초 내에 CTA 버튼을 클릭할 가능성이 높다.",
+          "persona_behavior_b": "민수는 기능 비교 테이블의 정보량에 압도되어 스크롤을 두세 번 내리다가 좌절 트리거가 발동, 페이지를 이탈할 가능성이 높다.",
+          "persona_id": "p_impulsive",
+          "case_id": "groove_pricing",
+          "tokens": {
+            "input_tokens": 1034,
+            "output_tokens": 417
+          }
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 정보를 확인해야 결정하는 유형이며, 텍스트 위주(시각 의존도 0.3)로 정보를 처리하므로 기능 비교 테이블처럼 구조화된 텍스트 정보가 많을수록 신뢰감을 느낀다. Variant A는 비교 테이블이 없어 '정보 숨김' 또는 '불투명성'으로 인식될 수 있고, 이는 지영의 좌절 트리거인 가격 숨김·불명확한 조건과 유사한 심리적 마찰을 유발한다. 반면 Variant B의 티어별 상세 기능 비교는 지영이 스스로 검증하고 비교하는 행동 패턴에 정확히 부합하여 전환 가능성을 높인다.",
+          "persona_behavior_a": "비교 테이블이 없어 플랜 간 차이를 파악할 수 없자 신뢰 부족을 느끼고 페이지를 이탈하거나 다른 정보 출처를 검색한다.",
+          "persona_behavior_b": "기능 비교 테이블을 처음부터 끝까지 행 단위로 꼼꼼히 읽으며 각 티어의 차이를 노트하고, 자신의 필요에 맞는 플랜을 논리적으로 선택 후 전환한다.",
+          "persona_id": "p_cautious",
+          "case_id": "groove_pricing",
+          "tokens": {
+            "input_tokens": 1032,
+            "output_tokens": 497
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "express_watches_trust",
+      "company": "Express Watches",
+      "test_description": "상품 페이지에 공식 인증 딜러 신뢰 배지 추가 여부",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 107,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "민수는 시각 의존도가 0.9로 장바구니 버튼 근처의 눈에 띄는 배지에 즉각 시각적 반응을 보일 가능성이 높다. 소셜프루프 가중치 0.7로 신뢰 시그널에 긍정적으로 반응하며, 배지가 별점·후기 사진과 유사한 '즉각적 신뢰 단서'로 작동할 수 있다. 다만 그의 신뢰 트리거 목록(별점, 구매후기 사진, 할인배너)에 '공식 인증 배지'는 명시되어 있지 않아 효과가 제한적일 수 있다.",
+          "persona_behavior_a": "장바구니 버튼 옆 배지를 0.5초 내 시각적으로 인지하고, 내용을 읽지 않더라도 '뭔가 믿을 만하다'는 인상을 받아 구매 버튼을 누를 가능성이 소폭 상승한다.",
+          "persona_behavior_b": "리서치 깊이가 거의 없어 배지 부재를 의식적으로 인지하지 못하고, 제품 이미지와 가격만 보고 충동적으로 구매 버튼을 누르는 행동을 그대로 보인다.",
+          "persona_id": "p_impulsive",
+          "case_id": "express_watches_trust",
+          "tokens": {
+            "input_tokens": 1018,
+            "output_tokens": 458
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 깊이 0.95, 프라이버시/신뢰 민감도 0.8로 구매 전 회사 신뢰성과 공식 인증 여부를 반드시 확인하는 성향이다. 'Official Authorized Dealer' 배지는 정품 보증과 공식 채널임을 텍스트로 명확히 전달하므로, 텍스트 위주(시각의존도 0.3) 정보 처리 방식에도 잘 맞는다. Variant B처럼 인증 정보가 전혀 없는 페이지는 지영의 '회사정보 없음' 좌절 트리거를 직접 자극하여 이탈로 이어질 가능성이 높다.",
+          "persona_behavior_a": "지영은 배지 텍스트를 꼼꼼히 읽고 해당 인증의 의미를 파악한 뒤, 공식 딜러 여부가 확인된다고 판단하면 장바구니 추가로 이어질 가능성이 높다.",
+          "persona_behavior_b": "지영은 인증·회사 정보가 없는 표준 페이지에서 신뢰 근거를 찾지 못해 다른 탭에서 추가 조사를 시도하거나 해당 페이지를 이탈할 가능성이 높다.",
+          "persona_id": "p_cautious",
+          "case_id": "express_watches_trust",
+          "tokens": {
+            "input_tokens": 1016,
+            "output_tokens": 460
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "ea_simcity_promo",
+      "company": "Electronic Arts (SimCity)",
+      "test_description": "체크아웃 페이지에서 프로모션 할인 배너 제거 여부",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 43.4,
+      "predicted_winner": "B",
+      "match": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "민수는 시각 의존도 0.9로 시각적 CTA에 즉각 반응하며, 소셜프루프 가중치 0.7과 함께 '지금 구매하면 20% 할인!'처럼 긴급성과 혜택이 시각적으로 강조된 요소에 즉시 반응한다. 가격 민감도는 0.3으로 낮지만, 할인 배너는 가격 절약보다 '지금 당장 눌러야 할 이유'라는 충동적 트리거로 작용하므로 0.5초 결정 속도와 맞아떨어진다. 단, 배너가 로딩 속도를 저하시키거나 팝업처럼 느껴질 경우 이탈 리스크가 있어 확신도를 5가 아닌 4로 설정했다.",
+          "persona_behavior_a": "민수는 깔끔한 페이지에서 구매를 진행하지만 시각적 자극이 없어 별다른 흥분 없이 무감각하게 넘어가거나 마지막 순간 '더 나은 조건이 있을까?' 하는 생각 없이 이탈할 가능성이 있다.",
+          "persona_behavior_b": "민수는 체크아웃 상단의 '20% 할인' 배너를 보자마자 시각적 반응을 일으켜 0.5초 안에 '지금 사야겠다'는 충동을 느끼고 즉시 결제 버튼을 누른다.",
+          "persona_id": "p_impulsive",
+          "case_id": "ea_simcity_promo",
+          "tokens": {
+            "input_tokens": 995,
+            "output_tokens": 517
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "지영은 '할인배너, 한정수량, 타이머'를 신뢰와 무관한 요소로 명시적으로 분류하며, 프라이버시 민감도와 신뢰 중심 의사결정 구조를 가진다. 체크아웃 단계에서 '지금 구매하면 20% 할인!'과 같은 긴박감 유발 배너는 오히려 충동 유도 마케팅으로 인식되어 불신을 키울 수 있다. 깔끔하게 가격만 표시된 Variant A는 그녀의 텍스트 중심·정보 확인 성향에 부합하며, 결제 집중도를 높인다.",
+          "persona_behavior_a": "가격 정보를 꼼꼼히 확인한 뒤, 불필요한 방해 요소 없이 체크아웃 프로세스를 신뢰롭게 완료할 가능성이 높다.",
+          "persona_behavior_b": "상단 프로모션 배너를 보고 '왜 갑자기 할인이지? 원래 가격이 부풀려진 것은 아닐까?'라는 의심이 생겨 결제를 중단하거나 추가 리서치를 위해 이탈할 수 있다.",
+          "persona_id": "p_cautious",
+          "case_id": "ea_simcity_promo",
+          "tokens": {
+            "input_tokens": 993,
+            "output_tokens": 440
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "workzone_logos",
+      "company": "WorkZone",
+      "test_description": "추천사 섹션 — 컬러 로고 vs 그레이스케일 로고",
+      "swapped": false,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "B",
+      "lift_pct": 34,
+      "predicted_winner": "B",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "민수는 시각 의존도 0.9로 CTA 버튼에 즉각 반응하는 충동형인데, Variant A의 컬러 로고는 시각적 노이즈를 만들어 CTA와 주의력을 경쟁시킬 수 있다. Variant B의 그레이스케일 로고는 시각적 위계를 단순화해 CTA 버튼이 가장 눈에 띄는 요소로 남게 되므로, 0.5초 만에 결정하는 민수의 시선이 CTA로 즉시 향할 가능성이 높다. 다만 소셜프루프 가중치 0.7인 민수에게 컬러 로고가 더 강한 인상을 줄 수도 있어 확신도는 중간 수준이다.",
+          "persona_behavior_a": "컬러 로고들이 시각적으로 흥미롭지만 여러 브랜드 색상에 시선이 분산되어 CTA 버튼을 놓치거나 클릭 타이밍을 잃을 수 있다.",
+          "persona_behavior_b": "그레이스케일 로고로 배경이 정리된 덕에 CTA 버튼이 가장 강한 시각 요소로 부각되어, 민수의 충동적 시선이 버튼으로 직행해 즉각 클릭할 가능성이 높다.",
+          "persona_id": "p_impulsive",
+          "case_id": "workzone_logos",
+          "tokens": {
+            "input_tokens": 1014,
+            "output_tokens": 473
+          }
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "지영은 시각 의존도가 0.3으로 낮고 텍스트 위주로 정보를 처리하므로, 컬러 로고의 시각적 화려함은 그녀의 신뢰 판단에 큰 영향을 미치지 않는다. Variant B의 그레이스케일 로고는 시각적 노이즈를 줄여 CTA와 텍스트 기반 정보(환불정책, 고객사례 등)에 집중할 수 있게 하므로, 꼼꼼히 읽고 판단하는 그녀의 행동 패턴에 더 적합하다.",
+          "persona_behavior_a": "컬러 로고의 시각적 화려함을 신뢰 지표로 인식하지 않고, 오히려 마케팅성 과장으로 느껴 스크롤을 내려 텍스트 정보를 찾으려 하지만 CTA와 로고 간 시각적 경쟁으로 인해 흐름이 분산된다.",
+          "persona_behavior_b": "그레이스케일 로고로 시각적 부담이 줄어든 상태에서 CTA 주변의 텍스트 정보(정책, 사례, 리뷰 등)를 차분히 읽고 신뢰 기준을 체크한 후 전환 여부를 결정한다.",
+          "persona_id": "p_cautious",
+          "case_id": "workzone_logos",
+          "tokens": {
+            "input_tokens": 1012,
+            "output_tokens": 464
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "hyundai_cta_fold",
+      "company": "Hyundai Netherlands",
+      "test_description": "CTA 위치 — 화면 상단(above the fold) vs 스크롤 후 하단 배치",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 15,
+      "predicted_winner": "B",
+      "match": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "민수는 결정 속도 0.5초, 시각 의존도 0.9로 눈에 띄는 CTA에 즉각 반응하며 리서치 깊이가 0.1에 불과해 정보를 거의 읽지 않는다. Variant A는 혜택 설명을 모두 읽은 후에야 CTA에 도달하는 구조인데, 민수의 좌절 트리거 중 '스크롤 3회 이상'이 명시되어 있어 하단 CTA에 도달하기 전에 이탈할 가능성이 매우 높다. Variant B는 페이지 진입 즉시 상단에 눈에 띄는 CTA가 노출되므로 민수의 충동적 클릭 패턴과 완벽히 매칭된다.",
+          "persona_behavior_a": "민수는 페이지 로딩 직후 정보 텍스트를 스킵하며 빠르게 스크롤하다가 3회 이상 스크롤이 필요한 시점에 흥미를 잃고 이탈한다.",
+          "persona_behavior_b": "민수는 페이지 상단의 눈에 띄는 '시승 신청' CTA를 0.5초 내에 인지하고 별다른 고민 없이 즉각 클릭하여 전환한다.",
+          "persona_id": "p_impulsive",
+          "case_id": "hyundai_cta_fold",
+          "tokens": {
+            "input_tokens": 1022,
+            "output_tokens": 456
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 깊이 0.95로 모든 정보를 확인한 후 결정하는 유형이며, 결정 속도가 느리고 꼼꼼히 비교하는 성향이다. Variant A는 기능/혜택 설명을 먼저 제공한 후 CTA를 배치함으로써 지영이 충분한 정보를 습득한 상태에서 자연스럽게 행동으로 이어지게 하는 구조다. Variant B처럼 정보 없이 상단에 CTA가 노출되면 '아직 아무것도 모르는데'라는 심리적 거부감이 발생하여 스크롤을 내려 정보를 탐색하거나 이탈할 가능성이 높다.",
+          "persona_behavior_a": "지영은 페이지를 위에서 아래로 꼼꼼히 읽으며 기능, 혜택, 회사정보, 환불정책 등을 모두 확인한 뒤 하단 CTA에 도달했을 때 납득이 된 상태에서 시승 신청 버튼을 클릭한다.",
+          "persona_behavior_b": "지영은 상단의 CTA를 무시하고 페이지를 스크롤 다운하여 충분한 정보를 스스로 찾으려 하지만, 정보 구조가 CTA 중심으로 설계되어 필요한 세부 정보가 눈에 잘 들어오지 않으면 신뢰 부족을 느끼고 이탈하거나 전환을 보류한다.",
+          "persona_id": "p_cautious",
+          "case_id": "hyundai_cta_fold",
+          "tokens": {
+            "input_tokens": 1020,
+            "output_tokens": 534
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "contentverve_cta_copy",
+      "company": "ContentVerve",
+      "test_description": "CTA 버튼 카피 — 2인칭 vs 1인칭 소유격",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 90,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "충동형 민수는 시각 의존도 0.9로 즉각적인 시각적 CTA에 반응하며, 리서치 깊이 0.1로 텍스트를 거의 읽지 않고 직관적으로 행동한다. 'Get my free template'의 'my'는 버튼을 이미 자신의 것으로 인식하게 만드는 소유감을 부여해, 0.5초 결정 속도의 충동형 사용자에게 '이미 내 것을 가져간다'는 즉각적 행동 심리를 자극한다. 반면 'your'는 화자가 제안하는 구조로, 미세하게나마 수동적 수신자 위치에 놓이게 되어 충동형 행동 패턴과 덜 맞는다.",
+          "persona_behavior_a": "버튼 텍스트를 읽자마자 '내 거 가져간다'는 소유 반응으로 0.5초 내 클릭한다.",
+          "persona_behavior_b": "버튼을 보고 클릭 가능성은 여전히 높지만, 'your'의 외부 제안 프레임이 충동적 소유 욕구를 A보다 약간 덜 자극해 미세하게 전환율이 낮을 수 있다.",
+          "persona_id": "p_impulsive",
+          "case_id": "contentverve_cta_copy",
+          "tokens": {
+            "input_tokens": 944,
+            "output_tokens": 445
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "지영은 텍스트 위주로 꼼꼼히 정보를 읽는 성향으로, 단순한 카피 워딩 차이보다 신뢰·정보 충족 여부가 전환에 훨씬 더 큰 영향을 미친다. 그러나 굳이 두 variant를 비교하자면, 'my'는 사용자 스스로 결정을 내리는 주체적 표현으로, 꼼꼼히 검토 후 스스로 판단해 행동하는 신중형 페르소나의 자기결정 감각과 미세하게 더 잘 맞는다. 다만 이 차이는 지영의 실제 전환을 좌우하는 신뢰 요소(환불정책, 리뷰, 회사 연혁 등)에 비하면 매우 미미하여 확신도는 낮다.",
+          "persona_behavior_a": "지영은 'Get my free template' 버튼을 보기 전 이미 페이지의 텍스트 정보를 모두 읽고 신뢰 요소를 확인한 상태에서, 자신이 능동적으로 선택한다는 느낌을 받으며 클릭할 가능성이 미세하게 높다.",
+          "persona_behavior_b": "지영은 'Get your free template' 버튼을 보더라도 카피 자체보다 페이지에 환불정책·리뷰·회사정보가 충분히 제공되었는지를 먼저 따지며, 워딩 차이에는 거의 반응하지 않고 동일하게 행동할 가능성이 높다.",
+          "persona_id": "p_cautious",
+          "case_id": "contentverve_cta_copy",
+          "tokens": {
+            "input_tokens": 942,
+            "output_tokens": 549
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "performable_button_color",
+      "company": "Performable (HubSpot)",
+      "test_description": "CTA 버튼 컬러 — 페이지 배경과 조화 vs 대비 색상",
+      "swapped": true,
+      "known_winner_original": "B",
+      "actual_winner_in_test": "A",
+      "lift_pct": 21,
+      "predicted_winner": "A",
+      "match": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 시각 의존도 0.9로 시각적 CTA에 즉시 반응하며, 결정 속도가 0.5초로 극도로 빠르다. Variant A의 빨간 버튼은 녹색 배경과 강한 대비를 이루어 시선이 자동으로 고정되므로, 리서치를 거의 하지 않고 눈에 띄는 요소에 즉각 반응하는 충동형 민수에게 최적화된 환경이다. Variant B는 배경과 동화되어 버튼이 시각적으로 묻히기 때문에, 능동적으로 정보를 탐색하지 않는 민수가 CTA 자체를 인식하지 못하고 지나칠 가능성이 높다.",
+          "persona_behavior_a": "녹색 페이지에 강렬하게 튀는 빨간 버튼을 0.5초 안에 포착하고 별다른 고민 없이 즉각 클릭한다.",
+          "persona_behavior_b": "녹색 버튼이 배경에 녹아들어 시각적 자극이 없으므로 CTA를 인지하지 못한 채 페이지를 이탈하거나 방황한다.",
+          "persona_id": "p_impulsive",
+          "case_id": "performable_button_color",
+          "tokens": {
+            "input_tokens": 1007,
+            "output_tokens": 425
+          }
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "지영의 시각 의존도가 0.3으로 낮고 텍스트 위주로 정보를 처리하지만, 인내심이 10초로 매우 짧아 CTA 버튼을 빠르게 찾아야 다음 단계로 진행할 수 있다. Variant B의 녹색 버튼은 배경과 동화되어 버튼 자체를 찾는 데 추가 시간이 소요될 수 있으며, 이는 인내심 한계 내에 행동을 완료해야 하는 지영에게 불리하게 작용할 수 있다. 다만 이 페르소나의 전환 결정은 CTA 색상보다 신뢰 정보(연혁, 환불정책, 리뷰 등)에 훨씬 더 강하게 의존하므로, 버튼 색상 자체가 전환율에 미치는 영향은 제한적이다.",
+          "persona_behavior_a": "빨간 버튼이 즉시 눈에 띄어 CTA 위치를 빠르게 파악하지만, 클릭 여부는 페이지 내 신뢰 정보(환불정책, 회사연혁, 리뷰 수)를 먼저 꼼꼼히 확인한 후 결정한다.",
+          "persona_behavior_b": "녹색 버튼이 배경에 묻혀 CTA를 찾는 데 시간을 추가 소비하고, 짧은 인내심 안에 필요한 신뢰 정보까지 확인하지 못한 채 이탈할 가능성이 높아진다.",
+          "persona_id": "p_cautious",
+          "case_id": "performable_button_color",
+          "tokens": {
+            "input_tokens": 1005,
+            "output_tokens": 547
+          }
+        }
+      ]
+    }
+  ]
+}

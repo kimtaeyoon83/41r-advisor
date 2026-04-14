@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v002",
+  "content": "{\"turn\": 1, \"page_state\": \"Figma pricing page showcasing multiple subscription plans with seat-based pricing model. Users can select plans, view add-ons, compare features, and access FAQs.\", \"action\": \"scroll\", \"reason\": \"민수는 충동적 쇼퍼로 0.5초 내 결정을 내린다. 화면에서 플랜 카드(Starter=Free, Professional=$16)가 이미 눈에 들어왔다. Starter 무료 플랜의 CTA 버튼이 아직 보이지 않으므로 살짝 스크롤해서 버튼을 찾아 즉시 클릭할 준비를 한다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"가격이 한눈에 보여서 좋음 — Starter 무료인 거 확인, CTA 버튼만 빨리 누르면 됨\"}",
+  "timestamp": "2026-04-14T02:36:24.299918+00:00",
+  "obs_id": "o_c7256234452be5ad"
+}

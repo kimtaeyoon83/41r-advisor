@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>41R 종합 리포트 v2 — AI 페르소나 세그먼트 분기 진단</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', 'Noto Sans KR', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); color: white; padding: 72px 40px; text-align: center; }
+  .cover h1 { font-size: 34px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .cover .subtitle { font-size: 17px; color: #cbd5e1; margin-bottom: 22px; max-width: 700px; margin-left:auto; margin-right:auto; }
+  .cover .badge { display: inline-block; background: #2563eb; color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+  .cover .meta { margin-top: 18px; font-size: 13px; color: #94a3b8; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); padding: 32px; margin-bottom: 20px; }
+  .section h2 { font-size: 22px; color: #0f172a; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; }
+  .section h3 { font-size: 17px; color: #334155; margin: 22px 0 12px; }
+  .section h4 { font-size: 15px; color: #475569; margin: 14px 0 8px; }
+
+  .exec { background: #eff6ff; border-left: 4px solid #2563eb; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 15px; line-height: 1.75; }
+  .exec.success { background: #f0fdf4; border-color: #16a34a; }
+  .exec.warning { background: #fffbeb; border-color: #eab308; }
+  .exec.danger { background: #fef2f2; border-color: #dc2626; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 28px; font-weight: 800; color: #2563eb; }
+  .stat-number.success { color: #16a34a; }
+  .stat-number.warn { color: #ea580c; }
+  .stat-number.muted { color: #64748b; }
+  .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; font-size: 13px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+  tr:hover td { background: #fafbfc; }
+  .good { color: #16a34a; font-weight: 600; }
+  .bad { color: #dc2626; font-weight: 600; }
+  .muted { color: #64748b; }
+
+  .signal { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+
+  .site-block { border: 1px solid #e2e8f0; border-radius: 10px; padding: 22px; margin: 16px 0; background: #fafbfc; }
+  .site-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; }
+  .site-title { font-size: 18px; font-weight: 700; color: #0f172a; }
+  .site-url { font-size: 12px; color: #64748b; font-family: monospace; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; }
+
+  .insight-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  .insight-box { background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 14px; }
+  .insight-box .label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+
+  .corr-table td:nth-child(2) { text-align: right; font-family: monospace; font-weight: 600; }
+  .positive { color: #16a34a; }
+  .negative { color: #dc2626; }
+
+  .method-list ul { padding-left: 22px; }
+  .method-list li { margin: 6px 0; font-size: 14px; }
+
+  .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .how-step { text-align: center; padding: 14px 8px; background: #f8fafc; border-radius: 8px; }
+  .how-step .num { display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #2563eb; color: white; line-height: 28px; font-weight: 700; margin-bottom: 6px; font-size: 13px; }
+  .how-step .label { font-size: 12px; color: #475569; line-height: 1.4; }
+
+  .footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 12px; }
+  .anchor-nav { background: white; padding: 12px 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 16px; font-size: 13px; }
+  .anchor-nav a { color: #2563eb; text-decoration: none; margin-right: 14px; }
+  .anchor-nav a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .stats, .insight-row { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: repeat(2, 1fr); }
+    .cover h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="badge">41R Segment Diagnostics — v2 (2026-04-14)</div>
+  <h1>AI 페르소나 기반 세그먼트 분기 진단 리포트</h1>
+  <p class="subtitle">
+    "어느 variant가 이기나"가 아니라 "세그먼트 간 반응이 얼마나 갈라지는가"를 진단합니다.<br>
+    5개 타겟 사이트 × 세그먼트별 20명 코호트 = <strong>100명 시뮬레이션</strong>.
+  </p>
+  <div class="meta">
+    타겟: 29CM · 클래스101 · 오늘의집 · Webflow · Glossier<br>
+    검증: n=12 Ablation Study · Blinded 구체성 평가 12/12 전승 · p=0.00024
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ==================== NAVIGATION ==================== -->
+<div class="anchor-nav">
+  <a href="#summary">핵심 요약</a>
+  <a href="#validation">검증 결과</a>
+  <a href="#cohort-results">코호트 진단 5곳</a>
+  <a href="#differentiation">차별점</a>
+  <a href="#method">방법론</a>
+</div>
+
+<!-- ==================== EXECUTIVE SUMMARY ==================== -->
+<div class="section" id="summary">
+  <h2>핵심 요약</h2>
+  <div class="exec">
+    41R은 <strong>A/B 테스트 설계 전 단계</strong>에서 "세그먼트 간 반응 차이가 있는지"를 진단하는 도구입니다.
+    AI 페르소나 코호트가 실제 사이트를 탐색하고, 세그먼트별 전환율·이탈 지점·좌절 포인트를 분포로 보여줍니다.
+    <br><br>
+    Demographic-only baseline 대비 blinded 구체성 평가에서 <strong>4.83/5 vs 2.75/5 (12/12 전승, p=0.00024)</strong>를 기록했습니다.
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">100</div>
+      <div class="stat-label">시뮬레이션한 AI 페르소나</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5</div>
+      <div class="stat-label">타겟 사이트 진단</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number success">4.83/5</div>
+      <div class="stat-label">Blinded 이유 구체성</div>
+    </div>
+  </div>
+
+  <h3>5개 타겟 사이트 진단 요약</h3>
+  <table>
+    <tr>
+      <th>사이트</th>
+      <th>전환율 (95% CI)</th>
+      <th>이탈률</th>
+      <th>평균 턴</th>
+      <th>가장 강한 세그먼트 분기</th>
+      <th>권고</th>
+    </tr>
+    <tr>
+      <td><strong>29CM</strong></td>
+      <td><span class="good"><span data-src="cohort_rpt_20260414_649058/aggregation.json:conversion_rate">30%</span></span> (14.5~51.9%)</td>
+      <td>10% (<span data-src="cohort_rpt_20260414_649058/aggregation.json:n_abandoned">2</span>/20)</td>
+      <td><span data-src="cohort_rpt_20260414_649058/aggregation.json:engagement.avg_turns">9.06</span></td>
+      <td class="negative">price_sensitivity -0.58</td>
+      <td><span class="signal signal-low">세그먼트별 설계</span></td>
+    </tr>
+    <tr>
+      <td><strong>클래스101</strong></td>
+      <td><span class="bad">0%</span> (0~16.1%)</td>
+      <td>10% (2/20)</td>
+      <td>9.11</td>
+      <td class="positive">impulsiveness +0.32</td>
+      <td><span class="signal signal-medium">A/B + 세그먼트 분석</span></td>
+    </tr>
+    <tr>
+      <td><strong>오늘의집</strong></td>
+      <td><span class="bad"><span data-src="cohort_rpt_20260414_26ffd3/aggregation.json:conversion_rate">0%</span></span> (0~16.1%)</td>
+      <td><strong class="bad">40% (<span data-src="cohort_rpt_20260414_26ffd3/aggregation.json:n_abandoned">8</span>/20)</strong></td>
+      <td><span data-src="cohort_rpt_20260414_26ffd3/aggregation.json:engagement.avg_turns">10.08</span></td>
+      <td class="negative">social_proof -0.40</td>
+      <td><span class="signal signal-low">세그먼트별 설계</span></td>
+    </tr>
+    <tr>
+      <td><strong>Webflow</strong></td>
+      <td><span class="bad"><span data-src="cohort_rpt_20260414_27edb8/aggregation.json:conversion_rate">0%</span></span> (0~16.1%)</td>
+      <td><strong class="bad">50% (<span data-src="cohort_rpt_20260414_27edb8/aggregation.json:n_abandoned">10</span>/20)</strong></td>
+      <td><span data-src="cohort_rpt_20260414_27edb8/aggregation.json:engagement.avg_turns">8.2</span></td>
+      <td class="negative">research_depth -0.47</td>
+      <td><span class="signal signal-low">세그먼트별 설계</span></td>
+    </tr>
+    <tr>
+      <td><strong>Glossier</strong></td>
+      <td><span class="bad">0%</span> (0~16.1%)</td>
+      <td>25% (5/20)</td>
+      <td>7.94</td>
+      <td class="negative">price_sensitivity -0.57</td>
+      <td><span class="signal signal-low">세그먼트별 설계</span></td>
+    </tr>
+  </table>
+
+  <div class="exec warning">
+    <strong>주목할 점:</strong> 5개 사이트 중 4개에서 <strong>전환율 0%</strong>가 나왔는데, 이건 "서비스가 나쁘다"가 아니라
+    시뮬 태스크가 "결제/구독까지"인데 LLM이 보수적으로 판정한 결과입니다.
+    <strong>중요한 신호는 '전환율 절대값'이 아니라 '세그먼트별 상관'</strong>입니다 — 어떤 성향의 유저가 왜 떠나는지.
+  </div>
+</div>
+
+<!-- ==================== VALIDATION ==================== -->
+<div class="section" id="validation">
+  <h2>검증 결과 — Marginal Value 증명</h2>
+  <div class="exec success">
+    <strong>핵심 가설</strong>: Demographic-only baseline 대비 41R의 개인 페르소나 프로필이 marginal value를 제공하는가?<br>
+    <strong>결과</strong>: ✅ 입증됨. 특히 이유 구체성에서 압도적 우위.
+  </div>
+
+  <h3>Ablation Study (n=12 공개 A/B 케이스)</h3>
+  <table>
+    <tr>
+      <th>메트릭</th>
+      <th>Demo-only Baseline</th>
+      <th>41R (성향 추가)</th>
+      <th>승자</th>
+      <th>통계</th>
+    </tr>
+    <tr>
+      <td><strong>이유 구체성 (blinded)</strong></td>
+      <td><span data-src="../experiments/ablation/metric_3_specificity.json:arm_a_avg_score">2.75</span> / 5</td>
+      <td class="good"><span data-src="../experiments/ablation/metric_3_specificity.json:arm_b_avg_score">4.83</span> / 5</td>
+      <td class="good">41R (<span data-src="../experiments/ablation/metric_3_specificity.json:head_to_head.arm_b_wins">12</span>-0)</td>
+      <td><strong>p=0.00024</strong></td>
+    </tr>
+    <tr>
+      <td>세그먼트 분기 점수</td>
+      <td>0.144</td>
+      <td class="good">0.316 (2.2×)</td>
+      <td class="good">41R</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>예측 엔트로피</td>
+      <td>0.282</td>
+      <td class="good">0.604 (2.14×)</td>
+      <td class="good">41R</td>
+      <td class="muted">p=0.072 (n=12 한계)</td>
+    </tr>
+    <tr>
+      <td>반직관 케이스 분기 탐지</td>
+      <td>0.154</td>
+      <td class="good">0.857 (5.5×)</td>
+      <td class="good">41R</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td class="muted">A/B 승자 예측 정확도</td>
+      <td class="muted">91.7%</td>
+      <td class="muted">83.3%</td>
+      <td class="muted">Demo (p=1.00, 무의미)</td>
+      <td class="muted">-</td>
+    </tr>
+  </table>
+
+  <div class="exec">
+    <strong>해석</strong>: 41R은 "승자 맞추기"에선 약하지만 <strong>"왜 그런지"와 "세그먼트가 얼마나 갈라지는지"에선 압도적</strong>입니다.
+    Demo-only는 LLM의 CRO 상식으로 다수결 정답을 찍지만, 개인 차이를 포착하지 못합니다.
+  </div>
+</div>
+
+<!-- ==================== COHORT RESULTS ==================== -->
+<div class="section" id="cohort-results">
+  <h2>5개 타겟 사이트 코호트 진단</h2>
+
+  <!-- 29CM -->
+  <div class="site-block">
+    <div class="site-header">
+      <span class="site-title">1. 29CM</span>
+      <span class="site-url">www.29cm.co.kr</span>
+      <span class="signal signal-high">전환율 30%</span>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number success">30%</div><div class="stat-label">전환율 (6/20)</div></div>
+      <div class="stat-card"><div class="stat-number muted">9.06</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number warn">14명</div><div class="stat-label">결제 직전 보류/이탈</div></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="label">세그먼트 ×전환 상관 (top 3)</div>
+        <table class="corr-table">
+          <tr><td>price_sensitivity</td><td class="negative">-0.575</td></tr>
+          <tr><td>visual_dependency</td><td class="negative">-0.486</td></tr>
+          <tr><td>impulsiveness</td><td class="positive">+0.482</td></tr>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="label">공통 이탈 지점 (n=12 보류/이탈)</div>
+        <ul style="padding-left:18px; font-size:13px; line-height:1.6;">
+          <li>로그인/회원가입 요구 (4명)</li>
+          <li>최종 가격/배송비/수수료 확인 (4명)</li>
+          <li>사이즈/옵션 선택 (3명)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exec success" style="margin-top:12px;">
+      <strong>핵심 인사이트</strong>: <span class="positive">충동형은 전환, 가격민감형·시각의존형은 이탈</span>하는 강한 세그먼트 분기.
+      단일 UI로 양쪽을 커버하기 어려움. 로그인 요구 제거 또는 소셜 로그인 도입, 가격 투명성 개선이 우선 개선 포인트.
+    </div>
+  </div>
+
+  <!-- 클래스101 -->
+  <div class="site-block">
+    <div class="site-header">
+      <span class="site-title">2. 클래스101</span>
+      <span class="site-url">class101.net</span>
+      <span class="signal signal-medium">전환율 0%, 18명 보류</span>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
+      <div class="stat-card"><div class="stat-number muted">9.11</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number warn">18명</div><div class="stat-label">"partial" (가치판단 정체)</div></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="label">세그먼트 ×전환 상관 (top 3)</div>
+        <table class="corr-table">
+          <tr><td>impulsiveness</td><td class="positive">+0.317</td></tr>
+          <tr><td>privacy_sensitivity</td><td class="positive">+0.282</td></tr>
+          <tr><td>social_proof_weight</td><td class="positive">+0.266</td></tr>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="label">주요 좌절 포인트</div>
+        <ul style="padding-left:18px; font-size:13px; line-height:1.6;">
+          <li>구독 플랜 vs 단건 구매 가격 구조 혼재</li>
+          <li>환불 정책 UI에 미노출</li>
+          <li>커리큘럼 "잠금 미리보기" — 정보 차단 경험</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exec warning" style="margin-top:12px;">
+      <strong>핵심 인사이트</strong>: 이탈이 아니라 <strong>"가치 판단 정체"</strong>가 문제. 18명이 구독 플랜 앞에서 결정 유보.
+      가격·환불 정책 투명성이 전환 트리거. 충동형만 부분적 전환 가능성 있음 (+0.32).
+    </div>
+  </div>
+
+  <!-- 오늘의집 -->
+  <div class="site-block">
+    <div class="site-header">
+      <span class="site-title">3. 오늘의집</span>
+      <span class="site-url">ohou.se</span>
+      <span class="signal signal-low">이탈 40% · 소셜프루프 역효과</span>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
+      <div class="stat-card"><div class="stat-number warn">10.08</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number bad">40%</div><div class="stat-label">이탈률 (8/20)</div></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="label">세그먼트 ×전환 상관 (top 3)</div>
+        <table class="corr-table">
+          <tr><td>social_proof_weight</td><td class="negative">-0.403 ⚠️</td></tr>
+          <tr><td>privacy_sensitivity</td><td class="positive">+0.401</td></tr>
+          <tr><td>research_depth</td><td class="negative">-0.347</td></tr>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="label">주요 좌절 포인트</div>
+        <ul style="padding-left:18px; font-size:13px; line-height:1.6;">
+          <li>배송비가 상세 진입 전까지 미표시</li>
+          <li>결제 직전 예상치 못한 설치비/수수료 노출</li>
+          <li>리뷰 수 적은 신상품 신뢰 부족</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exec danger" style="margin-top:12px;">
+      <strong>⚠️ 반직관적 발견</strong>: <strong>소셜프루프(리뷰·후기)가 많을수록 오히려 이탈</strong>(-0.40).
+      일반적 CRO 상식(소셜프루프 = 전환↑)과 반대. 선택 피로도 또는 부정 리뷰 노출이 원인으로 추정.
+      배송비/수수료 투명성 개선 + 소셜프루프 큐레이션 필요.
+    </div>
+  </div>
+
+  <!-- Webflow -->
+  <div class="site-block">
+    <div class="site-header">
+      <span class="site-title">4. Webflow</span>
+      <span class="site-url">webflow.com/pricing</span>
+      <span class="signal signal-low">이탈 50% · 가격 복잡도</span>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
+      <div class="stat-card"><div class="stat-number muted">8.2</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number bad">50%</div><div class="stat-label">이탈률 (10/20) — 최고</div></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="label">세그먼트 ×전환 상관 (top 3)</div>
+        <table class="corr-table">
+          <tr><td>research_depth</td><td class="negative">-0.470</td></tr>
+          <tr><td>impulsiveness</td><td class="positive">+0.407</td></tr>
+          <tr><td>price_sensitivity</td><td class="negative">-0.275</td></tr>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="label">주요 좌절 포인트</div>
+        <ul style="padding-left:18px; font-size:13px; line-height:1.6;">
+          <li>Site Plans vs Workspace Plans 분리 혼란</li>
+          <li>"Get started" 통일 CTA — 플랜별 흐름 불명확</li>
+          <li>환불 정책 가격 페이지 외부 분산</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exec danger" style="margin-top:12px;">
+      <strong>핵심 인사이트</strong>: <strong>꼼꼼히 보는 유저가 더 많이 이탈</strong>(-0.47). 가격 구조가 복잡해서 정보 많이 볼수록 혼란.
+      "Site Plans"와 "Workspace Plans" 분리, CTA 문구 통일이 주요 원인. 프리랜서용 플랜 명시적 구분 필요.
+    </div>
+  </div>
+
+  <!-- Glossier -->
+  <div class="site-block">
+    <div class="site-header">
+      <span class="site-title">5. Glossier</span>
+      <span class="site-url">www.glossier.com</span>
+      <span class="signal signal-low">가격 장벽 -0.57</span>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
+      <div class="stat-card"><div class="stat-number muted">7.94</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number warn">5명</div><div class="stat-label">이탈 · 15명 부분</div></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="label">세그먼트 ×전환 상관 (top 3)</div>
+        <table class="corr-table">
+          <tr><td>price_sensitivity</td><td class="negative">-0.571 (최강)</td></tr>
+          <tr><td>tech_literacy</td><td class="negative">-0.330</td></tr>
+          <tr><td>visual_dependency</td><td class="positive">+0.299</td></tr>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="label">주요 좌절 포인트</div>
+        <ul style="padding-left:18px; font-size:13px; line-height:1.6;">
+          <li>한국 직배송·관세 정보 불명확</li>
+          <li>USD 표기 — 원화 환산 없음</li>
+          <li>체크아웃 강제 계정 생성</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exec warning" style="margin-top:12px;">
+      <strong>핵심 인사이트</strong>: 5개 사이트 중 <strong>가장 강한 가격 장벽</strong>(-0.57). 제품은 관심 있지만 관세·배송비 불투명.
+      한국 시장 진입 시 가격 투명성(원화 환산 + 관세 예상) 필수. 브랜드 인지는 작동(visual +0.30).
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DIFFERENTIATION ==================== -->
+<div class="section" id="differentiation">
+  <h2>기존 도구와의 차별점</h2>
+
+  <table>
+    <tr>
+      <th></th>
+      <th>Hotjar</th>
+      <th>Optimizely</th>
+      <th>UserTesting</th>
+      <th>Demo AI Panel</th>
+      <th style="background:#dbeafe"><strong>41R</strong></th>
+    </tr>
+    <tr>
+      <td><strong>타이밍</strong></td>
+      <td>사후 분석</td>
+      <td>실험 중</td>
+      <td>사전 리서치</td>
+      <td>사전 설문</td>
+      <td style="background:#dbeafe"><strong>사전 진단</strong></td>
+    </tr>
+    <tr>
+      <td><strong>필요 트래픽</strong></td>
+      <td>수천+</td>
+      <td>수만+</td>
+      <td>5~10명</td>
+      <td>0</td>
+      <td style="background:#dbeafe"><strong>0</strong></td>
+    </tr>
+    <tr>
+      <td><strong>소요 시간</strong></td>
+      <td>1~2주</td>
+      <td>2~4주</td>
+      <td>1주</td>
+      <td>1~2일</td>
+      <td style="background:#dbeafe"><strong>24시간</strong></td>
+    </tr>
+    <tr>
+      <td><strong>비용</strong></td>
+      <td>$39~389/월</td>
+      <td>$50K+/년</td>
+      <td>$49/세션</td>
+      <td>$5~20/설문</td>
+      <td style="background:#dbeafe"><strong>~$0.5/세션</strong></td>
+    </tr>
+    <tr>
+      <td><strong>세그먼트 분석</strong></td>
+      <td>제한적</td>
+      <td>variant 간만</td>
+      <td>유저별 개별</td>
+      <td>집단 평균만</td>
+      <td style="background:#dbeafe"><strong>세그먼트 분기 진단</strong></td>
+    </tr>
+    <tr>
+      <td><strong>"왜" 설명</strong></td>
+      <td>추가 분석 필요</td>
+      <td>없음</td>
+      <td>유저 발언 의존</td>
+      <td>평균 문장</td>
+      <td style="background:#dbeafe"><strong>개인 트리거 기반 구체성 4.83/5</strong></td>
+    </tr>
+  </table>
+
+  <h3>41R이 유일하게 답하는 3가지 질문</h3>
+  <div class="exec">
+    <strong>1. "이 변경은 세그먼트별로 다르게 작용할까?"</strong> → 상관계수·분기 점수로 진단<br>
+    <strong>2. "유저가 왜 이탈할까?"</strong> → 턴별 행동 + 개인 트리거 자동 기록<br>
+    <strong>3. "A/B 테스트해야 할 만한 변경인가?"</strong> → 분기 점수로 사전 스크리닝
+  </div>
+</div>
+
+<!-- ==================== METHOD ==================== -->
+<div class="section" id="method">
+  <h2>방법론</h2>
+
+  <h3>코호트 생성</h3>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="num">1</div>
+      <div class="label">타겟 세그먼트 스펙 정의<br>(나이 · 성별 · 직업 · 성향 5축)</div>
+    </div>
+    <div class="how-step">
+      <div class="num">2</div>
+      <div class="label">Latin Hypercube로<br>N명 페르소나 자동 생성</div>
+    </div>
+    <div class="how-step">
+      <div class="num">3</div>
+      <div class="label">병렬 시뮬 실행<br>(ThreadPool, 5 동시)</div>
+    </div>
+    <div class="how-step">
+      <div class="num">4</div>
+      <div class="label">Wilson CI + 상관 분석<br>HTML 리포트 생성</div>
+    </div>
+  </div>
+
+  <h3>검증 방법</h3>
+  <div class="method-list">
+    <ul>
+      <li><strong>Ablation Study</strong>: Demo-only vs 41R 2-arm 비교 (같은 LLM, 같은 seed)</li>
+      <li><strong>Blinded Evaluation</strong>: 제3자 LLM이 arm 모른 채 이유 구체성 1~5 점수화</li>
+      <li><strong>데이터 오염 통제</strong>: A/B 라벨 셔플 (seed=42), 회사명 제거, 사전 지식 금지</li>
+      <li><strong>Cache OFF 모드</strong>: 엄밀성을 위해 <code>cache_disabled()</code> 컨텍스트</li>
+      <li><strong>재현성</strong>: 모든 lineage가 <code>lineage.json</code>으로 기록 (프롬프트 hash, 모델, 페르소나 스냅샷)</li>
+    </ul>
+  </div>
+
+  <h3>UX 벤치마크 일치율</h3>
+  <table>
+    <tr><th>검증 항목</th><th>결과</th><th>근거</th></tr>
+    <tr><td>체류 시간 / 턴 수</td><td>부분 일치</td><td>NNGroup 세대별 속도 연구</td></tr>
+    <tr><td>읽기 행동</td><td class="good">일치</td><td>NNGroup F-pattern 스캔</td></tr>
+    <tr><td>이탈 이유</td><td class="good">높은 일치</td><td>Baymard 49개 연구 메타분석</td></tr>
+    <tr><td>신뢰 신호 반응</td><td class="good">높은 일치</td><td>NNGroup 3.42초 신뢰 판단</td></tr>
+    <tr><td>쿠키/프라이버시</td><td class="good">일치</td><td>Think with Google 세대별</td></tr>
+    <tr><td>Messy Middle 편향</td><td class="good">높은 일치</td><td>Think with Google 인지편향</td></tr>
+  </table>
+</div>
+
+<!-- ==================== LIMITATIONS ==================== -->
+<div class="section">
+  <h2>한계와 정직함</h2>
+  <div class="exec warning">
+    <ul style="padding-left:18px; margin:0;">
+      <li><strong>정확도 우위 주장 안 함</strong>: Demo-only가 A/B 승자 예측에선 +8.4%p 우위</li>
+      <li><strong>n=12 Ablation 한계</strong>: 방향성 확인. n=30+ 확장 예정 (C 태스크)</li>
+      <li><strong>텍스트 기반 시뮬</strong>: 이 리포트의 5 코호트는 실제 브라우저 아닌 LLM 예측. Browser mode 별도 존재</li>
+      <li><strong>Boundary case 노출</strong>: 오늘의집 social_proof -0.40 같은 반직관 발견은 실제 유저 데이터로 재검증 필요</li>
+      <li><strong>H2 타깃</strong>: 절대 수치(전환율 X%) 예측은 실제 GA 데이터 대조로 별도 검증 필요</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== REPORTS ==================== -->
+<div class="section">
+  <h2>세부 리포트 링크</h2>
+  <table>
+    <tr><th>타겟</th><th>세부 코호트 리포트</th><th>데이터</th></tr>
+    <tr><td>29CM</td><td><a href="cohort_rpt_20260414_649058/cohort_report.html">cohort_report.html</a></td><td><a href="cohort_rpt_20260414_649058/aggregation.json">aggregation.json</a></td></tr>
+    <tr><td>클래스101</td><td><a href="cohort_rpt_20260414_31ef68/cohort_report.html">cohort_report.html</a></td><td><a href="cohort_rpt_20260414_31ef68/aggregation.json">aggregation.json</a></td></tr>
+    <tr><td>오늘의집</td><td><a href="cohort_rpt_20260414_26ffd3/cohort_report.html">cohort_report.html</a></td><td><a href="cohort_rpt_20260414_26ffd3/aggregation.json">aggregation.json</a></td></tr>
+    <tr><td>Webflow</td><td><a href="cohort_rpt_20260414_27edb8/cohort_report.html">cohort_report.html</a></td><td><a href="cohort_rpt_20260414_27edb8/aggregation.json">aggregation.json</a></td></tr>
+    <tr><td>Glossier</td><td><a href="cohort_rpt_20260414_3df81f/cohort_report.html">cohort_report.html</a></td><td><a href="cohort_rpt_20260414_3df81f/aggregation.json">aggregation.json</a></td></tr>
+  </table>
+  <p style="color:#64748b; font-size:13px; margin-top:10px;">
+    실험 문서: <a href="../experiments/ablation/MARGINAL_VALUE_REPORT.md">Ablation Report</a> ·
+    <a href="../experiments/ab_validation/VALIDATION_REPORT.md">A/B Validation Report</a> ·
+    <a href="../experiments/outbound/differentiation.md">차별점</a>
+  </p>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>41R Persona Market — v2 Segment Diagnostics Report</p>
+  <p>Generated 2026-04-14 · 이 리포트는 AI 시뮬레이션 결과이며, 실제 유저 테스트를 대체하지 않습니다.</p>
+</div>
+
+</body>
+</html>

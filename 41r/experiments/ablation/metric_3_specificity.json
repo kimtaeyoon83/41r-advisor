@@ -1,0 +1,111 @@
+{
+  "metric": "specificity_blinded",
+  "judge_model": "claude-sonnet-4-6",
+  "total_cases": 12,
+  "arm_a_avg_score": 2.75,
+  "arm_b_avg_score": 4.83,
+  "delta": 2.08,
+  "head_to_head": {
+    "arm_b_wins": 12,
+    "arm_a_wins": 0,
+    "ties": 0
+  },
+  "scores": [
+    {
+      "case_id": "hubspot_social_proof",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 소셜프루프 의존도 수치(0.4~0.8), 결정 소요 시간(0.5초/1.5초/2초), B2B vs 개인 소비자 신호 구분 등 프로필 기반 구체적 수치와 메커니즘을 명시해 PM이 '어떤 페르소나에게 로고가 효과적/비효과적인지'를 즉시 세그먼트별 액션으로 전환할 수 있는 반면, Explanation 2는 연령·직군 일반 특성 기반 추론에 머물러 프로필 수치 근거가 없고 '확신도 중간' 반복으로 차별적 인사이트가 부족하다."
+    },
+    {
+      "case_id": "basecamp_long_form",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 인내심 2초·스크롤 3회·소셜프루프 의존도 0.7·가격민감도 0.95 등 수치화된 프로필 속성을 직접 Variant 구성 요소와 연결해 구체적 이탈/전환 트리거를 도출한 반면, Explanation 2는 '28세 직장인', '교사는 꼼꼼하다' 수준의 인구통계·직업 스테레오타입에 의존해 액션가능한 근거가 부족하다."
+    },
+    {
+      "case_id": "obama_2008_hero",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "A,B",
+      "judge_reasoning": "Explanation 2는 '리서치 성향 0.95', '인내심 2초/6초/10초', '소셜프루프 민감도 0.4', '테크 문해력 0.3' 등 수치화된 페르소나 속성을 CTA·히어로 요소와 직접 연결해 '왜 그 variant가 이 사람에게 작동/미작동하는지' 메커니즘을 명확히 설명하는 반면, Explanation 1은 '신중한 성향', '감성적 공감' 같은 일반적 심리 서술에 그쳐 PM이 구체적 개선 액션을 도출하기 어렵다."
+    },
+    {
+      "case_id": "kaya_skin_form",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 인내심 2초·스크롤 3회·프라이버시 민감도 0.8 등 페르소나별 수치 기반 트리거를 명시하고 지영처럼 반대 방향의 긴장도 구체적으로 논증해 PM이 즉각 필드 구성·순서·카피 개선 액션을 도출할 수 있는 반면, Explanation 2는 '바쁜 일상', '마찰을 최소화' 등 일반론 수준의 서술에 머물러 구체적 수치·트리거·역방향 긴장이 없다."
+    },
+    {
+      "case_id": "humana_banner",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 인내심(초), 결정속도(초), 시각의존도(0~1) 등 구체적 수치와 개인별 행동 트리거를 근거로 예측을 도출해 PM이 즉각 개선 방향을 특정할 수 있는 반면, Explanation 2는 '바쁜 일상', '효율성 중시' 등 직업·나이 기반의 일반적 추론에 머물러 구체성과 차별적 근거가 부족하다."
+    },
+    {
+      "case_id": "groove_pricing",
+      "arm_a_score": 2,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 인내심 2초·결정속도 0.5초·리서치 성향 0.95 등 프로필 수치를 직접 인용하며 각 페르소나별 이탈/전환 트리거를 구체적으로 연결한 반면, Explanation 2는 '28세 남성 직장인' '35세 사무직 여성' 같은 인구통계 레이블에 의존한 일반적 추론에 그쳐 PM이 즉각 액션을 도출하기 어렵다."
+    },
+    {
+      "case_id": "express_watches_trust",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 각 페르소나의 소셜프루프 의존도, 시각 의존도 수치, 영문 배지 인식 장벽 등 구체적 속성값과 트리거를 근거로 전환 기여 수준을 차별화하여 PM이 즉시 '한국어 배지 표기 전환' 또는 '후기와 배지 병행 배치' 같은 액션을 도출할 수 있는 반면, Explanation 2는 '신뢰성 중시', '가품 경계심' 등 동일한 일반 논리를 페르소나별로 반복 적용하여 차별화된 인사이트나 구체적 개선 액션을 제공하지 못한다."
+    },
+    {
+      "case_id": "ea_simcity_promo",
+      "arm_a_score": 2,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 소셜프루프 의존도·시각 의존도·테크문해력 등 구체적 프로필 수치와 0.5초 결정 트리거, 배너가 '또 다른 조건처럼 느껴질 위험' 같은 행동 메커니즘을 페르소나별로 명확히 제시해 즉각적인 개선 액션(예: 영숙 세그먼트에는 배너 제거, 민수 세그먼트에는 유지)을 도출할 수 있는 반면, Explanation 2는 '한국 20대 후반은 가성비 중시', '40대 전문직 남성은 할인에 반응' 등 인구통계 기반 일반론을 반복하며 개인 프로필 근거 없이 대부분 B(배너 유지)로 동일하게 수렴해 PM이 차별화된 액션을 도출하기 어렵다."
+    },
+    {
+      "case_id": "workzone_logos",
+      "arm_a_score": 3,
+      "arm_b_score": 4,
+      "winner_arm": "B",
+      "order_presented": "A,B",
+      "judge_reasoning": "Explanation 2는 시각의존도 0.9, 소셜프루프 민감도 0.5, 테크문해력 0.3 등 수치화된 페르소나 속성을 근거로 '0.5초 클릭 결정', '로고 유무가 더 결정적 변수' 같은 구체적 메커니즘을 제시해 액션가능성과 근거 명확성이 높은 반면, Explanation 1은 '시각적 노이즈 감소→CTA 유도'라는 동일한 논리를 페르소나마다 반복하는 수준에 그쳐 구체성과 차별화가 부족하다."
+    },
+    {
+      "case_id": "hyundai_cta_fold",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 인내심 2초, 결정속도 0.5초, 시각 의존도 0.9, 스크롤 3회 좌절 등 페르소나별 수치 속성을 직접 인용해 예측 근거를 명확히 하고 즉각적인 레이아웃 개선 방향을 도출할 수 있는 반면, Explanation 2는 '고관여', '신중한 성향', '중간 수준 확신도' 같은 범용 표현에 머물러 프로필 기반 근거와 액션가능성이 상대적으로 부족하다."
+    },
+    {
+      "case_id": "contentverve_cta_copy",
+      "arm_a_score": 2,
+      "arm_b_score": 4,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 페르소나별 구체적 특성(시각의존도, 테크 문해력 수치, 직군 맥락)과 'my' vs 'your'의 심리적 작동 메커니즘을 연결하며 일부 반대 방향 예측(영숙 → B 유리)까지 근거 있게 제시한 반면, Explanation 2는 '목적 지향적', '자기결정적' 등 반복적 일반론에 그쳐 페르소나 고유 특성에 기반한 차별화된 인사이트나 액션가능한 시사점이 거의 없다."
+    },
+    {
+      "case_id": "performable_button_color",
+      "arm_a_score": 3,
+      "arm_b_score": 5,
+      "winner_arm": "B",
+      "order_presented": "B,A",
+      "judge_reasoning": "Explanation 1은 시각의존도(0.9/0.3/0.7), 결정속도(0.5초/3초/1.5초), 리서치성향(0.1/0.95) 등 구체적 수치 기반으로 페르소나별 행동 트리거를 차별화하고 버튼 색상의 영향력 한계까지 명시해 PM이 즉각 액션을 도출할 수 있는 반면, Explanation 2는 '28세 직장인', '30대 중반 사무직' 등 인구통계 레이블에만 의존한 일반론적 서술로 구체적 수치나 프로필 기반 근거가 부재하다."
+    }
+  ]
+}

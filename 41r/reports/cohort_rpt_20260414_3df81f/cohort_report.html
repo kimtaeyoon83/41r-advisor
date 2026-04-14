@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_3df81f</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>해외 뷰티 브랜드의 메인 제품을 둘러보고, 마음에 드는 상품을 체크아웃까지 가는지 결정해라</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://www.glossier.com</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=20명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>0.0%</strong> (95% CI: 0.0~16.1%) · 평균 7.94턴 engagement ·
+    세그먼트 분기 <span class="signal signal-medium">중간</span> → A/B 테스트 + 세그먼트 분석
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">0.0%</div>
+      <div class="stat-label">전환율 (0/20)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7.94</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">25.0%</div>
+      <div class="stat-label">이탈률 (5명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td>체크아웃 직전 — 배송지/결제 정보 입력 단계</td><td>2</td><td>10.0%</td></tr><tr><td>checkout - 배송지/결제 정보 입력 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 배송비/관세 등 추가 비용 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>checkout 진입 직전 - 계정 생성 또는 개인정보 입력 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 배송비·관세 정보 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>checkout - 배송지/결제 정보 입력 단계 또는 한국 배송 불가 확인 시점</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 회원가입 강제 요구 단계</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 → 체크아웃 진입 직전 (배송비·관세 정보 확인 단계)</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 → 체크아웃 진입 직전 (배송비/수수료 확인 단계)</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 배송비/수수료 확인 단계 또는 강제 회원가입 요구 시</td><td>1</td><td>5.0%</td></tr><tr><td>checkout 진입 직전 — 회원가입/로그인 강제 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 계정 생성 / 개인정보 입력 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 진입 직전 - 배송비/관세 정보 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 회원가입 또는 배송지(해외) 입력 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 진입 전 — 배송비/관세 정보 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 추가 후 체크아웃 직전 — 배송/반품 정책 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 직전 — 배송비/관세 정보 불명확 확인 후 이탈</td><td>1</td><td>5.0%</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td>한국 직배송 지원 여부가 메인/제품 페이지에서 명확히 안내되지 않아 불안감 유발</td><td>1</td><td>5.0%</td></tr><tr><td>checkout 진행 중 배송비 + 관세 예상 비용이 뒤늦게 표시되어 총액 불명확</td><td>1</td><td>5.0%</td></tr><tr><td>모바일 checkout 폼에서 영문 주소 입력 방식이 낯설고 CTA 흐름이 불명확하게 느껴짐</td><td>1</td><td>5.0%</td></tr><tr><td>해외 카드 결제 시 본인인증·3D Secure 팝업으로 흐름 중단 가능성</td><td>1</td><td>5.0%</td></tr><tr><td>한국 직배송 불가 또는 배송비가 제품가 대비 과도하게 높을 경우 강한 이탈 트리거 발생</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 단계에서 계정 생성 강제 유도 시 마찰 증가</td><td>1</td><td>5.0%</td></tr><tr><td>가격이 USD 표기만 되어 있고 원화 환산·관세 안내 없을 경우 가격 불투명성으로 불신 형성</td><td>1</td><td>5.0%</td></tr><tr><td>페이지 전환 시 로딩이 3초 이상 지연될 경우 patience_seconds 6.9초 이내라도 반복 시 누적 이탈 유발</td><td>1</td><td>5.0%</td></tr><tr><td>체크아웃 초입에서 강제 계정 생성 또는 다수의 개인정보 입력 요구 (privacy_sensitivity 0.82 → 핵심 이탈 트리거)</td><td>1</td><td>5.0%</td></tr><tr><td>한국 배송 불가 또는 국제 배송비·예상 관세가 명확하지 않아 총비용 계산이 어려움</td><td>1</td><td>5.0%</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: conversion_probability</td></tr><tr><td>price_sensitivity</td><td>-0.571</td><td>강한 상관</td></tr><tr><td>tech_literacy</td><td>-0.330</td><td>보통</td></tr><tr><td>visual_dependency</td><td>+0.299</td><td>약한 상관</td></tr><tr><td>impulsiveness</td><td>-0.224</td><td>약한 상관</td></tr><tr><td>privacy_sensitivity</td><td>-0.200</td><td>약한 상관</td></tr><tr><td>social_proof_weight</td><td>-0.174</td><td>약한 상관</td></tr><tr><td>research_depth</td><td>-0.124</td><td>약한 상관</td></tr></table>
+
+  
+        <h3>개인별 전환 확률 분포</h3>
+        <div class="stats">
+          <div class="stat-card"><div class="stat-number">0.171</div><div class="stat-label">평균 확률</div></div>
+          <div class="stat-card"><div class="stat-number">0.18</div><div class="stat-label">중앙값</div></div>
+          <div class="stat-card"><div class="stat-number">0.076</div><div class="stat-label">표준편차</div></div>
+        </div>
+        <p style="color:#64748b; font-size:14px;">분포 폭 0.0 ~ 0.31. 표준편차가 클수록 세그먼트 분기가 강함.</p>
+        
+</div>
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.275</strong> → 분기 <strong>중간</strong><br>
+    권고: <strong>A/B 테스트 + 세그먼트 분석</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_3df81f · Generated: 2026-04-14T01:59:20 UTC</p>
+  <p>Cohort: cohort_20260414_015814_abb301 · Mode: text · Personas: 20</p>
+</div>
+
+</div>
+</body>
+</html>

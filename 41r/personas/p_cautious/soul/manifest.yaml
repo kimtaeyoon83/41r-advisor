@@ -1,0 +1,9 @@
+current: v002
+versions:
+  v001:
+    created: '2026-04-13T05:41:39.100877+00:00'
+    hash: 3c9e44b1397f586a
+    message: "초판 — 2줄 soul"
+  v002:
+    created: '2026-04-13'
+    message: "5개 성향 프로필 + 세대 특성 + 좌절 트리거 + 신뢰 기준 + 상세 voice"

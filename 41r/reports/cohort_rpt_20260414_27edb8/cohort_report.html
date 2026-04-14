@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_27edb8</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>개인 프리랜서로 웹사이트 제작 도구를 찾고 있다. 가격 페이지를 검토하고 적합한 플랜을 결정해라</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://webflow.com/pricing</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=20명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>0.0%</strong> (95% CI: 0.0~16.1%) · 평균 8.2턴 engagement ·
+    세그먼트 분기 <span class="signal signal-medium">중간</span> → A/B 테스트 + 세그먼트 분석
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">0.0%</div>
+      <div class="stat-label">전환율 (0/20)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8.2</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50.0%</div>
+      <div class="stat-label">이탈률 (10명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td>플랜 비교 후 최종 결제 단계 진입 직전</td><td>3</td><td>15.0%</td></tr><tr><td>플랜 비교 후 결제 시도 직전 — 개인정보 입력 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 결제 단계 진입 직전</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결제 전 이탈 — 연간/월간 요금 전환 및 숨겨진 조건 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 연간/월간 요금 전환 시 숨겨진 조건 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 중 CMS/ecommerce 기능별 상세 수수료 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결정 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 중 기능 제한 세부 항목 확인 단계</td><td>1</td><td>5.0%</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td>Site Plans와 Workspace Plans 두 카테고리가 분리되어 있어 &#x27;프리랜서에게 어느 게 맞는가&#x27;가 즉시 명확하지 않음</td><td>1</td><td>5.0%</td></tr><tr><td>CTA 버튼이 &#x27;Get started&#x27;로 통일되어 있어 클릭 후 어떤 흐름으로 이어지는지 불명확 (불명확한 CTA 트리거 발동)</td><td>1</td><td>5.0%</td></tr><tr><td>환불 정책이 가격 페이지 내에 명시되지 않고 별도 Terms 페이지로 분산되어 신뢰 신호 미충족</td><td>1</td><td>5.0%</td></tr><tr><td>모바일 환경에서 가로 비교표가 잘려 보이거나 스크롤 조작이 불편할 수 있음 (device_preference: mobile)</td><td>1</td><td>5.0%</td></tr><tr><td>결제 전 카드 정보 선등록 또는 과도한 개인정보 입력 요구 (최대 frustration trigger)</td><td>1</td><td>5.0%</td></tr><tr><td>모바일 환경에서 플랜 비교 테이블 가독성 저하 — 좌우 스크롤 필요 시 이탈 가중</td><td>1</td><td>5.0%</td></tr><tr><td>환불 정책이 가격 페이지에 명시되지 않을 경우 신뢰 저하 (trust signal 미충족)</td><td>1</td><td>5.0%</td></tr><tr><td>고객 사례/사용자 후기가 pricing 페이지 내에 부재하면 확신 형성 실패</td><td>1</td><td>5.0%</td></tr><tr><td>Freelancer 전용 플랜이 명시적으로 구분되지 않아 &#x27;나에게 맞는 플랜&#x27;을 직접 판단해야 하는 모호함</td><td>1</td><td>5.0%</td></tr><tr><td>플랜별 CTA 버튼 문구가 &#x27;Get started&#x27;로 동일하여 어떤 플랜을 선택해야 할지 명확한 가이드 부재</td><td>1</td><td>5.0%</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: conversion_probability</td></tr><tr><td>research_depth</td><td>-0.470</td><td>보통</td></tr><tr><td>impulsiveness</td><td>+0.407</td><td>보통</td></tr><tr><td>price_sensitivity</td><td>-0.275</td><td>약한 상관</td></tr><tr><td>tech_literacy</td><td>-0.091</td><td>약한 상관</td></tr><tr><td>visual_dependency</td><td>-0.072</td><td>약한 상관</td></tr><tr><td>privacy_sensitivity</td><td>+0.046</td><td>약한 상관</td></tr><tr><td>social_proof_weight</td><td>+0.037</td><td>약한 상관</td></tr></table>
+
+  
+        <h3>개인별 전환 확률 분포</h3>
+        <div class="stats">
+          <div class="stat-card"><div class="stat-number">0.159</div><div class="stat-label">평균 확률</div></div>
+          <div class="stat-card"><div class="stat-number">0.14</div><div class="stat-label">중앙값</div></div>
+          <div class="stat-card"><div class="stat-number">0.165</div><div class="stat-label">표준편차</div></div>
+        </div>
+        <p style="color:#64748b; font-size:14px;">분포 폭 0.0 ~ 0.38. 표준편차가 클수록 세그먼트 분기가 강함.</p>
+        
+</div>
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.200</strong> → 분기 <strong>중간</strong><br>
+    권고: <strong>A/B 테스트 + 세그먼트 분석</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_27edb8 · Generated: 2026-04-14T01:58:14 UTC</p>
+  <p>Cohort: cohort_20260414_015700_15664b · Mode: text · Personas: 20</p>
+</div>
+
+</div>
+</body>
+</html>

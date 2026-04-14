@@ -1,0 +1,5 @@
+# Reflection triggers — H1에서는 수동, token budget overflow가 자연 트리거
+# v4-full에서 자동화 예정
+
+auto_trigger: false
+manual_only: true

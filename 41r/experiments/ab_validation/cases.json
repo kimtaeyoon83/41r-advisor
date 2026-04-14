@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hubspot_social_proof",
+    "company": "HubSpot",
+    "test_description": "랜딩 페이지 CTA 근처에 고객 로고(소셜 프루프) 배치 여부",
+    "variant_a": "CTA 폼 근처에 고객 로고 없음. 헤드라인 + 설명 텍스트 + 이메일 입력 폼만 있는 깔끔한 레이아웃.",
+    "variant_b": "CTA 폼 바로 위에 유명 기업 고객 로고(엔터프라이즈 브랜드) 배치. 나머지 레이아웃은 동일.",
+    "known_winner": "B",
+    "lift_pct": 24,
+    "source": "HubSpot Blog"
+  },
+  {
+    "id": "basecamp_long_form",
+    "company": "Basecamp (37signals)",
+    "test_description": "랜딩 페이지 길이 — 짧은 미니멀 vs 긴 상세 페이지",
+    "variant_a": "짧은 미니멀 랜딩 페이지. 간단한 카피 1~2줄 + 하나의 CTA 버튼만 있음. 스크롤 불필요.",
+    "variant_b": "긴 형태 페이지. 상세 기능 설명, 고객 후기, FAQ, 페이지 곳곳에 CTA가 여러 개 배치. 스크롤 필요하지만 정보가 풍부.",
+    "known_winner": "B",
+    "lift_pct": 37.5,
+    "source": "Signal v. Noise blog / CXL"
+  },
+  {
+    "id": "obama_2008_hero",
+    "company": "Obama 2008 Campaign",
+    "test_description": "히어로 영역 — 비디오 vs 가족사진, CTA 텍스트 — Sign Up vs Learn More",
+    "variant_a": "히어로에 비디오 배치 + 'Sign Up' CTA 버튼. 비디오 재생 후 가입 유도.",
+    "variant_b": "히어로에 가족 사진(오바마 가족 포트레이트) + 'Learn More' CTA 버튼. 더 낮은 진입장벽.",
+    "known_winner": "B",
+    "lift_pct": 40,
+    "source": "Optimizely case study"
+  },
+  {
+    "id": "kaya_skin_form",
+    "company": "Kaya Skin Clinic",
+    "test_description": "리드 생성 폼 복잡도 — 6필드 vs 3필드",
+    "variant_a": "6개 필드 폼: 이름, 이메일, 전화번호, 도시, 피부 고민, 선호 지점. 한 페이지에 모두 입력.",
+    "variant_b": "3개 필드 폼: 이름, 이메일, 전화번호만. 나머지 정보는 제출 후 수집.",
+    "known_winner": "B",
+    "lift_pct": 137,
+    "source": "VWO case study"
+  },
+  {
+    "id": "humana_banner",
+    "company": "Humana",
+    "test_description": "홈페이지 배너 — 복잡한 다중 메시지 vs 깔끔한 단일 메시지",
+    "variant_a": "여러 이미지, 복수의 메시지, 다수의 링크가 들어간 복잡한 배너. 시각적으로 바쁘고 CTA가 여러 개 경쟁.",
+    "variant_b": "단일 가치 제안 메시지 + 하나의 CTA 버튼만 있는 깔끔한 배너. 시각적 초점이 명확.",
+    "known_winner": "B",
+    "lift_pct": 433,
+    "source": "VWO case study"
+  },
+  {
+    "id": "groove_pricing",
+    "company": "Groove",
+    "test_description": "가격 페이지 — 상세 기능비교 테이블 vs 단순화된 단일 플랜 강조",
+    "variant_a": "기능 비교 테이블이 있는 상세 가격 페이지. 티어별 기능을 하나씩 비교 가능. 정보량 많음.",
+    "variant_b": "단순화된 가격 페이지. 핵심 플랜 하나를 강조하고, 고객 수(소셜 프루프) 표시. 비교 테이블 없음.",
+    "known_winner": "B",
+    "lift_pct": 25,
+    "source": "Groove Blog"
+  },
+  {
+    "id": "express_watches_trust",
+    "company": "Express Watches",
+    "test_description": "상품 페이지에 공식 인증 딜러 신뢰 배지 추가 여부",
+    "variant_a": "표준 상품 페이지. 제품 이미지, 가격, 장바구니 버튼만 있음. 신뢰/인증 배지 없음.",
+    "variant_b": "동일 상품 페이지에 'Official Authorized Dealer' 인증 배지를 장바구니 버튼 근처에 눈에 띄게 배치.",
+    "known_winner": "B",
+    "lift_pct": 107,
+    "source": "VWO case study"
+  },
+  {
+    "id": "ea_simcity_promo",
+    "company": "Electronic Arts (SimCity)",
+    "test_description": "체크아웃 페이지에서 프로모션 할인 배너 제거 여부",
+    "variant_a": "체크아웃 페이지 상단에 20% 할인 프로모션 배너 표시. '지금 구매하면 20% 할인!'",
+    "variant_b": "프로모션 배너 없는 깔끔한 체크아웃 페이지. 가격만 표시.",
+    "known_winner": "B",
+    "lift_pct": 43.4,
+    "source": "VWO case study"
+  },
+  {
+    "id": "workzone_logos",
+    "company": "WorkZone",
+    "test_description": "추천사 섹션 — 컬러 로고 vs 그레이스케일 로고",
+    "variant_a": "고객 추천 섹션에 컬러 클라이언트 로고 표시. 시각적으로 화려하고 로고가 눈에 띔.",
+    "variant_b": "동일 클라이언트 로고를 그레이스케일(흑백)로 표시. CTA 버튼과의 시각적 경쟁 감소.",
+    "known_winner": "B",
+    "lift_pct": 34,
+    "source": "VWO case study"
+  },
+  {
+    "id": "hyundai_cta_fold",
+    "company": "Hyundai Netherlands",
+    "test_description": "CTA 위치 — 화면 상단(above the fold) vs 스크롤 후 하단 배치",
+    "variant_a": "'시승 신청' CTA를 페이지 상단(above the fold)에 눈에 띄게 배치. 관례적 베스트 프랙티스.",
+    "variant_b": "CTA를 페이지 하단(기능/혜택 설명 뒤)에 배치. 유저가 정보를 먼저 읽고 나서 CTA에 도달.",
+    "known_winner": "B",
+    "lift_pct": 15,
+    "source": "WhichTestWon / CXL"
+  },
+  {
+    "id": "contentverve_cta_copy",
+    "company": "ContentVerve",
+    "test_description": "CTA 버튼 카피 — 2인칭 vs 1인칭 소유격",
+    "variant_a": "'Get your free template' (2인칭, your)",
+    "variant_b": "'Get my free template' (1인칭 소유격, my)",
+    "known_winner": "B",
+    "lift_pct": 90,
+    "source": "ContentVerve / CXL"
+  },
+  {
+    "id": "performable_button_color",
+    "company": "Performable (HubSpot)",
+    "test_description": "CTA 버튼 컬러 — 페이지 배경과 조화 vs 대비 색상",
+    "variant_a": "녹색 CTA 버튼. 페이지 전체 녹색 톤과 조화되어 자연스럽게 녹아듦.",
+    "variant_b": "빨간 CTA 버튼. 녹색 페이지에서 강한 대비. 시각적으로 즉시 눈에 띔.",
+    "known_winner": "B",
+    "lift_pct": 21,
+    "source": "HubSpot Blog"
+  }
+]

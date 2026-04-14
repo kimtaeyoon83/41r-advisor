@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>41R — 모든 리포트 인덱스</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f1f5f9; }
+  .header { background: linear-gradient(135deg, #0f172a, #334155); color: white; padding: 48px 24px; text-align: center; }
+  .header h1 { font-size: 28px; margin-bottom: 8px; }
+  .header .meta { color: #94a3b8; font-size: 14px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+  .quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat { background: white; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .stat .num { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat .lbl { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+  .section { background: white; border-radius: 12px; padding: 24px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 18px; color: #0f172a; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  .section h2 .badge { font-size: 11px; padding: 2px 8px; background: #dbeafe; color: #1e40af; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { background: #f1f5f9; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 12px; }
+  td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; }
+  tr:last-child td { border-bottom: none; }
+  td a { color: #2563eb; text-decoration: none; font-weight: 500; }
+  td a:hover { text-decoration: underline; }
+  .priority { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+  .priority-1 { background: #fef2f2; color: #991b1b; }
+  .priority-2 { background: #fffbeb; color: #92400e; }
+  .priority-3 { background: #f0f9ff; color: #1e40af; }
+  .new { background: #16a34a; color: white; padding: 1px 6px; border-radius: 8px; font-size: 10px; vertical-align: middle; margin-left: 4px; }
+  .footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 12px; }
+
+  .grade { display: inline-block; padding: 1px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .grade-A { background: #dcfce7; color: #166534; }
+  .grade-B { background: #fef3c7; color: #92400e; }
+  .grade-C { background: #fed7aa; color: #9a3412; }
+  .grade-F { background: #fee2e2; color: #991b1b; }
+
+  @media (max-width: 700px) {
+    .quick-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>41R Persona Market — 리포트 인덱스</h1>
+  <div class="meta">2026-04-14 기준 · 5 타겟 사이트 · 100명 코호트 · 49 unit tests · ~$15 누적</div>
+</div>
+
+<div class="container">
+
+<div class="quick-stats">
+  <div class="stat"><div class="num">5</div><div class="lbl">타겟 사이트 진단</div></div>
+  <div class="stat"><div class="num">100</div><div class="lbl">시뮬 페르소나</div></div>
+  <div class="stat"><div class="num">12</div><div class="lbl">A/B 검증 케이스</div></div>
+  <div class="stat"><div class="num">4.83/5</div><div class="lbl">Blinded 구체성</div></div>
+</div>
+
+<!-- 1. 우선 보기 -->
+<div class="section">
+  <h2>🎯 핵심 리포트 (사업팀장 시작점)<span class="badge">먼저 여기</span></h2>
+  <table>
+    <tr><th>우선순위</th><th>리포트</th><th>설명</th></tr>
+    <tr>
+      <td><span class="priority priority-1">1</span></td>
+      <td><a href="sample_report_v2.html">sample_report_v2.html</a><span class="new">최신</span></td>
+      <td>종합 진단 — 5사이트 코호트 결과 + 검증 메트릭 + 차별점 (28KB)</td>
+    </tr>
+    <tr>
+      <td><span class="priority priority-2">2</span></td>
+      <td><a href="../experiments/QUALITY_REPORT_v2.md">QUALITY_REPORT_v2.md</a><span class="new">최신</span></td>
+      <td>품질 재평가 — 6개 영역 등급 및 사용자 결정 필요 항목</td>
+    </tr>
+    <tr>
+      <td><span class="priority priority-3">3</span></td>
+      <td><a href="../experiments/outbound/differentiation.md">differentiation.md</a></td>
+      <td>기존 도구(Hotjar/Optimizely 등) 대비 차별점</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 2. 타겟 사이트 코호트 -->
+<div class="section">
+  <h2>📊 타겟 사이트별 코호트 진단 (D2)</h2>
+  <table>
+    <tr><th>사이트</th><th>전환율</th><th>이탈률</th><th>주요 발견</th><th>리포트</th></tr>
+    <tr>
+      <td><strong>29CM</strong></td>
+      <td><span class="grade grade-A">30%</span></td>
+      <td>10%</td>
+      <td>가격민감형 강한 이탈</td>
+      <td><a href="cohort_rpt_20260414_649058/cohort_report.html">열기</a></td>
+    </tr>
+    <tr>
+      <td><strong>클래스101</strong></td>
+      <td><span class="grade grade-F">0%</span></td>
+      <td>10%</td>
+      <td>가치 판단 정체 (전원 partial)</td>
+      <td><a href="cohort_rpt_20260414_31ef68/cohort_report.html">열기</a></td>
+    </tr>
+    <tr>
+      <td><strong>오늘의집</strong></td>
+      <td><span class="grade grade-F">0%</span></td>
+      <td><strong>40%</strong></td>
+      <td>소셜프루프 역효과 (-0.40)</td>
+      <td><a href="cohort_rpt_20260414_26ffd3/cohort_report.html">열기</a></td>
+    </tr>
+    <tr>
+      <td><strong>Webflow</strong></td>
+      <td><span class="grade grade-F">0%</span></td>
+      <td><strong>50%</strong></td>
+      <td>리서치형 유저 이탈 (가격 복잡도)</td>
+      <td><a href="cohort_rpt_20260414_27edb8/cohort_report.html">열기</a></td>
+    </tr>
+    <tr>
+      <td><strong>Glossier</strong></td>
+      <td><span class="grade grade-F">0%</span></td>
+      <td>25%</td>
+      <td>가격 장벽 -0.57 (최강)</td>
+      <td><a href="cohort_rpt_20260414_3df81f/cohort_report.html">열기</a></td>
+    </tr>
+  </table>
+</div>
+
+<!-- 3. 검증 -->
+<div class="section">
+  <h2>🔬 검증 리포트</h2>
+  <table>
+    <tr><th>유형</th><th>리포트</th><th>핵심 결과</th></tr>
+    <tr>
+      <td>Ablation Study</td>
+      <td><a href="../experiments/ablation/MARGINAL_VALUE_REPORT.md">MARGINAL_VALUE_REPORT.md</a></td>
+      <td>Demo vs 41R: 구체성 4.83 vs 2.75 (12/12 전승, p=0.00024)</td>
+    </tr>
+    <tr>
+      <td>A/B 역검증</td>
+      <td><a href="../experiments/ab_validation/VALIDATION_REPORT.md">VALIDATION_REPORT.md</a></td>
+      <td>83.3% (n=12, 라벨 셔플 후 80%)</td>
+    </tr>
+    <tr>
+      <td>Ground Truth</td>
+      <td><a href="../experiments/ab_results/persona_ground_truth_validation.md">ground_truth_validation.md</a></td>
+      <td>NNGroup, Baymard 등 6개 항목 중 5개 일치</td>
+    </tr>
+    <tr>
+      <td>Browser Mode</td>
+      <td><a href="../experiments/browser_mode_validation.md">browser_mode_validation.md</a></td>
+      <td>실제 브라우저 시연 1/2 정상 (안정성 이슈 발견)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 4. 아웃바운드 -->
+<div class="section">
+  <h2>📨 아웃바운드 자료 (사용자 결정 대기)</h2>
+  <table>
+    <tr><th>자료</th><th>용도</th></tr>
+    <tr><td><a href="../experiments/outbound/cpo_target_list.md">cpo_target_list.md</a></td><td>CPO 30개사 타겟 리스트 (한국 15 + 글로벌 15)</td></tr>
+    <tr><td><a href="../experiments/outbound/target_sites.md">target_sites.md</a></td><td>5 타겟 사이트 세그먼트 정의</td></tr>
+    <tr><td><a href="../experiments/outbound/personalized_emails.md">personalized_emails.md</a></td><td>사이트별 맞춤 이메일 5건 (발송 대기)</td></tr>
+    <tr><td><a href="../experiments/outbound/cold_email_template.md">cold_email_template.md</a></td><td>아웃바운드 이메일 템플릿 3종</td></tr>
+    <tr><td><a href="../experiments/outbound/contact_mapping_guide.md">contact_mapping_guide.md</a></td><td>담당자 매핑 가이드 (LinkedIn/Apollo 활용)</td></tr>
+    <tr><td><a href="../experiments/outbound/feedback_form.md">feedback_form.md</a></td><td>피드백 수집 폼</td></tr>
+  </table>
+</div>
+
+<!-- 5. 시스템/문서 -->
+<div class="section">
+  <h2>⚙️ 시스템 / 거버넌스</h2>
+  <table>
+    <tr><th>항목</th><th>경로</th><th>비고</th></tr>
+    <tr><td>프로젝트 헌법</td><td><a href="../../41R-Constitution.md">41R-Constitution.md</a></td><td>시스템 구조 고정 선언</td></tr>
+    <tr><td>H1 슬라이스</td><td><a href="../../41R-Slice-H1.md">41R-Slice-H1.md</a></td><td>현재 sprint 범위</td></tr>
+    <tr><td>브라우저 플레이북</td><td><a href="../../41R-Browser-Testing-Playbook.md">Browser-Testing-Playbook.md</a></td><td>9개 원시 액션 규칙</td></tr>
+    <tr><td>프로젝트 가이드라인</td><td><a href="../../CLAUDE.md">CLAUDE.md</a></td><td>코드 위치, 자주 쓰는 명령어</td></tr>
+    <tr><td>법률 검토 질문</td><td><a href="../experiments/legal_review/H6_legal_questions.md">H6_legal_questions.md</a></td><td>H6 자문 준비</td></tr>
+    <tr><td>Golden Sessions</td><td><a href="../experiments/golden_sessions/README.md">golden_sessions/</a></td><td>회귀 검증 표준 5건</td></tr>
+  </table>
+</div>
+
+<!-- 6. 품질 등급 -->
+<div class="section">
+  <h2>📈 품질 등급 (현재)</h2>
+  <table>
+    <tr><th>영역</th><th>등급</th><th>비고</th></tr>
+    <tr><td>시스템 인프라</td><td><span class="grade grade-A">A</span></td><td>Makefile, CI, pre-commit, claim 태깅</td></tr>
+    <tr><td>리포트 품질</td><td><span class="grade grade-A">A</span></td><td>출처 추적, 49개 숫자 검증</td></tr>
+    <tr><td>코드 테스트</td><td><span class="grade grade-A">A</span></td><td>49 tests, 핵심 모듈 71~86% coverage</td></tr>
+    <tr><td>검증 엄밀성</td><td><span class="grade grade-B">B+</span></td><td>n=30 확장 시 A — G1 (web search)</td></tr>
+    <tr><td>데이터 신뢰도</td><td><span class="grade grade-B">B</span></td><td>실제 GA cross-check 시 A — F2</td></tr>
+    <tr><td>시장 증명</td><td><span class="grade grade-F">F</span></td><td>발송 결정 시 측정 시작 — F1</td></tr>
+  </table>
+  <p style="color:#64748b; font-size:13px; margin-top:10px;">
+    상세: <a href="../experiments/QUALITY_REPORT_v2.md">QUALITY_REPORT_v2.md</a>
+  </p>
+</div>
+
+<!-- 7. 개발 명령 -->
+<div class="section">
+  <h2>🛠 개발 명령</h2>
+  <table>
+    <tr><th>명령</th><th>설명</th></tr>
+    <tr><td><code>make test</code></td><td>49 unit tests 실행</td></tr>
+    <tr><td><code>make test-cov</code></td><td>커버리지 포함 테스트</td></tr>
+    <tr><td><code>make audit</code></td><td>모든 리포트 hallucination guard</td></tr>
+    <tr><td><code>make audit-trail</code></td><td>리포트별 출처 추적 audit trail 생성</td></tr>
+    <tr><td><code>make verify</code></td><td>test + audit (release 전 필수)</td></tr>
+  </table>
+</div>
+
+</div>
+
+<div class="footer">
+  41R Persona Market &mdash; AI 페르소나 세그먼트 진단 시스템<br>
+  Last updated: 2026-04-14 · Auto-generated index
+</div>
+
+</body>
+</html>

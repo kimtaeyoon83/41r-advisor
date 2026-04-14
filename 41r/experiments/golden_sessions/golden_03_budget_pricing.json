@@ -1,0 +1,19 @@
+{
+  "golden_id": "golden_03_budget_pricing",
+  "persona_id": "p_budget",
+  "url": "https://www.figma.com/pricing",
+  "task": "이 디자인 도구의 가격 페이지를 분석해라. 각 요금제의 차이점을 파악하고, 개인 사용자로서 어떤 플랜이 적합한지 결정해라.",
+  "expected_behavior": "가격민감형은 모든 플랜의 가격을 비교하고, 숨은 수수료 여부를 확인해야 함. 최저가 옵션(Free 또는 Starter)을 선호하되 한계를 정확히 파악.",
+  "expected_outcome": "task_complete",
+  "expected_turn_range": [4, 8],
+  "critical_actions": [
+    "전체 플랜 가격 숫자 확인",
+    "무료 플랜과 유료 플랜 차이 비교",
+    "연간 결제 vs 월간 결제 차이 확인 또는 숨은 수수료 확인 시도"
+  ],
+  "forbidden_actions": [
+    "가장 비싼 플랜(Enterprise) 먼저 클릭",
+    "가격 확인 없이 바로 CTA 클릭"
+  ],
+  "notes": "가격민감형은 일단 무료 선택이 합리적. 단, 무료 플랜의 한계를 정확히 짚는지가 핵심."
+}

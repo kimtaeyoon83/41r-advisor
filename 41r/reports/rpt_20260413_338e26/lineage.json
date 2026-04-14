@@ -1,0 +1,68 @@
+{
+  "report_id": "rpt_20260413_338e26",
+  "generated_at": "2026-04-14T00:58:24.214513+00:00",
+  "stack_versions": {
+    "agent/decision_judge": {
+      "version": "v002",
+      "hash": "45c1b381d5355905",
+      "path": "prompts/agent/decision_judge"
+    },
+    "agent/page_summarizer": {
+      "version": "v001",
+      "hash": "6837e59c5a1d83db",
+      "path": "prompts/agent/page_summarizer"
+    },
+    "agent/plan_generator": {
+      "version": "v001",
+      "hash": "4af1d6d83685ed47",
+      "path": "prompts/agent/plan_generator"
+    },
+    "agent/replan_trigger": {
+      "version": "v001",
+      "hash": "43a4669a20bdd608",
+      "path": "prompts/agent/replan_trigger"
+    },
+    "agent/tool_selector": {
+      "version": "v001",
+      "hash": "f7b5c69bd2efbd19",
+      "path": "prompts/agent/tool_selector"
+    },
+    "report/ab_comparison": {
+      "version": "v001",
+      "hash": "4f6e22f956d077c0",
+      "path": "prompts/report/ab_comparison"
+    },
+    "report/analyzer": {
+      "version": "v001",
+      "hash": "2798967cc5ee2e31",
+      "path": "prompts/report/analyzer"
+    }
+  },
+  "persona_snapshots": {
+    "p_impulsive": {
+      "soul_version": "v002",
+      "observation_count": 84,
+      "reflection_count": 0,
+      "last_observation": "o_19f722ea501d7f1b",
+      "active_reflections": []
+    },
+    "p_cautious": {
+      "soul_version": "v002",
+      "observation_count": 109,
+      "reflection_count": 0,
+      "last_observation": "o_97cae21ff4fefb82",
+      "active_reflections": []
+    }
+  },
+  "model_routing": {
+    "plan_generation": "claude-sonnet-4-6",
+    "decision_judge": "claude-sonnet-4-6",
+    "tool_selection": "claude-haiku-4-5",
+    "page_summarizer": "claude-haiku-4-5",
+    "report_analyzer": "claude-sonnet-4-6"
+  },
+  "sessions": [
+    "s_c4d19bf5",
+    "s_2a8a33e2"
+  ]
+}

@@ -1,0 +1,1054 @@
+{
+  "design_doc": "experiments/ablation/DESIGN.md",
+  "seed": 42,
+  "cohort_size_per_arm": 5,
+  "total_cases": 12,
+  "arm_a_demo_only": {
+    "accuracy_pct": 91.7,
+    "correct": 11,
+    "divergence_pct": 33.3
+  },
+  "arm_b_41r": {
+    "accuracy_pct": 83.3,
+    "correct": 10,
+    "divergence_pct": 75.0
+  },
+  "delta_accuracy_pp": -8.4,
+  "delta_divergence_pp": 41.7,
+  "arm_a_results": [
+    {
+      "case_id": "hubspot_social_proof",
+      "company": "HubSpot",
+      "test_description": "랜딩 페이지 CTA 근처에 고객 로고(소셜 프루프) 배치 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 24,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "28세 직장인 남성은 B2B SaaS나 업무용 서비스를 평가할 때 신뢰성과 검증된 레퍼런스를 중요하게 여기는 경향이 있으며, 유명 기업 로고는 '이 서비스가 실제로 검증됐다'는 사회적 증거로 작용해 전환 결정을 낮은 리스크로 인식하게 만든다. 다만 해당 로고가 페르소나가 인지하는 브랜드인지, 서비스 카테고리가 B2B인지 불분명하여 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "35세 한국 여성 사무직 직장인은 의사결정 시 타인의 검증과 사회적 증거를 중시하는 경향이 있으며, 특히 서비스 신뢰성을 확인하려는 심리가 강하다. CTA 폼 바로 위에 유명 엔터프라이즈 브랜드 로고가 배치된 Variant A는 '이미 검증된 서비스'라는 안도감을 제공해 가입 결정을 촉진할 가능성이 높다. 다만 해당 로고들이 본인과 관련성 높은 B2C 브랜드가 아닌 엔터프라이즈 브랜드일 경우 공감도가 낮아 효과가 제한될 수 있어 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 2,
+          "reasoning": "32세 여성 교사 페르소나는 엔터프라이즈 브랜드 로고에 대한 친숙도나 신뢰 연결고리가 약할 가능성이 높으며, B2B 소셜 프루프(기업 고객 로고)는 교사와 같은 일반 소비자층보다 기업 의사결정자에게 더 효과적으로 작동한다. 따라서 낯선 기업 로고가 오히려 '이건 나를 위한 서비스가 아닌가?'라는 인지적 거리감을 유발할 수 있고, 깔끔한 레이아웃이 더 직관적인 전환 경험을 제공할 수 있다. 다만 해당 서비스의 구체적 성격이 불명확하여 확신도는 낮게 설정한다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 기업 솔루션 도입 시 레퍼런스와 검증된 사용 사례를 중시하는 의사결정 패턴을 가지며, 엔터프라이즈 브랜드 로고는 신뢰성과 안전성을 즉각적으로 전달하는 강력한 신호로 작용한다. 특히 IT 관리자 직군은 도입 리스크에 민감하기 때문에 '우리 같은 기업도 쓴다'는 사회적 증거가 전환 결정에 직접적인 영향을 미칠 가능성이 높다. CTA 직전에 배치된 로고는 마지막 의사결정 순간의 심리적 장벽을 낮추는 역할을 한다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "58세 공무원 여성은 엔터프라이즈 브랜드 로고(예: 글로벌 IT 기업 등)에 대한 친숙도가 낮아 소셜 프루프 효과가 제한적일 가능성이 높다. 디지털 경험이 상대적으로 제한적인 이 페르소나는 복잡한 시각 요소보다 단순하고 직관적인 레이아웃에서 폼 입력에 집중하기 쉽다. 다만 이 서비스가 B2B 성격이라면 공무원 직업 특성상 공신력 있는 기관 로고가 신뢰를 줄 수도 있어 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "basecamp_long_form",
+      "company": "Basecamp (37signals)",
+      "test_description": "랜딩 페이지 길이 — 짧은 미니멀 vs 긴 상세 페이지",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 37.5,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "28세 직장인 남성은 온라인 구매 결정 시 정보를 충분히 검토하려는 경향이 있으며, 고객 후기와 FAQ 등 신뢰 요소가 전환 결정에 긍정적으로 작용할 가능성이 높다. 짧은 미니멀 페이지는 브랜드 인지도가 이미 높은 경우에 효과적이지만, 낯선 서비스라면 정보 부족으로 이탈할 수 있다. 다만 모바일 사용 비중이 높은 20대 특성상 긴 스크롤에 피로감을 느낄 수 있어 확신도는 중간 수준이다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "35세 사무직 여성은 온라인 쇼핑 및 서비스 가입 시 후기와 상세 정보를 꼼꼼히 확인하는 경향이 강하며, 충동적 결정보다는 정보 수집 후 신중하게 전환하는 패턴을 보인다. 고객 후기와 FAQ가 포함된 긴 형태 페이지는 신뢰도를 높여 전환 결정을 돕는다. 다만 모바일 사용 비중이 높을 경우 긴 스크롤이 이탈 요인이 될 수 있어 확신도는 중간 수준으로 설정한다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "32세 여성 교사는 전문직으로서 신중한 의사결정 성향을 가질 가능성이 높으며, 충분한 정보 탐색 후 전환하는 패턴을 보일 것으로 예측된다. 고객 후기와 FAQ는 신뢰도 형성에 기여하고, 교사라는 직업 특성상 정보를 꼼꼼히 검토하는 성향이 있어 상세 페이지가 더 설득력 있게 작용할 수 있다. 다만 서비스 유형과 구체적 맥락이 불명확하여 확신도는 중간 수준에 머문다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 기술적 배경과 분석적 성향으로 인해 의사결정 전 충분한 정보를 검토하는 경향이 강하다. 상세 기능 설명, FAQ, 고객 후기 등이 포함된 긴 페이지는 이 페르소나의 '정보 기반 신뢰 구축' 니즈를 충족시키며, 특히 IT 관리자 직군은 도입 제품에 대한 검증 과정을 중시하기 때문에 정보가 풍부한 Variant A에서 전환 가능성이 높다. 반면 미니멀 페이지는 충동적 소비 성향이 강한 젊은 층이나 이미 브랜드 인지도가 높은 경우에 효과적이므로 이 페르소나에게는 상대적으로 덜 적합하다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "58세 공무원 여성은 디지털 환경에 익숙하지 않아 간결한 페이지보다 충분한 정보 제공을 통해 신뢰를 형성해야 전환 가능성이 높아진다. 미니멀 페이지(B)의 짧은 카피만으로는 서비스에 대한 확신을 갖기 어렵고, 오히려 정보 부족으로 이탈할 가능성이 크다. 고객 후기·FAQ·상세 설명이 포함된 긴 페이지(A)는 신중한 의사결정 성향의 이 페르소나에게 안심하고 전환할 근거를 제공한다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "obama_2008_hero",
+      "company": "Obama 2008 Campaign",
+      "test_description": "히어로 영역 — 비디오 vs 가족사진, CTA 텍스트 — Sign Up vs Learn More",
+      "swapped": false,
+      "actual_winner": "B",
+      "lift_pct": 40,
+      "predicted_winner": "B",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "28세 한국 남성 직장인은 낯선 서비스에 대해 즉각적인 가입보다 정보 탐색을 선호하는 경향이 있으며, 'Learn More'처럼 낮은 진입장벽의 CTA가 초기 클릭을 유도하기 더 용이하다. 가족사진(특히 외국 유명인 이미지)은 이 페르소나에게 강한 감성적 공감을 주기 어려울 수 있지만, 비디오 재생 후 즉시 가입을 요구하는 Variant A보다는 부담이 적어 전환 퍼널 진입 가능성이 높다. 다만 해당 서비스의 카테고리 정보가 없어 확신도는 중간 수준이다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "35세 한국 여성 사무직 직장인은 즉각적인 가입 요구보다 정보 탐색을 선호하는 경향이 있으며, 'Learn More'처럼 부담이 낮은 CTA가 초기 진입장벽을 낮춰 전환 가능성을 높인다. 가족 사진은 감성적 공감을 유도해 서비스에 대한 친근감을 형성할 수 있고, 반면 비디오는 직장 환경(사무실)에서 재생하기 어렵거나 로딩 시간으로 이탈을 유발할 수 있다. 다만 오바마 가족이라는 특정 외국 인물 이미지가 한국 사용자에게 얼마나 공감을 이끌어낼지 불확실하여 확신도를 낮게 설정했다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "32세 여성 교사는 즉각적인 가입보다 정보 탐색 후 신중하게 결정하는 경향이 있어, 낮은 진입장벽의 'Learn More' CTA가 초기 전환(클릭)을 유도하기에 더 적합하다. 또한 가족 사진은 감성적 공감대를 형성하며, 전문직 여성으로서 서비스에 대한 충분한 이해 후 행동하는 패턴과 일치한다. 반면 비디오는 로딩 시간이나 소리 문제로 이탈을 유발할 수 있고 'Sign Up'은 준비되지 않은 사용자에게 심리적 부담을 줄 수 있다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "42세 IT 관리자는 즉각적인 가입 요구보다 정보 탐색 단계를 선호하는 경향이 있으며, 'Learn More'는 심리적 부담이 낮아 클릭 진입장벽이 낮다. 가족 사진은 감성적 친근감을 형성해 전문직 중년 남성층의 신뢰감을 높일 수 있고, 비디오 자동재생은 바쁜 업무 환경에서 오히려 이탈을 유발할 수 있다. 다만 오바마 가족 사진이라는 특정 이미지의 문화적 맥락이 한국 사용자에게 얼마나 공감을 줄지 불확실해 확신도는 낮게 설정했다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "58세 디지털 경험이 제한적인 공무원 여성은 즉각적인 가입 요구보다 정보 탐색 단계를 선호할 가능성이 높다. 'Sign Up'이라는 직접적 행동 요구는 심리적 부담을 주는 반면, 'Learn More'는 낮은 진입장벽으로 단계적 탐색을 허용해 신뢰 형성에 유리하다. 또한 가족 사진은 비디오보다 인지 부하가 낮고 정서적 친숙함을 제공하여 이 연령대 여성 페르소나의 관심을 더 효과적으로 끌 수 있다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "kaya_skin_form",
+      "company": "Kaya Skin Clinic",
+      "test_description": "리드 생성 폼 복잡도 — 6필드 vs 3필드",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 137,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "28세 남성 직장인은 온라인 서비스 이용 시 간편함과 속도를 중시하는 경향이 강하며, 불필요한 정보 입력에 대한 저항감이 높다. 6개 필드는 이미 피부 고민, 선호 지점 등 다소 개인적이거나 즉각적으로 답하기 번거로운 항목을 포함하고 있어 이탈 가능성을 높인다. 반면 3개 필드는 최소한의 마찰로 제출을 유도하므로 전환율이 유의미하게 높을 것으로 예측된다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "35세 사무직 여성은 업무와 일상이 바쁜 편으로, 폼 작성 시 마찰이 적을수록 전환 가능성이 높아진다. 3필드 폼은 입력 부담이 낮아 즉각적인 제출을 유도하며, 개인 정보(도시, 피부 고민 등) 노출에 대한 심리적 저항도 줄여준다. 6필드 폼은 피부 고민 같은 민감한 항목이 포함되어 있어 초기 접점에서 이탈을 유발할 가능성이 높다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "32세 전문직 여성은 바쁜 일상 속에서 온라인 폼 작성 시 마찰을 최소화하길 선호하며, 필드 수가 적을수록 이탈률이 낮아지는 경향이 있다. 특히 피부 고민이나 선호 지점 같은 개인적·구체적 정보를 초면에 요구받는 것은 부담감과 개인정보 노출에 대한 경계심을 높일 수 있다. 3필드 폼은 심리적 진입 장벽을 낮춰 초기 전환을 유도하기에 더 적합하다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT관리자는 디지털 리터러시가 높고 효율성을 중시하는 전문직으로, 불필요한 정보 입력에 대한 저항감이 크다. 특히 '피부 고민'과 같은 다소 개인적이고 제품 성격이 강한 항목은 IT 관리자 페르소나에게 심리적 마찰로 작용할 가능성이 높다. 3필드 폼은 진입 장벽을 낮춰 빠른 의사결정을 선호하는 바쁜 전문직 남성의 전환율을 높이는 데 유리하다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "58세 공무원 여성은 디지털 서비스 경험이 제한적이어서 긴 폼을 마주했을 때 피로감과 이탈 가능성이 높다. 3개 필드의 간결한 폼은 인지 부하를 최소화하여 완료 저항감을 낮추므로 전환 가능성이 더 높다. 또한 이 연령대는 개인정보(도시, 피부 고민 등) 추가 입력에 대한 거부감도 상대적으로 강할 수 있어 Variant A가 유리하다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "humana_banner",
+      "company": "Humana",
+      "test_description": "홈페이지 배너 — 복잡한 다중 메시지 vs 깔끔한 단일 메시지",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 433,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "28세 남성 직장인은 바쁜 일상 속에서 모바일 또는 PC로 빠르게 정보를 소비하는 패턴을 보이며, 복잡한 UI보다 명확하고 간결한 메시지에 더 빠르게 반응하는 경향이 있다. Variant B처럼 CTA가 여러 개 경쟁하는 구조는 결정 피로(decision fatigue)를 유발해 이탈 가능성을 높인다. Variant A의 단일 가치 제안과 명확한 시각적 초점은 전환 행동을 유도하기에 훨씬 유리하다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "35세 사무직 여성은 바쁜 일상 속에서 정보를 빠르게 처리하려는 경향이 강하며, 명확한 의사결정 경로를 선호한다. Variant A의 단일 메시지와 하나의 CTA는 인지 부하를 최소화하여 전환 결정을 쉽게 만든다. 반면 Variant B의 복잡한 구성은 주의가 분산되고 어디를 클릭해야 할지 혼란을 주어 이탈 가능성이 높다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "32세 여성 전문직(교사)은 정보 처리 효율성을 중시하며, 명확한 메시지와 단일 행동 유도가 의사결정을 단순화해준다. Variant B처럼 시각적으로 복잡하고 CTA가 여러 개 경쟁하는 구조는 선택 과부하(choice overload)를 유발해 전환율을 낮출 가능성이 높다. 교사라는 직업 특성상 구조적이고 명료한 커뮤니케이션에 익숙하기 때문에 Variant A의 단순하고 집중된 배너에서 더 빠른 전환 결정이 이루어질 것으로 예측된다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 업무 효율성과 명확성을 중시하는 전문직으로, 복잡한 정보보다 핵심 가치를 즉시 파악할 수 있는 단순한 UI를 선호할 가능성이 높다. Variant B의 다중 CTA는 의사결정 피로(decision fatigue)를 유발해 이탈 가능성을 높이는 반면, Variant A의 단일 메시지와 명확한 CTA는 바쁜 관리자 페르소나의 빠른 판단 스타일에 부합한다. IT 직군 특성상 클린한 UI/UX에 대한 안목도 있어 시각적으로 산만한 배너에 대한 거부감이 일반 사용자보다 클 수 있다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "디지털 서비스 경험이 제한적인 50대 후반 사용자는 복잡한 시각적 자극과 다수의 CTA에 노출될 경우 인지 부하가 높아져 이탈 가능성이 크다. Variant A의 단일 메시지와 명확한 시각적 초점은 다음 행동을 명확히 안내하므로 의사결정 부담을 줄여준다. 공무원 직군 특성상 신중하고 명확한 정보 처리를 선호하는 경향이 있어, 깔끔하고 단순한 배너에서 전환 확률이 현저히 높을 것으로 예측된다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "groove_pricing",
+      "company": "Groove",
+      "test_description": "가격 페이지 — 상세 기능비교 테이블 vs 단순화된 단일 플랜 강조",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 25,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "28세 남성 직장인은 바쁜 일상 속에서 빠른 의사결정을 선호하는 경향이 있으며, 복잡한 비교 테이블보다 핵심 정보가 명확히 제시된 단순한 페이지에서 인지 부하가 줄어 전환 가능성이 높다. 소셜 프루프(고객 수 표시)는 신뢰감을 빠르게 형성해 결정을 촉진하는 효과가 있다. 다만 직장인으로서 합리적 소비를 중시할 경우 기능 비교를 원할 수도 있어 확신도는 중간 수준으로 설정했다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "35세 사무직 여성은 일반적으로 정보 수집보다 신뢰 기반의 빠른 의사결정을 선호하는 경향이 있으며, 소셜 프루프(고객 수 표시)가 구매 확신을 높이는 데 효과적으로 작용할 가능성이 높다. 복잡한 기능 비교 테이블은 정보 과부하를 유발해 결정을 지연시키거나 이탈로 이어질 수 있다. 다만 사무직 특성상 꼼꼼한 비교를 선호할 수도 있어 확신도는 중간 수준으로 설정한다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "32세 여성 교사는 전문직으로서 정보 탐색 성향이 있으나, 가격 페이지에서 과도한 정보량은 결정 피로를 유발할 수 있다. 소셜 프루프(고객 수)는 신뢰 기반 의사결정을 선호하는 경향이 있는 30대 여성 전문직에게 효과적으로 작용할 가능성이 높다. 단순화된 UI는 명확한 선택지를 제공해 전환 장벽을 낮추는 반면, 비교 테이블은 불필요한 고민을 유도해 이탈로 이어질 수 있다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 기술적 배경을 가진 분석적 의사결정자로, 구매 전 상세 스펙과 기능을 꼼꼼히 검토하는 성향이 강하다. 특히 기업 IT 구매 결정에서는 상사나 팀에게 선택 근거를 설명해야 하므로, 기능 비교 테이블이 제공하는 구체적인 데이터가 확신과 정당성을 높여준다. 단순화된 단일 플랜은 정보 부족으로 오히려 신뢰감을 낮추고 이탈을 유발할 가능성이 높다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "58세 공무원 여성은 디지털 서비스 사용 경험이 제한적이므로 정보량이 많은 복잡한 비교 테이블보다 단순하고 명확한 단일 플랜 강조 방식에서 인지 부담이 낮아 결정이 쉽다. 소셜 프루프(고객 수)는 이 연령대에서 신뢰 신호로 작용하여 전환을 추가로 촉진할 가능성이 높다. 반면 Variant B의 티어별 세부 기능 비교는 정보 과부하를 유발해 이탈로 이어질 위험이 크다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "express_watches_trust",
+      "company": "Express Watches",
+      "test_description": "상품 페이지에 공식 인증 딜러 신뢰 배지 추가 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 107,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "28세 서울 직장인은 온라인 쇼핑 경험이 풍부하여 가품이나 비공식 판매자에 대한 경계심이 높은 편이다. 특히 가전, 의류, 전자기기 등의 구매 시 공식 인증 여부를 중요하게 여기는 경향이 있으며, 장바구니 버튼 근처의 신뢰 배지는 마지막 구매 결정 단계에서 불안감을 해소하는 역할을 한다. 따라서 인증 배지가 있는 Variant A에서 전환율이 더 높을 것으로 예측된다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "35세 서울 사무직 여성은 온라인 쇼핑 경험이 풍부하여 가품·사기 피해에 민감하며, 구매 전 신뢰성 검증을 중요시하는 경향이 있다. 공식 인증 딜러 배지는 '안심하고 구매해도 되는 곳'이라는 신호를 제공하여 구매 결정의 심리적 허들을 낮춰준다. 특히 고관여 상품일수록 신뢰 요소가 전환율에 직접적인 영향을 미치므로 Variant A가 유리하다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "32세 여성 교사는 안정적인 직업과 신중한 소비 패턴을 가진 전문직으로, 온라인 구매 시 신뢰성과 안전성을 중요하게 고려하는 경향이 있다. 공식 인증 딜러 배지는 제품의 정품 여부와 구매 안전성에 대한 불안감을 해소해주는 역할을 하며, 특히 인천 거주 30대 초반 한국 여성은 온라인 사기나 가품에 대한 경계심이 높아 신뢰 신호에 민감하게 반응할 가능성이 크다. 장바구니 버튼 근처의 눈에 띄는 배치는 구매 결정 순간의 심리적 마찰을 줄여 전환율을 높이는 데 효과적으로 작용할 것이다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 온라인 구매 시 제품 신뢰성과 공식 인증 여부를 중요하게 고려하는 경향이 있으며, 특히 IT 업계 종사자로서 정품 여부와 공급망의 신뢰성에 민감하다. '공식 인증 딜러' 배지는 모조품 또는 비공식 유통에 대한 불안감을 해소하는 신호로 작용해 구매 결정을 촉진할 가능성이 높다. 한국 40대 전문직 남성은 충동 구매보다 검증된 정보와 신뢰 지표를 바탕으로 구매하는 패턴을 보이므로, 인증 배지가 전환율 제고에 유의미한 영향을 줄 것으로 판단된다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "58세 공무원 여성은 온라인 쇼핑 경험이 상대적으로 제한적이어서 신뢰성 신호에 민감하게 반응하는 경향이 있다. 이 연령대는 온라인 거래에서 사기나 비정품에 대한 불안감이 높기 때문에, 공식 인증 배지가 구매 결정의 심리적 장벽을 낮추는 데 효과적으로 작용할 것이다. 다만 배지 문구가 영어(Official Authorized Dealer)로 표기되어 있어 직관적 이해도가 떨어질 수 있다는 점이 효과를 다소 제한할 수 있다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "ea_simcity_promo",
+      "company": "Electronic Arts (SimCity)",
+      "test_description": "체크아웃 페이지에서 프로모션 할인 배너 제거 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 43.4,
+      "predicted_winner": "B",
+      "match": false,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "28세 남성 직장인은 가격 민감도가 높고 할인 혜택에 적극적으로 반응하는 경향이 있다. 체크아웃 단계에서 20% 할인이라는 명확한 금전적 이점이 표시되면 구매 결정을 강화하는 긍정적 트리거로 작용할 가능성이 높다. 특히 한국 20대 후반 직장인은 가성비를 중시하는 소비 패턴을 보이므로, 할인 배너가 이탈보다는 전환을 촉진할 것으로 판단된다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "35세 한국 여성 사무직 직장인은 가격 민감도가 높고 할인 혜택에 적극적으로 반응하는 경향이 있다. 체크아웃 단계에서 '20% 할인' 메시지는 이미 구매 의사가 있는 상태에서 결제를 망설이는 순간에 강력한 긍정적 확신 트리거로 작용할 가능성이 높다. 다만 배너가 너무 산만하게 느껴져 이탈을 유발할 소지도 있으나, 할인 혜택의 구체성('20%')이 그 리스크를 상쇄할 것으로 판단된다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "32세 교사라는 직업 특성상 비교적 안정적인 수입을 가지고 있지만, 합리적 소비를 중시하는 한국 30대 초반 여성 전문직은 가격 민감도가 높고 할인 혜택에 긍정적으로 반응하는 경향이 있다. 체크아웃 단계에서 20% 할인 배너는 구매 결정을 망설이는 순간에 즉각적인 가치 확신을 제공하여 전환율을 높일 가능성이 크다. 다만 배너가 지나치게 산만하게 느껴질 경우 신뢰도를 낮출 수 있어 확신도를 5가 아닌 4로 설정하였다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "42세 IT 관리자는 가격 대비 가치에 민감한 전문직 소비자로, 체크아웃 단계에서 20% 할인 배너는 구매 결정을 강화하는 긍정적 신호로 작용할 가능성이 높다. 다만 이미 체크아웃 단계에 진입한 사용자이므로 배너가 오히려 집중을 분산시킬 수도 있으나, 할인이라는 명확한 금전적 혜택은 대부분의 40대 전문직 남성에게 구매 확신을 높이는 요소로 작용한다. 페르소나의 특성이 충분히 구체적이지 않아 확신도는 중간 수준으로 설정한다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "50대 후반 공무원 여성은 가격 민감도가 높고, 명확한 할인 혜택 표시에 긍정적으로 반응하는 경향이 있다. '지금 구매하면 20% 할인!'이라는 직접적이고 명확한 메시지는 디지털 경험이 상대적으로 제한적인 이 페르소나에게 오히려 구매 결정을 쉽게 해주는 명분으로 작용할 가능성이 높다. 단, 배너가 너무 복잡하거나 팝업 형태라면 혼란을 줄 수 있으나, 상단 고정 배너 수준이라면 할인 혜택이 전환을 촉진하는 요인이 될 것으로 판단된다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "workzone_logos",
+      "company": "WorkZone",
+      "test_description": "추천사 섹션 — 컬러 로고 vs 그레이스케일 로고",
+      "swapped": false,
+      "actual_winner": "B",
+      "lift_pct": 34,
+      "predicted_winner": "B",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "28세 직장인 남성은 실용적인 정보 탐색에 집중하는 경향이 있으며, 시각적으로 복잡한 요소보다는 핵심 CTA로 시선이 자연스럽게 유도될 때 전환 결정이 빠르다. Variant B의 그레이스케일 로고는 신뢰감을 주면서도 CTA 버튼과의 시각적 경쟁을 줄여 전환 경로를 단순화한다. 다만 컬러 로고의 브랜드 인지도 효과도 무시할 수 없어 확신도는 중간 수준이다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "그레이스케일 로고는 시각적 노이즈를 줄여 CTA 버튼으로 시선을 자연스럽게 유도하므로, 전환율 측면에서 유리한 경향이 있다. 35세 사무직 여성은 정보 탐색 시 깔끔하고 정돈된 레이아웃을 선호하는 경향이 있어 Variant B의 절제된 디자인이 더 신뢰감 있게 느껴질 수 있다. 다만 컬러 로고가 브랜드 인지도와 신뢰감을 높일 수 있어 두 효과가 상충하므로 확신도는 중간 수준이다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "32세 여성 교사라는 전문직 페르소나는 신중하고 목적 지향적인 온라인 탐색 패턴을 보일 가능성이 높아, 화려한 시각 요소보다 핵심 CTA에 집중하는 환경에서 전환 결정을 내리기 쉽다. 그레이스케일 로고는 브랜드 신뢰성은 유지하면서 시각적 노이즈를 줄여 CTA 버튼으로 시선을 유도하므로, 충동적 클릭보다 정보 확인 후 행동하는 이 페르소나에게 더 효과적일 수 있다. 다만 컬러/그레이스케일 선호는 개인 감수성 차이가 크고 페르소나 정보만으로 단정하기 어려워 확신도는 중간 수준으로 설정했다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "42세 IT 관리자는 기술적 판단력이 높고 시각적 노이즈보다 핵심 정보와 CTA에 집중하는 경향이 있다. 그레이스케일 로고는 시각적 산만함을 줄여 CTA 버튼으로 시선을 유도하고, 전문적이고 절제된 디자인이 IT 전문직의 심리적 신뢰감과 부합할 가능성이 높다. 다만 컬러 로고의 브랜드 인지도 효과도 무시할 수 없어 확신도는 중간 수준이다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "58세 디지털 경험이 제한적인 사용자는 시각적 단서에 더 의존하는 경향이 있으며, 컬러 로고는 브랜드 신뢰감을 직관적으로 전달해 친숙한 기업을 쉽게 인식하게 돕는다. 그레이스케일 로고는 CTA와의 시각적 경쟁을 줄여 이론적으로는 전환에 유리하지만, 이 페르소나에게는 오히려 콘텐츠가 덜 완성된 것처럼 느껴지거나 신뢰도가 낮아 보일 수 있다. 다만 CTA 버튼과의 시각적 경쟁 감소 효과가 연령대와 무관하게 작용할 수 있어 확신도는 중간 수준이다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "hyundai_cta_fold",
+      "company": "Hyundai Netherlands",
+      "test_description": "CTA 위치 — 화면 상단(above the fold) vs 스크롤 후 하단 배치",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 15,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "28세 직장인 남성은 자동차 시승 신청과 같은 비교적 높은 관여도(high-involvement)의 결정을 내리기 전에 충분한 정보를 탐색하려는 경향이 있다. 충동적으로 상단 CTA를 클릭하기보다 기능과 혜택을 먼저 확인한 뒤 확신을 갖고 전환할 가능성이 높다. 다만 이미 브랜드나 모델에 익숙한 재방문자라면 Variant B가 유리할 수 있어 확신도는 중간 수준이다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "35세 여성 사무직은 자동차 시승 신청처럼 오프라인 행동을 수반하는 고관여 의사결정에서 충분한 정보 탐색 후 행동하는 경향이 있다. 시승 신청은 개인 정보 제공과 대리점 방문을 전제로 하는 높은 심리적 허들의 전환 행동이므로, 혜택과 기능 설명을 먼저 읽고 신뢰를 형성한 뒤 CTA에 도달하는 Variant A가 더 효과적일 가능성이 높다. 다만 페르소나가 이미 시승 의향을 갖고 유입된 경우라면 Variant B가 유리할 수 있어 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "32세 여성 교사라는 페르소나는 신중하고 정보 탐색 중심의 의사결정 패턴을 보일 가능성이 높으며, '시승 신청'은 자동차 구매로 이어지는 고관여(high-involvement) 행동이므로 충분한 정보 확인 후 행동하는 경향이 강하다. Variant A처럼 기능과 혜택을 먼저 읽고 설득된 뒤 CTA에 도달하는 흐름이 이 페르소나의 구매 심리 여정과 더 잘 맞아떨어진다. 다만 자동차에 대한 사전 관심 수준이나 브랜드 친숙도에 따라 결과가 달라질 수 있어 확신도는 중간 수준으로 평가한다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "42세 IT 관리자는 의사결정 전 충분한 정보 수집을 선호하는 분석적 성향이 강하며, 특히 '시승 신청'처럼 오프라인 행동을 수반하는 고관여 전환의 경우 기능·혜택을 먼저 검토한 뒤 행동하는 패턴이 일반적이다. 상단 CTA는 맥락 없이 행동을 요구해 이 페르소나에게 조급하게 느껴질 수 있는 반면, 하단 CTA는 정보 탐색 흐름이 완결된 직후 자연스럽게 전환을 유도한다. 다만 시승이라는 카테고리 특성상 브랜드 인지도나 사전 관심도 변수가 크기 때문에 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "58세 공무원 여성은 디지털 서비스 경험이 제한적이고 신중한 의사결정 성향이 강한 페르소나로, 충분한 정보 습득 없이 바로 행동으로 이어지기 어렵다. 시승 신청은 개인정보 제공과 영업사원 접촉을 수반하는 높은 관여도의 행동이므로, 혜택과 기능 설명을 먼저 읽고 신뢰를 형성한 후 CTA에 도달하는 Variant A 흐름이 이 페르소나의 전환에 더 적합하다. 상단 CTA(Variant B)는 정보 탐색 욕구가 충족되지 않은 상태에서 조기에 이탈을 유발할 가능성이 높다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "contentverve_cta_copy",
+      "company": "ContentVerve",
+      "test_description": "CTA 버튼 카피 — 2인칭 vs 1인칭 소유격",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 90,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "1인칭 소유격 'my'는 사용자가 행동 주체로서 능동적 소유감을 느끼게 하여 심리적 관여도를 높이는 경향이 있다. 28세 직장인 남성은 디지털 환경에 익숙하고 자기결정적 소비 성향이 강해 'my'가 주는 주체성 강조가 미세하게 유리할 수 있다. 다만 영어 카피이므로 언어적 뉘앙스 차이가 한국어 사용자에게 약하게 전달될 수 있어 확신도는 낮다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "1인칭 소유격 'my'는 사용자가 이미 해당 아이템을 자신의 것으로 심리적으로 소유한 느낌을 주어 클릭 동기를 높이는 경향이 있다. 35세 사무직 여성은 실용적이고 목적 지향적인 온라인 행동 패턴을 보일 가능성이 높아, '나의 것'이라는 소유 프레이밍이 행동 유발에 더 효과적일 수 있다. 다만 영어 카피이므로 한국어가 주요 언어인 이 페르소나에게는 두 variant 간 심리적 차이가 크지 않을 수 있어 확신도를 낮게 설정했다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "1인칭 소유격 'my'는 사용자가 해당 행동을 자신의 것으로 내면화하게 만들어 심리적 소유감을 높이는 경향이 있으며, 이는 교사와 같이 목적 지향적이고 자기결정적인 성향의 전문직 여성에게 더 강한 행동 유발 효과를 줄 수 있다. 다만 한국어권 사용자로서 영문 카피의 미묘한 인칭 뉘앙스 차이에 대한 민감도가 낮을 수 있어 두 variant 간 실질적 차이는 크지 않을 것으로 예상된다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 2,
+          "reasoning": "한국 40대 초반 남성 IT 관리자는 영어 UI에 익숙하나, 1인칭 소유격(my)보다 2인칭(your)이 서비스가 직접 제안하는 형태로 더 자연스럽게 읽힐 가능성이 높다. 다만 영어 카피 미묘한 차이에 대한 민감도가 낮고, 두 표현 모두 실질적으로 동일한 의미로 인식될 수 있어 두 variant 간 전환율 차이가 미미할 것으로 예상된다. 확신도가 낮은 이유는 이 페르소나 특성상 버튼 카피 소유격 차이보다 실질적인 콘텐츠 가치나 신뢰도가 전환에 더 큰 영향을 미칠 것이기 때문이다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 2,
+          "reasoning": "58세 한국 여성 공무원으로 영어 기반 CTA 카피에 대한 민감도 자체가 낮을 가능성이 높아, 'my' vs 'your'의 심리적 차이가 전환에 미치는 영향은 제한적일 것으로 보인다. 다만 영어 독해 시 'your'는 상대방이 직접 말을 거는 자연스러운 2인칭 형태로, 디지털 경험이 제한적인 사용자에게 다소 더 직관적으로 읽힐 수 있다. 전반적으로 두 variant 간 유의미한 전환율 차이가 나타나기 어려운 페르소나이며, 확신도는 낮다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    },
+    {
+      "case_id": "performable_button_color",
+      "company": "Performable (HubSpot)",
+      "test_description": "CTA 버튼 컬러 — 페이지 배경과 조화 vs 대비 색상",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 21,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "28세 남성 직장인은 바쁜 일상 속에서 빠른 의사결정을 선호하며, 시각적으로 즉각 인지되는 요소에 반응할 가능성이 높다. 녹색 배경 위의 빨간 CTA 버튼은 강한 대비로 즉시 눈에 띄어 클릭 유도 효과가 크며, Variant B의 녹색 버튼은 배경과 혼합되어 CTA로서의 시각적 독립성이 낮아 놓치거나 무시될 가능성이 높다. 20대 후반 남성은 일반적으로 직관적·행동 지향적 탐색 패턴을 보이므로, 눈에 띄는 대비 색상이 전환율에 더 유리하다.",
+          "persona_id": "demo_young_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "30대 중반 사무직 여성은 온라인 쇼핑 및 서비스 이용 경험이 풍부하여 CTA 버튼을 명확히 인식하는 것을 선호하는 경향이 있다. 녹색 배경에서 빨간 버튼은 강한 시각적 대비로 즉각적인 주의를 끌어 클릭 유도에 유리하며, 버튼이 배경에 묻혀버리는 Variant B보다 행동 유발 가능성이 높다. 바쁜 직장인으로서 페이지를 꼼꼼히 탐색하기보다 눈에 띄는 요소에 빠르게 반응하는 패턴을 보일 가능성이 크다.",
+          "persona_id": "demo_adult_f"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "CTA 버튼의 핵심 기능은 사용자의 시선을 끌어 행동을 유도하는 것이므로, 녹색 배경에서 강한 대비를 이루는 빨간 버튼이 시각적 주목도 면에서 명확히 우위에 있다. 32세 여성 교사라는 페르소나는 온라인 쇼핑 및 서비스 이용 경험이 풍부한 디지털 친숙 세대로, 버튼을 직관적으로 인식하고 클릭하는 데 익숙하며 눈에 띄는 UI 요소에 자연스럽게 반응할 가능성이 높다. 반면 배경과 동일한 녹색 버튼은 시각적으로 묻혀 버튼 자체를 인식하지 못하거나 행동 유도력이 떨어질 수 있다.",
+          "persona_id": "demo_adult_f2"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "42세 IT 관리자는 목적 지향적인 온라인 행동 패턴을 보이며, 필요한 액션을 빠르고 효율적으로 완료하길 선호한다. 녹색 배경 위의 빨간 CTA 버튼은 시각적 대비가 강해 즉각적으로 눈에 띄어 클릭 유도에 유리하다. 반면 Variant B의 녹색 버튼은 배경과 동화되어 CTA로서의 시인성이 낮아, 전환 의도가 있더라도 버튼을 놓칠 가능성이 높다.",
+          "persona_id": "demo_adult_m"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "디지털 서비스 경험이 제한적인 50대 후반 사용자는 CTA 버튼을 직관적으로 인식하는 능력이 상대적으로 낮기 때문에, 배경과 강하게 대비되는 빨간 버튼이 '클릭 가능한 요소'임을 즉각적으로 인지시키는 데 유리하다. 녹색 배경에 녹색 버튼은 버튼 자체가 시각적으로 묻혀 버려 버튼의 존재를 놓치거나 클릭을 망설일 가능성이 높다. 고연령층일수록 명확한 시각적 단서에 의존하는 경향이 강하므로 Variant A의 전환율이 더 높을 것으로 예측된다.",
+          "persona_id": "demo_senior_f"
+        }
+      ]
+    }
+  ],
+  "arm_b_results": [
+    {
+      "case_id": "hubspot_social_proof",
+      "company": "HubSpot",
+      "test_description": "랜딩 페이지 CTA 근처에 고객 로고(소셜 프루프) 배치 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 24,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "민수는 소셜프루프 의존도 0.7로 높고, 별점·후기 등 시각적 신뢰 신호에 크게 반응한다. CTA 폼 바로 위에 배치된 유명 기업 로고는 결정 시점에서 즉각적인 시각 자극(시각의존 0.9)으로 작용해 0.5초 내 충동적 전환을 유도할 가능성이 높다. 가격민감도와 리서치 성향이 낮아 깊이 따지지 않으므로, 'A급 기업들이 쓰니 나도 해볼게' 식의 빠른 사회적 동조 심리가 Variant A에서 전환율을 끌어올린다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "지영은 신뢰 지표로 '고객 사례 3+' 및 회사 연혁을 중시하며, CTA 직전에 유명 엔터프라이즈 브랜드 로고가 노출되면 '이 서비스가 검증된 곳에서 쓰인다'는 확신을 강화해 전환 저항을 낮출 수 있다. 다만 소셜프루프 의존도가 0.5로 중간 수준이고 프라이버시 민감도(0.8)가 높아 로고만으로 완전한 신뢰를 형성하기보다는 보조 신뢰 요소로 작용하는 수준에 그칠 가능성이 있어 확신도를 낮게 설정했다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "현주는 브랜드 스토리나 디자인 요소를 무시하는 성향이 강하며, 엔터프라이즈 고객 로고는 가격 투명성·환불보장·무료체험 같은 그녀의 핵심 신뢰 요소와 거리가 멀다. 소셜프루프 민감도가 0.6으로 중간 수준이지만, 유명 기업 로고는 '나와 같은 소비자의 검증'이 아닌 B2B 권위 신호에 가까워 가격민감형 개인 사용자에게는 설득력이 낮다. Variant B의 군더더기 없는 레이아웃이 그녀의 짧은 인내심(5초)과 빠른 결정(2초) 패턴에 더 부합하며, 불필요한 요소 없이 핵심 정보에 집중하게 해준다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "준혁은 소셜프루프 민감도가 0.4로 낮지만, 신뢰 요소로 '고객사 로고'를 명시적으로 선호하는 프로필을 가지고 있어 엔터프라이즈 브랜드 로고가 감성 카피보다는 실질적 검증 신호로 작용할 가능성이 높다. IT팀장으로서 '이 솔루션이 검증된 기업들이 쓰는가'를 빠른 판단 기준으로 삼는 경향이 있어 CTA 직전 로고 노출은 결정 속도 1.5초 내 긍정적 트리거가 될 수 있다. 단, 소셜프루프 의존도 자체가 낮아 로고 유무보다 기술 스펙/비교표 등 다른 요소의 영향력이 더 클 수 있으므로 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "영숙 씨는 소셜프루프 의존도(0.8)와 브랜드충성도(0.9)가 매우 높아, 유명 기업 고객 로고가 신뢰 형성에 긍정적으로 작용할 가능성이 크다. 다만 테크문해력(0.3)이 낮고 단순한 페이지를 선호하는 특성상, 로고가 시각적 혼잡을 만들어 CTA 클릭 위치를 불명확하게 느끼게 할 소지도 있다. 로고가 '오래된 회사' 혹은 친숙한 브랜드로 인식된다면 신뢰 자극이 우세하겠지만, 엔터프라이즈 브랜드가 영숙 씨에게 낯선 경우라면 효과가 반감될 수 있어 확신도를 중간으로 설정한다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "basecamp_long_form",
+      "company": "Basecamp (37signals)",
+      "test_description": "랜딩 페이지 길이 — 짧은 미니멀 vs 긴 상세 페이지",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 37.5,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "민수는 인내심이 극히 낮고(2초) 스크롤 3회 이상에 좌절을 느끼므로, 긴 형태의 Variant A는 이탈을 유발할 가능성이 높다. Variant B의 스크롤 불필요한 미니멀 구성은 0.5초 결정속도와 찰떡같이 맞아 떨어지며, 단일 CTA는 충동적 클릭을 유도하기에 최적화되어 있다. 다만 소셜프루프 의존도(0.7)가 높아 후기·별점 부재가 약점이 될 수 있어 확신도를 5에서 4로 조정했다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 성향이 0.95로 매우 높고, 고객 사례 3개 이상·리뷰 100개 이상·환불 정책 등 신뢰 요소를 명확히 확인한 후에야 전환하는 신중형 페르소나다. Variant B의 미니멀 페이지는 정보가 극히 부족해 '리뷰 부족'과 '회사 정보 없음'이라는 그녀의 주요 좌절 요인을 직접 유발한다. 반면 Variant A의 상세 기능 설명·고객 후기·FAQ 구성은 그녀가 의사결정에 필요한 신뢰 요소를 모두 충족시키므로 전환 가능성이 압도적으로 높다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "현주는 리서치 성향(0.7)이 높고 가격민감도(0.95)가 극단적으로 높아, 전환 전 가격·환불·수수료 정보를 충분히 확인하려는 욕구가 강하다. Variant B의 미니멀 페이지는 정보가 부족해 '가격이 안 보임', '숨은 수수료' 우려를 유발하며 이탈로 이어질 가능성이 높다. Variant A의 상세 FAQ·고객 후기·명확한 가격 정보는 그녀의 의심을 해소하고 신뢰를 형성하는 데 직접적으로 기여하므로, 인내심(5초)이 짧더라도 필요한 정보가 눈에 띄면 스크롤을 감수할 가능성이 크다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "준혁은 구체적 수치, 기술 스펙, 비교 정보를 신뢰 기반으로 삼는 리서치 지향형 의사결정자로, 정보 부족 시 오히려 전환을 보류하는 패턴을 보인다. Variant B의 미니멀 구성은 그가 필요로 하는 기능 검증과 근거 데이터를 제공하지 못해 '기능 숨김'으로 인식될 가능성이 높다. 반면 Variant A의 상세 기능 설명과 FAQ는 그의 리서치 성향(0.6)을 충족시키며, 인내심 6초는 짧지 않아 정보 밀도 높은 페이지 스크롤을 수용할 여지가 있다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "영숙씨는 소셜프루프(0.8)와 브랜드충성도(0.9)가 높아 고객 후기와 신뢰 요소가 풍부한 긴 형태 페이지에서 안심감을 느낄 가능성이 높다. 테크문해력(0.3)이 낮고 단순한 페이지를 선호하는 점은 Variant B에 유리하지만, 가격민감도(0.7)와 프라이버시(0.7)가 높아 충분한 정보 없이 즉각 전환하기보다 FAQ와 상세 설명을 통해 의구심을 해소한 뒤 결정하는 패턴이 더 맞다. 다만 작은 글씨나 CTA 위치 불명확성이 있다면 오히려 좌절 요인이 될 수 있으므로 큰 버튼과 명확한 배치가 전제되어야 한다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "obama_2008_hero",
+      "company": "Obama 2008 Campaign",
+      "test_description": "히어로 영역 — 비디오 vs 가족사진, CTA 텍스트 — Sign Up vs Learn More",
+      "swapped": false,
+      "actual_winner": "B",
+      "lift_pct": 40,
+      "predicted_winner": "B",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "충동형 민수는 결정속도가 0.5초로 극히 빠르고 인내심이 2초에 불과해 'Learn More'처럼 추가 단계를 암시하는 CTA보다 'Sign Up'처럼 직접적인 행동 유도에 반응할 가능성이 높다. 단, 비디오 재생 대기 시간이 느린 로딩으로 인식될 경우 이탈 위험이 있으며, 가족사진은 소셜프루프(0.7)와 연결될 수 있으나 오바마 가족 이미지가 제품/서비스와 직접 연관이 없다면 신뢰 트리거로 작동하기 어렵다. 두 variant 모두 이 페르소나에게 완벽하지 않아 확신도는 중간 수준이다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 성향이 0.95로 매우 높고 결정 전 충분한 정보 수집을 선호하므로, 즉각적인 가입을 요구하는 'Sign Up' CTA보다 'Learn More'처럼 부담 없이 탐색할 수 있는 낮은 진입장벽 버튼에 훨씬 긍정적으로 반응할 것입니다. 비디오는 인내심(10초)을 빠르게 소모시키고 정보 밀도가 낮을 수 있는 반면, 가족 사진은 시각 의존도(0.3)가 낮은 그녀에게 큰 영향은 없지만 'Learn More' CTA가 그녀의 신중한 의사결정 프로세스와 잘 맞아 전환 퍼널 진입 가능성을 높입니다. 다만 최종 전환까지는 고객 사례, 환불 정책 등 신뢰 요소 노출이 전제되어야 하므로 확신도는 5가 아닌 4로 설정합니다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "현주는 가격민감도가 매우 높고 리서치 성향이 강해 즉각적인 가입('Sign Up')보다 정보를 먼저 충분히 탐색하는 패턴을 보인다. 'Learn More'는 낮은 진입장벽으로 그녀가 가격 및 조건을 꼼꼼히 확인할 기회를 제공하므로 더 적합하다. 다만 비디오 vs 가족사진은 시각의존도(0.5)가 낮은 그녀에게 큰 차별 요인이 아니며, 두 variant 모두 가격투명성 정보가 명시되지 않아 최종 전환 여부는 랜딩 이후 콘텐츠에 크게 의존하므로 확신도는 낮다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "준혁은 감성적 이미지(가족사진)보다 기능 중심의 정보 전달을 선호하며, 소셜프루프 민감도도 0.4로 낮아 오바마 가족 이미지의 권위 효과가 크게 작용하지 않는다. 비디오는 기술 스펙이나 기능을 빠르게 시연할 수 있는 매체로 그의 리서치 성향(0.6)에 부합하며, 'Sign Up' CTA는 직접적이고 불필요한 단계를 줄이는 그의 결정 스타일과 맞는다. 다만 인내심이 6초로 짧아 비디오가 핵심 정보를 초반에 전달하지 못하면 이탈 리스크가 존재해 확신도는 중간 수준이다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "영숙 씨는 테크 문해력이 낮고(0.3) 단순한 페이지를 선호하므로, 자동재생이나 조작이 필요한 비디오보다 정적인 가족사진이 훨씬 친숙하고 부담이 없다. 'Sign Up'이라는 영어 CTA는 영어에 대한 좌절 요인과 즉각적인 가입 요구로 인해 높은 진입장벽을 형성하는 반면, 'Learn More'는 천천히 알아볼 수 있다는 심리적 여유를 주어 소셜프루프(0.8)와 신뢰 형성을 거친 후 전환으로 이어질 가능성이 높다. 다만 가족사진의 인물이 외국인(오바마 가족)이라는 점은 브랜드 신뢰(지인추천·오래된회사 선호)를 완전히 충족시키지 못할 수 있어 확신도를 5에서 4로 조정했다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "kaya_skin_form",
+      "company": "Kaya Skin Clinic",
+      "test_description": "리드 생성 폼 복잡도 — 6필드 vs 3필드",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 137,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 인내심이 극히 낮고(2초) 결정속도가 0.5초로 매우 충동적이며, 스크롤 3회 이상에서 좌절을 느끼는 페르소나다. 6개 필드를 요구하는 Variant B는 입력 부담이 커 이탈 가능성이 높다. 반면 Variant A의 3필드 구성은 마찰을 최소화해 충동적 행동을 즉각 완료로 이어주는 최적 구조다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "지영은 리서치 성향이 매우 강하고(0.95) 신중한 결정을 선호하므로, 6개 필드 폼이 오히려 서비스의 체계성과 진지함을 보여주는 신호로 받아들일 가능성이 있다. 3필드 폼에서 '나머지 정보는 나중에 수집'한다는 방식은 프라이버시 민감도가 높은(0.8) 그녀에게 불투명하고 통제 불가능한 느낌을 줄 수 있어 오히려 불신을 유발할 수 있다. 다만 피부 고민 등 개인정보를 초반에 요구하는 점이 프라이버시 우려를 자극할 수 있어 확신도는 중간 수준으로 유지한다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "현주는 인내심이 5초로 매우 짧고 결정속도가 2초로 빠른 편이라, 6개 필드를 채워야 하는 Variant B에서 중도 이탈 가능성이 높다. 또한 도시, 피부 고민, 선호 지점 등의 추가 정보 입력은 개인정보 제공 부담을 높이며, 프라이버시 민감도가 중간 수준(0.5)임을 고려해도 불필요한 장벽으로 작용할 수 있다. Variant A의 간결한 3필드 폼은 빠른 결정과 최소 정보 제공을 선호하는 현주의 성향에 부합해 전환 가능성이 더 높다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "준혁은 인내심이 6초로 짧고 불필요한 단계에 강한 좌절을 느끼는 실용주의형 사용자다. 6필드 폼은 '도시, 피부 고민, 선호 지점' 같은 항목이 포함되어 있어 IT팀장 페르소나 입장에서는 과도한 정보 요구로 인식될 가능성이 높다. 3필드 폼은 최소한의 입력으로 빠르게 제출할 수 있어 결정속도 1.5초의 즉각적 행동 패턴과 잘 맞아떨어진다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "영숙 씨는 테크 문해력이 0.3으로 매우 낮고 단순한 페이지와 큰 버튼을 선호하며, 작은 글씨와 복잡한 입력에 좌절감을 느끼는 프로필이다. 6개 필드를 한 페이지에 모두 입력해야 하는 Variant B는 인지 부하를 높여 중도 이탈 가능성이 크다. 반면 Variant A의 3필드 간소화 폼은 이름·이메일·전화번호라는 친숙하고 명확한 정보만 요구하여 완료 장벽이 낮으므로 전환 확률이 현저히 높다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "humana_banner",
+      "company": "Humana",
+      "test_description": "홈페이지 배너 — 복잡한 다중 메시지 vs 깔끔한 단일 메시지",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 433,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 인내심 2초, 결정속도 0.5초로 극단적인 충동형 소비자이며 시각의존도가 0.9에 달한다. Variant B처럼 여러 메시지와 CTA가 경쟁하는 복잡한 배너는 시각적 혼란을 야기해 주의가 분산되고 즉각적인 행동 유발에 실패한다. Variant A의 단일 메시지와 명확한 CTA는 0.5초 안에 결정을 내리는 민수의 패턴에 정확히 부합하여 즉각 클릭을 유도한다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "지영은 리서치 성향이 강한 신중형 사용자로, 정보를 체계적으로 처리하고 판단하는 데 집중력을 쏟는다. Variant B의 복잡한 다중 메시지와 경쟁하는 CTA들은 인지 부하를 높여 좌절로 이어질 수 있으며, 시각의존도가 낮은(0.3) 그녀에게 시각적 화려함은 신뢰보다 혼란을 유발한다. Variant A의 명확한 단일 메시지는 그녀가 핵심 가치를 빠르게 파악하고 이후 자신의 리서치(회사 연혁, 고객 사례 등)를 진행하도록 안내하는 출발점으로 더 적합하다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "현주는 인내심이 5초로 짧고 결정속도가 2초로 매우 빠르며, 시각 의존도가 낮아 복잡한 시각 정보보다 명확한 메시지에 반응한다. Variant B의 복수 CTA와 혼잡한 레이아웃은 가격 정보를 찾기 어렵게 만들어 좌절감을 유발할 수 있는 반면, Variant A의 단일 메시지와 명확한 CTA는 짧은 인내심 안에 핵심 가치를 전달하기에 적합하다. 다만 배너 자체가 가격 투명성을 직접 제공하지 않는 구조이므로, 클릭 후 랜딩 페이지 내용에 따라 최종 전환이 달라질 수 있어 확신도를 5로 올리지 않는다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "준혁은 인내심이 6초로 짧고 결정속도가 1.5초로 빠른 실용주의자로, 복잡한 시각 정보보다 핵심 메시지가 즉각 파악되는 레이아웃을 선호한다. Variant B처럼 CTA가 여러 개 경쟁하는 구조는 인지 부하를 높이고 '불필요한 단계'처럼 느껴져 이탈을 유발할 가능성이 높다. 반면 Variant A의 단일 가치 제안은 짧은 체류 시간 안에 의사결정을 완료할 수 있게 해주므로 전환 확률이 현저히 높다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "영숙씨는 테크 문해력이 낮고(0.3) 단순한 페이지와 큰 버튼을 선호하며, 클릭 위치 불명확 시 즉각 좌절하는 성향을 보인다. Variant B의 복잡한 배너는 다수의 CTA와 복수 메시지로 시각적 혼란을 야기해 인내심 15초 내 이탈을 유발할 가능성이 높다. 반면 Variant A의 단일 메시지와 명확한 CTA 하나는 영숙씨가 어디를 눌러야 할지 즉시 파악하게 해주어 전환 가능성을 극대화한다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "groove_pricing",
+      "company": "Groove",
+      "test_description": "가격 페이지 — 상세 기능비교 테이블 vs 단순화된 단일 플랜 강조",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 25,
+      "predicted_winner": "B",
+      "match": false,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 인내심이 극히 낮고(2초) 결정속도가 빠르며(0.5초) 리서치 성향이 거의 없어(0.1) 상세 비교 테이블을 스크롤하며 읽는 Variant B에서 이탈할 가능성이 매우 높다. 반면 Variant A는 단일 플랜으로 인지 부하를 최소화하고 소셜 프루프(고객 수)를 표시해 민수가 신뢰 신호로 꼽는 요소를 직접 자극한다. 정보 과부하 없이 즉각적인 행동 유도가 가능한 단순 구조가 충동형 페르소나의 빠른 전환 결정을 이끌어내기에 최적이다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 성향이 0.95로 극도로 높고, 결정 전 충분한 정보 수집을 선호하는 신중형 사용자입니다. 기능 비교 테이블은 그녀가 각 티어의 차이를 스스로 검토하고 논리적으로 최적 플랜을 선택할 수 있게 해주므로 신뢰도를 높입니다. 반면 Variant A는 비교 근거 없이 단일 플랜만 강조하는 구조로, '가격 숨김' 또는 '정보 부족'으로 인식되어 그녀의 좌절 트리거를 자극할 가능성이 높습니다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 4,
+          "reasoning": "현주는 가격민감도가 0.95이고 '비교불가 요금제'를 주요 좌절 요인으로 꼽을 만큼 각 플랜의 가격과 기능을 직접 비교하고 싶어한다. Variant A는 단일 플랜만 강조하고 비교 테이블이 없어 '내가 제대로 된 선택을 하는 건지' 확신하기 어렵고, 숨은 수수료나 불투명한 구조로 느껴질 수 있다. Variant B의 티어별 기능 비교 테이블은 리서치 성향(0.7)이 강한 현주에게 가격 대비 가치를 검증할 수 있는 근거를 제공하여 신뢰와 전환 의향을 높인다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "준혁은 '비교표없음'을 명시적 좌절 요인으로 꼽고, 구체적 수치와 기술 스펙을 신뢰 신호로 삼는 전형적인 분석형 의사결정자다. Variant A의 단순화 방식은 정보 부재로 인해 오히려 불신과 이탈을 유발할 가능성이 높다. 반면 Variant B의 티어별 기능 비교 테이블은 그가 스스로 검증하고 빠르게 결정 내릴 수 있는 구조를 제공하며, 소셜프루프 의존도가 낮은(0.4) 그에게 Variant A의 고객 수 표시는 설득력이 약하다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "영숙씨는 테크 문해력이 낮고(0.3) 단순한 페이지와 큰 버튼을 선호하며, 정보량이 많은 복잡한 화면에서 쉽게 좌절하는 성향을 가지고 있다. Variant B의 상세 기능 비교 테이블은 작은 글씨와 복잡한 정보 구조로 인해 혼란과 이탈을 유발할 가능성이 높다. 반면 Variant A의 단순화된 단일 플랜 강조와 고객 수 소셜 프루프(0.8)는 영숙씨의 신뢰 형성 방식에 직접적으로 부합하여 전환 가능성을 크게 높인다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "express_watches_trust",
+      "company": "Express Watches",
+      "test_description": "상품 페이지에 공식 인증 딜러 신뢰 배지 추가 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 107,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "민수는 인증서나 공식 배지 같은 공식적 신뢰 지표를 무시하는 성향이 있으며, 별점·후기사진·할인배너에 반응하는 충동형 구매자다. Variant A의 'Official Authorized Dealer' 배지는 민수가 신뢰하는 소셜프루프(후기, 평점)가 아닌 공식 인증 유형에 해당하므로 전환에 큰 기여를 하지 못할 가능성이 높다. Variant B의 단순하고 군더더기 없는 페이지가 오히려 빠른 결정을 유도해 충동 구매 전환에 더 유리할 수 있으나, 배지가 시각적으로 눈에 띄어 거슬릴 수 있다는 점에서 확신도는 중간 수준이다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "지영은 신뢰 지표(회사 연혁, 고객 사례, 환불 정책 등)를 핵심 전환 조건으로 삼는 고리서치형 사용자로, 회사 정보나 신뢰 근거가 없을 때 강한 좌절감을 느낀다. 'Official Authorized Dealer' 배지는 공식 유통 채널임을 즉각적으로 증명하는 신호로, 그녀의 신뢰 기준에 직접적으로 부합한다. 반면 Variant B는 신뢰 요소가 전혀 없어 그녀가 이탈하거나 추가 리서치를 위해 페이지를 떠날 가능성이 높다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "현주는 가격 투명성과 환불 보장을 신뢰 요소로 중시하므로, 인증 딜러 배지는 '정품 여부'에 대한 불안을 일부 해소해 가격 대비 신뢰도를 높일 수 있다. 다만 그녀의 핵심 관심사는 가격·할인·수수료 투명성이지 브랜드 인증이 아니므로, 배지가 전환에 미치는 영향은 제한적이며 두 variant 간 차이가 크지 않을 가능성이 높다. 시각 의존도(0.5)도 낮아 배지의 시각적 효과보다 가격 정보의 명확성이 더 결정적 요인이기에 확신도는 낮다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "준혁은 구체적 수치와 기술 스펙을 신뢰 지표로 삼는 실용주의형이지만, 프라이버시 및 신뢰 민감도(0.4)가 낮지 않고 IT팀장으로서 공급망 신뢰성을 중시할 가능성이 높다. 'Official Authorized Dealer' 배지는 감성적 요소가 아닌 공식 검증 정보에 해당하므로 그의 신뢰 판단 기준과 부합한다. 다만 배지 단독보다는 기술 스펙이나 비교표가 함께 있을 때 효과가 극대화되므로, 배지만으로의 전환 향상은 제한적이어서 확신도는 중간 수준이다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "영숙씨는 소셜프루프(0.8)와 브랜드 신뢰도가 높고, 오래된 회사나 공식 인증 같은 신뢰 신호에 민감하게 반응하는 페르소나입니다. 인증 배지 자체는 구매 결정에 긍정적으로 작용할 수 있으나, 배지 문구가 'Official Authorized Dealer'와 같이 영어로 표기되어 있다는 점이 걸림돌이 됩니다. 영어가 많은 UI를 좌절 요인으로 갖고 있는 이 페르소나에게 영문 배지는 신뢰 요소로 제대로 인식되지 않을 수 있어 확신도는 중간 수준으로 유지합니다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "ea_simcity_promo",
+      "company": "Electronic Arts (SimCity)",
+      "test_description": "체크아웃 페이지에서 프로모션 할인 배너 제거 여부",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 43.4,
+      "predicted_winner": "B",
+      "match": false,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "민수는 할인 배너를 신뢰 신호로 인식하며 가격 민감도가 낮아도 '특가' 자체에 즉각 반응하는 충동형 소비자다. 소셜프루프 의존도(0.7)와 시각 의존도(0.9)가 높아 '지금 구매하면 20% 할인!' 같은 시각적 긴급성 배너가 0.5초 내 결정을 촉발시킨다. Variant A의 정보 부재는 오히려 구매 모멘텀을 약화시키지만, B의 할인 배너는 이미 체크아웃 단계에 진입한 민수의 마지막 결정을 확정짓는 트리거로 작용한다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "지영은 할인 배너와 긴급성 유발 메시지를 명시적으로 무시하는 신뢰 프로파일을 가지고 있으며, 오히려 이런 요소들이 신뢰도를 떨어뜨릴 수 있다. 프라이버시 민감도(0.8)와 높은 리서치 성향(0.95)을 고려하면, 불필요한 마케팅 노이즈 없이 가격 정보만 명확하게 제시하는 깔끔한 체크아웃 페이지가 더 편안한 결정 환경을 제공한다. 단, 할인 배너 자체가 실질적인 가격 절감 정보이므로 완전히 역효과를 배제할 수 없어 확신도는 5가 아닌 4로 설정한다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "현주는 가격민감도가 0.95로 극도로 높으며, 할인코드와 무료체험을 신뢰 요소로 꼽는 전형적인 가격 중심 의사결정자다. 체크아웃 단계에서 20% 할인 배너는 이미 구매를 고려 중인 그녀에게 최종 확신을 제공하며 전환을 촉진한다. 반면 Variant A는 할인 정보가 없어 '더 저렴한 방법이 있지 않을까'라는 의구심을 유발해 이탈 가능성이 높다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "준혁은 과장 마케팅과 불필요한 요소를 싫어하는 실용주의형으로, 체크아웃 단계에서 이미 구매 결정을 내린 상태라면 '지금 구매하면 20% 할인!'같은 감성적 촉구 문구는 오히려 신뢰도를 떨어뜨릴 수 있다. 그러나 가격민감도가 0.5로 중간 수준이고 할인 정보 자체는 객관적 수치이므로, 배너 디자인이 과장되지 않다면 효과가 없지는 않다. 다만 체크아웃 흐름을 방해하는 배너가 '불필요한 단계'처럼 느껴질 가능성이 높아 A가 소폭 우위로 예측한다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "영숙씨는 단순한 페이지를 선호하고 팝업/배너류에 좌절감을 느끼는 성향으로, 체크아웃 단계에서 추가 요소가 없는 깔끔한 페이지가 집중을 방해받지 않아 더 수월하게 결제를 완료할 가능성이 높다. 다만 가격민감도(0.7)가 높아 20% 할인 메시지 자체는 매력적일 수 있으나, 배너가 '클릭 위치 불명'이나 혼란을 유발할 경우 오히려 체크아웃을 이탈시킬 위험이 크다. 테크문해력(0.3)이 낮아 배너가 또 다른 단계나 조건처럼 느껴질 수 있어 Variant A의 단순함이 전환에 더 유리하다고 판단한다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "workzone_logos",
+      "company": "WorkZone",
+      "test_description": "추천사 섹션 — 컬러 로고 vs 그레이스케일 로고",
+      "swapped": false,
+      "actual_winner": "B",
+      "lift_pct": 34,
+      "predicted_winner": "B",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "민수는 시각의존도가 0.9로 매우 높고 충동적인 결정을 내리지만, 컬러 로고는 CTA 버튼과 시각적으로 경쟁하여 주의를 분산시킬 수 있다. 그레이스케일 로고는 소셜프루프(0.7) 신뢰 신호를 유지하면서도 CTA로 시선을 집중시켜 0.5초 안에 클릭 결정을 유도하기에 유리하다. 다만 민수의 화려한 시각 자극 선호 특성상 컬러가 더 끌릴 수도 있어 확신도는 중간 수준이다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "지영은 시각의존도가 0.3으로 낮고 리서치 성향이 0.95로 매우 높아, 로고의 시각적 화려함보다 정보의 신뢰성과 명확성을 더 중시한다. 그레이스케일 로고는 시각적 노이즈를 줄여 CTA 버튼으로의 흐름을 방해하지 않으며, 고객사 목록 자체의 존재(소셜프루프)가 중요하지 색상이 결정 요인은 아니다. 다만 소셜프루프 민감도가 0.5로 중간 수준이고 로고 색상 차이가 전환에 미치는 영향이 제한적일 수 있어 확신도는 낮게 설정했다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 2,
+          "reasoning": "현주는 가격민감도가 극히 높고 시각 의존도가 낮으며 디자인 어워드나 브랜드 스토리 같은 시각적 요소를 무시하는 성향이다. 그레이스케일 로고는 화려한 시각 요소와의 경쟁을 줄여 CTA 버튼으로 시선을 유도할 가능성이 높다. 다만 이 테스트의 핵심 변수(로고 컬러)가 현주의 최우선 의사결정 요소(가격 투명성, 환불보장 등)와 직접적 연관이 없어 전환 차이 자체가 미미할 것으로 예상되므로 확신도는 낮다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "준혁은 시각의존도(0.5)가 중간 수준이며 감성적 화려함보다 실질적 정보(고객사 로고 자체)를 신뢰 근거로 활용한다. 그레이스케일 처리는 로고의 존재(소셜프루프)는 유지하면서 시각적 노이즈를 줄여 CTA나 기술 정보로 시선을 집중시키는 효과가 있어 실용주의 성향에 부합한다. 다만 고객사 로고 자체가 신뢰 신호로 작동하는 만큼 컬러/그레이스케일 차이보다 로고 유무가 더 결정적 변수이므로 확신도는 낮다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "영숙 씨는 소셜프루프 의존도(0.8)가 높아 클라이언트 로고 자체의 신뢰 효과는 두 variant 모두에서 작동하지만, 테크문해력이 낮고(0.3) 단순한 페이지를 선호하는 성향상 시각적으로 복잡한 컬러 로고보다 정돈된 그레이스케일이 인지 부담을 줄여줄 가능성이 높다. Variant B에서 CTA 버튼과의 시각적 경쟁이 감소하면 큰 버튼 선호 성향과 맞물려 전환 버튼을 더 명확히 인식하고 클릭할 확률이 올라가므로 B가 유리하다고 판단하나, 두 variant의 차이가 이 페르소나의 핵심 불만 요소(작은 글씨, 팝업 등)와 직접 연결되지 않아 확신도는 낮다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "hyundai_cta_fold",
+      "company": "Hyundai Netherlands",
+      "test_description": "CTA 위치 — 화면 상단(above the fold) vs 스크롤 후 하단 배치",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 15,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "B",
+          "confidence": 5,
+          "reasoning": "민수는 인내심 2초·결정속도 0.5초로 스크롤 3회 이상에 좌절하며, 정보 탐색 성향(리서치 0.1)이 극히 낮아 기능/혜택 설명을 끝까지 읽을 가능성이 거의 없다. Variant A는 CTA 도달 전 이탈이 거의 확실한 반면, Variant B는 페이지 진입 즉시 시각적으로 눈에 띄는 CTA를 제공해 충동형 전환 패턴과 완벽히 일치한다. 시각 의존도(0.9)가 높은 민수에게 상단의 눈에 띄는 CTA는 즉각적인 행동 유도에 최적화된 배치다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "지영은 리서치 성향이 0.95로 매우 높고 결정 전 충분한 정보 수집을 중시하는 신중형 페르소나다. 정보를 충분히 읽기 전에 노출되는 상단 CTA(Variant B)는 그녀의 의사결정 프로세스를 무시하는 구조로, 오히려 신뢰감을 낮출 수 있다. Variant A처럼 기능·혜택 설명을 먼저 소화한 후 CTA에 도달하는 흐름이 그녀의 인지 과정과 일치하여 전환 가능성이 훨씬 높다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "현주는 가격민감도 0.95, 리서치 성향 0.7로 구매 전 충분한 정보 탐색을 중시하는 페르소나다. '시승 신청'이라는 CTA는 자동차 구매와 연결되는 고관여 결정으로, 기능/혜택/가격 정보를 먼저 확인하지 않은 상태에서 상단 CTA를 클릭할 가능성은 낮다. Variant A처럼 정보를 충분히 읽은 후 CTA에 도달하는 흐름이 현주의 의사결정 패턴과 일치하며, 가격 및 혜택 정보 확인 전에 행동을 요구하는 Variant B는 오히려 불투명하다는 인상을 줘 이탈을 유발할 수 있다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "준혁은 리서치 성향(0.6)이 높고 구체적 수치·기술스펙·비교표를 신뢰 기반으로 삼는 실용주의자다. 충분한 정보 없이 상단에 노출된 CTA는 '과장 마케팅'처럼 느껴져 즉각 무시하거나 이탈할 가능성이 높다. 기능과 혜택 설명을 먼저 읽고 판단이 완료된 시점에 CTA가 나타나는 Variant A가 그의 의사결정 흐름에 부합하며, 1.5초의 빠른 결정속도도 정보 소화 후에 발동될 때 전환으로 이어질 가능성이 크다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "영숙씨는 인내심(15초)이 비교적 짧지 않지만, 브랜드 충성도(0.9)와 소셜프루프(0.8)가 높고 결정에 신중한 공무원 성향으로, 충분한 정보 확인 후 행동하는 타입이다. Variant B처럼 정보도 없이 바로 CTA가 노출되면 신뢰 기반이 형성되지 않아 거부감을 느낄 가능성이 높다. 반면 Variant A는 혜택과 기능 설명을 먼저 읽고 납득한 뒤 CTA에 도달하므로, 신뢰를 중시하는 이 페르소나의 전환 확률이 더 높다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "contentverve_cta_copy",
+      "company": "ContentVerve",
+      "test_description": "CTA 버튼 카피 — 2인칭 vs 1인칭 소유격",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 90,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": true,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "충동형 민수는 시각의존도가 높고 결정속도가 빠른 페르소나로, CTA 버튼 카피의 미묘한 인칭 차이보다는 시각적 요소(이미지, 색상, 할인배너)에 더 반응한다. 그러나 1인칭 'my'는 사용자가 버튼을 클릭하는 행위를 이미 자신의 것으로 내면화하게 만들어 순간적인 소유욕과 즉각적 행동 충동을 자극할 수 있다는 점에서 충동형 성향과 미세하게 더 잘 맞는다. 다만 이 페르소나에게 두 variant 간 차이는 전환율에 의미 있는 영향을 미치기 어려워 확신도는 낮게 설정한다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "지영은 리서치 성향이 강하고 신중한 결정을 내리는 타입으로, CTA 문구 자체보다는 신뢰 지표(연혁, 사례, 환불정책 등)에 훨씬 더 강하게 반응한다. 다만 두 옵션 중 선택해야 한다면, 'my'는 사용자가 이미 결정을 내린 것처럼 프레이밍하여 행동을 자연스럽게 유도하는 반면, 'your'는 판매자가 밀어붙이는 느낌을 줄 수 있어 신중한 성향의 지영에게 미세하게 덜 어울린다. 단, 이 페르소나에게 CTA 문구 차이의 실질적 영향은 매우 제한적이므로 확신도는 낮게 설정한다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "가격민감형 현주는 '무료' 키워드 자체에 강하게 반응하며, 1인칭 소유격 'my'는 심리적 소유감을 형성해 클릭 전 이미 자신의 것으로 인식하게 만드는 효과가 있다. 다만 현주의 핵심 동인은 가격 투명성과 숨은 비용 여부이므로 버튼 카피 문구 차이(my vs your)보다 '무료' 조건의 명확성이 훨씬 큰 변수이며, 두 variant 간 전환율 차이는 미미할 것으로 예상된다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 2,
+          "reasoning": "준혁은 감성적 카피보다 구체적 수치와 기술 정보를 신뢰하는 실용주의형으로, 1인칭 'my'와 2인칭 'your'의 차이는 그의 의사결정에 거의 영향을 미치지 않을 가능성이 높다. 다만 연구에 따르면 1인칭 소유격 'my'가 소유감과 행동 주도성을 미세하게 높이는 경향이 있으며, IT팀장으로서 능동적 의사결정자 성향을 가진 준혁에게 'my'가 미세하게 더 자연스럽게 작용할 수 있다. 단, 이 버튼 카피 자체가 그의 핵심 신뢰 요소(구체적 수치, 비교표, API문서)와 무관하기 때문에 전환 차이는 극히 미미할 것으로 예상되어 확신도를 낮게 설정한다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "B",
+          "confidence": 3,
+          "reasoning": "영숙씨는 테크 문해력이 낮고(0.3) 영어가 많으면 좌절하는 페르소나로, 두 variant 모두 영어라는 점에서 큰 차이는 없다. 그러나 'your'는 서비스 제공자가 사용자에게 직접 말을 거는 전통적·권위적 어조로, 공무원 특성상 익숙한 공식적 2인칭 화법과 유사해 'my'보다 자연스럽게 느껴질 수 있다. 'my'는 버튼 텍스트의 주어가 사용자 본인이 되는 인지적 전환이 필요해 테크 문해력이 낮은 사용자에게 미세한 혼란을 줄 수 있어 B가 소폭 유리하다고 판단한다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    },
+    {
+      "case_id": "performable_button_color",
+      "company": "Performable (HubSpot)",
+      "test_description": "CTA 버튼 컬러 — 페이지 배경과 조화 vs 대비 색상",
+      "swapped": true,
+      "actual_winner": "A",
+      "lift_pct": 21,
+      "predicted_winner": "A",
+      "match": true,
+      "segment_divergence": false,
+      "persona_evaluations": [
+        {
+          "predicted_winner": "A",
+          "confidence": 5,
+          "reasoning": "민수는 시각의존도 0.9에 결정속도 0.5초의 충동형 사용자로, 즉각적인 시각 자극에 반응한다. 녹색 배경 위의 빨간 CTA 버튼은 강한 대비로 즉시 주의를 끌어 행동을 유발하는 반면, 녹색 버튼은 배경에 묻혀 눈에 띄지 않아 충동적 클릭 기회를 잃는다. 리서치 성향 0.1인 그는 페이지를 꼼꼼히 탐색하지 않으므로 눈에 확 들어오는 요소가 전환의 핵심 트리거가 된다.",
+          "persona_id": "p_impulsive"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "지영은 시각 의존도(0.3)가 낮아 버튼 색상 자체가 결정에 미치는 영향은 제한적이지만, 리서치 성향(0.95)이 강하고 인내심(10초)이 있어 페이지를 꼼꼼히 탐색한다. 탐색 완료 후 CTA를 실행할 시점에서 Variant A의 강한 대비 색상은 버튼 위치를 즉각 인식하게 해 인지 부하를 줄여주는 반면, Variant B의 녹색 버튼은 배경에 묻혀 '다음 행동'을 찾는 데 미세한 마찰을 유발할 수 있다. 결정속도(3초)가 짧은 편이므로 최종 클릭 순간 버튼 가시성이 전환율에 소폭 영향을 미칠 것으로 판단한다.",
+          "persona_id": "p_cautious"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "현주는 시각의존도가 0.5로 낮고 인내심이 5초로 짧아, 눈에 즉시 띄는 대비 색상의 CTA 버튼이 빠른 행동을 유도하는 데 유리하다. 단, 현주의 전환 결정은 CTA 버튼 색상보다 가격 투명성·할인 여부 같은 콘텐츠 요소에 훨씬 더 의존하므로, 버튼 색상 자체의 영향력은 제한적이다. 그럼에도 불구하고 짧은 주의 지속 시간 내에 버튼을 빠르게 발견해야 하는 상황에서는 대비 색상인 A가 소폭 우위를 가진다.",
+          "persona_id": "p_budget"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 3,
+          "reasoning": "준혁은 시각의존도가 낮고(0.5) 감성적 디자인보다 정보와 기능을 중시하지만, CTA 버튼의 경우 시각적 명확성은 어느 사용자에게든 행동 유도의 기본 조건이다. Variant B처럼 배경과 동화된 녹색 버튼은 빠른 결정(1.5초)을 내리는 준혁이 CTA를 즉각 인지하지 못할 리스크가 있다. 반면 Variant A의 강한 대비 빨간 버튼은 '어디를 클릭해야 하는가'를 명확하게 전달하므로, 불필요한 탐색 단계 없이 바로 행동으로 이어질 가능성이 높다. 단, 준혁의 전환 여부는 버튼 색상보다 페이지 내 콘텐츠(수치, 비교표 등)에 더 크게 좌우될 것이므로 확신도는 낮다.",
+          "persona_id": "p_pragmatic"
+        },
+        {
+          "predicted_winner": "A",
+          "confidence": 4,
+          "reasoning": "영숙은 테크 문해력이 낮고(0.3) 큰 버튼을 선호하며, 시각 의존도가 높다(0.7). 녹색 배경에 녹색 버튼인 Variant B는 CTA가 배경에 묻혀 버튼 위치를 인식하기 어려워 '클릭 위치 불명'이라는 주요 좌절 요인을 직접 유발한다. 반면 Variant A의 빨간 버튼은 강한 대비로 즉시 눈에 띄어 디지털 경험이 적은 시니어도 행동해야 할 지점을 직관적으로 파악할 수 있다.",
+          "persona_id": "p_senior"
+        }
+      ]
+    }
+  ]
+}

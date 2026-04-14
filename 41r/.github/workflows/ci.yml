@@ -1,0 +1,52 @@
+name: 41R CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          .venv/bin/pip install pytest pytest-cov scipy pyyaml anthropic
+
+      - name: Run unit tests
+        working-directory: 41r
+        run: |
+          ../.venv/bin/python3 -m pytest tests/ -v --tb=short
+
+      - name: Test coverage
+        working-directory: 41r
+        run: |
+          ../.venv/bin/python3 -m pytest tests/ \
+            --cov=modules.persona_store \
+            --cov=modules.version_manager \
+            --cov=modules.cohort_report \
+            --cov=modules.hallucination_guard \
+            --cov-report=term \
+            --cov-fail-under=50
+
+      - name: Hallucination audit on reports
+        working-directory: 41r
+        run: |
+          for f in reports/sample_report_v2.html \
+                   experiments/outbound/differentiation.md \
+                   experiments/ablation/MARGINAL_VALUE_REPORT.md; do
+            if [ -f "$f" ]; then
+              echo "Auditing $f"
+              ../.venv/bin/python3 -m modules.hallucination_guard "$f"
+            fi
+          done

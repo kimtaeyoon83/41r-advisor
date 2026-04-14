@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_649058</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>새로운 봄 의류를 둘러보고, 마음에 드는 상품 1~2개를 찾아 장바구니 담기까지 결정해라</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://www.29cm.co.kr</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=20명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>30.0%</strong> (95% CI: 14.5~51.9%) · 평균 9.06턴 engagement ·
+    세그먼트 분기 <span class="signal signal-medium">중간</span> → A/B 테스트 + 세그먼트 분석
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">30.0%</div>
+      <div class="stat-label">전환율 (6/20)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">9.06</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">10.0%</div>
+      <div class="stat-label">이탈률 (2명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td>장바구니 담기 직전 - 사이즈/옵션 선택 단계</td><td>2</td><td>10.0%</td></tr><tr><td>장바구니 담기 직전 — 로그인/회원가입 요구 단계</td><td>2</td><td>10.0%</td></tr><tr><td>상품 상세 페이지 → 장바구니 담기 직전 (가격/배송비 확인 단계)</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 직전 - 최종 가격/수수료 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 직전 — 최종 가격/배송비 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 직전 – 회원가입/로그인 요구 단계</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 직전 — 가격 대비 가치 재확인 단계에서 이탈 또는 보류</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 직전 — 회원가입/로그인 요구 단계</td><td>1</td><td>5.0%</td></tr><tr><td>상품 상세 페이지 → 장바구니 담기 직전 (사이즈/옵션 선택 단계)</td><td>1</td><td>5.0%</td></tr><tr><td>장바구니 담기 최종 확정 단계</td><td>1</td><td>5.0%</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td>메인 진입 시 팝업(앱 다운로드 유도 or 할인 쿠폰) 2개 이상 연속 노출될 경우 즉각적 불쾌감 (frustration_trigger: 팝업 광고 2개 이상)</td><td>1</td><td>5.0%</td></tr><tr><td>상품 이미지 로딩이 3초 이상 지연될 경우 해당 상품 스킵 (loading_tolerance: strict)</td><td>1</td><td>5.0%</td></tr><tr><td>리뷰 사진이 없거나 별점이 4.5 미만인 상품은 신뢰 신호 부재로 자연스럽게 이탈</td><td>1</td><td>5.0%</td></tr><tr><td>상품 가격에 배송비가 명확히 노출되지 않을 경우 강한 거부감 발생</td><td>1</td><td>5.0%</td></tr><tr><td>할인 전 원가 대비 실제 할인율이 불분명하거나 과장된 카피로 포장될 경우 신뢰도 하락</td><td>1</td><td>5.0%</td></tr><tr><td>리뷰 수가 적거나 별점이 낮은 상품이 상단 노출될 경우 탐색 흐름이 끊김</td><td>1</td><td>5.0%</td></tr><tr><td>모바일에서 상세 페이지 로딩 지연이 발생할 경우 인내심 소진 가속</td><td>1</td><td>5.0%</td></tr><tr><td>초기 진입 시 팝업(쿠폰/앱 다운로드 등)이 2개 이상 뜨면 즉각 짜증 유발, 닫기 버튼 연속 탭</td><td>1</td><td>5.0%</td></tr><tr><td>상품 이미지 로딩이 3초 초과될 경우 해당 상품 페이지 이탈 후 다른 상품으로 전환</td><td>1</td><td>5.0%</td></tr><tr><td>최종 가격(배송비 포함 여부)이 장바구니 담기 전까지 명확히 표시되지 않으면 불신 발생</td><td>1</td><td>5.0%</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: conversion_probability</td></tr><tr><td>price_sensitivity</td><td>-0.575</td><td>강한 상관</td></tr><tr><td>visual_dependency</td><td>-0.486</td><td>보통</td></tr><tr><td>impulsiveness</td><td>+0.482</td><td>보통</td></tr><tr><td>tech_literacy</td><td>-0.143</td><td>약한 상관</td></tr><tr><td>research_depth</td><td>-0.067</td><td>약한 상관</td></tr><tr><td>privacy_sensitivity</td><td>-0.061</td><td>약한 상관</td></tr><tr><td>social_proof_weight</td><td>+0.023</td><td>약한 상관</td></tr></table>
+
+  
+        <h3>개인별 전환 확률 분포</h3>
+        <div class="stats">
+          <div class="stat-card"><div class="stat-number">0.501</div><div class="stat-label">평균 확률</div></div>
+          <div class="stat-card"><div class="stat-number">0.45</div><div class="stat-label">중앙값</div></div>
+          <div class="stat-card"><div class="stat-number">0.249</div><div class="stat-label">표준편차</div></div>
+        </div>
+        <p style="color:#64748b; font-size:14px;">분포 폭 0.0 ~ 0.87. 표준편차가 클수록 세그먼트 분기가 강함.</p>
+        
+</div>
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.262</strong> → 분기 <strong>중간</strong><br>
+    권고: <strong>A/B 테스트 + 세그먼트 분석</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_649058 · Generated: 2026-04-14T01:54:40 UTC</p>
+  <p>Cohort: cohort_20260414_015331_dcc14b · Mode: text · Personas: 20</p>
+</div>
+
+</div>
+</body>
+</html>

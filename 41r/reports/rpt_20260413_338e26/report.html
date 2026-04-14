@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Predictive Report — rpt_20260413_338e26</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 28px; color: #111; margin-bottom: 8px; }
+  h2 { font-size: 22px; color: #2563eb; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #2563eb; }
+  h3 { font-size: 18px; color: #374151; margin: 24px 0 12px; }
+  .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+  .exec-summary { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 20px; margin: 24px 0; border-radius: 0 8px 8px 0; font-size: 16px; }
+  .prediction-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 20px; margin: 16px 0; }
+  .prediction-box.low { background: #fef2f2; border-color: #fca5a5; }
+  .prediction-box.medium { background: #fffbeb; border-color: #fcd34d; }
+  .segment { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 12px 0; }
+  .segment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .segment-name { font-weight: 700; font-size: 16px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .badge-complete { background: #dcfce7; color: #166534; }
+  .badge-abandoned { background: #fee2e2; color: #991b1b; }
+  .badge-max { background: #fef3c7; color: #92400e; }
+  .issue { padding: 12px 16px; margin: 8px 0; border-radius: 6px; }
+  .issue-critical { background: #fef2f2; border-left: 4px solid #ef4444; }
+  .issue-high { background: #fff7ed; border-left: 4px solid #f97316; }
+  .issue-medium { background: #fffbeb; border-left: 4px solid #eab308; }
+  .issue-low { background: #f0f9ff; border-left: 4px solid #3b82f6; }
+  .recommendation { padding: 12px 16px; margin: 8px 0; background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 0 6px 6px 0; }
+  .priority { font-weight: 700; color: #166534; margin-right: 8px; }
+  .funnel { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .funnel th { background: #f3f4f6; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #d1d5db; }
+  .funnel td { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; }
+  .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #9ca3af; }
+  .actions-list { list-style: none; padding: 0; }
+  .actions-list li { padding: 4px 0; }
+  .actions-list li::before { content: "→ "; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<h1>41R Predictive A/B Report</h1>
+<div class="meta">
+  Report ID: rpt_20260413_338e26 | Generated: 2026-04-13T13:34:26 UTC | Personas: p_impulsive, p_cautious
+</div>
+
+<h2>https://www.pricecharting.com</h2>
+<div class="exec-summary">PriceCharting.com의 무료 가입 퍼널은 충동형 유저(p_impulsive)가 9턴 만에 완료할 만큼 기본 구조는 작동하나, 버튼 클릭 후 피드백 부재라는 치명적 UX 결함이 이탈 직전 상황을 만들었습니다. 신중형 유저(p_cautious)는 10턴을 소진하고도 회원가입 화면에조차 도달하지 못했는데, 신뢰 지표(About Us, Privacy Policy)가 Footer에만 존재하고 신뢰 검증 완료 후 전환으로 이어지는 CTA가 없기 때문입니다. 두 세그먼트 모두 전환을 막는 장벽이 명확히 다르며, 이는 단일 퍼널로 이질적인 사용자를 모두 커버하려는 구조의 한계입니다. 우선순위 1~3번 개선(버튼 피드백, 홈 신뢰 배지, About Us CTA)은 모두 개발 공수가 낮으면서 충동형·신중형 양 세그먼트의 전환율에 즉각적인 영향을 줄 수 있는 퀵윈(quick win) 과제입니다.</div>
+
+        <div class="prediction-box medium">
+          <h3>전환 예측</h3>
+          <p><strong>전환 신호:</strong> 보통 | <strong>신뢰도:</strong> 보통</p>
+          <p>충동형(p_impulsive)은 9턴 만에 무료 계정 생성을 완료했으나, Turn 6~8에서 버튼 클릭 후 피드백이 없는 UX 결함을 경험해 이탈 직전 상황까지 갔다. 신중형(p_cautious)은 10턴을 소진하고도 핵심 전환(회원가입·유료 구독)에 도달하지 못한 채 신뢰 검증 단계에서 멈췄다. 단순 무료 가입 퍼널은 작동하나, 신중형 유저의 전환 경로가 사실상 부재하고, 충동형도 버튼 피드백 부재로 인한 이탈 리스크가 존재한다.</p>
+        </div>
+<h3>세그먼트별 행동 분석</h3>
+
+            <div class="segment">
+              <div class="segment-header">
+                <span class="segment-name">충동형 유저 (즉각 결정, 시각적 CTA 반응)</span>
+                <span class="badge badge-complete">완료 · 9턴</span>
+              </div>
+              <p>히어로 섹션 0.5초 스캔 후 파란 Premium Features 배너를 즉각 클릭 → 무료 플랜 선택 → 폼 2필드 완성 → 버튼 클릭 무반응 2회 경험 후 최종 계정 생성 완료</p>
+              <p><strong>주요 행동:</strong></p>
+              <ul class="actions-list">
+                <li>Turn 2: 파란 Premium Features 배너 즉각 클릭 (0.5초 결정)</li><li>Turn 3: Free Account CTA 즉각 선택</li><li>Turn 4~5: 이메일·패스워드 2필드 신속 입력</li><li>Turn 8: 버튼 무반응 경험 후 재클릭으로 최종 완료</li>
+              </ul>
+              <p><strong>마찰 지점:</strong> Turn 6~7: Create Account 버튼 클릭 후 diff empty — 시각적 피드백 없이 페이지가 하단으로 이동된 것처럼 보여 혼란 발생, Turn 8: &#x27;이번에도 안 되면 이탈&#x27; 심리 상태에서 재클릭 — 이탈 직전 상황</p>
+              <p><strong>감정:</strong> 초반 높은 클릭 충동(긍정) → 버튼 무반응 2회로 짜증·당황(부정) → 최종 성공으로 짜증 해소(중립)</p>
+            </div>
+
+            <div class="segment">
+              <div class="segment-header">
+                <span class="segment-name">신중형 유저 (신뢰 검증 우선, 단계적 탐색)</span>
+                <span class="badge badge-max">최대턴 도달 · 10턴</span>
+              </div>
+              <p>홈페이지 도착 후 즉각 클릭 없이 사이트 구조 전체 스캔 → Footer 신뢰 지표(Privacy Policy, Terms of Service, About Us) 확인을 위해 4회 연속 스크롤 → Footer 발견 후 2회 read → About Us 클릭 → 회사 연혁 확인 → 10턴 소진 후에도 회원가입·유료 구독 단계 미도달</p>
+              <p><strong>주요 행동:</strong></p>
+              <ul class="actions-list">
+                <li>Turn 1: 전체 상단 영역 정독 (신뢰도 1차 판단)</li><li>Turn 2~5: Footer 탐색을 위해 4회 연속 스크롤</li><li>Turn 6~7: Footer 발견 후 동일 영역 2회 read (중복 확인)</li><li>Turn 8: About Us 페이지 직접 방문</li><li>Turn 9: 회사 창립 연혁(2007년) 확인</li><li>Turn 10: About Us 하단 추가 탐색 시도 중 턴 소진</li>
+              </ul>
+              <p><strong>마찰 지점:</strong> Turn 2~5: Footer까지 도달에 4회 스크롤 필요 — 신뢰 지표가 페이지 최하단에만 위치, Turn 6~7: 동일한 Footer 영역을 2턴 연속 read (탐색 비효율), Turn 10: 신뢰 검증 완료 후에도 가격 가이드·회원가입 CTA 발견 전 턴 소진</p>
+              <p><strong>감정:</strong> 초반 우호적이나 보류(중립) → Footer 발견 후 안도감(긍정) → About Us에서 신뢰도 상승(긍정) → 전환 단계 미도달로 미완료(중립~부정)</p>
+            </div>
+<h3>발견된 UX 문제</h3>
+
+            <div class="issue issue-critical">
+              <strong>[CRITICAL]</strong> Create Account 버튼 클릭 후 시각적 피드백(로딩 스피너, 버튼 상태 변화, 인라인 메시지) 부재 — 클릭이 처리되고 있는지 사용자가 알 수 없음
+              <br><em>근거:</em> p_impulsive Turn 6: 버튼 클릭 후 diff empty, 페이지 하단으로 이동 / Turn 7: &#x27;버튼 눌렀는데 아무 반응이 없고 폼도 안 보임 — 약간 당황스럽고 짜증&#x27; / Turn 8: &#x27;이번에도 안 되면 그냥 나간다&#x27;는 이탈 선언 후 재클릭
+              <br><em>개선:</em> 폼 제출 버튼 클릭 즉시 ①버튼을 비활성화하고 로딩 스피너 표시, ②인라인 성공/오류 메시지를 폼 상단에 즉각 렌더링, ③제출 완료 시 페이지 상단으로 자동 스크롤하거나 모달로 결과 표시
+            </div>
+
+            <div class="issue issue-high">
+              <strong>[HIGH]</strong> 신뢰 지표(Privacy Policy, About Us, Terms of Service)가 Footer에만 위치 — 신중형 유저가 신뢰 검증에 4~5턴을 소비하며 실제 전환에 도달하지 못함
+              <br><em>근거:</em> p_cautious Turn 2~5: Footer를 찾기 위해 4회 연속 스크롤, 매 턴 &#x27;신뢰도 판단 보류 중&#x27;으로 기록 / Turn 6에서야 Footer 발견 — 전체 10턴 중 절반을 신뢰 검증에 소비
+              <br><em>개선:</em> 홈페이지 히어로 섹션 또는 Premium Features 플랜 페이지에 ①창립 연도(Since 2007), ②사용자 수/데이터 규모, ③언론 노출 배지(press mentions)를 신뢰 배지로 추가. 상단 네비게이션에 &#x27;About&#x27; 링크를 직접 노출
+            </div>
+
+            <div class="issue issue-high">
+              <strong>[HIGH]</strong> 신중형 유저를 위한 전환 경로(회원가입·유료 구독)가 신뢰 검증 완료 후 자연스럽게 연결되지 않음 — About Us 페이지에서 다음 행동 CTA가 없음
+              <br><em>근거:</em> p_cautious Turn 9~10: About Us에서 회사 신뢰도 확인 완료 후 &#x27;이제 Step 4로 넘어가기 위해 가격 가이드를 찾아야 한다&#x27;며 다시 스크롤 탐색 — 전환 유도 CTA 없이 턴 소진
+              <br><em>개선:</em> About Us 페이지 하단에 &#x27;지금 무료로 시작하기&#x27; CTA 버튼 추가. Premium Features 플랜 페이지에서도 회사 신뢰 지표(연혁, 규모)를 플랜 카드 하단에 배치하여 신중형 유저의 결정을 지원
+            </div>
+
+            <div class="issue issue-medium">
+              <strong>[MEDIUM]</strong> 홈페이지 히어로 섹션의 파란 Premium Features 배너가 무료 체험 진입이 아닌 유료 플랜 비교 페이지로 연결 — 충동형 유저가 의도치 않게 유료 플랜 비교 화면으로 진입하나 Free 옵션을 선택해 무료 가입으로 종료
+              <br><em>근거:</em> p_impulsive Turn 2: &#x27;Premium Features 배너&#x27; 클릭 → Turn 3: Free Account 카드를 즉각 선택. 유료 전환 유도 의도의 배너가 무료 가입으로 귀결
+              <br><em>개선:</em> Premium Features 배너 CTA를 &#x27;무료로 시작하기 →&#x27;와 &#x27;프리미엄 비교 보기&#x27; 두 가지로 분리하거나, 플랜 비교 페이지에서 유료 플랜의 차별화 가치(예: 광고 제거, 고급 추적 기능)를 시각적으로 강조하여 유료 전환율 개선
+            </div>
+
+            <div class="issue issue-medium">
+              <strong>[MEDIUM]</strong> Footer 도달까지 긴 스크롤 거리 — 홈페이지 콘텐츠가 길어 신뢰 지표 접근에 최소 4회 스크롤 필요
+              <br><em>근거:</em> p_cautious Turn 2, 3, 4, 5: 4회 연속 스크롤하며 매 턴 &#x27;Footer가 아직 보이지 않음&#x27;으로 기록. Turn 2 reason: &#x27;footer 정보가 보이지 않는다&#x27;
+              <br><em>개선:</em> 상단 고정 네비게이션(sticky nav)에 &#x27;About&#x27; 또는 &#x27;Trust&#x27; 섹션 링크 추가. 또는 앵커 링크를 통해 Footer로의 빠른 접근 제공
+            </div>
+<h3>전환 퍼널</h3>
+<table class="funnel">
+          <tr><th>단계</th><th>도달</th><th>이탈</th><th>이탈 이유</th></tr>
+<tr>
+              <td>랜딩 &amp; 서비스 인지</td>
+              <td>p_impulsive, p_cautious</td>
+              <td></td>
+              <td>해당 없음 — 두 페르소나 모두 헤드라인에서 서비스 목적 즉시 인지</td>
+            </tr>
+<tr>
+              <td>신뢰 검증 (About/Privacy/Terms 확인)</td>
+              <td>p_impulsive, p_cautious</td>
+              <td></td>
+              <td>p_impulsive는 신뢰 검증 없이 즉각 행동으로 우회. p_cautious는 이 단계에 6턴 소비</td>
+            </tr>
+<tr>
+              <td>플랜 선택 페이지 도달</td>
+              <td>p_impulsive</td>
+              <td>p_cautious</td>
+              <td>p_cautious는 신뢰 검증 완료 후 플랜 선택 단계로의 자연스러운 유도 경로가 없어 10턴 소진 — 플랜 비교 페이지 미도달</td>
+            </tr>
+<tr>
+              <td>플랜 선택 (Free/유료)</td>
+              <td>p_impulsive</td>
+              <td>p_cautious</td>
+              <td>p_cautious 미도달</td>
+            </tr>
+<tr>
+              <td>회원가입 폼 입력</td>
+              <td>p_impulsive</td>
+              <td>p_cautious</td>
+              <td>p_cautious 미도달</td>
+            </tr>
+<tr>
+              <td>계정 생성 완료</td>
+              <td>p_impulsive</td>
+              <td>p_cautious</td>
+              <td>p_impulsive: Turn 6~8에서 버튼 무반응으로 이탈 위기 후 Turn 9 완료. p_cautious: 퍼널 진입 자체 미완료</td>
+            </tr>
+</table>
+<h3>개선 제안 (우선순위순)</h3>
+
+            <div class="recommendation">
+              <span class="priority">#1</span>
+              폼 제출 버튼(Create Account)에 즉각적인 시각 피드백 추가: 클릭 시 버튼을 &#x27;Processing...&#x27; 상태(비활성화 + 스피너)로 전환하고, 완료/오류 시 페이지 상단 인라인 메시지 표시 및 상단 자동 스크롤
+              <br><em>예상 효과:</em> 충동형 유저의 이탈 직전 상황(Turn 8 &#x27;이번에도 안 되면 나간다&#x27;) 제거 — 버튼 피드백 개선만으로 무료 가입 완료율 유의미하게 상승 예상 | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#2</span>
+              홈페이지 히어로 섹션 하단(검색바 바로 아래)에 신뢰 배지 바(Trust Bar) 추가: &#x27;Since 2007&#x27;, &#x27;45,000+ 게임 데이터&#x27;, &#x27;월 X만 명 이용&#x27; 등 수치 기반 신뢰 지표를 1줄로 노출
+              <br><em>예상 효과:</em> 신중형 유저가 Footer 탐색에 소비하는 4~5턴을 1턴으로 단축 → 신뢰 검증 완료 후 실제 전환 행동(플랜 선택)까지 10턴 내 도달 가능 | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#3</span>
+              About Us 페이지 하단 및 플랜 비교 페이지에 전환 유도 CTA 추가: &#x27;PriceCharting을 신뢰하셨나요? 지금 무료로 시작하세요 →&#x27; 버튼
+              <br><em>예상 효과:</em> 신중형 유저가 신뢰 검증 완료 후 자연스럽게 가입 퍼널로 진입 가능 — 현재 About Us 페이지는 신뢰 증명만 하고 전환 연결이 단절됨 | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#4</span>
+              상단 Sticky Navigation에 &#x27;About&#x27; 링크 직접 노출 — 현재 Footer에만 위치한 신뢰 정보 접근성을 개선
+              <br><em>예상 효과:</em> 신중형 유저의 Footer 탐색 스크롤 4회를 1회 클릭으로 대체, 신뢰 검증 단계 효율화로 전환 퍼널 진입 가속 | <em>난이도:</em> low
+            </div>
+
+            <div class="recommendation">
+              <span class="priority">#5</span>
+              Premium Features 배너를 A/B 테스트: (A) 현행 유지 vs. (B) &#x27;무료로 시작하기&#x27; + &#x27;프리미엄 기능 보기&#x27; 이중 CTA — 충동형은 무료 가입으로, 탐색형은 플랜 비교로 자연 분기
+              <br><em>예상 효과:</em> 현재 배너 클릭 후 Free 플랜으로만 귀결되는 패턴을 개선하여 유료 전환 경로 강화, 프리미엄 구독 전환율 개선 기대 | <em>난이도:</em> medium
+            </div>
+
+<div class="footer">
+  <p>Generated by 41R Persona Market. 모든 관찰은 콘텐츠 해시로 추적 가능합니다.</p>
+  <p>Lineage: rpt_20260413_338e26/lineage.json | Analysis: rpt_20260413_338e26/analysis.json</p>
+</div>
+
+</body>
+</html>

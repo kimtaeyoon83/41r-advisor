@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v002",
+  "content": "{\"turn\": 1, \"page_state\": \"Figma pricing page offering multiple plan options with seat-based pricing. Features product selector, add-ons, detailed feature comparison table, FAQs, and social proof from trusted companies.\", \"action\": \"read\", \"reason\": \"민수는 충동적 쇼퍼로 화면에서 가격 숫자와 플랜 이름을 시각적으로 즉시 스캔한다. 현재 화면에 Starter(Free), Professional($16), Organization($55), Enterprise($90)가 한눈에 보이므로 read로 빠르게 가격 정보를 파악한다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"가격 정보가 바로 보여서 만족. Free 플랜 있고 유료는 $16부터 — 순식간에 파악 완료, 좋은데?\"}",
+  "timestamp": "2026-04-13T12:04:26.932781+00:00",
+  "obs_id": "o_bb5003be7923dbef"
+}

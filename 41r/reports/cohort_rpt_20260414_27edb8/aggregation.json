@@ -1,0 +1,56 @@
+{
+  "n_total": 20,
+  "n_converted": 0,
+  "n_abandoned": 10,
+  "n_partial": 10,
+  "n_unknown": 0,
+  "conversion_rate": 0.0,
+  "conversion_rate_ci95": [
+    0.0,
+    0.161
+  ],
+  "engagement": {
+    "avg_turns": 8.2,
+    "median_turns": 8.5,
+    "sample_n": 10
+  },
+  "drop_point_histogram": {
+    "플랜 비교 후 최종 결제 단계 진입 직전": 3,
+    "플랜 비교 후 결제 시도 직전 — 개인정보 입력 단계": 1,
+    "플랜 비교 후 결제 단계 진입 직전": 1,
+    "플랜 비교 후 최종 결제 전 이탈 — 연간/월간 요금 전환 및 숨겨진 조건 확인 단계": 1,
+    "플랜 비교 후 연간/월간 요금 전환 시 숨겨진 조건 확인 단계": 1,
+    "플랜 비교 중 CMS/ecommerce 기능별 상세 수수료 확인 단계": 1,
+    "플랜 비교 후 최종 결정 단계": 1,
+    "플랜 비교 중 기능 제한 세부 항목 확인 단계": 1
+  },
+  "frustration_frequency": {
+    "Site Plans와 Workspace Plans 두 카테고리가 분리되어 있어 '프리랜서에게 어느 게 맞는가'가 즉시 명확하지 않음": 1,
+    "CTA 버튼이 'Get started'로 통일되어 있어 클릭 후 어떤 흐름으로 이어지는지 불명확 (불명확한 CTA 트리거 발동)": 1,
+    "환불 정책이 가격 페이지 내에 명시되지 않고 별도 Terms 페이지로 분산되어 신뢰 신호 미충족": 1,
+    "모바일 환경에서 가로 비교표가 잘려 보이거나 스크롤 조작이 불편할 수 있음 (device_preference: mobile)": 1,
+    "결제 전 카드 정보 선등록 또는 과도한 개인정보 입력 요구 (최대 frustration trigger)": 1,
+    "모바일 환경에서 플랜 비교 테이블 가독성 저하 — 좌우 스크롤 필요 시 이탈 가중": 1,
+    "환불 정책이 가격 페이지에 명시되지 않을 경우 신뢰 저하 (trust signal 미충족)": 1,
+    "고객 사례/사용자 후기가 pricing 페이지 내에 부재하면 확신 형성 실패": 1,
+    "Freelancer 전용 플랜이 명시적으로 구분되지 않아 '나에게 맞는 플랜'을 직접 판단해야 하는 모호함": 1,
+    "플랜별 CTA 버튼 문구가 'Get started'로 동일하여 어떤 플랜을 선택해야 할지 명확한 가이드 부재": 1
+  },
+  "trait_outcome_correlations": {
+    "_target": "conversion_probability",
+    "impulsiveness": 0.407,
+    "research_depth": -0.47,
+    "privacy_sensitivity": 0.046,
+    "price_sensitivity": -0.275,
+    "visual_dependency": -0.072,
+    "tech_literacy": -0.091,
+    "social_proof_weight": 0.037
+  },
+  "conversion_probability_dist": {
+    "mean": 0.159,
+    "median": 0.14,
+    "stdev": 0.165,
+    "min": 0.0,
+    "max": 0.38
+  }
+}

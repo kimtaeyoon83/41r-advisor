@@ -1,0 +1,20 @@
+{
+  "golden_id": "golden_01_impulsive_shopify",
+  "persona_id": "p_impulsive",
+  "url": "https://www.shopify.com",
+  "task": "이 이커머스 플랫폼의 랜딩 페이지를 탐색해라. 서비스가 무엇인지 파악하고 가격과 기능을 확인한 뒤 가입할지 결정해라.",
+  "expected_behavior": "충동형 유저는 신뢰 검증 없이 즉시 가격 정보를 찾아 CTA로 직행해야 함. Pricing 네비게이션 또는 Start for free 버튼을 5~7턴 내에 클릭.",
+  "expected_outcome": "task_complete_or_drop",
+  "expected_turn_range": [3, 8],
+  "critical_actions": [
+    "가격 페이지 또는 프로모션 정보 확인",
+    "CTA 버튼 (Start for free 류) 클릭 시도"
+  ],
+  "forbidden_actions": [
+    "About Us 페이지 클릭",
+    "Privacy Policy 확인",
+    "회사 연혁 검색",
+    "Footer까지 스크롤하여 법적 문서 읽기"
+  ],
+  "notes": "충동형이 신중형처럼 행동하면 페르소나 일관성 깨진 것. 이탈해도 OK, 단 이유가 'UX 마찰'이어야 함."
+}

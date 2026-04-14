@@ -1,0 +1,16 @@
+tiers:
+  high: { model: claude-opus-4-6 }
+  mid:  { model: claude-sonnet-4-6 }
+  low:  { model: claude-haiku-4-5 }
+
+roles:
+  # H1 비용 최적화: advisor OFF, plan도 Sonnet으로 (Opus는 H2 정확도 검증 시 활성화)
+  plan_generation:      { tier: mid,  advisor: null }
+  decision_judge:       { tier: mid,  advisor: null }
+  tool_selection:       { tier: low,  advisor: null }
+  page_summarizer:      { tier: low,  advisor: null }
+  replan_trigger:       { tier: mid,  advisor: null }
+  review_inspection:    { tier: low,  advisor: null }
+  review_consistency:   { tier: mid,  advisor: null }
+  review_proposer:      { tier: mid,  advisor: null }
+  review_regression:    { tier: mid,  advisor: null }

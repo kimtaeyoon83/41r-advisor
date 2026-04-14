@@ -1,0 +1,18 @@
+# pre-commit framework 사용 시 (https://pre-commit.com)
+# 설치: pip install pre-commit && pre-commit install
+repos:
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest unit tests
+        entry: .venv/bin/python3 -m pytest tests/ -q --tb=short
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: hallucination-guard
+        name: hallucination guard on reports
+        entry: ./scripts/pre-commit
+        language: system
+        files: '(reports/.*\.html|experiments/.*\.md|reports/.*\.md)$'
+        pass_filenames: false

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# 41R Pre-commit Hook
+# 설치: ln -s ../../scripts/pre-commit .git/hooks/pre-commit
+#      또는 pre-commit framework 사용 시 .pre-commit-config.yaml 참조
+
+set -e
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+echo "[pre-commit] 41R 검증 실행..."
+
+# 1. unit test
+echo "→ pytest 실행"
+.venv/bin/python3 -m pytest tests/ -q --tb=short || {
+    echo "❌ Test 실패. 커밋 중단."
+    exit 1
+}
+
+# 2. 변경된 리포트 파일에 대해 hallucination guard
+CHANGED_REPORTS=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null | \
+    grep -E "(reports/.*\.html|experiments/.*\.md|reports/.*\.md)" || true)
+
+if [ -n "$CHANGED_REPORTS" ]; then
+    echo "→ 변경된 리포트 감사:"
+    for f in $CHANGED_REPORTS; do
+        if [ -f "$f" ]; then
+            echo "  - $f"
+            .venv/bin/python3 -m modules.hallucination_guard "$f" || {
+                echo "❌ Hallucination guard 실패: $f"
+                exit 1
+            }
+        fi
+    done
+fi
+
+echo "✓ Pre-commit 검증 통과."

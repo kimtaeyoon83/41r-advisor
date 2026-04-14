@@ -1,0 +1,55 @@
+{
+  "phase": "D2",
+  "targets": [
+    {
+      "slug": "29cm",
+      "company": "29CM",
+      "url": "https://www.29cm.co.kr",
+      "cohort_id": "cohort_20260414_015331_dcc14b",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_015331_dcc14b_015440_2c2e.json",
+      "report_id": "cohort_rpt_20260414_649058",
+      "report_html": "reports/cohort_rpt_20260414_649058/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_649058/aggregation.json"
+    },
+    {
+      "slug": "class101",
+      "company": "클래스101",
+      "url": "https://class101.net",
+      "cohort_id": "cohort_20260414_015440_babb50",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_015440_babb50_015550_773b.json",
+      "report_id": "cohort_rpt_20260414_31ef68",
+      "report_html": "reports/cohort_rpt_20260414_31ef68/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_31ef68/aggregation.json"
+    },
+    {
+      "slug": "ohouse",
+      "company": "오늘의집",
+      "url": "https://ohou.se",
+      "cohort_id": "cohort_20260414_015550_c9dd89",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_015550_c9dd89_015700_f551.json",
+      "report_id": "cohort_rpt_20260414_26ffd3",
+      "report_html": "reports/cohort_rpt_20260414_26ffd3/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_26ffd3/aggregation.json"
+    },
+    {
+      "slug": "webflow",
+      "company": "Webflow",
+      "url": "https://webflow.com/pricing",
+      "cohort_id": "cohort_20260414_015700_15664b",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_015700_15664b_015814_1d4c.json",
+      "report_id": "cohort_rpt_20260414_27edb8",
+      "report_html": "reports/cohort_rpt_20260414_27edb8/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_27edb8/aggregation.json"
+    },
+    {
+      "slug": "glossier",
+      "company": "Glossier",
+      "url": "https://www.glossier.com",
+      "cohort_id": "cohort_20260414_015814_abb301",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_015814_abb301_015920_e73b.json",
+      "report_id": "cohort_rpt_20260414_3df81f",
+      "report_html": "reports/cohort_rpt_20260414_3df81f/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_3df81f/aggregation.json"
+    }
+  ]
+}

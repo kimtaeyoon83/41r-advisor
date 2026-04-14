@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v002",
+  "content": "{\"turn\": 3, \"page_state\": \"Figma의 요금제 및 가격 정보를 비교할 수 있는 페이지. 제품별 요금제 선택, 모든 기능 비교 테이블, FAQ, 기업 고객 사례 등을 포함.\", \"action\": \"scroll\", \"reason\": \"현재 화면에 스타터(무료), 프로페셔널($16/월), 오거니제이션($55/월), 엔터프라이즈($90/월) 카드가 보이는데 아직 각 플랜의 CTA 버튼(선택 버튼)이 보이지 않는다. 민수는 Professional $16이 이미 눈에 들어왔고 바로 클릭하고 싶지만 버튼이 viewport 밖에 있다. 빠르게 아래로 스크롤해서 '프로페셔널 선택' 버튼을 찾는다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"Professional $16 가격은 이미 봤고 '괜찮네' 싶은데 선택 버튼이 안 보여서 빨리 내려가고 싶음\"}",
+  "timestamp": "2026-04-13T11:29:26.361657+00:00",
+  "obs_id": "o_1e64a4eab0621a34"
+}

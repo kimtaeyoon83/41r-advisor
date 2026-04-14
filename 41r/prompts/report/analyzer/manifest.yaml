@@ -1,0 +1,6 @@
+current: v001
+versions:
+  v001:
+    created: "2026-04-14"
+    author: freddie
+    message: "초판 — report_analyzer.py에서 Hot Zone으로 분리 (Constitution §2 준수)"

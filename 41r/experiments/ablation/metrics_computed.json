@@ -1,0 +1,327 @@
+{
+  "metric_1_accuracy": {
+    "arm_a_pct": 91.7,
+    "arm_b_pct": 83.3,
+    "delta_pp": -8.3,
+    "b_strictly_better_cases": 0,
+    "a_strictly_better_cases": 1
+  },
+  "metric_2_divergence": {
+    "arm_a_avg_score": 0.144,
+    "arm_b_avg_score": 0.316,
+    "delta": 0.172,
+    "description": "0=전원동의, 1=극단분기. 확신도 가중."
+  },
+  "metric_5_counterintuitive": {
+    "cases": [
+      "ea_simcity_promo",
+      "groove_pricing"
+    ],
+    "arm_a_correct": "1/2",
+    "arm_b_correct": "0/2",
+    "arm_a_avg_divergence": 0.154,
+    "arm_b_avg_divergence": 0.857
+  },
+  "case_comparison": [
+    {
+      "case_id": "hubspot_social_proof",
+      "company": "HubSpot",
+      "actual_winner": "A",
+      "lift_pct": 24,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.5,
+        "votes": {
+          "A": 3,
+          "B": 2
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.231,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "basecamp_long_form",
+      "company": "Basecamp (37signals)",
+      "actual_winner": "A",
+      "lift_pct": 37.5,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.235,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "obama_2008_hero",
+      "company": "Obama 2008 Campaign",
+      "actual_winner": "B",
+      "lift_pct": 40,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "B",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 0,
+          "B": 5
+        }
+      },
+      "arm_b": {
+        "predicted": "B",
+        "match": true,
+        "divergence_score": 0.545,
+        "votes": {
+          "A": 2,
+          "B": 3
+        }
+      }
+    },
+    {
+      "case_id": "kaya_skin_form",
+      "company": "Kaya Skin Clinic",
+      "actual_winner": "A",
+      "lift_pct": 137,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.167,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "humana_banner",
+      "company": "Humana",
+      "actual_winner": "A",
+      "lift_pct": 433,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      }
+    },
+    {
+      "case_id": "groove_pricing",
+      "company": "Groove",
+      "actual_winner": "A",
+      "lift_pct": 25,
+      "is_counterintuitive": true,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.308,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      },
+      "arm_b": {
+        "predicted": "B",
+        "match": false,
+        "divergence_score": 0.714,
+        "votes": {
+          "A": 2,
+          "B": 3
+        }
+      }
+    },
+    {
+      "case_id": "express_watches_trust",
+      "company": "Express Watches",
+      "actual_winner": "A",
+      "lift_pct": 107,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.231,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "ea_simcity_promo",
+      "company": "Electronic Arts (SimCity)",
+      "actual_winner": "A",
+      "lift_pct": 43.4,
+      "is_counterintuitive": true,
+      "arm_a": {
+        "predicted": "B",
+        "match": false,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 0,
+          "B": 5
+        }
+      },
+      "arm_b": {
+        "predicted": "B",
+        "match": false,
+        "divergence_score": 1.0,
+        "votes": {
+          "A": 3,
+          "B": 2
+        }
+      }
+    },
+    {
+      "case_id": "workzone_logos",
+      "company": "WorkZone",
+      "actual_winner": "B",
+      "lift_pct": 34,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "B",
+        "match": true,
+        "divergence_score": 0.25,
+        "votes": {
+          "A": 1,
+          "B": 4
+        }
+      },
+      "arm_b": {
+        "predicted": "B",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 0,
+          "B": 5
+        }
+      }
+    },
+    {
+      "case_id": "hyundai_cta_fold",
+      "company": "Hyundai Netherlands",
+      "actual_winner": "A",
+      "lift_pct": 15,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.294,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "contentverve_cta_copy",
+      "company": "ContentVerve",
+      "actual_winner": "A",
+      "lift_pct": 90,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.667,
+        "votes": {
+          "A": 3,
+          "B": 2
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.375,
+        "votes": {
+          "A": 4,
+          "B": 1
+        }
+      }
+    },
+    {
+      "case_id": "performable_button_color",
+      "company": "Performable (HubSpot)",
+      "actual_winner": "A",
+      "lift_pct": 21,
+      "is_counterintuitive": false,
+      "arm_a": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      },
+      "arm_b": {
+        "predicted": "A",
+        "match": true,
+        "divergence_score": 0.0,
+        "votes": {
+          "A": 5,
+          "B": 0
+        }
+      }
+    }
+  ]
+}
