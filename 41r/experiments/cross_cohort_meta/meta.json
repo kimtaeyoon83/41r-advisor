@@ -1,5 +1,5 @@
 {
-  "n_cohorts_analyzed": 6,
+  "n_cohorts_analyzed": 9,
   "cohort_analyses": [
     {
       "site": "figma.com",
@@ -108,91 +108,147 @@
         "social_proof_weight": -0.174
       },
       "source": "cohort_results/cohort_20260414_015814_abb301_015920_e73b.json"
+    },
+    {
+      "site": "notion.so",
+      "url": "https://www.notion.so/pricing",
+      "task": "팀(5~10명)을 위한 협업 도구를 찾는다. Notion 가격 페이지를 보고 어느 플랜이 우리에게 맞는지 결정해라. 무료 vs 유료 vs Bus",
+      "n": 20,
+      "avg_outcome": 0.159,
+      "stdev_outcome": 0.187,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.316,
+        "research_depth": -0.581,
+        "privacy_sensitivity": 0.261,
+        "price_sensitivity": -0.328,
+        "visual_dependency": -0.163,
+        "tech_literacy": 0.385,
+        "social_proof_weight": 0.152
+      },
+      "source": "cohort_results/cohort_20260414_111133_d3d217_111249_9629.json"
+    },
+    {
+      "site": "linear.app",
+      "url": "https://linear.app/pricing",
+      "task": "엔지니어링팀 이슈 트래커를 찾는다. Jira에서 옮길지 검토 중. Linear 가격 페이지를 보고 우리 팀(5~15명)에 적합한지 판단해라.",
+      "n": 20,
+      "avg_outcome": 0.279,
+      "stdev_outcome": 0.25,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.39,
+        "research_depth": -0.281,
+        "privacy_sensitivity": -0.088,
+        "price_sensitivity": -0.068,
+        "visual_dependency": -0.116,
+        "tech_literacy": -0.041,
+        "social_proof_weight": -0.032
+      },
+      "source": "cohort_results/cohort_20260414_111250_6cc9ce_111402_1039.json"
+    },
+    {
+      "site": "figma.com",
+      "url": "https://www.figma.com/pricing",
+      "task": "디자인팀(3~8명) 협업 도구를 찾는다. Figma 가격 페이지를 보고 Professional vs Organization 중 우리에게 맞는 플",
+      "n": 20,
+      "avg_outcome": 0.284,
+      "stdev_outcome": 0.136,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.342,
+        "research_depth": -0.046,
+        "privacy_sensitivity": 0.241,
+        "price_sensitivity": 0.155,
+        "visual_dependency": 0.117,
+        "tech_literacy": -0.018,
+        "social_proof_weight": -0.064
+      },
+      "source": "cohort_results/cohort_20260414_111402_cc199e_111520_b93d.json"
     }
   ],
   "consistency": {
-    "n_cohorts": 6,
+    "n_cohorts": 9,
     "trait_consistency": {
-      "price_sensitivity": {
-        "n_sites": 6,
-        "mean_corr": -0.289,
-        "stdev_corr": 0.278,
-        "direction_agreement": 0.83,
-        "positives": 1,
-        "negatives": 5,
-        "neutral": 0,
-        "interpretation": "강한 일관성 — 음의 영향 사이트 간 안정적"
-      },
-      "research_depth": {
-        "n_sites": 6,
-        "mean_corr": -0.203,
-        "stdev_corr": 0.169,
-        "direction_agreement": 0.83,
-        "positives": 0,
-        "negatives": 5,
-        "neutral": 1,
-        "interpretation": "강한 일관성 — 음의 영향 사이트 간 안정적"
-      },
       "impulsiveness": {
-        "n_sites": 6,
-        "mean_corr": 0.197,
-        "stdev_corr": 0.323,
-        "direction_agreement": 0.67,
-        "positives": 4,
+        "n_sites": 9,
+        "mean_corr": 0.248,
+        "stdev_corr": 0.267,
+        "direction_agreement": 0.78,
+        "positives": 7,
         "negatives": 2,
         "neutral": 0,
         "interpretation": "중간 일관성"
       },
-      "tech_literacy": {
-        "n_sites": 6,
-        "mean_corr": -0.132,
-        "stdev_corr": 0.182,
-        "direction_agreement": 0.67,
-        "positives": 1,
-        "negatives": 4,
-        "neutral": 1,
+      "research_depth": {
+        "n_sites": 9,
+        "mean_corr": -0.236,
+        "stdev_corr": 0.196,
+        "direction_agreement": 0.78,
+        "positives": 0,
+        "negatives": 7,
+        "neutral": 2,
+        "interpretation": "중간 일관성"
+      },
+      "price_sensitivity": {
+        "n_sites": 9,
+        "mean_corr": -0.219,
+        "stdev_corr": 0.272,
+        "direction_agreement": 0.78,
+        "positives": 2,
+        "negatives": 7,
+        "neutral": 0,
         "interpretation": "중간 일관성"
       },
       "privacy_sensitivity": {
-        "n_sites": 6,
-        "mean_corr": 0.117,
-        "stdev_corr": 0.227,
-        "direction_agreement": 0.5,
-        "positives": 3,
-        "negatives": 2,
-        "neutral": 1,
-        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.23)"
-      },
-      "social_proof_weight": {
-        "n_sites": 6,
-        "mean_corr": -0.07,
-        "stdev_corr": 0.23,
-        "direction_agreement": 0.5,
-        "positives": 1,
+        "n_sites": 9,
+        "mean_corr": 0.124,
+        "stdev_corr": 0.205,
+        "direction_agreement": 0.56,
+        "positives": 5,
         "negatives": 3,
-        "neutral": 2,
-        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.23)"
+        "neutral": 1,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.20)"
       },
       "visual_dependency": {
-        "n_sites": 6,
-        "mean_corr": -0.051,
-        "stdev_corr": 0.296,
-        "direction_agreement": 0.5,
-        "positives": 2,
-        "negatives": 3,
+        "n_sites": 9,
+        "mean_corr": -0.052,
+        "stdev_corr": 0.245,
+        "direction_agreement": 0.56,
+        "positives": 3,
+        "negatives": 5,
         "neutral": 1,
-        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.30)"
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.25)"
+      },
+      "tech_literacy": {
+        "n_sites": 9,
+        "mean_corr": -0.052,
+        "stdev_corr": 0.223,
+        "direction_agreement": 0.44,
+        "positives": 2,
+        "negatives": 4,
+        "neutral": 3,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.22)"
+      },
+      "social_proof_weight": {
+        "n_sites": 9,
+        "mean_corr": -0.04,
+        "stdev_corr": 0.196,
+        "direction_agreement": 0.44,
+        "positives": 2,
+        "negatives": 4,
+        "neutral": 3,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.20)"
       }
     },
-    "most_consistent_trait": "price_sensitivity",
-    "least_consistent_trait": "visual_dependency",
+    "most_consistent_trait": "impulsiveness",
+    "least_consistent_trait": "social_proof_weight",
     "site_outlier_scores": {
-      "glossier.com": 0.3,
-      "ohou.se": 0.289,
-      "29cm.co.kr": 0.244,
-      "class101.net": 0.228,
-      "figma.com": 0.203,
-      "webflow.com": 0.125
+      "glossier.com": 0.325,
+      "ohou.se": 0.275,
+      "29cm.co.kr": 0.246,
+      "notion.so": 0.225,
+      "class101.net": 0.181,
+      "figma.com": 0.177,
+      "webflow.com": 0.106,
+      "linear.app": 0.102
     },
     "biggest_outlier_site": "glossier.com"
   }

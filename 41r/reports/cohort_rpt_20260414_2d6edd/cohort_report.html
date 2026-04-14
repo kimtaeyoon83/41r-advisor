@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_2d6edd</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>디자인팀(3~8명) 협업 도구를 찾는다. Figma 가격 페이지를 보고 Professional vs Orga</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://www.figma.com/pricing</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=20명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>0.0%</strong> (95% CI: 0.0~16.1%) · 평균 7.94턴 engagement ·
+    세그먼트 분기 <span class="signal signal-high">낮음</span> → 단일 A/B 테스트로 충분
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">0.0%</div>
+      <div class="stat-label">전환율 (0/20)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7.94</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">15.0%</div>
+      <div class="stat-label">이탈률 (3명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td>Organization 플랜 가격 확인 후 연간 결제 조건 및 숨겨진 비용 의심 단계</td><td>3</td><td>15.0%</td></tr><tr><td>Professional vs Organization 최종 결정 단계</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜 가격 확인 후 연간 결제 강제 여부 및 숨겨진 수수료 탐색 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 간 기능 비교 후 최종 결제 진행 전 이탈 (Organization 플랜 가격 확인 시점)</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결정 전 이탈 (Organization 플랜 가격 확인 단계)</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 Organization 플랜 도입 결정 보류 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결정 단계 — 조직 내 승인 없이 단독 결정 보류</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜 가격 확인 후 최종 결정 보류</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜 상세 비교 후 최종 결정 보류</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결정 단계 — 조직 규모·청구 방식 불확실성으로 판단 보류</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 최종 결정 보류 단계 (가격 대비 기능 불확실성)</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜 세부 기능 비교 후 가격 확인 단계</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 Organization 가격 확인 단계에서 최종 결정 보류</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜 세부 조건 확인 후 최종 결정 보류</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 비교 후 Organization 가격 확인 단계에서 내부 결재 보류</td><td>1</td><td>5.0%</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td>Organization 플랜의 가격이 Professional 대비 3배임에도 추가 기능이 팀 규모(3~8명)에 실제로 필요한지 불명확</td><td>1</td><td>5.0%</td></tr><tr><td>&#x27;Enterprise&#x27;와 &#x27;Organization&#x27; 경계가 모호해 중소 팀 적합성 판단 어려움</td><td>1</td><td>5.0%</td></tr><tr><td>연간 결제 강제 여부 및 중도 해지 환불 정책이 가격 페이지에서 즉시 확인되지 않음</td><td>1</td><td>5.0%</td></tr><tr><td>Figma vs FigJam 시트 개념이 혼재되어 실제 청구 구조 파악에 인지 부하 발생</td><td>1</td><td>5.0%</td></tr><tr><td>가격이 &#x27;per editor/month, billed annually&#x27; 조건으로만 표시 — 월 단위 실제 청구액 즉시 계산 불가로 인지 마찰</td><td>1</td><td>5.0%</td></tr><tr><td>Organization 플랜의 구체적 추가 비용(SSO, advanced analytics 등) 명시 불충분 → 숨겨진 수수료 의심 촉발</td><td>1</td><td>5.0%</td></tr><tr><td>3~8명 팀 규모에 딱 맞는 실제 고객 사례가 pricing 페이지 내에서 바로 노출되지 않음</td><td>1</td><td>5.0%</td></tr><tr><td>Professional → Organization 업그레이드 시 기존 프로젝트 이전 조건·제약이 불명확</td><td>1</td><td>5.0%</td></tr><tr><td>환불·해지 정책이 pricing 페이지에서 직접 확인되지 않고 별도 Terms 페이지로 분리</td><td>1</td><td>5.0%</td></tr><tr><td>모바일에서 플랜 비교 테이블 가로 레이아웃이 잘리거나 스크롤이 불편하여 정보 파악 난이도 상승</td><td>1</td><td>5.0%</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: conversion_probability</td></tr><tr><td>impulsiveness</td><td>+0.342</td><td>보통</td></tr><tr><td>privacy_sensitivity</td><td>+0.241</td><td>약한 상관</td></tr><tr><td>price_sensitivity</td><td>+0.155</td><td>약한 상관</td></tr><tr><td>visual_dependency</td><td>+0.117</td><td>약한 상관</td></tr><tr><td>social_proof_weight</td><td>-0.064</td><td>약한 상관</td></tr><tr><td>research_depth</td><td>-0.046</td><td>약한 상관</td></tr><tr><td>tech_literacy</td><td>-0.018</td><td>약한 상관</td></tr></table>
+
+  
+        <h3>개인별 전환 확률 분포</h3>
+        <div class="stats">
+          <div class="stat-card"><div class="stat-number">0.284</div><div class="stat-label">평균 확률</div></div>
+          <div class="stat-card"><div class="stat-number">0.31</div><div class="stat-label">중앙값</div></div>
+          <div class="stat-card"><div class="stat-number">0.136</div><div class="stat-label">표준편차</div></div>
+        </div>
+        <p style="color:#64748b; font-size:14px;">분포 폭 0.0 ~ 0.52. 표준편차가 클수록 세그먼트 분기가 강함.</p>
+        
+</div>
+
+
+
+
+        <div class="section">
+          <h2>Reality Check (외부 baseline 비교)</h2>
+          <div class="exec">⚠️ 2/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수.</div>
+          <table>
+            <tr><th>지표</th><th>시뮬</th><th>실제</th><th>비율</th><th>신뢰도</th></tr>
+            <tr><td>전환율 (vs GA4 mobile)</td><td>0.0</td><td>0.0216</td><td>0.0×</td><td>✅ 신뢰 가능</td></tr><tr><td>평균 페이지뷰 (vs GA4 mobile)</td><td>7.94</td><td>3.74</td><td>2.1×</td><td>⚠️ 약간 over</td></tr><tr><td>장바구니 도달률 (vs GA4)</td><td>0.85</td><td>0.047</td><td>18.1×</td><td>🔴 매우 over (절대 수치 사용 금지)</td></tr>
+          </table>
+          <p style="color:#64748b; font-size:13px; margin-top:8px;">
+            Baseline 출처: GA4 Merchandise Store (2020-11~2021-01); Open Bandit ZOZOTOWN sample<br>
+            ⚠️ Baseline은 Google Merchandise Store / ZOZOTOWN 데이터로, 본 사이트와 사용자 구성이 다릅니다.
+            절대 수치가 아닌 <strong>상대 비교</strong> 용도로만 사용하세요.
+          </p>
+        </div>
+        
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.140</strong> → 분기 <strong>낮음</strong><br>
+    권고: <strong>단일 A/B 테스트로 충분</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_2d6edd · Generated: 2026-04-14T11:15:20 UTC</p>
+  <p>Cohort: cohort_20260414_111402_cc199e · Mode: text · Personas: 20</p>
+</div>
+
+</div>
+</body>
+</html>

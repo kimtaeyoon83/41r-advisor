@@ -1,0 +1,90 @@
+{
+  "n_total": 20,
+  "n_converted": 0,
+  "n_abandoned": 8,
+  "n_partial": 12,
+  "n_unknown": 0,
+  "conversion_rate": 0.0,
+  "conversion_rate_ci95": [
+    0.0,
+    0.161
+  ],
+  "engagement": {
+    "avg_turns": 9.08,
+    "median_turns": 9.0,
+    "sample_n": 12
+  },
+  "drop_point_histogram": {
+    "엔터프라이즈 플랜 비교 후 / 고객 사례 확인 시도 단계": 1,
+    "Enterprise 플랜 상세 확인 시도 후 영업 문의 요구 단계": 1,
+    "플랜 비교 후 숨겨진 기능 제한 확인 시도 단계": 1,
+    "Enterprise 플랜 확인 후 팀 규모 적합성 최종 판단 전 이탈": 1,
+    "엔터프라이즈 플랜 비교 후 추가 정보 탐색 단계": 1,
+    "엔터프라이즈 플랜 CTA 또는 'Talk to Sales' 버튼 도달 시점": 1,
+    "Enterprise 플랜 세부 조건 확인 후 추가 정보 탐색 필요 단계": 1,
+    "Enterprise 플랜 세부 조건 확인 시도 후, 명시적 가격 미제공 구간에서 이탈 고려": 1,
+    "Enterprise 플랜 문의 CTA 단계 (명확한 가격 부재로 판단 보류)": 1,
+    "Enterprise 플랜 가격 확인 시도 → 'Contact us' 벽에서 이탈 고려": 1,
+    "가격 플랜 비교 후 실제 의사결정 보류 — 외부 검증(리뷰/사례) 탐색으로 이탈": 1,
+    "고객 사례 / 실제 팀 규모별 사용 후기 부재 확인 후 외부 리서치로 이탈": 1
+  },
+  "frustration_frequency": {
+    "Enterprise 플랜 가격이 'Contact us'로만 표시되어 즉각적인 비용 예측 불가 → 의사결정 지연": 1,
+    "모바일 뷰에서 Feature comparison 테이블이 잘려 가로 스크롤 필요 → 읽기 어려움": 1,
+    "Pricing 페이지 내 실제 고객 사례(엔지니어링팀 규모·전환 사례)가 부족하거나 없음 → trust signal 미충족": 1,
+    "Jira와의 직접 비교 콘텐츠 부재 → 스스로 계산해야 하는 인지 부하 발생": 1,
+    "Enterprise 플랜 가격이 'Contact Sales'로 숨겨져 있어 즉각적인 비교 불가": 1,
+    "팀 규모 슬라이더 등 인터랙티브 가격 계산기 부재 — 직접 암산 필요": 1,
+    "고객 사례(Case Study)가 pricing 페이지 내에 충분히 노출되지 않아 신뢰 신호 부족 (trust_signals 기준 미달)": 1,
+    "가입 플로우 진입 시 이메일·팀명 등 초기 정보 요구 — privacy_sensitivity 0.82로 마찰 발생 가능": 1,
+    "Enterprise 가격 미공개 — 팀 규모가 커질 경우 비용 예측 불가능하다는 불안감 유발": 1,
+    "좌석 수 기준 과금 외 추가 수수료(스토리지, API 호출 등) 명시 불명확": 1
+  },
+  "trait_outcome_correlations": {
+    "_target": "conversion_probability",
+    "impulsiveness": 0.39,
+    "research_depth": -0.281,
+    "privacy_sensitivity": -0.088,
+    "price_sensitivity": -0.068,
+    "visual_dependency": -0.116,
+    "tech_literacy": -0.041,
+    "social_proof_weight": -0.032
+  },
+  "conversion_probability_dist": {
+    "mean": 0.279,
+    "median": 0.36,
+    "stdev": 0.25,
+    "min": 0.0,
+    "max": 0.61
+  },
+  "reality_check": {
+    "baseline_sources": [
+      "GA4 Merchandise Store (2020-11~2021-01)",
+      "Open Bandit ZOZOTOWN sample"
+    ],
+    "comparisons": [
+      {
+        "label": "전환율 (vs GA4 mobile)",
+        "sim": 0.0,
+        "real": 0.0216,
+        "factor": 0.0,
+        "trust": "✅ 신뢰 가능"
+      },
+      {
+        "label": "평균 페이지뷰 (vs GA4 mobile)",
+        "sim": 9.08,
+        "real": 3.74,
+        "factor": 2.4,
+        "trust": "⚠️ 약간 over"
+      },
+      {
+        "label": "장바구니 도달률 (vs GA4)",
+        "sim": 0.6,
+        "real": 0.047,
+        "factor": 12.8,
+        "trust": "🔴 매우 over (절대 수치 사용 금지)"
+      }
+    ],
+    "summary_text": "⚠️ 2/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수."
+  }
+}

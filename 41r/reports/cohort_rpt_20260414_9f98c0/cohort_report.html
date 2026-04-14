@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_9f98c0</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>팀(5~10명)을 위한 협업 도구를 찾는다. Notion 가격 페이지를 보고 어느 플랜이 우리에게 맞는지 결</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://www.notion.so/pricing</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=20명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>0.0%</strong> (95% CI: 0.0~16.1%) · 평균 8.44턴 engagement ·
+    세그먼트 분기 <span class="signal signal-low">높음</span> → 세그먼트별 variant 설계 필수
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">0.0%</div>
+      <div class="stat-label">전환율 (0/20)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8.44</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">55.0%</div>
+      <div class="stat-label">이탈률 (11명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td>Business 플랜 세부 기능 확인 후 → 팀 관리자 초대/권한 정책 불명확 구간</td><td>1</td><td>5.0%</td></tr><tr><td>가격 세부 조건 확인 후 외부 리서치로 이탈</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 상세 기능 비교 테이블 확인 후 — 최종 결제 클릭 전</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 상세 기능 비교 단계에서 확신 부족으로 이탈 보류</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 가격 확인 후 연간/월간 전환 비교 단계에서 최종 결정 유보</td><td>1</td><td>5.0%</td></tr><tr><td>Plus vs Business 플랜 비교 후 최종 결정 단계</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 연간 결제 가격 확인 후 팀 전체 비용 계산 단계</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 상세 기능 비교 시도 후, 명확한 CTА 부재로 이탈</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 결정 직전 — 가격 확인 후 외부 리뷰/비교 사이트로 이탈</td><td>1</td><td>5.0%</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td>연간/월간 토글이 모바일에서 작아 오탭 발생 가능 → 미세 조작 불편</td><td>1</td><td>5.0%</td></tr><tr><td>Business 플랜 클릭 시 &#x27;영업팀 문의(Contact Sales)&#x27; 유도 없이 바로 결제 플로우 진입 구조에서 &#x27;팀 전체 마이그레이션 리스크&#x27; 판단 근거 부족 인식</td><td>1</td><td>5.0%</td></tr><tr><td>플랜 간 기능 차이(특히 권한 관리, Guest 수 제한, 감사 로그 여부)가 모바일 뷰에서 축약·숨겨져 핵심 판단 정보 접근성 저하</td><td>1</td><td>5.0%</td></tr><tr><td>가격이 USD 기준으로 표시되어 KRW 환산 인지 비용 발생 (신뢰 마찰은 아니나 결정 지연 유발)</td><td>1</td><td>5.0%</td></tr><tr><td>연간 결제 강제 시 월 환산 표기가 소액처럼 보이도록 설계된 UI — 실제 연간 총액이 즉시 보이지 않아 직접 계산해야 함</td><td>1</td><td>5.0%</td></tr><tr><td>VAT / 세금 포함 여부가 플랜 카드에 명시되지 않아 &#x27;숨겨진 수수료&#x27; 트리거 발동</td><td>1</td><td>5.0%</td></tr><tr><td>Free 플랜의 기능 제한(블록 수·게스트 수)이 작은 글씨·툴팁 뒤에 숨겨져 있어 한눈에 파악 어려움</td><td>1</td><td>5.0%</td></tr><tr><td>Business와 Plus 차이를 설명하는 카피가 마케팅 언어 위주(&#x27;강력한&#x27;, &#x27;고급&#x27;) — 구체적 수치 부재로 신뢰 저하</td><td>1</td><td>5.0%</td></tr><tr><td>환불 정책·중도 해지 조건이 가격 페이지에서 직접 확인되지 않음</td><td>1</td><td>5.0%</td></tr><tr><td>모바일에서 기능 비교 테이블이 가로 스크롤 필요 시 — 한눈에 비교 불가로 인지 부하 급증</td><td>1</td><td>5.0%</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: conversion_probability</td></tr><tr><td>research_depth</td><td>-0.581</td><td>강한 상관</td></tr><tr><td>tech_literacy</td><td>+0.385</td><td>보통</td></tr><tr><td>price_sensitivity</td><td>-0.328</td><td>보통</td></tr><tr><td>impulsiveness</td><td>+0.316</td><td>보통</td></tr><tr><td>privacy_sensitivity</td><td>+0.261</td><td>약한 상관</td></tr><tr><td>visual_dependency</td><td>-0.163</td><td>약한 상관</td></tr><tr><td>social_proof_weight</td><td>+0.152</td><td>약한 상관</td></tr></table>
+
+  
+        <h3>개인별 전환 확률 분포</h3>
+        <div class="stats">
+          <div class="stat-card"><div class="stat-number">0.159</div><div class="stat-label">평균 확률</div></div>
+          <div class="stat-card"><div class="stat-number">0.0</div><div class="stat-label">중앙값</div></div>
+          <div class="stat-card"><div class="stat-number">0.187</div><div class="stat-label">표준편차</div></div>
+        </div>
+        <p style="color:#64748b; font-size:14px;">분포 폭 0.0 ~ 0.52. 표준편차가 클수록 세그먼트 분기가 강함.</p>
+        
+</div>
+
+
+
+
+        <div class="section">
+          <h2>Reality Check (외부 baseline 비교)</h2>
+          <div class="exec">⚠️ 2/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수.</div>
+          <table>
+            <tr><th>지표</th><th>시뮬</th><th>실제</th><th>비율</th><th>신뢰도</th></tr>
+            <tr><td>전환율 (vs GA4 mobile)</td><td>0.0</td><td>0.0216</td><td>0.0×</td><td>✅ 신뢰 가능</td></tr><tr><td>평균 페이지뷰 (vs GA4 mobile)</td><td>8.44</td><td>3.74</td><td>2.3×</td><td>⚠️ 약간 over</td></tr><tr><td>장바구니 도달률 (vs GA4)</td><td>0.45</td><td>0.047</td><td>9.6×</td><td>🔶 상당히 over (참고용)</td></tr>
+          </table>
+          <p style="color:#64748b; font-size:13px; margin-top:8px;">
+            Baseline 출처: GA4 Merchandise Store (2020-11~2021-01); Open Bandit ZOZOTOWN sample<br>
+            ⚠️ Baseline은 Google Merchandise Store / ZOZOTOWN 데이터로, 본 사이트와 사용자 구성이 다릅니다.
+            절대 수치가 아닌 <strong>상대 비교</strong> 용도로만 사용하세요.
+          </p>
+        </div>
+        
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.312</strong> → 분기 <strong>높음</strong><br>
+    권고: <strong>세그먼트별 variant 설계 필수</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_9f98c0 · Generated: 2026-04-14T11:12:50 UTC</p>
+  <p>Cohort: cohort_20260414_111133_d3d217 · Mode: text · Personas: 20</p>
+</div>
+
+</div>
+</body>
+</html>

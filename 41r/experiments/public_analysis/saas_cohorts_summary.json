@@ -1,0 +1,35 @@
+{
+  "phase": "public_analysis_v1",
+  "targets": [
+    {
+      "slug": "notion",
+      "company": "Notion",
+      "url": "https://www.notion.so/pricing",
+      "cohort_id": "cohort_20260414_111133_d3d217",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_111133_d3d217_111249_9629.json",
+      "report_id": "cohort_rpt_20260414_9f98c0",
+      "report_html": "reports/cohort_rpt_20260414_9f98c0/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_9f98c0/aggregation.json"
+    },
+    {
+      "slug": "linear",
+      "company": "Linear",
+      "url": "https://linear.app/pricing",
+      "cohort_id": "cohort_20260414_111250_6cc9ce",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_111250_6cc9ce_111402_1039.json",
+      "report_id": "cohort_rpt_20260414_adce08",
+      "report_html": "reports/cohort_rpt_20260414_adce08/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_adce08/aggregation.json"
+    },
+    {
+      "slug": "figma",
+      "company": "Figma",
+      "url": "https://www.figma.com/pricing",
+      "cohort_id": "cohort_20260414_111402_cc199e",
+      "result_path": "/home/kimtayoon/myrepo/41r-advisor/41r/cohort_results/cohort_20260414_111402_cc199e_111520_b93d.json",
+      "report_id": "cohort_rpt_20260414_2d6edd",
+      "report_html": "reports/cohort_rpt_20260414_2d6edd/cohort_report.html",
+      "aggregation_json": "reports/cohort_rpt_20260414_2d6edd/aggregation.json"
+    }
+  ]
+}
