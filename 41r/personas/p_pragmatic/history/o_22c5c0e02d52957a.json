@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 5, \"page_state\": \"Figma의 요금 플랜(Free/Professional/Organization)을 제품별로 비교하고 선택하는 페이지. 전체 기능 비교 테이블과 자주 묻는 질문을 제공하며, 신규 기능 안내와 주요 고객 사례를 표시.\", \"action\": \"read\", \"reason\": \"준혁은 plan step 3(가격 대비 ROI 판단)을 완료하기 위해 현재 화면에서 프로페셔널 플랜의 토글 상태(월간 vs 연간)를 확인해야 한다. 토글이 '연간' 쪽에 활성화되어 있는지 '월간' 쪽인지 시각적으로 파악하고, US$16/월이 연간 기준인지 월간 기준인지 명확히 읽어야 한다. 이 정보가 확인되면 팀 5명 기준 연간 총비용 계산($16×5×12=$960)이 가능하고, Professional 플랜 선택 CTA 클릭으로 넘어갈 수 있다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"가격이 per-seat 기준으로 명확히 표시되어 있어 계산하기 쉽다 — 연간 기준이면 $16/월×5명×12개월=$960/년으로 합리적 범위, CTA 클릭 전 토글 상태만 최종 확인하면 된다.\"}",
+  "timestamp": "2026-04-14T04:53:06.789416+00:00",
+  "obs_id": "o_22c5c0e02d52957a"
+}

@@ -52,3 +52,10 @@ npm-debug.log
 
 # === Claude Code 작업 트래킹 ===
 .claude/
+
+# === GCP / Service Account keys ===
+secrets/
+**/secrets/
+*.json.key
+*-bigquery.json
+my-project-*.json

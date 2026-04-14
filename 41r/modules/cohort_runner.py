@@ -21,12 +21,17 @@ from __future__ import annotations
 import concurrent.futures
 import json
 import logging
+import multiprocessing as mp
+import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
 from core.provider_router import call as llm_call
 from modules.persona_store import read_persona
+
+# multiprocessing fork 시 41r 모듈 path 보장
+_PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 
 logger = logging.getLogger(__name__)
 
@@ -147,17 +152,28 @@ def _run_text_prediction(persona_id: str, persona: dict, url: str, task: str) ->
         }
 
 
-def _run_browser_session(persona_id: str, url: str, task: str, max_retries: int = 2) -> dict:
-    """browser mode: 실제 브라우저 세션. retry + graceful degradation 포함.
+def _browser_worker(args: tuple) -> dict:
+    """multiprocessing worker — 별도 프로세스에서 단일 세션 실행.
 
-    Args:
-        max_retries: 실패 시 재시도 횟수 (기본 2회 → 총 최대 3번 시도)
+    각 프로세스는 자체 Python interpreter + event loop를 가지므로
+    asyncio/Playwright 충돌 없음.
+
+    Args: (persona_id, url, task, max_retries)
     """
-    from modules.agent_loop import run_session
+    persona_id, url, task, max_retries = args
+
+    # 자식 프로세스의 sys.path 보장
+    if _PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, _PROJECT_ROOT)
+
+    import logging as _lg
+    _lg.basicConfig(level=_lg.INFO, format="%(asctime)s [%(processName)s] %(message)s")
+    _logger = _lg.getLogger(__name__)
 
     last_error = None
     for attempt in range(max_retries + 1):
         try:
+            from modules.agent_loop import run_session
             log = run_session(persona_id, url, task)
             result = {
                 "persona_id": persona_id,
@@ -168,14 +184,14 @@ def _run_browser_session(persona_id: str, url: str, task: str, max_retries: int 
                 "attempts": attempt + 1,
             }
             if attempt > 0:
-                logger.info("Persona %s 성공 (재시도 %d회 후)", persona_id, attempt)
+                _logger.info("Persona %s 성공 (재시도 %d회 후)", persona_id, attempt)
             return result
         except Exception as e:
             last_error = e
             if attempt < max_retries:
-                logger.warning("Persona %s 시도 %d 실패 (%s), 재시도", persona_id, attempt + 1, e)
+                _logger.warning("Persona %s 시도 %d 실패 (%s), 재시도", persona_id, attempt + 1, e)
             else:
-                logger.exception("Persona %s 최종 실패 (%d회 시도 후)", persona_id, attempt + 1)
+                _logger.exception("Persona %s 최종 실패 (%d회 시도 후)", persona_id, attempt + 1)
 
     return {
         "persona_id": persona_id,
@@ -183,6 +199,14 @@ def _run_browser_session(persona_id: str, url: str, task: str, max_retries: int 
         "error": str(last_error) if last_error else "unknown",
         "attempts": max_retries + 1,
     }
+
+
+def _run_browser_session(persona_id: str, url: str, task: str, max_retries: int = 2) -> dict:
+    """단일 호출용 (text mode와 호환). 동일 프로세스에서 실행.
+
+    병렬 코호트 실행은 _browser_worker + multiprocessing.Pool 사용.
+    """
+    return _browser_worker((persona_id, url, task, max_retries))
 
 
 def run_cohort(
@@ -212,34 +236,45 @@ def run_cohort(
     personas = _load_cohort_personas(cohort_run_id)
     logger.info("Loaded %d personas", len(personas))
 
-    # Browser mode: 안정성을 위해 max_workers 자동 제한 (RAM/Chromium 부담 고려)
+    # Browser mode: 안정성을 위해 max_workers 자동 제한 (Chromium 메모리 부담)
     if mode == "browser" and max_workers > 3:
-        logger.warning("Browser mode max_workers=%d → 3으로 제한 (안정성)", max_workers)
+        logger.warning("Browser mode max_workers=%d → 3으로 제한 (RAM/Chromium 부담)", max_workers)
         max_workers = 3
-
-    run_fn = _run_text_prediction if mode == "text" else lambda pid, p, url, task: _run_browser_session(pid, url, task)
 
     started_at = datetime.now(timezone.utc).isoformat()
     results = []
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {
-            executor.submit(run_fn, pid, p, url, task): pid
-            for pid, p in personas
-        }
-        for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
-            pid = futures[future]
-            try:
-                result = future.result(timeout=180 if mode == "text" else 600)
+    if mode == "browser":
+        # multiprocessing.Pool — 각 프로세스가 독립 event loop, asyncio 충돌 없음
+        worker_args = [(pid, url, task, 2) for pid, _ in personas]
+        # spawn 컨텍스트 (fork보다 안전, asyncio 호환)
+        ctx = mp.get_context("spawn")
+        with ctx.Pool(processes=max_workers) as pool:
+            for i, result in enumerate(pool.imap_unordered(_browser_worker, worker_args), 1):
                 results.append(result)
-                logger.info("[%d/%d] %s → %s", i, len(personas), pid,
-                            result.get("outcome", "?"))
-            except concurrent.futures.TimeoutError:
-                logger.warning("Timeout for %s", pid)
-                results.append({"persona_id": pid, "outcome": "timeout"})
-            except Exception as e:
-                logger.exception("Error for %s", pid)
-                results.append({"persona_id": pid, "outcome": "error", "error": str(e)})
+                logger.info("[%d/%d] %s → %s", i, len(personas),
+                            result.get("persona_id"), result.get("outcome", "?"))
+    else:
+        # text mode: ThreadPoolExecutor (LLM API 호출만, asyncio 안 씀)
+        run_fn = _run_text_prediction
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(run_fn, pid, p, url, task): pid
+                for pid, p in personas
+            }
+            for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
+                pid = futures[future]
+                try:
+                    result = future.result(timeout=180)
+                    results.append(result)
+                    logger.info("[%d/%d] %s → %s", i, len(personas), pid,
+                                result.get("outcome", "?"))
+                except concurrent.futures.TimeoutError:
+                    logger.warning("Timeout for %s", pid)
+                    results.append({"persona_id": pid, "outcome": "timeout"})
+                except Exception as e:
+                    logger.exception("Error for %s", pid)
+                    results.append({"persona_id": pid, "outcome": "error", "error": str(e)})
 
     finished_at = datetime.now(timezone.utc).isoformat()
 

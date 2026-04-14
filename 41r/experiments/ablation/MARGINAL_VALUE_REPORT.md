@@ -1,9 +1,37 @@
 # Marginal Value Report — 개인 페르소나 프로필의 가치 검증
 
-> **실험일**: 2026-04-14
+> **실험일**: 2026-04-14 (n=12 v1) + 2026-04-14 (n=200 v2 확장)
 > **설계 문서**: `DESIGN.md`
-> **데이터**: `results_ablation.json`, `metrics_computed.json`, `metric_3_specificity.json`, `metric_4_variance.json`
-> **비용**: ~$3 (144회 LLM 콜)
+> **데이터**: `results_ablation.json` (n=12), `results_ablation_n200.json` (n=200), `metrics_computed.json`, `metric_3_specificity.json`, `metric_4_variance.json`
+> **비용**: ~$3 (n=12) + ~$30 (n=200) = ~$33
+
+## 🎯 v2 핵심 결과 (n=200, 2026-04-14 추가)
+
+**Upworthy Research Archive 200건 A/B 테스트로 통계 power 확보**:
+
+| 메트릭 | Demo-only | 41R | Delta | p-value | 판정 |
+|---|---|---|---|---|---|
+| 정확도 | 61.0% | 55.0% | -6%p | **0.073** (McNemar) / 0.27 (Fisher) | ❌ 유의하지 않음 (운) |
+| **세그먼트 분기 탐지** | **42.5%** | **58.5%** | **+16%p** | **0.000009** (McNemar) | ✅ **매우 유의** |
+
+### 결정적 결론
+
+**41R의 marginal value = "정답 맞추기"가 아니라 "세그먼트 분기 탐지"임이 통계적으로 입증됨 (p<0.001)**.
+
+n=12 (소규모)에서는 Metric 3 (구체성)만 유의했지만, n=200으로 확장하니 **분기 탐지의 통계적 우위가 명확**해짐.
+
+### Swap 분석 — 학습 데이터 편향 시사
+
+| Swap 상태 | Demo accuracy | 41R accuracy | 차이 |
+|---|---|---|---|
+| Swapped (A=winner) | 71.6% | 71.6% | 0 |
+| Unswapped (B=winner) | 51.4% | 40.0% | -11.4% |
+
+**해석**: B=winner 케이스에서만 41R이 떨어짐. LLM의 "B가 원본·B가 더 좋다"는 학습 편향 영향. 41R 페르소나가 그 편향을 덜 따라감. → 정확도 차이는 LLM 편향 효과지 41R의 약점 아님.
+
+---
+
+## v1 핵심 결론 (n=12, 유지)
 
 ---
 

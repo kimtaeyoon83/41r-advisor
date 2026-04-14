@@ -1,0 +1,4 @@
+device,sessions,avg_pageviews,bounce_rate_pct,conversion_pct
+mobile,143185,3.74,34.94,1.393
+desktop,208942,3.76,35.04,1.316
+tablet,8002,3.67,35.2,1.3

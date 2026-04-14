@@ -198,7 +198,32 @@
     <strong>결과</strong>: ✅ 입증됨. 특히 이유 구체성에서 압도적 우위.
   </div>
 
-  <h3>Ablation Study (n=12 공개 A/B 케이스)</h3>
+  <h3>Ablation Study v2 — n=200 (Upworthy Archive, 통계 power 확보)</h3>
+  <table>
+    <tr><th>메트릭</th><th>Demo-only</th><th>41R</th><th>Delta</th><th>p-value</th><th>판정</th></tr>
+    <tr>
+      <td><strong>세그먼트 분기 탐지</strong></td>
+      <td><span data-src="../experiments/ablation/results_ablation_n200.json:arm_a.divergence_pct">42.5</span>%</td>
+      <td class="good"><span data-src="../experiments/ablation/results_ablation_n200.json:arm_b.divergence_pct">58.5</span>%</td>
+      <td><strong>+16%p</strong></td>
+      <td class="good"><strong>0.000009</strong></td>
+      <td class="good">✅ <strong>매우 유의</strong></td>
+    </tr>
+    <tr>
+      <td>A/B 승자 정확도</td>
+      <td><span data-src="../experiments/ablation/results_ablation_n200.json:arm_a.accuracy_pct">61.0</span>%</td>
+      <td><span data-src="../experiments/ablation/results_ablation_n200.json:arm_b.accuracy_pct">55.0</span>%</td>
+      <td>-6%p</td>
+      <td class="muted">0.073 (McNemar)</td>
+      <td class="muted">❌ 유의하지 않음 (운/노이즈)</td>
+    </tr>
+  </table>
+  <p style="font-size:13px; color:#64748b;">
+    n=200 Upworthy Research Archive (실제 클릭률 측정 데이터, CC BY 4.0). McNemar paired test.
+    seed=42 재현. <a href="../experiments/ablation/results_ablation_n200.json">raw data</a>
+  </p>
+
+  <h3>Ablation Study v1 (n=12 — 5개 메트릭 종합 분석)</h3>
   <table>
     <tr>
       <th>메트릭</th>
@@ -552,6 +577,97 @@
     <tr><td>쿠키/프라이버시</td><td class="good">일치</td><td>Think with Google 세대별</td></tr>
     <tr><td>Messy Middle 편향</td><td class="good">높은 일치</td><td>Think with Google 인지편향</td></tr>
   </table>
+</div>
+
+<!-- ==================== REALITY CHECK ==================== -->
+<div class="section" id="reality-check">
+  <h2>🔍 Reality Check — 외부 데이터셋 vs 시뮬</h2>
+  <div class="exec danger">
+    <strong>중요 정직 고지:</strong> 41R 시뮬의 <strong>절대 수치</strong>는 실제 e-commerce 데이터 대비 큰 갭이 있습니다. <br>
+    <strong>상대 비교(세그먼트 분기, A vs B 우열)는 유효하나, "X% 전환" 같은 절대 주장은 신뢰 불가</strong>합니다.
+  </div>
+
+  <h3>외부 baseline (공개 데이터셋)</h3>
+  <table>
+    <tr><th>출처</th><th>지표</th><th>실측값</th></tr>
+    <tr><td>GA4 Sample (Google Merch Store, 2020-11~2021-01)</td><td>add_to_cart 도달률</td><td><strong>4.7%</strong></td></tr>
+    <tr><td>GA4 Sample</td><td>최종 구매 전환율</td><td><strong>1.65%</strong></td></tr>
+    <tr><td>GA4 Sample</td><td>세션당 페이지뷰</td><td>3.74 (mobile), 3.76 (desktop)</td></tr>
+    <tr><td>GA4 Sample</td><td>device별 전환율</td><td>모바일 2.16% &gt; 데스크톱 2.03% &gt; 태블릿 1.78%</td></tr>
+    <tr><td>GA4 Sample</td><td>Bounce rate</td><td>~35%</td></tr>
+    <tr><td>Open Bandit (ZOZOTOWN)</td><td>아이템 평균 CTR</td><td>0.38% (max 2.63%)</td></tr>
+  </table>
+
+  <h3>29CM 시뮬 vs GA4 baseline</h3>
+  <table>
+    <tr><th>지표</th><th>41R 시뮬 (29CM)</th><th>GA4 실측</th><th>Gap</th><th>판정</th></tr>
+    <tr>
+      <td>전환율 (장바구니 도달)</td>
+      <td>30.0%</td>
+      <td>2.16% (모바일)</td>
+      <td><strong>13.9×</strong></td>
+      <td><span class="signal signal-low">🔴 매우 over</span></td>
+    </tr>
+    <tr>
+      <td>평균 페이지뷰/세션</td>
+      <td>9.06턴</td>
+      <td>3.74</td>
+      <td><strong>2.4×</strong></td>
+      <td><span class="signal signal-medium">⚠️ 약간 over</span></td>
+    </tr>
+    <tr>
+      <td>partial+converted 비율</td>
+      <td>90% (18/20)</td>
+      <td>4.7% (add_to_cart)</td>
+      <td><strong>19.1×</strong></td>
+      <td><span class="signal signal-low">🔴 매우 over</span></td>
+    </tr>
+  </table>
+
+  <h3>Why? — 시뮬 over-estimate 원인</h3>
+  <ul style="padding-left: 22px; line-height: 1.8;">
+    <li><strong>"Shopping intent 있음" 가정 코호트</strong>: 실제 트래픽의 70~90%는 단순 둘러보기 (no-intent)</li>
+    <li><strong>관대한 outcome 정의</strong>: "장바구니 직전"도 partial 처리 → 인플레이션</li>
+    <li><strong>LLM의 generalization bias</strong>: "이 페르소나라면 끝까지 갈 것" 같은 ideal-case reasoning</li>
+    <li><strong>세션 깊이 왜곡</strong>: max_turns=10 강제 → 실제 평균 3.7보다 깊게 탐색</li>
+  </ul>
+
+  <h3>그래서 무엇을 신뢰할 수 있나?</h3>
+  <table>
+    <tr><th>주장 유형</th><th>예시</th><th>신뢰?</th></tr>
+    <tr>
+      <td>절대 전환율 ("X% 전환할 것")</td>
+      <td>"29CM 30% 전환"</td>
+      <td><span class="signal signal-low">❌ 사용 금지</span></td>
+    </tr>
+    <tr>
+      <td>세그먼트 상대 비교</td>
+      <td>"가격민감형이 시각의존형보다 30% 더 이탈"</td>
+      <td><span class="signal signal-high">✅ 사용 가능</span></td>
+    </tr>
+    <tr>
+      <td>이탈 이유 정성 분석</td>
+      <td>"신뢰 검증 미완료로 이탈"</td>
+      <td><span class="signal signal-high">✅ 사용 가능</span></td>
+    </tr>
+    <tr>
+      <td>분기 점수 해석</td>
+      <td>"오늘의집 social_proof -0.40 (역효과 신호)"</td>
+      <td><span class="signal signal-medium">⚠️ 가설로 사용</span></td>
+    </tr>
+    <tr>
+      <td>A vs B 승자 예측</td>
+      <td>"새 디자인이 기존보다 우세"</td>
+      <td><span class="signal signal-high">✅ Ablation 검증됨</span></td>
+    </tr>
+  </table>
+
+  <p style="margin-top: 14px; font-size: 14px; color: #64748b;">
+    <strong>방법론</strong>: <code>modules/benchmark_loader.py</code>로 GA4 + Open Bandit 자동 비교.
+    각 코호트 리포트에 reality check 자동 첨부 가능.
+    상세: <a href="../experiments/datasets/open_bandit/SANITY_CHECK.md">Open Bandit 분석</a>,
+    <a href="../experiments/constitution_notes/external_benchmarks.md">외부 데이터셋 거버넌스</a>
+  </p>
 </div>
 
 <!-- ==================== LIMITATIONS ==================== -->

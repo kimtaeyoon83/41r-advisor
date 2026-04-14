@@ -659,7 +659,13 @@ if __name__ == "__main__":
     # 기본 ground truth: reports/, experiments/
     findings = audit_report(
         report,
-        ground_truth_dirs=["reports/", "experiments/ablation/", "experiments/ab_validation/"],
+        ground_truth_dirs=[
+            "reports/",
+            "experiments/ablation/",
+            "experiments/ab_validation/",
+            "experiments/datasets/ga4_sample/",
+            "experiments/datasets/open_bandit/",
+        ],
         pvalue_recomputes={
             "엔트로피": {
                 "data_path": "experiments/ablation/metric_4_variance.json",

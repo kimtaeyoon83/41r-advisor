@@ -1,0 +1,122 @@
+[
+  {
+    "id": "upworthy_000",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"Half Of Us Are Victims Of A Crime After We Graduate College. It's Really Not OK.\"",
+    "variant_b": "헤드라인: \"Half Of Us Perform This Illegal Act After We Graduate College. It's Really Not OK.\"",
+    "known_winner": "B",
+    "lift_pct": 95.71,
+    "ctr_a": 6.413,
+    "ctr_b": 3.277,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_001",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"These 2 Boys Know What Boston Is Going Through. That's Why They're Holding This Sign.\"",
+    "variant_b": "헤드라인: \"These 2 Boys Have A Message For Boston, And It's Kind Of Beautiful\"",
+    "known_winner": "A",
+    "lift_pct": 29.13,
+    "ctr_a": 2.913,
+    "ctr_b": 2.256,
+    "swapped": false
+  },
+  {
+    "id": "upworthy_002",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"A Host Helps Bill Nye With A Perfect Response To All The People Who Doubt His Science Facts On TV\"",
+    "variant_b": "헤드라인: \"We Ask People Their Opinions On Whether Actual Facts Are True. Doesn't That Seem Odd To You?\"",
+    "known_winner": "A",
+    "lift_pct": 48.74,
+    "ctr_a": 1.62,
+    "ctr_b": 1.089,
+    "swapped": false
+  },
+  {
+    "id": "upworthy_003",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"Why The War On Drugs Is The Most Racist Attack We’ve Seen In This Country For Decades\"",
+    "variant_b": "헤드라인: \"A Former Meth Addict Has Something To Say About The War On Drugs\"",
+    "known_winner": "B",
+    "lift_pct": 115.21,
+    "ctr_a": 1.547,
+    "ctr_b": 0.719,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_004",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"You Know That Simple Argument Against Raising The Minimum Wage? It's Not As Simple As You Think.\"",
+    "variant_b": "헤드라인: \"Here's The Most Simple Argument Against Raising The Minimum Wage. It's Not As Simple As You Think.\"",
+    "known_winner": "B",
+    "lift_pct": 132.66,
+    "ctr_a": 3.302,
+    "ctr_b": 1.419,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_005",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"He's Talking. She's Rocking. And I'm Just Over Here Trying To Pick My Jaw Off The Floor.\"",
+    "variant_b": "헤드라인: \"He's Speaking. She's Playing. And I'm Just Over Here Trying To Pick My Jaw Off The Floor.\"",
+    "known_winner": "B",
+    "lift_pct": 65.67,
+    "ctr_a": 3.048,
+    "ctr_b": 1.84,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_006",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"An Interview About Fast Food That’ll Make You Think Twice About The Free Market\"",
+    "variant_b": "헤드라인: \"He’s Worked At Pizza Hut For 8 Years. Guess How Much He Makes.\"",
+    "known_winner": "B",
+    "lift_pct": 106.44,
+    "ctr_a": 5.616,
+    "ctr_b": 2.721,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_007",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"The More He Reveals, The Tighter I Clutch My Chest. But He's Not Alone, And Neither Am I.\"",
+    "variant_b": "헤드라인: \"He Starts Telling His Story, And 30 Seconds Later I Start Clutching My Chest. He Is So Brave.\"",
+    "known_winner": "B",
+    "lift_pct": 34.6,
+    "ctr_a": 0.919,
+    "ctr_b": 0.682,
+    "swapped": true
+  },
+  {
+    "id": "upworthy_008",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"Why On Earth Would Anyone Like These Photos? But We Do. Every Day.\"",
+    "variant_b": "헤드라인: \"Like This Photo If You Agree With It! No, Wait, Please Don't.\"",
+    "known_winner": "A",
+    "lift_pct": 196.92,
+    "ctr_a": 3.294,
+    "ctr_b": 1.109,
+    "swapped": false
+  },
+  {
+    "id": "upworthy_009",
+    "company": "Upworthy",
+    "test_description": "헤드라인 A/B 테스트 — 클릭률(CTR) 우수 variant 예측",
+    "variant_a": "헤드라인: \"The world's taught us not to talk about it, but it's time to open up about abortion.\"",
+    "variant_b": "헤드라인: \"How spa-like features, straight-forward ads, and honest conversation can reduce abortion stigma.\"",
+    "known_winner": "A",
+    "lift_pct": 168.02,
+    "ctr_a": 0.82,
+    "ctr_b": 0.306,
+    "swapped": false
+  }
+]

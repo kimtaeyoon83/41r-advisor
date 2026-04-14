@@ -1,0 +1,39 @@
+{
+  "funnel_user_pct": {
+    "page_view": 1.01,
+    "session_start": 1.0,
+    "view_item": 0.2293,
+    "add_to_cart": 0.047,
+    "begin_checkout": 0.0364,
+    "purchase": 0.0165
+  },
+  "device_conversion": {
+    "desktop": 0.0203,
+    "mobile": 0.02157,
+    "tablet": 0.01776
+  },
+  "session_pageviews": {
+    "mobile": 3.74,
+    "desktop": 3.76,
+    "tablet": 3.67
+  },
+  "session_bounce": {
+    "mobile": 0.3494,
+    "desktop": 0.3504,
+    "tablet": 0.35200000000000004
+  },
+  "country_conversion_range": [
+    0.0133,
+    0.0342
+  ],
+  "hour_conversion_range": [
+    0.0132,
+    0.0192
+  ],
+  "item_ctr_mean": 0.0038,
+  "item_ctr_max": 0.0263,
+  "sources": [
+    "GA4 Merchandise Store (2020-11~2021-01)",
+    "Open Bandit ZOZOTOWN sample"
+  ]
+}
