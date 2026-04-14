@@ -1,7 +1,7 @@
-# 41R Persona Market — 현재 상태 (2026-04-14, Phase L+1 완료)
+# 41R Persona Market — 현재 상태 (2026-04-14, Phase L+1+X+Y 완료)
 
-> **프로젝트 단계**: H1 기술 검증 완료 + 시스템 통합 강화 완료, H1 시장 검증 대기
-> **누적 비용**: ~$48 (시스템 개발 + Ablation 2회 + 외부 데이터 통합 + 메타 분석)
+> **프로젝트 단계**: H1 기술 검증 완료 + Bench 공개 + 공개 분석 콘텐츠 준비, H1 시장 검증 대기
+> **누적 비용**: ~$50 (시스템 개발 + Ablation 2회 + 외부 데이터 + 메타 분석 + 3 SaaS 코호트)
 > **GitHub**: https://github.com/kimtaeyoon83/41r-advisor
 
 ---
@@ -55,7 +55,7 @@
 ## 2. 시스템 상태
 
 ### 모듈 (M1~M7 + 코호트 + 통계 + 검증)
-- M1 Persona Store · M2 Browser Runner · M3 Agent Loop · M4 Provenance(stub) · M5 Report Generator · M6 Review Agent · M7 Version Manager
+- M1 Persona Store · M2 Browser Runner · M3 Agent Loop · M4 Provenance (HMAC chain ✅) · M5 Report Generator · M6 Review Agent · M7 Version Manager
 - **Cohort System**: persona_generator (Latin Hypercube), cohort_runner (multiprocessing), cohort_report (Wilson CI + 상관 분석 + 자동 Reality Check)
 - **Hallucination Guard**: 출처 추적 + claim 태깅 + p-value 자동 재계산 (McNemar 포함)
 - **Benchmark Loader**: GA4 + Open Bandit baseline 자동 비교 (cohort_report 자동 통합)
@@ -108,19 +108,38 @@
 | `reports/sample_report_v2.html` | 사업팀 — 종합 진단 + Reality Check | 32KB |
 | `reports/index.html` | 모든 리포트 인덱스 대시보드 | 14KB |
 
-### 5개 타겟 사이트 코호트 진단 (Appendix)
-- 29CM, 클래스101, 오늘의집, Webflow, Glossier
+### 9개 사이트 코호트 진단 (Cross-cohort 입력)
+- **5 기존 (이커머스/콘텐츠)**: 29CM, 클래스101, 오늘의집, Webflow, Glossier
+- **3 신규 SaaS (Phase Y)**: Notion, Linear, Figma 가격 페이지
 - ⚠️ text mode 시뮬 (실측 cross-check 0건) — 가설 수준
+
+### Bench (Phase X — 학술/외부 공개)
+| 문서 | 내용 |
+|---|---|
+| `bench/README.md` | reproducibility + datasets + personas + methodology |
+| `bench/PAPER_DRAFT.md` | arXiv 스타일 페이퍼 v0.1 |
+| `bench/EVALUATION.md` | 자동 갱신 결과 표 |
+| `bench/run_full_eval.sh` | 한 명령 전체 재현 |
+
+### 공개 분석 (Phase Y — 인바운드 트리거)
+| 문서 | 내용 |
+|---|---|
+| `experiments/public_analysis/SAAS_PRICING_COHORTS.md` | Notion/Linear/Figma 진단 (긴 분석) |
+| `experiments/public_analysis/social_post.md` | LinkedIn/X/Show HN 발행 초안 3종 |
+| `experiments/public_analysis/run_saas_cohorts.py` | 재현 가능 코호트 실행 스크립트 |
 
 ### 검증 문서
 | 문서 | 내용 |
 |---|---|
 | `experiments/ablation/MARGINAL_VALUE_REPORT.md` | Ablation n=12 + n=200 |
+| `experiments/ablation/bootstrap_ci_n200.json` | Bootstrap CI [+9.5, +22.5]%p |
+| `experiments/cross_cohort_meta/REPORT.md` | 9 사이트 trait 일관성 (3 검증된 핵심) |
+| `experiments/cate_self_demo/SUMMARY.md` | F2 시연자료 (F1=0.75) |
 | `experiments/ab_validation/VALIDATION_REPORT.md` | A/B 역검증 |
 | `experiments/ab_results/persona_ground_truth_validation.md` | NNGroup 대조 |
-| `experiments/browser_mode_validation.md` | Browser 안정성 테스트 |
 | `experiments/datasets/open_bandit/SANITY_CHECK.md` | 절대 수치 교차 확인 |
-| `experiments/constitution_notes/external_benchmarks.md` | 데이터셋 라이선스 거버넌스 |
+| `experiments/research_scan_2026-04-14.md` | 최신 연구 시사점 + Phase L+1 정리 |
+| `personas/EXTENSION_STATUS.md` | 페르소나 풀 활용 정책 |
 
 ### 아웃바운드 자료 (발송 대기)
 | 자료 | 위치 |

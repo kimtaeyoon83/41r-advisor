@@ -83,24 +83,6 @@
     "false_negative": [],
     "agreement_score": 0.75,
     "winner_agreement": {
-      "20대 남성 (직장인)": {
-        "predicted": "B",
-        "actual_winner": "B",
-        "actual_cate": 0.02,
-        "match": true
-      },
-      "50대+ 여성": {
-        "predicted": "B",
-        "actual_winner": "A",
-        "actual_cate": -0.04,
-        "match": false
-      },
-      "30대 여성 (회계)": {
-        "predicted": "B",
-        "actual_winner": "A",
-        "actual_cate": -0.11,
-        "match": false
-      },
       "30대 여성 (교사)": {
         "predicted": "B",
         "actual_winner": "B",
@@ -111,6 +93,24 @@
         "predicted": "B",
         "actual_winner": "A",
         "actual_cate": -0.03,
+        "match": false
+      },
+      "30대 여성 (회계)": {
+        "predicted": "B",
+        "actual_winner": "A",
+        "actual_cate": -0.11,
+        "match": false
+      },
+      "20대 남성 (직장인)": {
+        "predicted": "B",
+        "actual_winner": "B",
+        "actual_cate": 0.02,
+        "match": true
+      },
+      "50대+ 여성": {
+        "predicted": "B",
+        "actual_winner": "A",
+        "actual_cate": -0.04,
         "match": false
       }
     },

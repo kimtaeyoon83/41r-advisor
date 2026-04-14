@@ -48,37 +48,94 @@
 
 <div class="header">
   <h1>41R Persona Market — 리포트 인덱스</h1>
-  <div class="meta">2026-04-14 기준 · 5 타겟 사이트 · 100명 코호트 · 49 unit tests · ~$15 누적</div>
+  <div class="meta">2026-04-14 기준 · 9 사이트 코호트 · n=200 ablation · 49 unit tests · Bench 공개</div>
 </div>
 
 <div class="container">
 
 <div class="quick-stats">
-  <div class="stat"><div class="num">5</div><div class="lbl">타겟 사이트 진단</div></div>
-  <div class="stat"><div class="num">100</div><div class="lbl">시뮬 페르소나</div></div>
-  <div class="stat"><div class="num">12</div><div class="lbl">A/B 검증 케이스</div></div>
-  <div class="stat"><div class="num">4.83/5</div><div class="lbl">Blinded 구체성</div></div>
+  <div class="stat"><div class="num">+16%p</div><div class="lbl">분기 탐지 (CI [+9.5,+22.5])</div></div>
+  <div class="stat"><div class="num">9</div><div class="lbl">cross-cohort 사이트</div></div>
+  <div class="stat"><div class="num">3</div><div class="lbl">검증된 핵심 trait</div></div>
+  <div class="stat"><div class="num">49</div><div class="lbl">unit tests</div></div>
 </div>
 
-<!-- 1. 우선 보기 -->
+<!-- 1. 핵심 리포트 -->
 <div class="section">
   <h2>🎯 핵심 리포트 (사업팀장 시작점)<span class="badge">먼저 여기</span></h2>
   <table>
     <tr><th>우선순위</th><th>리포트</th><th>설명</th></tr>
     <tr>
       <td><span class="priority priority-1">1</span></td>
-      <td><a href="sample_report_v2.html">sample_report_v2.html</a><span class="new">최신</span></td>
-      <td>종합 진단 — 5사이트 코호트 결과 + 검증 메트릭 + 차별점 (28KB)</td>
+      <td><a href="EXECUTIVE_REPORT.html">EXECUTIVE_REPORT.html</a><span class="new">최신</span></td>
+      <td>사업팀/CPO용 — 가설 → 방법 → 결과 → 한계 + Bootstrap CI + CATE + Cross-cohort 박스</td>
+    </tr>
+    <tr>
+      <td><span class="priority priority-1">1</span></td>
+      <td><a href="SIMPLE_REPORT.html">SIMPLE_REPORT.html</a><span class="new">최신</span></td>
+      <td>일반인/투자자용 — 비유 최소, 담담한 설명, 외부 데이터 샘플 포함</td>
     </tr>
     <tr>
       <td><span class="priority priority-2">2</span></td>
-      <td><a href="../experiments/QUALITY_REPORT_v2.md">QUALITY_REPORT_v2.md</a><span class="new">최신</span></td>
-      <td>품질 재평가 — 6개 영역 등급 및 사용자 결정 필요 항목</td>
+      <td><a href="sample_report_v2.html">sample_report_v2.html</a></td>
+      <td>종합 진단 — 5사이트 코호트 결과 + 검증 메트릭 + 차별점</td>
     </tr>
     <tr>
       <td><span class="priority priority-3">3</span></td>
       <td><a href="../experiments/outbound/differentiation.md">differentiation.md</a></td>
       <td>기존 도구(Hotjar/Optimizely 등) 대비 차별점</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 1b. Bench (학술/외부 공유) -->
+<div class="section">
+  <h2>📚 Persona Bench (학술/외부 공유)<span class="badge">신규</span></h2>
+  <table>
+    <tr><th>리포트</th><th>설명</th></tr>
+    <tr>
+      <td><a href="../bench/README.md">bench/README.md</a></td>
+      <td>Bench 사용법 + 데이터셋 + 페르소나 + 방법론 + 한계 + 인용</td>
+    </tr>
+    <tr>
+      <td><a href="../bench/PAPER_DRAFT.md">bench/PAPER_DRAFT.md</a><span class="new">신규</span></td>
+      <td>arXiv 스타일 페이퍼 v0.1 — n=200 + Bootstrap CI + Cross-cohort + CATE</td>
+    </tr>
+    <tr>
+      <td><a href="../bench/EVALUATION.md">bench/EVALUATION.md</a></td>
+      <td>전체 검증 결과 표 (자동 갱신)</td>
+    </tr>
+    <tr>
+      <td><code>bench/run_full_eval.sh</code></td>
+      <td>한 명령으로 전체 재현 (clean state → 모든 검증)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 1c. 공개 분석 -->
+<div class="section">
+  <h2>🌐 공개 분석 (인바운드 트리거)<span class="badge">신규</span></h2>
+  <table>
+    <tr><th>리포트</th><th>설명</th></tr>
+    <tr>
+      <td><a href="../experiments/public_analysis/SAAS_PRICING_COHORTS.md">SAAS_PRICING_COHORTS.md</a><span class="new">신규</span></td>
+      <td>Notion · Linear · Figma 가격 페이지 진단 (긴 분석)</td>
+    </tr>
+    <tr>
+      <td><a href="../experiments/public_analysis/social_post.md">social_post.md</a></td>
+      <td>LinkedIn · X 스레드 · Show HN 발행 초안 3종 (검토 후 발행)</td>
+    </tr>
+    <tr>
+      <td><a href="cohort_rpt_20260414_9f98c0/cohort_report.html">Notion 코호트</a></td>
+      <td>n=20, research_depth -0.58 (분석 마비)</td>
+    </tr>
+    <tr>
+      <td><a href="cohort_rpt_20260414_adce08/cohort_report.html">Linear 코호트</a></td>
+      <td>n=20, impulsiveness +0.39 (즉시 호감)</td>
+    </tr>
+    <tr>
+      <td><a href="cohort_rpt_20260414_2d6edd/cohort_report.html">Figma 코호트</a></td>
+      <td>n=20, privacy +0.24 (권한 신뢰 신호)</td>
     </tr>
   </table>
 </div>
@@ -132,24 +189,34 @@
   <table>
     <tr><th>유형</th><th>리포트</th><th>핵심 결과</th></tr>
     <tr>
-      <td>Ablation Study</td>
+      <td>n=200 Ablation</td>
       <td><a href="../experiments/ablation/MARGINAL_VALUE_REPORT.md">MARGINAL_VALUE_REPORT.md</a></td>
-      <td>Demo vs 41R: 구체성 4.83 vs 2.75 (12/12 전승, p=0.00024)</td>
+      <td>분기 +16%p (Bootstrap CI [+9.5, +22.5]%p), McNemar p=9.06e-6</td>
     </tr>
     <tr>
-      <td>A/B 역검증</td>
+      <td>Bootstrap CI</td>
+      <td><code>experiments/ablation/bootstrap_ci_n200.json</code></td>
+      <td>n=1000 paired bootstrap, divergence/accuracy CI</td>
+    </tr>
+    <tr>
+      <td>Cross-cohort 메타</td>
+      <td><a href="../experiments/cross_cohort_meta/REPORT.md">cross_cohort_meta/REPORT.md</a><span class="new">신규</span></td>
+      <td>9 사이트 — 3 trait 78% 일관 (페르소나 핵심 차원 검증)</td>
+    </tr>
+    <tr>
+      <td>CATE Self-Demo</td>
+      <td><a href="../experiments/cate_self_demo/SUMMARY.md">cate_self_demo/SUMMARY.md</a><span class="new">신규</span></td>
+      <td>F1=0.75 (F2 NDA 파트너 시연자료)</td>
+    </tr>
+    <tr>
+      <td>A/B 역검증 (n=12)</td>
       <td><a href="../experiments/ab_validation/VALIDATION_REPORT.md">VALIDATION_REPORT.md</a></td>
-      <td>83.3% (n=12, 라벨 셔플 후 80%)</td>
+      <td>83.3% (라벨 셔플 후 80%)</td>
     </tr>
     <tr>
       <td>Ground Truth</td>
       <td><a href="../experiments/ab_results/persona_ground_truth_validation.md">ground_truth_validation.md</a></td>
       <td>NNGroup, Baymard 등 6개 항목 중 5개 일치</td>
-    </tr>
-    <tr>
-      <td>Browser Mode</td>
-      <td><a href="../experiments/browser_mode_validation.md">browser_mode_validation.md</a></td>
-      <td>실제 브라우저 시연 1/2 정상 (안정성 이슈 발견)</td>
     </tr>
   </table>
 </div>
@@ -205,10 +272,13 @@
   <table>
     <tr><th>명령</th><th>설명</th></tr>
     <tr><td><code>make test</code></td><td>49 unit tests 실행</td></tr>
-    <tr><td><code>make test-cov</code></td><td>커버리지 포함 테스트</td></tr>
     <tr><td><code>make audit</code></td><td>모든 리포트 hallucination guard</td></tr>
-    <tr><td><code>make audit-trail</code></td><td>리포트별 출처 추적 audit trail 생성</td></tr>
-    <tr><td><code>make verify</code></td><td>test + audit (release 전 필수)</td></tr>
+    <tr><td><code>make bootstrap-ci</code></td><td>n=200 Bootstrap CI 재계산</td></tr>
+    <tr><td><code>make cate-demo</code></td><td>CATE Validator self-demo</td></tr>
+    <tr><td><code>make cross-cohort</code></td><td>9 사이트 cross-cohort 메타 분석</td></tr>
+    <tr><td><code>make render-exec</code></td><td>EXECUTIVE_REPORT 동적 갱신</td></tr>
+    <tr><td><code>make tag-reports</code></td><td>3 리포트 자동 claim 태깅</td></tr>
+    <tr><td><code>make verify-all</code></td><td>전체 파이프라인 (분석 → render → tag → audit → test)</td></tr>
   </table>
 </div>
 
