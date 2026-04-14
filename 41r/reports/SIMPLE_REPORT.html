@@ -165,43 +165,175 @@
 </p>
 
 
-<h2>증명은 됐나?</h2>
+<h2>증명 — 외부 데이터로 어떻게 확인했나</h2>
 
 <p>
-  지금까지 검증한 것:
+  "AI가 사람처럼 행동한다"고 주장하려면 뭔가 증거가 있어야 해요.
+  남의 데이터를 자기 말에 끼워 맞추면 안 되니까, 우리가 만들기 전부터 <strong>이미 존재하던 공개 데이터</strong>로 확인했어요.
+  각 데이터가 답해주는 질문이 달라서, 총 4가지를 썼습니다.
 </p>
 
-<h3>1. 일반 상식과 잘 맞는지</h3>
+
+<h3>1. "AI 사람들이 실제 사람처럼 행동하나?"</h3>
+
+<p><strong>쓴 데이터</strong>: Nielsen Norman Group(NN/g), Baymard Institute, Think with Google 같은 UX 리서치 기관들이
+20년간 실제 사용자를 연구해서 낸 <strong>결론들</strong>.</p>
+
+<p><strong>어떻게 썼나</strong>: 우리 AI 사람 10명에게 몇 개 사이트를 써보게 한 다음,
+그들이 한 행동을 <strong>NN/g가 실제 사람에게서 관찰한 행동과 비교</strong>했어요.</p>
+
+<p><strong>비교한 항목 6가지와 결과</strong>:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px;">
+  <tr style="background: #f5f5f5;">
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">항목</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">실제 연구 결론</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">우리 AI 행동</th>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">페이지에 머무르는 시간</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">나이 많을수록 느림 (NN/g)</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">비슷한 경향 (부분 일치)</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">텍스트 읽는 방식</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">79%가 스캔만 함 (NN/g)</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">충동형 페르소나는 거의 안 읽음 (일치)</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">장바구니 이탈 이유</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">신뢰 부족, 가격 불투명 (Baymard)</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">같은 이유로 이탈 (일치)</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">신뢰 결정 속도</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">3.4초 안에 판단 (NN/g)</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">충동형 1턴 / 신중형 10턴 사용 (일치)</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">쿠키 팝업 반응</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">젊을수록 빨리 수락 (Think with Google)</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">충동형 수락, 신중형 거부 (일치)</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px;">쇼핑 결정 심리</td>
+    <td style="padding: 8px;">"Messy Middle" — 탐색과 평가 반복 (Google)</td>
+    <td style="padding: 8px;">각자 다른 인지 편향에 반응 (일치)</td>
+  </tr>
+</table>
+
+<p><strong>결과</strong>: 6개 중 5개 일치, 1개 부분 일치.
+즉 우리 AI는 실제 사람들이 보이는 주요 행동 패턴을 대체로 재현합니다.</p>
+
+
+<h3>2. "진짜 A/B 테스트 결과랑 얼마나 맞나?"</h3>
+
+<p><strong>쓴 데이터</strong>: <strong>Upworthy Research Archive</strong>.
+Upworthy라는 미디어 회사가 2014~2015년 자기 헤드라인 3만 2천 건을 A/B 테스트 한 결과를 공개한 데이터셋 (상업 이용 허용, 학술 용도).</p>
+
+<p><strong>어떻게 썼나</strong>: 이 중 200건을 골라서, <strong>결과를 모른 채</strong> 우리 AI에게
+"A 헤드라인 vs B 헤드라인, 어느 쪽 클릭률이 높을까?" 예측하게 했어요.</p>
+
+<p><strong>더 중요한 실험</strong>: 같은 200건을 두 가지 AI 방식으로 돌렸어요. 비교하려고요:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px;">
+  <tr style="background: #f5f5f5;">
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;"></th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">일반 AI (나이·성별만)</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">우리 방식 (성격·성향 포함)</th>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">승자 맞추는 정확도</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">61%</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">55%</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">사람 타입별 반응 차이 찾기</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">42.5%</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>58.5%</strong></td>
+  </tr>
+</table>
+
+<p><strong>판단 기준과 결과</strong>:</p>
+
+<ul>
+  <li><strong>승자 맞추기</strong>: 두 방식이 비슷해요 (55% vs 61%). 통계 검정으로 확인하니 이 6%p 차이는 <strong>우연 수준</strong>으로, 의미 있는 차이가 아니에요. → 우리 방식이 이 점에선 우수하지 않습니다.</li>
+  <li><strong>반응 차이 찾기</strong>: 16%p 차이 (42.5 → 58.5). 우연일 확률을 계산하니 <strong>100만분의 9</strong> 수준. 거의 확실한 차이예요. → 우리 방식이 이 점에선 분명 우수합니다.</li>
+</ul>
+
+<div class="note">
+  <strong>정리</strong>: "정답을 맞추는 도구"로는 별로고, "<strong>반응이 갈리는 곳을 찾는 도구</strong>"로는 우수합니다.
+  <br>
+  그래서 우리 메시지를 이렇게 바꿨어요: "A/B 승자를 예측하겠다"가 아니라 "<strong>사람 타입에 따라 다르게 작동할 변경을 미리 찾아주겠다</strong>".
+</div>
+
+
+<h3>3. "우리가 말하는 숫자가 현실적인가?"</h3>
+
+<p><strong>쓴 데이터</strong>:</p>
+<ul>
+  <li><strong>Google Analytics 4 Sample</strong>: 구글이 공개한 자사 스토어(Google Merchandise Store)의
+3개월간 실제 방문 데이터. 누가 언제 왔고 뭘 샀는지 전부 들어있어요.</li>
+  <li><strong>Open Bandit Dataset</strong>: 일본 쇼핑몰 ZOZOTOWN이 공개한 7일치 실제 광고 클릭 데이터.</li>
+</ul>
+
+<p><strong>어떻게 썼나</strong>: 우리 AI가 사이트 돌린 결과에서 나온 숫자를,
+실제 사이트의 해당 숫자와 비교했어요.</p>
+
+<p><strong>비교 결과 — 큰 차이 발견</strong>:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px;">
+  <tr style="background: #f5f5f5;">
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">지표</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">우리 AI 예측</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">실제 (구글 자체 스토어)</th>
+    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ccc;">차이</th>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">장바구니 담는 비율</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">30%</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">2.2%</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>약 14배 더 큼</strong></td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">세션당 페이지 보는 수</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">9.1개</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">3.7개</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;">약 2.4배 더 큼</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px;">광고 클릭률</td>
+    <td style="padding: 8px;">약 30%</td>
+    <td style="padding: 8px;">0.38% (ZOZOTOWN)</td>
+    <td style="padding: 8px;"><strong>약 80배 더 큼</strong></td>
+  </tr>
+</table>
+
+<p><strong>판단</strong>: 우리 AI는 "지금 쇼핑하고 싶은 사람"으로 설정되어 있어서,
+실제 일반 방문자보다 훨씬 적극적이에요. 그래서 <strong>절대 숫자는 과장</strong>돼요.</p>
+
 <p>
-  웹 리서치 기관(NNGroup, Baymard 등)들이 수십 년 연구해서 밝힌 "사람들이 웹에서 어떻게 행동하는지" 데이터가 있어요.
-  우리 AI 사람들이 그 연구 결과와 <strong>6개 항목 중 5개가 일치</strong>했어요.
+  이걸 발견한 뒤로 리포트에서 "전환율 30%" 같은 표현은 못 쓰게 하고,
+  "<strong>A 안이 B 안보다 나을 것</strong>", "<strong>이 그룹이 저 그룹보다 이탈이 많을 것</strong>" 같은 <strong>비교 표현만</strong> 쓰기로 정했어요.
 </p>
 
-<h3>2. 실제 A/B 테스트 200건과 비교</h3>
-<p>
-  이미 결과가 나온 실제 A/B 테스트 200건(Upworthy라는 회사가 공개한 데이터)을 가지고,
-  우리 AI가 "A랑 B 중 어느 쪽이 이길지" 맞춰봤어요.
-</p>
+
+<h3>종합 판단</h3>
 
 <p>
-  두 가지 버전으로 해봤는데:
+  외부 데이터 4개를 종합해서 내린 결론:
 </p>
 
 <ul>
-  <li><strong>일반 AI 방식</strong> (나이·성별만 알려줌): "다르게 반응할 만한 부분"을 <strong>42%</strong> 찾음</li>
-  <li><strong>우리 방식</strong> (성격·성향까지 세밀히 모델링): <strong>58.5%</strong> 찾음</li>
+  <li>✓ 우리 AI는 실제 사람 행동 패턴을 대체로 재현함 (NN/g 등 일치)</li>
+  <li>✓ "타입별로 반응이 갈리는 부분"을 찾는 능력은 기본 방식보다 분명히 우수 (Upworthy 200건 검증)</li>
+  <li>✗ "승자를 맞추는 정확도"는 기본 방식과 비슷 (우위 없음)</li>
+  <li>✗ "전환율이 몇 %"라는 절대 숫자 예측은 실제보다 14~80배 과장됨 (GA4 / Open Bandit 비교)</li>
 </ul>
 
 <p>
-  즉, 우리 방식이 <strong>16%포인트 더 잘 찾아냅니다.</strong>
-  이게 우연일 확률은 100만분의 9 수준으로, 사실상 "확실히 다르다"고 할 수 있어요.
+  그래서 우리가 파는 건 "정답"이 아니라 "<strong>타입별 반응 차이를 미리 보는 도구</strong>"입니다.
 </p>
-
-<div class="note">
-  <strong>재미있는 부분</strong>: "승자를 맞추는 정확도"는 두 방식이 비슷했어요 (55% vs 61%, 통계적으로 의미 없는 차이).
-  <br><br>
-  그래서 우리 도구는 <strong>"답을 맞추는" 도구가 아니라 "사람마다 다르게 반응할 부분을 찾아주는" 도구</strong>예요.
-</div>
 
 
 <h2>한계 — 솔직한 부분</h2>
