@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>41R — 쉬운 버전 설명서</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Pretendard', 'Noto Sans KR', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.9;
+    background: #fafbfc;
+  }
+
+  /* Cover */
+  .cover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    padding: 70px 24px;
+    text-align: center;
+  }
+  .cover .emoji { font-size: 56px; margin-bottom: 18px; }
+  .cover h1 { font-size: 32px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.5px; }
+  .cover .subtitle { font-size: 17px; color: #e0e7ff; max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+  /* Container */
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    padding: 32px 28px;
+    margin-bottom: 22px;
+  }
+  .section h2 {
+    font-size: 24px;
+    color: #1e293b;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 .icon { font-size: 28px; }
+  .section h3 {
+    font-size: 17px;
+    color: #475569;
+    margin: 22px 0 10px;
+  }
+  .section p { color: #334155; margin: 10px 0; font-size: 15.5px; }
+  .section ul, .section ol { margin: 12px 0 12px 8px; padding-left: 18px; }
+  .section li { margin: 8px 0; color: #334155; font-size: 15px; }
+
+  /* Analogy box */
+  .analogy {
+    background: #fef3c7;
+    border-left: 5px solid #f59e0b;
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+  .analogy::before { content: "💡 "; font-size: 20px; }
+  .analogy strong { color: #92400e; }
+
+  /* Key point */
+  .key {
+    background: #dbeafe;
+    border-left: 5px solid #2563eb;
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+  .key::before { content: "🎯 "; font-size: 20px; }
+  .key strong { color: #1e40af; }
+
+  /* Honest warning */
+  .honest {
+    background: #fee2e2;
+    border-left: 5px solid #dc2626;
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+  .honest::before { content: "⚠️ "; font-size: 20px; }
+  .honest strong { color: #991b1b; }
+
+  /* Success */
+  .success {
+    background: #d1fae5;
+    border-left: 5px solid #10b981;
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+  .success::before { content: "✅ "; font-size: 20px; }
+  .success strong { color: #065f46; }
+
+  /* Big number display */
+  .big-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .big-num {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px 14px;
+    text-align: center;
+  }
+  .big-num .value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #4f46e5;
+    line-height: 1;
+  }
+  .big-num .value.green { color: #10b981; }
+  .big-num .value.orange { color: #f59e0b; }
+  .big-num .label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  /* Compare box */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .compare-item {
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid;
+  }
+  .compare-item.before { background: #fef2f2; border-color: #fecaca; }
+  .compare-item.after { background: #f0fdf4; border-color: #bbf7d0; }
+  .compare-item h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .compare-item.before h4 { color: #991b1b; }
+  .compare-item.after h4 { color: #166534; }
+  .compare-item p { font-size: 14px; color: #475569; line-height: 1.7; }
+
+  /* Step list */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .step {
+    text-align: center;
+    padding: 16px 8px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+  }
+  .step .step-num {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #4f46e5;
+    color: white;
+    line-height: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .step .step-label {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: #94a3b8;
+    font-size: 12px;
+  }
+
+  /* TOC (navigation) */
+  .toc {
+    background: white;
+    padding: 18px 22px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .toc h3 {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .toc ol {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: toc;
+  }
+  .toc li {
+    counter-increment: toc;
+    padding: 5px 0;
+  }
+  .toc li::before {
+    content: counter(toc) ". ";
+    color: #4f46e5;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .toc a {
+    color: #1e293b;
+    text-decoration: none;
+  }
+  .toc a:hover { color: #4f46e5; text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .big-numbers { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .cover h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="emoji">🤖🛒</div>
+  <h1>41R이 뭐하는 건가요?</h1>
+  <p class="subtitle">
+    쉽게 말해, <strong>"AI로 만든 가상 쇼핑객 여러 명"</strong>이 당신 사이트에 가서<br>
+    실제로 쇼핑해보고, "어느 부분이 어떤 사람에게 잘 맞는지" 알려주는 도구예요.
+  </p>
+</div>
+
+<div class="container">
+
+<!-- 목차 -->
+<div class="toc">
+  <h3>이 글에서 다루는 것</h3>
+  <ol>
+    <li><a href="#problem">무슨 문제를 풀려는 건가요?</a></li>
+    <li><a href="#how">어떻게 작동하나요?</a></li>
+    <li><a href="#value">이게 왜 가치가 있나요?</a></li>
+    <li><a href="#verify">진짜 효과가 있는지 어떻게 확인했나요?</a></li>
+    <li><a href="#honest">솔직한 한계</a></li>
+    <li><a href="#next">앞으로 할 일</a></li>
+  </ol>
+</div>
+
+<!-- 1. 문제 -->
+<div class="section" id="problem">
+  <h2><span class="icon">🤔</span>무슨 문제를 풀려는 건가요?</h2>
+
+  <p>
+    예를 들어 쇼핑몰을 운영한다고 해볼게요. 상품 페이지를 새로 디자인했는데,
+    <strong>"이거 정말 유저들이 좋아할까?"</strong> 궁금하죠.
+  </p>
+
+  <h3>지금까지 방법</h3>
+  <ul>
+    <li><strong>실제 유저로 테스트</strong> (A/B 테스트) — 2~4주 걸리고, 수백만원 들고, 사이트에 트래픽이 충분해야 함</li>
+    <li><strong>유저 인터뷰</strong> — 5~10명 모아서 물어보기, 일주일 걸리고 1인당 10만원</li>
+    <li><strong>PM의 감</strong> — 가장 빠르지만 틀릴 수 있음</li>
+  </ul>
+
+  <div class="analogy">
+    <strong>더 큰 문제</strong>: 100명 테스트해서 "평균 5% 전환율 상승"이 나와도,
+    <strong>20대 여성에겐 +20%, 30대 남성에겐 -8%</strong>일 수 있어요.
+    <br><br>
+    단순 평균만 보면 "좋은 변경"이라고 판단해서 배포하는데, 사실 남성 유저에겐 손해였던 거죠.
+    <strong>어떤 변경이 "사람마다 다르게 작용"하는지</strong>를 미리 알기 어려워요.
+  </div>
+</div>
+
+<!-- 2. 어떻게 -->
+<div class="section" id="how">
+  <h2><span class="icon">🎬</span>어떻게 작동하나요?</h2>
+
+  <div class="analogy">
+    <strong>한 마디로</strong>: AI로 여러 성격의 "가상 쇼핑객"을 만들어서,
+    실제 브라우저에서 당신 사이트를 사용하게 하는 거예요.
+    <br><br>
+    영화 <em>"매트릭스"</em>처럼 가상 세계에서 미리 실험해본다고 생각하시면 돼요.
+  </div>
+
+  <h3>구체적으로는</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-label">당신 사이트 URL과<br>"뭘 하려는지" 알려줌</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-label">AI가 여러 성격의<br>가상 쇼핑객 생성</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-label">실제 브라우저로<br>사이트 사용</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-label">누가 어디서<br>막혔는지 리포트</div>
+    </div>
+  </div>
+
+  <h3>가상 쇼핑객 예시 (지금 10명 있음)</h3>
+  <ul>
+    <li>🛍️ <strong>충동형 28세 마케터</strong> — 빠르게 결정, 예쁘면 바로 산다</li>
+    <li>📚 <strong>신중한 35세 회계사</strong> — 회사 연혁부터 환불 정책까지 다 확인</li>
+    <li>💰 <strong>32세 교사</strong> — 가격에 매우 민감, 숨은 수수료 없는지 체크</li>
+    <li>💻 <strong>42세 IT 팀장</strong> — 기능 비교표를 좋아함, 감성 카피 싫어함</li>
+    <li>👵 <strong>58세 공무원</strong> — 글씨 크고 버튼 명확해야, 모르면 안 산다</li>
+    <li>👔 <strong>38세 IT 구매 담당</strong> — 보안 인증, ROI 자료 확인</li>
+    <li>📱 <strong>22세 대학생 (Z세대)</strong> — 모바일 네이티브, 인스타 감성</li>
+    <li>👶 <strong>37세 워킹맘</strong> — 유아용품 안전 인증, 새벽 배송 필수</li>
+    <li>🎬 <strong>30세 프리랜서</strong> — 솔로 사용자용 가격, 워터마크 싫어</li>
+    <li>🌏 <strong>34세 해외 거주 한국인</strong> — 국제 배송, 다국어 UI 필요</li>
+  </ul>
+</div>
+
+<!-- 3. 가치 -->
+<div class="section" id="value">
+  <h2><span class="icon">💎</span>이게 왜 가치가 있나요?</h2>
+
+  <div class="key">
+    <strong>핵심 가치 한 줄</strong>: A/B 테스트로 2~4주 걸리던 "세그먼트별 반응 차이 확인"을,
+    <strong>24시간 만에 5천 원</strong>으로 미리 예측해요.
+  </div>
+
+  <div class="big-numbers">
+    <div class="big-num">
+      <div class="value">$5</div>
+      <div class="label">건당 진단 비용 (약 7,000원)</div>
+    </div>
+    <div class="big-num">
+      <div class="value">24h</div>
+      <div class="label">진단 완료까지 소요</div>
+    </div>
+    <div class="big-num">
+      <div class="value green">+16%p</div>
+      <div class="label">세그먼트 차이 감지력 (증명됨)</div>
+    </div>
+  </div>
+
+  <h3>언제 쓰나요?</h3>
+  <ul>
+    <li>🎨 새 디자인 만들었는데 "이거 진짜 유저가 좋아할까?" 확인 전</li>
+    <li>💰 가격 페이지 개편했는데 "어떤 유저가 이탈할까?" 미리 알고 싶을 때</li>
+    <li>🆕 10개 아이디어 중 <strong>"어느 3개를 A/B 테스트할지"</strong> 우선순위 정할 때</li>
+    <li>🌏 해외 진출 전 "한국 유저가 이 페이지에서 뭘 어려워할까?" 체크</li>
+  </ul>
+</div>
+
+<!-- 4. 검증 -->
+<div class="section" id="verify">
+  <h2><span class="icon">🔬</span>진짜 효과가 있는지 어떻게 확인했나요?</h2>
+
+  <p>
+    "AI가 예측한다"고 아무리 말해도, <strong>실제로 맞추는지 검증</strong>하지 않으면 믿을 수 없잖아요.
+    그래서 공개된 실제 A/B 테스트 데이터 <strong>200건</strong>으로 실험했어요.
+  </p>
+
+  <h3>실험 방법 (쉬운 버전)</h3>
+  <p>
+    이미 결과가 나와 있는 실제 A/B 테스트 200건을 준비해서,
+    41R이 "어느 쪽이 이길지" 예측하게 했어요. 그리고 두 가지 조건으로 비교:
+  </p>
+
+  <div class="compare">
+    <div class="compare-item before">
+      <h4>방법 A: 기본 AI</h4>
+      <p>"32세 여성 교사"처럼 나이·직업만 알려줌</p>
+      <p><strong>결과</strong>: "사람마다 다르게 반응할 부분"을 42%만 감지</p>
+    </div>
+    <div class="compare-item after">
+      <h4>방법 B: 41R 방식</h4>
+      <p>성격, 민감한 부분, 좌절 트리거까지 세밀히 모델링</p>
+      <p><strong>결과</strong>: "사람마다 다르게 반응할 부분"을 <strong>58.5%</strong> 감지</p>
+    </div>
+  </div>
+
+  <div class="success">
+    <strong>결론</strong>: 41R 방식이 <strong>16%p 더 잘 감지</strong>해요.
+    <br>
+    이게 우연일 확률은 <strong>100만분의 9</strong> 수준으로, 사실상 확실히 다르다는 뜻이에요.
+  </div>
+
+  <h3>"근데 승자는 잘 맞추나요?"</h3>
+  <p>
+    <strong>이 부분이 흥미로워요</strong>: 둘 다 비슷하게 맞췄어요 (61% vs 55%, 통계적으로 무의미한 차이).
+  </p>
+  <div class="analogy">
+    즉, 41R의 가치는 "정답 맞추기"가 <strong>아니라</strong>,
+    <br>"<strong>어느 부분에서 사람마다 다르게 반응할지를 잡아내는 것</strong>"이에요.
+    <br><br>
+    비유하자면: 일기예보가 "내일 맑음/흐림"을 맞추는 것보다,
+    "<strong>지역별로 다를 겁니다 — 남부는 맑고 북부는 비</strong>"를 알려주는 게 더 가치 있는 것과 같아요.
+  </div>
+</div>
+
+<!-- 5. 한계 -->
+<div class="section" id="honest">
+  <h2><span class="icon">🙏</span>솔직한 한계</h2>
+
+  <p>
+    모든 도구에는 한계가 있어요. 41R도 과대평가되지 않게 솔직히 말씀드릴게요.
+  </p>
+
+  <div class="honest">
+    <strong>1. "전환율이 30%일 겁니다" 같은 절대 숫자는 믿지 마세요</strong>
+    <br><br>
+    실제 구글 분석 데이터와 비교한 결과, 41R의 예측 숫자는 <strong>실제보다 14~19배 더 크게 나와요</strong>.
+    이유: 가상 쇼핑객이 실제 유저보다 더 "살 의지"가 강하게 설정되어서 그래요.
+    <br><br>
+    <strong>사용법</strong>: "A가 B보다 나을 것"처럼 <strong>상대 비교</strong>만 믿으세요.
+    "정확히 몇 %"는 신뢰 불가.
+  </div>
+
+  <div class="honest">
+    <strong>2. 실제 유저 데이터로 "정말 맞는지" 대조는 아직 안 했어요</strong>
+    <br><br>
+    5개 사이트(29CM, 클래스101, 오늘의집, Webflow, Glossier)에 시뮬레이션을 돌렸는데,
+    이 결과가 실제 그 사이트의 유저 데이터와 일치하는지는 <strong>확인 안 했어요</strong>.
+    <br><br>
+    이건 다음 단계(H2)에서 할 일이에요.
+    지금 우리가 만드는 리포트는 "<strong>가설</strong>"이지 "사실"이 아니에요.
+  </div>
+
+  <div class="honest">
+    <strong>3. 아직 돈 내고 써본 고객이 없어요</strong>
+    <br><br>
+    기술적으로 작동하는 건 증명했지만, <strong>"CPO가 이 도구에 돈을 내고 싶은가?"</strong>는
+    아직 한 번도 테스트 안 했어요. 이게 다음 가장 큰 숙제예요.
+  </div>
+</div>
+
+<!-- 6. 다음 -->
+<div class="section" id="next">
+  <h2><span class="icon">🚀</span>앞으로 할 일</h2>
+
+  <h3>바로 할 일 (사용자 결정 대기)</h3>
+  <ol>
+    <li>
+      <strong>실제 CPO 5~10명에게 이메일 보내기</strong> — 41R 리포트 샘플 보내고 반응 보기.
+      발송 후 2주간 단계별 체크:
+      <ul>
+        <li>응답률 → 흥미가 있는가?</li>
+        <li>샘플 요청 → 더 보고 싶은가?</li>
+        <li>미팅 → 진지하게 관심 있는가?</li>
+        <li>결제 → 실제로 돈을 낼 의향 있는가?</li>
+      </ul>
+    </li>
+    <li>
+      <strong>실제 고객사 데이터로 대조 실험</strong> — 1곳과 비밀유지 계약 맺고,
+      그들의 실제 구글 분석 데이터로 41R 예측이 맞는지 확인.
+    </li>
+    <li>
+      <strong>법률 검토</strong> — "AI 생성 리뷰" 관련 규제(FTC)가 우리 서비스에 적용되는지 확인.
+    </li>
+  </ol>
+
+  <h3>각 시나리오별 다음 단계</h3>
+  <ul>
+    <li>✅ <strong>반응 좋음</strong> → 본격 서비스 개발 시작</li>
+    <li>⚠️ <strong>반응 애매함</strong> → 메시지/가격/타겟 재설계</li>
+    <li>❌ <strong>반응 없음</strong> → 프로젝트 중단 또는 완전 피벗</li>
+  </ul>
+</div>
+
+<!-- 요약 -->
+<div class="section" style="background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);">
+  <h2><span class="icon">📝</span>한 줄 요약</h2>
+  <p style="font-size: 17px; line-height: 1.8; color: #1e293b;">
+    41R은 <strong>AI 가상 쇼핑객들이 당신 사이트를 미리 써보고</strong>,
+    <strong>"어떤 부분에서 사람마다 다르게 반응할지"</strong>를 24시간·5천 원에 알려주는 도구예요.
+    기술적으로는 증명됐지만, <strong>실제 시장에 팔릴지는 이제부터 테스트</strong>합니다.
+  </p>
+</div>
+
+</div>
+
+<div class="footer">
+  41R Persona Market &mdash; 쉬운 설명서<br>
+  작성: 2026-04-14 · 더 자세한 기술 리포트: <code>EXECUTIVE_REPORT.html</code>
+</div>
+
+</body>
+</html>
