@@ -130,38 +130,44 @@
   <h2>1. 한 페이지 요약</h2>
 
   <div class="key success">
-    <strong>핵심 결론</strong>: 41R의 marginal value가 <strong>n=200 통계적으로 입증됨</strong>.
-    "A/B 승자 정답 맞추기"가 아니라 <strong>"세그먼트 분기 탐지"</strong>가 진짜 가치이며,
-    Demo-only baseline 대비 <strong>+16%p (p=0.000009)</strong> 우위.
+    <strong>한 줄 정의</strong>: PM의 변경 아이디어 10개 중, A/B 테스트 <strong>전에</strong>
+    "세그먼트별로 다르게 작용할 3개"를 <strong>24시간 · 건당 ~$5</strong>로 식별합니다.
   </div>
 
   <div class="stats">
     <div class="stat-card">
+      <div class="num good">~$5</div>
+      <div class="label">건당 진단 비용</div>
+    </div>
+    <div class="stat-card">
+      <div class="num good">24시간</div>
+      <div class="label">평균 진단 소요</div>
+    </div>
+    <div class="stat-card">
       <div class="num good">+16%p</div>
-      <div class="label">세그먼트 분기 탐지 (vs Demo)</div>
-    </div>
-    <div class="stat-card">
-      <div class="num good">p=0.000009</div>
-      <div class="label">통계적 유의성 (n=200)</div>
-    </div>
-    <div class="stat-card">
-      <div class="num">200</div>
-      <div class="label">실제 A/B 테스트 케이스 검증</div>
+      <div class="label">분기 탐지력 (vs Demo, p&lt;0.001)</div>
     </div>
   </div>
 
-  <h3>한 단락 요약</h3>
+  <h3>왜 이게 가치인가</h3>
   <p>
-    41R은 <strong>AI 페르소나 코호트가 사이트를 사용해 세그먼트별 행동 차이를 진단</strong>하는 시스템입니다.
-    "어느 variant가 이기나"가 아니라 "<strong>어떤 세그먼트가 어떻게 다르게 반응하는가</strong>"에 답합니다.
-    Upworthy의 실제 A/B 테스트 200건으로 통계 검증한 결과, 41R은 단순 demographic 페르소나 대비
-    세그먼트 분기를 <strong>16%p 더 잘 탐지</strong>하며 (p&lt;0.001), 정확도 차이는 통계적으로 무의미했습니다.
+    A/B 테스트는 단일 평균만 봅니다. 결과가 "+5%"라도 <strong>20대 여성엔 +20%, 30대 남성엔 -8%</strong>일 수 있고,
+    이 경우 단일 variant 배포는 일부 세그먼트에 손해입니다.
+    <strong>41R은 A/B 테스트 설계 전에 "이 변경이 세그먼트별로 다르게 작용할까"를 진단</strong>합니다 —
+    "단일 variant로 충분" vs "세그먼트별 설계 필요"를 미리 분류.
+  </p>
+
+  <h3>핵심 검증 (n=200 통계 입증)</h3>
+  <p>
+    Upworthy Research Archive 200건 실제 A/B 테스트로 검증한 결과,
+    41R은 demographic-only baseline 대비 <strong>세그먼트 분기를 16%p 더 잘 탐지</strong> (McNemar p=0.000009).
+    정확도 차이는 무의미 — 즉 "정답 맞추기"가 아닌 <strong>"분기 진단"</strong>이 41R의 검증된 가치입니다.
   </p>
 
   <h3>한 줄 솔직한 한계</h3>
   <p>
-    절대 수치 ("X% 전환율") 예측은 실제 GA 데이터 대비 <strong>13.9~19.1배 over-estimate</strong>.
-    상대 비교 (세그먼트 분기, A vs B 우열)는 유효하나 절대값은 신뢰 불가. 실제 데이터 cross-check는 H2 단계.
+    절대 수치 ("X% 전환율") 예측은 실제 GA 데이터 대비 <strong>13.9~19.1× over-estimate</strong>.
+    상대 비교 (세그먼트 분기 / A vs B 우열)는 유효하나 절대값은 신뢰 불가. 실제 데이터 cross-check는 H2 단계.
   </p>
 </div>
 
@@ -215,11 +221,26 @@
 <div class="section" id="hypothesis">
   <h2>3. 가설</h2>
 
-  <h3>H1 — 시장 가설 (메인)</h3>
+  <h3>H1 — 시장 가설 (메인, 피벗 후)</h3>
   <div class="key">
-    <strong>H1</strong>: CPO/PM은 "사이트의 세그먼트 분기 진단"에 돈을 낼 의향이 있다.<br>
-    <strong>Kill criteria</strong>: 유료 전환율 5% 미만 → H2 이하 전체 중단.
+    <strong>H1 (v2, 피벗)</strong>: CPO/Head of Growth는 <strong>A/B 테스트 설계 전 단계</strong>의
+    "세그먼트 분기 진단"에 <strong>건당 ~$5 수준</strong>의 예산을 낼 의향이 있다.<br>
+    <small style="color:#64748b;">(이전 H1: "유료 전환" 추상적 → 피벗: 운영 가격대 명시)</small>
   </div>
+
+  <h4>단계화된 Kill Criteria (빠른 중간 지표)</h4>
+  <table>
+    <tr><th>단계</th><th>지표</th><th>Kill 임계</th><th>Pass 임계</th></tr>
+    <tr><td>1. 발송 → 응답</td><td>응답률</td><td>발송 30건 중 응답 &lt; 3건</td><td>응답 ≥ 5건</td></tr>
+    <tr><td>2. 응답 → 진단 샘플 요청</td><td>샘플 요청률</td><td>응답 5건 중 요청 0</td><td><strong>요청 ≥ 3건</strong></td></tr>
+    <tr><td>3. 샘플 → 미팅</td><td>미팅 전환</td><td>요청 3건 중 미팅 0</td><td>미팅 ≥ 2건</td></tr>
+    <tr><td>4. 미팅 → 유료 의향</td><td>의향 표명</td><td>미팅 2건 중 의향 0</td><td>의향 ≥ 1건</td></tr>
+    <tr><td>5. 의향 → 결제</td><td>최종 전환</td><td>건당 $5 이상 결제 0</td><td>1건+ 결제</td></tr>
+  </table>
+  <p style="font-size:13px; color:#64748b;">
+    각 단계 cut-off는 "<strong>다음 단계 진행 vs 메시징/포지셔닝 재설계</strong>" 결정점.
+    이전 단일 임계 ("유료 전환 5%")은 신호가 너무 늦음 — 피벗으로 단계 분리.
+  </p>
 
   <h3>H1을 뒷받침하는 부속 가설</h3>
   <ol>
@@ -390,15 +411,11 @@
     <strong>중요한 정직 고지</strong>: 41R은 절대 수치 예측에 과대평가 경향. <strong>상대 비교용</strong>이지 절대값 도구 아님.
   </div>
 
-  <h3>6-5. 5개 타겟 사이트 코호트 진단 (사이트별 inisghts)</h3>
-  <table>
-    <tr><th>사이트</th><th>주요 발견</th><th>분기 신호</th></tr>
-    <tr><td>29CM</td><td>가격민감형 강한 이탈, 충동형 전환</td><td>강한 분기 (-0.58 가격민감)</td></tr>
-    <tr><td>클래스101</td><td>전원 partial — 가치 판단 정체</td><td>중간 분기</td></tr>
-    <tr><td>오늘의집</td><td>이탈 40%, <strong>소셜프루프 역효과 -0.40</strong></td><td>강한 반직관 분기</td></tr>
-    <tr><td>Webflow</td><td>이탈 50% — 가격 페이지 복잡도</td><td>리서치형 이탈 -0.47</td></tr>
-    <tr><td>Glossier</td><td><strong>가격 장벽 -0.57</strong> (5사이트 중 최강)</td><td>가격민감형 강한 이탈</td></tr>
-  </table>
+  <p style="margin-top: 18px; font-size: 14px; color: #64748b;">
+    📎 5개 타겟 사이트 코호트 진단 결과 (사이트별 finding)는 <strong>Appendix B</strong>로 이동.
+    이 결과는 <strong>실측 cross-check 없는 LLM 시뮬</strong>이라 메인 근거에서 분리.
+    (실측 검증은 H2 단계 작업)
+  </p>
 </div>
 
 <!-- ==================== 7. WHAT IT MEANS ==================== -->
@@ -509,9 +526,42 @@
   </table>
 </div>
 
-<!-- ==================== APPENDIX ==================== -->
+<!-- ==================== APPENDIX B ==================== -->
+<div class="section" id="appendix-b">
+  <h2>Appendix B — 5개 타겟 사이트 코호트 진단 (참고용)</h2>
+
+  <div class="key warning">
+    <strong>⚠️ 중요</strong>: 아래 발견은 <strong>LLM 페르소나 시뮬</strong>이지 실측 데이터가 아닙니다.
+    각 사이트의 실제 GA/Hotjar 데이터와 cross-check 0건. 메인 근거가 아니라 <strong>"흥미 있는 가설"</strong> 수준으로 봐주세요.
+  </div>
+
+  <table>
+    <tr><th>사이트</th><th>주요 발견 (가설)</th><th>분기 신호</th></tr>
+    <tr><td>29CM</td><td>가격민감형 강한 이탈, 충동형 전환</td><td>강한 분기 (-0.58 가격민감)</td></tr>
+    <tr><td>클래스101</td><td>전원 partial — 가치 판단 정체</td><td>중간 분기</td></tr>
+    <tr><td>오늘의집</td><td>이탈 40%, <strong>소셜프루프 역효과 -0.40</strong></td><td>강한 반직관 분기 (검증 필요)</td></tr>
+    <tr><td>Webflow</td><td>이탈 50% — 가격 페이지 복잡도</td><td>리서치형 이탈 -0.47</td></tr>
+    <tr><td>Glossier</td><td><strong>가격 장벽 -0.57</strong> (5사이트 중 최강)</td><td>가격민감형 강한 이탈</td></tr>
+  </table>
+
+  <h3>왜 Appendix로 분리했나</h3>
+  <ul>
+    <li>이 finding들은 <strong>가장 시각적·구체적</strong>이라 CPO가 여기 꽂힐 위험</li>
+    <li>실제 근거는 §6-1 (n=200 ablation, p=0.000009) — <strong>방법론 검증</strong>이지 사이트별 진실이 아님</li>
+    <li>"오늘의집 소셜프루프 역효과"는 흥미롭지만, 실제 오늘의집 데이터로 cross-check 없음 → 가설</li>
+    <li>판매 시 사이트별 finding을 메인으로 쓰면 "그게 진짜야?" 물음에 답 못함</li>
+  </ul>
+
+  <h3>올바른 사용</h3>
+  <p>
+    이 결과는 <strong>"우리 시스템이 만들어내는 진단 결과의 형태"</strong>를 보여주는 데모용으로만 사용.
+    "이 사이트는 X% 전환합니다"가 아니라 "<strong>이런 형태의 진단 리포트를 받게 됩니다</strong>"가 메시지.
+  </p>
+</div>
+
+<!-- ==================== APPENDIX A ==================== -->
 <div class="section">
-  <h2>부록 — 자료 위치</h2>
+  <h2>Appendix A — 자료 위치</h2>
 
   <table>
     <tr><th>자료</th><th>위치</th></tr>
