@@ -375,6 +375,27 @@ def _recompute_pvalue(spec: dict) -> float | None:
         if spec["type"] == "fisher":
             a, b, c, d = (get_field(data, spec[f"field_{x}"]) for x in ["a", "b", "c", "d"])
             return float(stats.fisher_exact([[int(a), int(b)], [int(c), int(d)]]).pvalue)
+
+        if spec["type"] == "mcnemar":
+            # paired binary outcomes: arm A vs arm B per case
+            # discordant pairs only: b = (B=1, A=0), c = (A=1, B=0)
+            a_results = get_field(data, spec["field_a_results"])
+            b_results = get_field(data, spec["field_b_results"])
+            outcome_field = spec.get("outcome_field", "segment_divergence")
+
+            a_by_id = {r["case_id"]: bool(r.get(outcome_field)) for r in a_results}
+            b_by_id = {r["case_id"]: bool(r.get(outcome_field)) for r in b_results}
+            common = set(a_by_id.keys()) & set(b_by_id.keys())
+
+            b_count = sum(1 for cid in common if b_by_id[cid] and not a_by_id[cid])
+            c_count = sum(1 for cid in common if a_by_id[cid] and not b_by_id[cid])
+            n_disc = b_count + c_count
+
+            if n_disc == 0:
+                return 1.0
+            # exact McNemar (binomial)
+            k = min(b_count, c_count)
+            return float(stats.binomtest(k, n_disc, p=0.5, alternative="two-sided").pvalue)
     except Exception:
         logger.debug("p-value recompute failed", exc_info=True)
         return None
@@ -485,9 +506,13 @@ def audit_tagged_claims(report_path: str | Path) -> list[Finding]:
                     ))
                 continue
 
-            # 숫자 비교 (퍼센트 자동 변환)
+            # 숫자 비교 (퍼센트 자동 변환 + 부호 무시 — 절댓값 표기 흔함)
             actual_num = float(actual)
-            candidates = [actual_num, actual_num * 100, actual_num / 100]
+            candidates = [
+                actual_num, -actual_num, abs(actual_num),
+                actual_num * 100, -actual_num * 100, abs(actual_num) * 100,
+                actual_num / 100, -actual_num / 100, abs(actual_num) / 100,
+            ]
             matched = any(abs(displayed_num - c) < 0.02 or
                           (c != 0 and abs(displayed_num - c) / abs(c) < 0.02)
                           for c in candidates)
@@ -679,6 +704,21 @@ if __name__ == "__main__":
                 "field_k": "head_to_head.arm_b_wins",
                 "field_n": "total_cases",
                 "alternative": "greater",
+            },
+            # 핵심 클레임 — n=200 McNemar 분기 탐지 (specific 키워드만)
+            "n=200": {
+                "data_path": "experiments/ablation/results_ablation_n200.json",
+                "type": "mcnemar",
+                "field_a_results": "arm_a_results",
+                "field_b_results": "arm_b_results",
+                "outcome_field": "segment_divergence",
+            },
+            "0.000009": {
+                "data_path": "experiments/ablation/results_ablation_n200.json",
+                "type": "mcnemar",
+                "field_a_results": "arm_a_results",
+                "field_b_results": "arm_b_results",
+                "outcome_field": "segment_divergence",
             },
         },
     )

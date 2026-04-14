@@ -1,0 +1,128 @@
+{
+  "demo_version": "cate_self_demo_v1",
+  "source": "/home/kimtayoon/myrepo/41r-advisor/41r/experiments/ablation/results_ablation_n200.json",
+  "n_rows_converted": 2000,
+  "n_segments": 5,
+  "ate_41r_vs_demo": -0.031,
+  "result": {
+    "cate_estimation": {
+      "method": "naive_segment_diff",
+      "overall_ate": -0.031,
+      "segment_cates": {
+        "20대 남성 (직장인)": {
+          "cate": 0.02,
+          "ci95_lower": -0.07,
+          "ci95_upper": 0.12,
+          "n_a": 200,
+          "n_b": 200,
+          "diverges_from_overall": true
+        },
+        "30대 여성 (회계)": {
+          "cate": -0.11,
+          "ci95_lower": -0.2,
+          "ci95_upper": -0.01,
+          "n_a": 200,
+          "n_b": 200,
+          "diverges_from_overall": true
+        },
+        "30대 여성 (교사)": {
+          "cate": 0.005,
+          "ci95_lower": -0.08,
+          "ci95_upper": 0.095,
+          "n_a": 200,
+          "n_b": 200,
+          "diverges_from_overall": true
+        },
+        "40대 남성 (IT)": {
+          "cate": -0.03,
+          "ci95_lower": -0.12,
+          "ci95_upper": 0.06,
+          "n_a": 200,
+          "n_b": 200,
+          "diverges_from_overall": false
+        },
+        "50대+ 여성": {
+          "cate": -0.04,
+          "ci95_lower": -0.15,
+          "ci95_upper": 0.065,
+          "n_a": 200,
+          "n_b": 200,
+          "diverges_from_overall": false
+        }
+      },
+      "discovered_diverging_segments": [
+        "20대 남성 (직장인)",
+        "30대 여성 (회계)",
+        "30대 여성 (교사)"
+      ],
+      "notes": [
+        "EconML 미설치 — naive segment difference 사용. H2 정식 운영 시 econml 설치 권장."
+      ]
+    },
+    "predicted_diverging": [
+      "20대 남성 (직장인)",
+      "30대 여성 (교사)",
+      "30대 여성 (회계)",
+      "40대 남성 (IT)",
+      "50대+ 여성"
+    ],
+    "actual_diverging": [
+      "20대 남성 (직장인)",
+      "30대 여성 (교사)",
+      "30대 여성 (회계)"
+    ],
+    "true_positive": [
+      "20대 남성 (직장인)",
+      "30대 여성 (교사)",
+      "30대 여성 (회계)"
+    ],
+    "false_positive": [
+      "40대 남성 (IT)",
+      "50대+ 여성"
+    ],
+    "false_negative": [],
+    "agreement_score": 0.75,
+    "winner_agreement": {
+      "40대 남성 (IT)": {
+        "predicted": "B",
+        "actual_winner": "A",
+        "actual_cate": -0.03,
+        "match": false
+      },
+      "20대 남성 (직장인)": {
+        "predicted": "B",
+        "actual_winner": "B",
+        "actual_cate": 0.02,
+        "match": true
+      },
+      "30대 여성 (교사)": {
+        "predicted": "B",
+        "actual_winner": "B",
+        "actual_cate": 0.005,
+        "match": true
+      },
+      "30대 여성 (회계)": {
+        "predicted": "B",
+        "actual_winner": "A",
+        "actual_cate": -0.11,
+        "match": false
+      },
+      "50대+ 여성": {
+        "predicted": "B",
+        "actual_winner": "A",
+        "actual_cate": -0.04,
+        "match": false
+      }
+    },
+    "winner_accuracy": 0.4,
+    "interpretation": "41R가 예측한 분기 세그먼트 ['20대 남성 (직장인)', '30대 여성 (교사)', '30대 여성 (회계)', '40대 남성 (IT)', '50대+ 여성'] vs 실제 CATE 분기 ['20대 남성 (직장인)', '30대 여성 (교사)', '30대 여성 (회계)']: F1=0.75. 승자 예측 정확도 40% (2/5)."
+  },
+  "per_segment_verdict": [
+    "- **20대 남성 (직장인)**: ⚪ 효과 불확실 (CI 0 포함, CATE=+2.0%p)",
+    "- **30대 여성 (회계)**: ❌ 41R 손해 -11.0%p (CI 0 미포함)",
+    "- **30대 여성 (교사)**: ⚪ 효과 불확실 (CI 0 포함, CATE=+0.5%p)",
+    "- **40대 남성 (IT)**: ⚪ 효과 불확실 (CI 0 포함, CATE=-3.0%p)",
+    "- **50대+ 여성**: ⚪ 효과 불확실 (CI 0 포함, CATE=-4.0%p)"
+  ],
+  "use_in_outbound": "F2 NDA 파트너 미팅 시 시연: '같은 방법론으로 귀사 A/B 데이터를 분석합니다'"
+}

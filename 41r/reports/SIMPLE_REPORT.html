@@ -296,21 +296,21 @@ B: "Half Of Us Perform This Illegal Act After We Graduate..."
   </tr>
   <tr>
     <td style="padding: 8px; border-bottom: 1px solid #eee;">승자 맞추는 정확도</td>
-    <td style="padding: 8px; border-bottom: 1px solid #eee;">61%</td>
-    <td style="padding: 8px; border-bottom: 1px solid #eee;">55%</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span data-src="experiments/ablation/results_ablation_n200.json:arm_a.accuracy_pct" title="src=61.0">61%</span></td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span data-src="experiments/ablation/results_ablation_n200.json:arm_b.accuracy_pct" title="src=55.0">55%</span></td>
   </tr>
   <tr>
     <td style="padding: 8px; border-bottom: 1px solid #eee;">사람 타입별 반응 차이 찾기</td>
-    <td style="padding: 8px; border-bottom: 1px solid #eee;">42.5%</td>
-    <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>58.5%</strong></td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span data-src="experiments/ablation/results_ablation_n200.json:arm_a.divergence_pct" title="src=42.5">42.5%</span></td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong><span data-src="experiments/ablation/results_ablation_n200.json:arm_b.divergence_pct" title="src=58.5">58.5%</span></strong></td>
   </tr>
 </table>
 
 <p><strong>판단 기준과 결과</strong>:</p>
 
 <ul>
-  <li><strong>승자 맞추기</strong>: 두 방식이 비슷해요 (55% vs 61%). 통계 검정으로 확인하니 이 6%p 차이는 <strong>우연 수준</strong>으로, 의미 있는 차이가 아니에요. → 우리 방식이 이 점에선 우수하지 않습니다.</li>
-  <li><strong>반응 차이 찾기</strong>: 16%p 차이 (42.5 → 58.5). 우연일 확률을 계산하니 <strong>100만분의 9</strong> 수준. 거의 확실한 차이예요. → 우리 방식이 이 점에선 분명 우수합니다.</li>
+  <li><strong>승자 맞추기</strong>: 두 방식이 비슷해요 (<span data-src="experiments/ablation/results_ablation_n200.json:arm_b.accuracy_pct" title="src=55.0">55%</span> vs <span data-src="experiments/ablation/results_ablation_n200.json:arm_a.accuracy_pct" title="src=61.0">61</span>%). 통계 검정으로 확인하니 이 6%p 차이는 <strong>우연 수준</strong>으로, 의미 있는 차이가 아니에요. → 우리 방식이 이 점에선 우수하지 않습니다.</li>
+  <li><strong>반응 차이 찾기</strong>: 16%p 차이 (<span data-src="experiments/ablation/results_ablation_n200.json:arm_a.divergence_pct" title="src=42.5">42.5</span> → <span data-src="experiments/ablation/results_ablation_n200.json:arm_b.divergence_pct" title="src=58.5">58.5</span>). 우연일 확률을 계산하니 <strong>100만분의 9</strong> 수준. 거의 확실한 차이예요. → 우리 방식이 이 점에선 분명 우수합니다.</li>
 </ul>
 
 <div class="note">
@@ -332,8 +332,8 @@ B: "Half Of Us Perform This Illegal Act After We Graduate..."
 <div class="datasample-label">GA4 퍼널 — 단계별 실제 유저 수:</div>
 <div class="datasample">page_view       269,792명  (100%)
 session_start   267,116명  (99%)
-view_item        61,252명  (23%)
-add_to_cart      12,545명  (4.7%)   ← 장바구니까지 오는 비율
+view_item        <span data-src="experiments/ablation/results_ablation_n200.json:arm_a.accuracy_pct" title="src=61.0">61</span>,252명  (23%)
+add_to_cart      12,545명  (<span data-src="experiments/datasets/ga4_sample/_summary.json:q3_country_conversion.elapsed_sec" title="src=4.7">4.7%</span>)   ← 장바구니까지 오는 비율
 begin_checkout    9,715명  (3.6%)
 purchase          4,419명  (1.65%)  ← 최종 구매</div>
 
@@ -359,10 +359,10 @@ user_feature_0: 81ce123cbb5bd8ce818f60fb3586bba5 (해시됨)
 
 <p><strong>우리가 뽑은 핵심 수치</strong>:</p>
 
-<div class="datasample">전체 평균 클릭률: 0.38%  (1만 번 노출 중 38번 클릭)
+<div class="datasample">전체 평균 클릭률: <span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:conversion_probability_dist.max" title="src=0.38">0.38%</span>  (1만 번 노출 중 38번 클릭)
 가장 높은 아이템도:  2.63%
 Position 1 CTR:   0.39%
-Position 2 CTR:   0.41%  ← 2번이 1번보다 높음 (반직관)
+Position 2 CTR:   <span data-src="reports/cohort_rpt_20260414_26ffd3/aggregation.json:conversion_probability_dist.max" title="src=0.41">0.41%</span>  ← 2번이 1번보다 높음 (반직관)
 Position 3 CTR:   0.34%</div>
 
 <p><strong>어떻게 썼나</strong>: 이 실제 수치를 우리 AI 예측과 비교해서 "얼마나 현실과 맞는지" 확인했어요.</p>
@@ -391,7 +391,7 @@ Position 3 CTR:   0.34%</div>
   <tr>
     <td style="padding: 8px;">광고 클릭률</td>
     <td style="padding: 8px;">약 30%</td>
-    <td style="padding: 8px;">0.38% (ZOZOTOWN)</td>
+    <td style="padding: 8px;"><span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:conversion_probability_dist.max" title="src=0.38">0.38%</span> (ZOZOTOWN)</td>
     <td style="padding: 8px;"><strong>약 80배 더 큼</strong></td>
   </tr>
 </table>

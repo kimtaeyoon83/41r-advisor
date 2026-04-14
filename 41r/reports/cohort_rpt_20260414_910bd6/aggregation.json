@@ -1,0 +1,53 @@
+{
+  "n_total": 2,
+  "n_converted": 0,
+  "n_abandoned": 1,
+  "n_partial": 1,
+  "n_unknown": 0,
+  "conversion_rate": 0.0,
+  "conversion_rate_ci95": [
+    0.0,
+    0.658
+  ],
+  "engagement": {
+    "avg_turns": 6,
+    "median_turns": 6.0,
+    "sample_n": 2
+  },
+  "drop_point_histogram": {},
+  "frustration_frequency": {},
+  "trait_outcome_correlations": {
+    "note": "outcome/probability variance=0, correlation undefined"
+  },
+  "conversion_probability_dist": {},
+  "reality_check": {
+    "baseline_sources": [
+      "GA4 Merchandise Store (2020-11~2021-01)",
+      "Open Bandit ZOZOTOWN sample"
+    ],
+    "comparisons": [
+      {
+        "label": "전환율 (vs GA4 mobile)",
+        "sim": 0.0,
+        "real": 0.0216,
+        "factor": 0.0,
+        "trust": "✅ 신뢰 가능"
+      },
+      {
+        "label": "평균 페이지뷰 (vs GA4 mobile)",
+        "sim": 6,
+        "real": 3.74,
+        "factor": 1.6,
+        "trust": "⚠️ 약간 over"
+      },
+      {
+        "label": "장바구니 도달률 (vs GA4)",
+        "sim": 0.5,
+        "real": 0.047,
+        "factor": 10.6,
+        "trust": "🔴 매우 over (절대 수치 사용 금지)"
+      }
+    ],
+    "summary_text": "⚠️ 2/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수."
+  }
+}

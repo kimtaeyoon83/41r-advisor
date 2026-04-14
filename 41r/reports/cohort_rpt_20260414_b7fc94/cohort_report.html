@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>41R Cohort Report — cohort_rpt_20260414_b7fc94</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; color: #1a1a1a; line-height: 1.7; background: #f8fafc; }
+  .cover { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; margin-bottom: 10px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .section { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 16px; color: #374151; margin: 20px 0 10px; }
+  .exec { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 15px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 26px; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  .signal { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .signal-high { background: #dcfce7; color: #166534; }
+  .signal-medium { background: #fef3c7; color: #92400e; }
+  .signal-low { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Cohort Simulation Report</h1>
+  <p>Segment: <strong>개인 사용자로서 적합한 플랜을 결정해라</strong></p>
+  <p style="color:#94a3b8; margin-top:8px;">URL: https://www.figma.com/pricing</p>
+</div>
+<div class="container">
+
+<div class="section">
+  <h2>핵심 지표</h2>
+  <div class="exec">
+    <strong>N=2명 코호트 시뮬레이션 결과</strong><br>
+    전환율 <strong>0.0%</strong> (95% CI: 0.0~65.8%) · 평균 6턴 engagement ·
+    세그먼트 분기 <span class="signal signal-high">낮음</span> → 단일 A/B 테스트로 충분
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">0.0%</div>
+      <div class="stat-label">전환율 (0/2)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">6</div>
+      <div class="stat-label">평균 턴 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50.0%</div>
+      <div class="stat-label">이탈률 (1명)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>이탈 분석</h2>
+  <h3>이탈 지점 히스토그램</h3>
+  <table><tr><th>이탈 지점</th><th>건수</th><th>비율</th></tr><tr><td colspan='3' style='color:#64748b'>기록된 이탈 지점 없음</td></tr></table>
+
+  <h3>좌절 포인트 빈도 (Top 10)</h3>
+  <table><tr><th>마찰 지점</th><th>언급 수</th><th>비율</th></tr><tr><td colspan='3' style='color:#64748b'>기록된 마찰 포인트 없음</td></tr></table>
+</div>
+
+<div class="section">
+  <h2>성향 × 전환 상관 분석</h2>
+  <p style="color:#64748b; font-size:14px;">각 성향 축이 전환 여부와 얼마나 상관 있는지. 절댓값 > 0.3 이면 의미 있는 상관, > 0.5면 강한 상관.</p>
+  <table><tr><th>성향 축</th><th>상관계수</th><th>강도</th></tr><tr><td colspan='3' style='color:#64748b'>outcome/probability variance=0, correlation undefined</td></tr></table>
+
+  
+</div>
+
+
+        <div class="section">
+          <h2>Reality Check (외부 baseline 비교)</h2>
+          <div class="exec">⚠️ 2/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수.</div>
+          <table>
+            <tr><th>지표</th><th>시뮬</th><th>실제</th><th>비율</th><th>신뢰도</th></tr>
+            <tr><td>전환율 (vs GA4 mobile)</td><td>0.0</td><td>0.0216</td><td>0.0×</td><td>✅ 신뢰 가능</td></tr><tr><td>평균 페이지뷰 (vs GA4 mobile)</td><td>6</td><td>3.74</td><td>1.6×</td><td>⚠️ 약간 over</td></tr><tr><td>장바구니 도달률 (vs GA4)</td><td>0.5</td><td>0.047</td><td>10.6×</td><td>🔴 매우 over (절대 수치 사용 금지)</td></tr>
+          </table>
+          <p style="color:#64748b; font-size:13px; margin-top:8px;">
+            Baseline 출처: GA4 Merchandise Store (2020-11~2021-01); Open Bandit ZOZOTOWN sample<br>
+            ⚠️ Baseline은 Google Merchandise Store / ZOZOTOWN 데이터로, 본 사이트와 사용자 구성이 다릅니다.
+            절대 수치가 아닌 <strong>상대 비교</strong> 용도로만 사용하세요.
+          </p>
+        </div>
+        
+
+<div class="section">
+  <h2>세그먼트 분기 진단</h2>
+  <div class="exec">
+    평균 성향 상관 절댓값 <strong>0.000</strong> → 분기 <strong>낮음</strong><br>
+    권고: <strong>단일 A/B 테스트로 충분</strong>
+  </div>
+</div>
+
+<div class="section" style="color:#64748b; font-size:13px;">
+  <p>Report ID: cohort_rpt_20260414_b7fc94 · Generated: 2026-04-14T10:44:08 UTC</p>
+  <p>Cohort: cohort_manual5 · Mode: browser · Personas: 2</p>
+</div>
+
+</div>
+</body>
+</html>

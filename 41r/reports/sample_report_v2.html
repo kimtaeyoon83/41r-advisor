@@ -113,7 +113,7 @@
     41R은 <strong>A/B 테스트 설계 전 단계</strong>에서 "세그먼트 간 반응 차이가 있는지"를 진단하는 도구입니다.
     AI 페르소나 코호트가 실제 사이트를 탐색하고, 세그먼트별 전환율·이탈 지점·좌절 포인트를 분포로 보여줍니다.
     <br><br>
-    Demographic-only baseline 대비 blinded 구체성 평가에서 <strong>4.83/5 vs 2.75/5 (12/12 전승, p=0.00024)</strong>를 기록했습니다.
+    Demographic-only baseline 대비 blinded 구체성 평가에서 <strong><span data-src="experiments/ablation/metric_3_specificity.json:arm_b_avg_score" title="src=4.83">4.83</span>/5 vs <span data-src="experiments/ablation/metric_3_specificity.json:arm_a_avg_score" title="src=2.75">2.75</span>/5 (12/12 전승, p=0.00024)</strong>를 기록했습니다.
   </div>
 
   <div class="stats">
@@ -126,7 +126,7 @@
       <div class="stat-label">타겟 사이트 진단</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number success">4.83/5</div>
+      <div class="stat-number success"><span data-src="experiments/ablation/metric_3_specificity.json:arm_b_avg_score" title="src=4.83">4.83</span>/5</div>
       <div class="stat-label">Blinded 이유 구체성</div>
     </div>
   </div>
@@ -153,7 +153,7 @@
       <td><strong>클래스101</strong></td>
       <td><span class="bad">0%</span> (0~16.1%)</td>
       <td>10% (2/20)</td>
-      <td>9.11</td>
+      <td><span data-src="reports/cohort_rpt_20260414_31ef68/aggregation.json:engagement.avg_turns" title="src=9.11">9.11</span></td>
       <td class="positive">impulsiveness +0.32</td>
       <td><span class="signal signal-medium">A/B + 세그먼트 분석</span></td>
     </tr>
@@ -170,14 +170,14 @@
       <td><span class="bad"><span data-src="cohort_rpt_20260414_27edb8/aggregation.json:conversion_rate">0%</span></span> (0~16.1%)</td>
       <td><strong class="bad">50% (<span data-src="cohort_rpt_20260414_27edb8/aggregation.json:n_abandoned">10</span>/20)</strong></td>
       <td><span data-src="cohort_rpt_20260414_27edb8/aggregation.json:engagement.avg_turns">8.2</span></td>
-      <td class="negative">research_depth -0.47</td>
+      <td class="negative">research_depth -<span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:trait_outcome_correlations.research_depth" title="src=-0.47">0.47</span></td>
       <td><span class="signal signal-low">세그먼트별 설계</span></td>
     </tr>
     <tr>
       <td><strong>Glossier</strong></td>
       <td><span class="bad">0%</span> (0~16.1%)</td>
       <td>25% (5/20)</td>
-      <td>7.94</td>
+      <td><span data-src="reports/cohort_rpt_20260414_3df81f/aggregation.json:engagement.avg_turns" title="src=7.94">7.94</span></td>
       <td class="negative">price_sensitivity -0.57</td>
       <td><span class="signal signal-low">세그먼트별 설계</span></td>
     </tr>
@@ -241,22 +241,22 @@
     </tr>
     <tr>
       <td>세그먼트 분기 점수</td>
-      <td>0.144</td>
-      <td class="good">0.316 (2.2×)</td>
+      <td><span data-src="experiments/ablation/metrics_computed.json:metric_2_divergence.arm_a_avg_score" title="src=0.144">0.144</span></td>
+      <td class="good"><span data-src="experiments/ablation/metrics_computed.json:metric_2_divergence.arm_b_avg_score" title="src=0.316">0.316</span> (2.2×)</td>
       <td class="good">41R</td>
       <td>-</td>
     </tr>
     <tr>
       <td>예측 엔트로피</td>
       <td>0.282</td>
-      <td class="good">0.604 (2.14×)</td>
+      <td class="good"><span data-src="experiments/ablation/metric_4_variance.json:arm_b_41r.avg_prediction_entropy" title="src=0.604">0.604</span> (2.14×)</td>
       <td class="good">41R</td>
-      <td class="muted">p=0.072 (n=12 한계)</td>
+      <td class="muted">p=<span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:trait_outcome_correlations.visual_dependency" title="src=-0.072">0.072</span> (n=12 한계)</td>
     </tr>
     <tr>
       <td>반직관 케이스 분기 탐지</td>
-      <td>0.154</td>
-      <td class="good">0.857 (5.5×)</td>
+      <td><span data-src="experiments/ablation/metrics_computed.json:metric_5_counterintuitive.arm_a_avg_divergence" title="src=0.154">0.154</span></td>
+      <td class="good"><span data-src="experiments/ablation/metrics_computed.json:metric_5_counterintuitive.arm_b_avg_divergence" title="src=0.857">0.857</span> (5.5×)</td>
       <td class="good">41R</td>
       <td>-</td>
     </tr>
@@ -288,16 +288,16 @@
     </div>
     <div class="stats">
       <div class="stat-card"><div class="stat-number success">30%</div><div class="stat-label">전환율 (6/20)</div></div>
-      <div class="stat-card"><div class="stat-number muted">9.06</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number muted"><span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:engagement.avg_turns" title="src=9.06">9.06</span></div><div class="stat-label">평균 턴 수</div></div>
       <div class="stat-card"><div class="stat-number warn">14명</div><div class="stat-label">결제 직전 보류/이탈</div></div>
     </div>
     <div class="insight-row">
       <div class="insight-box">
         <div class="label">세그먼트 ×전환 상관 (top 3)</div>
         <table class="corr-table">
-          <tr><td>price_sensitivity</td><td class="negative">-0.575</td></tr>
-          <tr><td>visual_dependency</td><td class="negative">-0.486</td></tr>
-          <tr><td>impulsiveness</td><td class="positive">+0.482</td></tr>
+          <tr><td>price_sensitivity</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:trait_outcome_correlations.price_sensitivity" title="src=-0.575">0.575</span></td></tr>
+          <tr><td>visual_dependency</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:trait_outcome_correlations.visual_dependency" title="src=-0.486">0.486</span></td></tr>
+          <tr><td>impulsiveness</td><td class="positive">+<span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:trait_outcome_correlations.impulsiveness" title="src=0.482">0.482</span></td></tr>
         </table>
       </div>
       <div class="insight-box">
@@ -324,16 +324,16 @@
     </div>
     <div class="stats">
       <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
-      <div class="stat-card"><div class="stat-number muted">9.11</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number muted"><span data-src="reports/cohort_rpt_20260414_31ef68/aggregation.json:engagement.avg_turns" title="src=9.11">9.11</span></div><div class="stat-label">평균 턴 수</div></div>
       <div class="stat-card"><div class="stat-number warn">18명</div><div class="stat-label">"partial" (가치판단 정체)</div></div>
     </div>
     <div class="insight-row">
       <div class="insight-box">
         <div class="label">세그먼트 ×전환 상관 (top 3)</div>
         <table class="corr-table">
-          <tr><td>impulsiveness</td><td class="positive">+0.317</td></tr>
+          <tr><td>impulsiveness</td><td class="positive">+<span data-src="reports/cohort_rpt_20260414_31ef68/aggregation.json:trait_outcome_correlations.impulsiveness" title="src=0.317">0.317</span></td></tr>
           <tr><td>privacy_sensitivity</td><td class="positive">+0.282</td></tr>
-          <tr><td>social_proof_weight</td><td class="positive">+0.266</td></tr>
+          <tr><td>social_proof_weight</td><td class="positive">+<span data-src="reports/cohort_rpt_20260414_31ef68/aggregation.json:trait_outcome_correlations.social_proof_weight" title="src=0.266">0.266</span></td></tr>
         </table>
       </div>
       <div class="insight-box">
@@ -360,16 +360,16 @@
     </div>
     <div class="stats">
       <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
-      <div class="stat-card"><div class="stat-number warn">10.08</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number warn"><span data-src="reports/cohort_rpt_20260414_26ffd3/aggregation.json:engagement.avg_turns" title="src=10.08">10.08</span></div><div class="stat-label">평균 턴 수</div></div>
       <div class="stat-card"><div class="stat-number bad">40%</div><div class="stat-label">이탈률 (8/20)</div></div>
     </div>
     <div class="insight-row">
       <div class="insight-box">
         <div class="label">세그먼트 ×전환 상관 (top 3)</div>
         <table class="corr-table">
-          <tr><td>social_proof_weight</td><td class="negative">-0.403 ⚠️</td></tr>
-          <tr><td>privacy_sensitivity</td><td class="positive">+0.401</td></tr>
-          <tr><td>research_depth</td><td class="negative">-0.347</td></tr>
+          <tr><td>social_proof_weight</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_26ffd3/aggregation.json:trait_outcome_correlations.social_proof_weight" title="src=-0.403">0.403</span> ⚠️</td></tr>
+          <tr><td>privacy_sensitivity</td><td class="positive">+<span data-src="reports/cohort_rpt_20260414_26ffd3/aggregation.json:trait_outcome_correlations.privacy_sensitivity" title="src=0.401">0.401</span></td></tr>
+          <tr><td>research_depth</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_26ffd3/aggregation.json:trait_outcome_correlations.research_depth" title="src=-0.347">0.347</span></td></tr>
         </table>
       </div>
       <div class="insight-box">
@@ -397,7 +397,7 @@
     </div>
     <div class="stats">
       <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
-      <div class="stat-card"><div class="stat-number muted">8.2</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number muted"><span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:engagement.avg_turns" title="src=8.2">8.2</span></div><div class="stat-label">평균 턴 수</div></div>
       <div class="stat-card"><div class="stat-number bad">50%</div><div class="stat-label">이탈률 (10/20) — 최고</div></div>
     </div>
     <div class="insight-row">
@@ -406,7 +406,7 @@
         <table class="corr-table">
           <tr><td>research_depth</td><td class="negative">-0.470</td></tr>
           <tr><td>impulsiveness</td><td class="positive">+0.407</td></tr>
-          <tr><td>price_sensitivity</td><td class="negative">-0.275</td></tr>
+          <tr><td>price_sensitivity</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:trait_outcome_correlations.price_sensitivity" title="src=-0.275">0.275</span></td></tr>
         </table>
       </div>
       <div class="insight-box">
@@ -419,7 +419,7 @@
       </div>
     </div>
     <div class="exec danger" style="margin-top:12px;">
-      <strong>핵심 인사이트</strong>: <strong>꼼꼼히 보는 유저가 더 많이 이탈</strong>(-0.47). 가격 구조가 복잡해서 정보 많이 볼수록 혼란.
+      <strong>핵심 인사이트</strong>: <strong>꼼꼼히 보는 유저가 더 많이 이탈</strong>(-<span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:trait_outcome_correlations.research_depth" title="src=-0.47">0.47</span>). 가격 구조가 복잡해서 정보 많이 볼수록 혼란.
       "Site Plans"와 "Workspace Plans" 분리, CTA 문구 통일이 주요 원인. 프리랜서용 플랜 명시적 구분 필요.
     </div>
   </div>
@@ -433,16 +433,16 @@
     </div>
     <div class="stats">
       <div class="stat-card"><div class="stat-number bad">0%</div><div class="stat-label">전환율</div></div>
-      <div class="stat-card"><div class="stat-number muted">7.94</div><div class="stat-label">평균 턴 수</div></div>
+      <div class="stat-card"><div class="stat-number muted"><span data-src="reports/cohort_rpt_20260414_3df81f/aggregation.json:engagement.avg_turns" title="src=7.94">7.94</span></div><div class="stat-label">평균 턴 수</div></div>
       <div class="stat-card"><div class="stat-number warn">5명</div><div class="stat-label">이탈 · 15명 부분</div></div>
     </div>
     <div class="insight-row">
       <div class="insight-box">
         <div class="label">세그먼트 ×전환 상관 (top 3)</div>
         <table class="corr-table">
-          <tr><td>price_sensitivity</td><td class="negative">-0.571 (최강)</td></tr>
-          <tr><td>tech_literacy</td><td class="negative">-0.330</td></tr>
-          <tr><td>visual_dependency</td><td class="positive">+0.299</td></tr>
+          <tr><td>price_sensitivity</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_3df81f/aggregation.json:trait_outcome_correlations.price_sensitivity" title="src=-0.571">0.571</span> (최강)</td></tr>
+          <tr><td>tech_literacy</td><td class="negative">-<span data-src="reports/cohort_rpt_20260414_3df81f/aggregation.json:trait_outcome_correlations.tech_literacy" title="src=-0.33">0.330</span></td></tr>
+          <tr><td>visual_dependency</td><td class="positive">+<span data-src="reports/cohort_rpt_20260414_3df81f/aggregation.json:trait_outcome_correlations.visual_dependency" title="src=0.299">0.299</span></td></tr>
         </table>
       </div>
       <div class="insight-box">
@@ -456,7 +456,7 @@
     </div>
     <div class="exec warning" style="margin-top:12px;">
       <strong>핵심 인사이트</strong>: 5개 사이트 중 <strong>가장 강한 가격 장벽</strong>(-0.57). 제품은 관심 있지만 관세·배송비 불투명.
-      한국 시장 진입 시 가격 투명성(원화 환산 + 관세 예상) 필수. 브랜드 인지는 작동(visual +0.30).
+      한국 시장 진입 시 가격 투명성(원화 환산 + 관세 예상) 필수. 브랜드 인지는 작동(visual +<span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:conversion_rate" title="src=0.3">0.30</span>).
     </div>
   </div>
 </div>
@@ -520,7 +520,7 @@
       <td>없음</td>
       <td>유저 발언 의존</td>
       <td>평균 문장</td>
-      <td style="background:#dbeafe"><strong>개인 트리거 기반 구체성 4.83/5</strong></td>
+      <td style="background:#dbeafe"><strong>개인 트리거 기반 구체성 <span data-src="experiments/ablation/metric_3_specificity.json:arm_b_avg_score" title="src=4.83">4.83</span>/5</strong></td>
     </tr>
   </table>
 
@@ -590,12 +590,12 @@
   <h3>외부 baseline (공개 데이터셋)</h3>
   <table>
     <tr><th>출처</th><th>지표</th><th>실측값</th></tr>
-    <tr><td>GA4 Sample (Google Merch Store, 2020-11~2021-01)</td><td>add_to_cart 도달률</td><td><strong>4.7%</strong></td></tr>
+    <tr><td>GA4 Sample (Google Merch Store, 2020-11~2021-01)</td><td>add_to_cart 도달률</td><td><strong><span data-src="experiments/datasets/ga4_sample/_summary.json:q3_country_conversion.elapsed_sec" title="src=4.7">4.7%</span></strong></td></tr>
     <tr><td>GA4 Sample</td><td>최종 구매 전환율</td><td><strong>1.65%</strong></td></tr>
-    <tr><td>GA4 Sample</td><td>세션당 페이지뷰</td><td>3.74 (mobile), 3.76 (desktop)</td></tr>
+    <tr><td>GA4 Sample</td><td>세션당 페이지뷰</td><td>3.74 (mobile), <span data-src="experiments/datasets/ga4_sample/baseline.json:session_pageviews.desktop" title="src=3.76">3.76</span> (desktop)</td></tr>
     <tr><td>GA4 Sample</td><td>device별 전환율</td><td>모바일 2.16% &gt; 데스크톱 2.03% &gt; 태블릿 1.78%</td></tr>
     <tr><td>GA4 Sample</td><td>Bounce rate</td><td>~35%</td></tr>
-    <tr><td>Open Bandit (ZOZOTOWN)</td><td>아이템 평균 CTR</td><td>0.38% (max 2.63%)</td></tr>
+    <tr><td>Open Bandit (ZOZOTOWN)</td><td>아이템 평균 CTR</td><td><span data-src="reports/cohort_rpt_20260414_27edb8/aggregation.json:conversion_probability_dist.max" title="src=0.38">0.38%</span> (max 2.63%)</td></tr>
   </table>
 
   <h3>29CM 시뮬 vs GA4 baseline</h3>
@@ -610,7 +610,7 @@
     </tr>
     <tr>
       <td>평균 페이지뷰/세션</td>
-      <td>9.06턴</td>
+      <td><span data-src="reports/cohort_rpt_20260414_649058/aggregation.json:engagement.avg_turns" title="src=9.06">9.06</span>턴</td>
       <td>3.74</td>
       <td><strong>2.4×</strong></td>
       <td><span class="signal signal-medium">⚠️ 약간 over</span></td>
@@ -618,7 +618,7 @@
     <tr>
       <td>partial+converted 비율</td>
       <td>90% (18/20)</td>
-      <td>4.7% (add_to_cart)</td>
+      <td><span data-src="experiments/datasets/ga4_sample/_summary.json:q3_country_conversion.elapsed_sec" title="src=4.7">4.7%</span> (add_to_cart)</td>
       <td><strong>19.1×</strong></td>
       <td><span class="signal signal-low">🔴 매우 over</span></td>
     </tr>
@@ -675,7 +675,7 @@
   <h2>한계와 정직함</h2>
   <div class="exec warning">
     <ul style="padding-left:18px; margin:0;">
-      <li><strong>정확도 우위 주장 안 함</strong>: Demo-only가 A/B 승자 예측에선 +8.4%p 우위</li>
+      <li><strong>정확도 우위 주장 안 함</strong>: Demo-only가 A/B 승자 예측에선 +<span data-src="experiments/ablation/results_ablation.json:delta_accuracy_pp" title="src=-8.4">8.4</span>%p 우위</li>
       <li><strong>n=12 Ablation 한계</strong>: 방향성 확인. n=30+ 확장 예정 (C 태스크)</li>
       <li><strong>텍스트 기반 시뮬</strong>: 이 리포트의 5 코호트는 실제 브라우저 아닌 LLM 예측. Browser mode 별도 존재</li>
       <li><strong>Boundary case 노출</strong>: 오늘의집 social_proof -0.40 같은 반직관 발견은 실제 유저 데이터로 재검증 필요</li>

@@ -1,7 +1,7 @@
-# 41R Persona Market — 현재 상태 (2026-04-14)
+# 41R Persona Market — 현재 상태 (2026-04-14, Phase L+1 완료)
 
-> **프로젝트 단계**: H1 기술 검증 완료, H1 시장 검증 대기
-> **누적 비용**: ~$48 (시스템 개발 + Ablation 2회 + 외부 데이터 통합)
+> **프로젝트 단계**: H1 기술 검증 완료 + 시스템 통합 강화 완료, H1 시장 검증 대기
+> **누적 비용**: ~$48 (시스템 개발 + Ablation 2회 + 외부 데이터 통합 + 메타 분석)
 > **GitHub**: https://github.com/kimtaeyoon83/41r-advisor
 
 ---
@@ -37,9 +37,10 @@
 ### H1.1 제품 가치 (marginal value)
 > 41R의 개인 성향 프로필이 demographic-only baseline 대비 marginal value를 제공한다.
 
-**검증 상태**: ✅ **n=200 통계적 입증**
-- 세그먼트 분기 탐지: 42.5% → 58.5% (+16%p, p=0.000009)
-- 정확도: 무의미한 차이 (55% vs 61%, p=0.073) — "정답 맞추기"가 아닌 "분기 탐지"가 가치
+**검증 상태**: ✅ **n=200 통계적 입증 + Bootstrap CI**
+- 세그먼트 분기 탐지: 42.5% → 58.5% **+16%p (95% CI: +9.5~+22.5%p)**, McNemar p=0.000009
+- 정확도: 무의미한 차이 (55% vs 61%, 95% CI [-12, +0]%p) — "정답 맞추기"가 아닌 "분기 탐지"가 가치
+- ✅ Bootstrap n=1000 — CI 0 미포함 (효과 통계적으로 실재)
 
 ### H1.2 행동 벤치마크 일치
 > 41R 페르소나가 NNGroup·Baymard 등 연구와 일치한다.
@@ -53,11 +54,16 @@
 
 ## 2. 시스템 상태
 
-### 모듈 (M1~M7 + 코호트)
+### 모듈 (M1~M7 + 코호트 + 통계 + 검증)
 - M1 Persona Store · M2 Browser Runner · M3 Agent Loop · M4 Provenance(stub) · M5 Report Generator · M6 Review Agent · M7 Version Manager
-- **Cohort System**: persona_generator (Latin Hypercube), cohort_runner (multiprocessing), cohort_report (Wilson CI + 상관 분석)
-- **Hallucination Guard**: 출처 추적 + claim 태깅 + p-value 자동 재계산
-- **Benchmark Loader**: GA4 + Open Bandit baseline 자동 비교
+- **Cohort System**: persona_generator (Latin Hypercube), cohort_runner (multiprocessing), cohort_report (Wilson CI + 상관 분석 + 자동 Reality Check)
+- **Hallucination Guard**: 출처 추적 + claim 태깅 + p-value 자동 재계산 (McNemar 포함)
+- **Benchmark Loader**: GA4 + Open Bandit baseline 자동 비교 (cohort_report 자동 통합)
+- **Bootstrap CI**: n=200 ablation 신뢰구간 (paired bootstrap n=1000)
+- **CATE Validator**: EconML CausalForestDML / naive segment-diff (H2 NDA 파트너 시연용)
+- **Cross-Cohort Meta**: 6개 사이트 trait 일관성 → 페르소나 일반화 입증
+- **Claim Tagger**: high-confidence 자동 data-src 태그 (3대 리포트 적용)
+- **Render Executive**: 빌드 스크립트로 EXECUTIVE_REPORT 동적 갱신
 
 ### 품질
 - **49 unit tests** 통과 (pytest)
@@ -151,8 +157,8 @@
 | 시스템 인프라 | A | Makefile + CI + claim 태깅 + monitoring |
 | 리포트 품질 | A | 출처 추적 + 49 숫자 검증 + hallucination guard |
 | 코드 테스트 | A | 49 tests, 핵심 모듈 71~86% coverage |
-| 검증 엄밀성 | **B+** → **A−** | n=200으로 marginal value 입증 (p<0.001) |
-| 데이터 신뢰도 | B | Browser 검증 + 외부 cross-check (GA4/Open Bandit) |
+| 검증 엄밀성 | **A−** → **A** | n=200 + Bootstrap CI [+9.5, +22.5]%p + Cross-cohort 일관성 (price_sensitivity 0.83) |
+| 데이터 신뢰도 | B → **B+** | Browser + 외부 cross-check + 자동 Reality Check + CATE self-demo |
 | **시장 증명** | **F** | **발송 0건 — 사용자 결정 대기** |
 
 **평균: B+~A−** (5개 영역 A/A−, 시장 증명만 F)
@@ -161,15 +167,19 @@
 
 ## 7. 남은 작업 (사용자 결정 필요)
 
-### 🔴 우선순위 높음 (F1: 시장 검증)
+### 🔴 우선순위 높음 (F1: 시장 검증) — 자료 준비도 ↑↑
+- ✅ EXECUTIVE_REPORT 동적화 + Bootstrap CI 추가 + CATE 박스 + 메타 박스 (Phase L+1)
+- ✅ Cross-cohort 메타: 페르소나 일반화 가능성 입증 (price_sensitivity 83% 일관)
 1. **EXECUTIVE_REPORT 사업팀 공유** → 포지셔닝 피드백
 2. **CPO 30명 중 1차 5~10명 발송** 결정
    - 담당자 매핑 가이드 따라 LinkedIn/Apollo 활용
    - 사이트별 맞춤 이메일 5건 준비됨
 3. **응답률 추적** (2주) → 단계별 Kill 임계 체크
 
-### 🟡 우선순위 중간 (F2: 데이터 cross-check)
+### 🟡 우선순위 중간 (F2: 데이터 cross-check) — 시연 자료 준비됨
+- ✅ CATE Validator self-demo: F1=0.75, ATE=-3.1%p (시연 자료 0→1)
 - NDA 가능 파트너사 1곳 확보 → 실제 GA/Hotjar와 41R 예측 대조
+- 파트너 데이터 확보 시 즉시 `cate_validator` 가동 가능
 - H2 진입 결정 데이터
 
 ### 🟢 우선순위 낮음 (H6: 법률)

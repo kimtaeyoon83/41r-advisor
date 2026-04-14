@@ -1,0 +1,33 @@
+{
+  "source": "/home/kimtayoon/myrepo/41r-advisor/41r/experiments/ablation/results_ablation_n200.json",
+  "dataset": "Upworthy Research Archive (exploratory)",
+  "point_estimate": {
+    "delta_accuracy_pp": -6.0,
+    "delta_divergence_pp": 16.0
+  },
+  "bootstrap": {
+    "n_cases": 200,
+    "n_bootstrap": 1000,
+    "seed": 42,
+    "delta_accuracy_pp": {
+      "mean": -6.06,
+      "ci95_lower": -12.01,
+      "ci95_upper": 0.0,
+      "ci90_lower": -11.0,
+      "ci90_upper": -1.0,
+      "includes_zero_in_95ci": true
+    },
+    "delta_divergence_pp": {
+      "mean": 16.05,
+      "ci95_lower": 9.5,
+      "ci95_upper": 22.51,
+      "ci90_lower": 10.5,
+      "ci90_upper": 21.5,
+      "includes_zero_in_95ci": false
+    }
+  },
+  "interpretation": {
+    "divergence": "분기 탐지 +16.0%p (95% CI: [+9.50, +22.51]%p) — ✅ CI가 0 미포함 (효과 통계적으로 실재)",
+    "accuracy": "정확도 -6.0%p (95% CI: [-12.01, +0.00]%p) — ⚠️ CI가 0 포함 (Demo와 유의차 없음 — 우리 강점 아님)"
+  }
+}

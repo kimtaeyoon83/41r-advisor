@@ -21,6 +21,13 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+try:
+    from modules.benchmark_loader import diagnose_cohort, get_baseline
+    _BENCHMARK_AVAILABLE = True
+except ImportError as e:
+    logger.warning("benchmark_loader 사용 불가 (%s) — Reality Check 비활성화", e)
+    _BENCHMARK_AVAILABLE = False
+
 _BASE_DIR = Path(__file__).resolve().parent.parent
 _REPORTS_DIR = _BASE_DIR / "reports"
 
@@ -170,7 +177,7 @@ def aggregate_cohort(cohort_result: dict) -> dict:
             "max": round(max(probs), 3),
         }
 
-    return {
+    aggregation = {
         "n_total": n,
         "n_converted": converted,
         "n_abandoned": abandoned,
@@ -188,6 +195,44 @@ def aggregate_cohort(cohort_result: dict) -> dict:
         "trait_outcome_correlations": correlations,
         "conversion_probability_dist": prob_stats,
     }
+
+    # Reality Check 자동 첨부 (외부 baseline과 비교) — 절대 수치 신뢰도 표시
+    if _BENCHMARK_AVAILABLE:
+        try:
+            aggregation["reality_check"] = diagnose_cohort(aggregation)
+        except Exception:
+            logger.warning("Reality Check 생성 실패 (외부 데이터 없음 또는 형식 오류)", exc_info=True)
+            aggregation["reality_check"] = {"baseline_sources": [], "comparisons": [],
+                                            "summary_text": "Reality Check 비활성화 (baseline 로드 실패)"}
+    else:
+        aggregation["reality_check"] = {"baseline_sources": [], "comparisons": [],
+                                        "summary_text": "Reality Check 비활성화 (benchmark_loader 미사용)"}
+
+    return aggregation
+
+
+def _try_llm_analysis(cohort_result: dict) -> str | None:
+    """opt-in: LLM이 cohort 결과를 인사이트 텍스트로 변환. 비용 ~$0.05.
+
+    cohort_result.get('analyze') is True 일 때만 호출.
+    """
+    if not cohort_result.get("analyze"):
+        return None
+    try:
+        from modules.report_analyzer import analyze_sessions
+        sessions = cohort_result.get("sessions") or cohort_result.get("results", [])
+        site_url = cohort_result.get("url", "")
+        if not sessions:
+            return None
+        result = analyze_sessions(sessions, site_url)
+        # report_analyzer 결과를 짧은 텍스트로
+        if isinstance(result, dict):
+            summary = result.get("summary") or result.get("insights") or json.dumps(result, ensure_ascii=False)[:500]
+            return str(summary)
+        return str(result)[:1000]
+    except Exception as e:
+        logger.warning("LLM 분석 실패: %s", e)
+        return None
 
 
 def render_cohort_html(
@@ -252,6 +297,46 @@ def render_cohort_html(
             for k, v in sorted(numeric_corrs.items(), key=lambda x: -abs(x[1]))
         )
         corr_rows = f"<tr><td colspan='3' style='background:#f1f5f9; font-size:12px; color:#64748b;'>Target: {_e(target_label)}</td></tr>" + corr_rows
+
+    # LLM analyzer (opt-in via cohort_result["analyze"]=True)
+    llm_insight = _try_llm_analysis(cohort_result)
+    llm_html = ""
+    if llm_insight:
+        llm_html = f"""
+        <div class="section">
+          <h2>AI 해석 (report_analyzer)</h2>
+          <div class="exec" style="white-space:pre-wrap; font-size:14px;">{_e(llm_insight)}</div>
+          <p style="font-size:12px; color:#94a3b8;">※ LLM 생성 인사이트 — 정성 분석. 통계 수치는 위 표 참조.</p>
+        </div>"""
+
+    # Reality Check (외부 baseline 비교)
+    rc = aggregation.get("reality_check", {})
+    rc_html = ""
+    if rc.get("comparisons"):
+        rc_rows = "".join(
+            f"<tr><td>{_e(c.get('label',''))}</td>"
+            f"<td>{c.get('sim','-')}</td>"
+            f"<td>{c.get('real','-')}</td>"
+            f"<td>{c.get('factor','-')}×</td>"
+            f"<td>{_e(c.get('trust','-'))}</td></tr>"
+            for c in rc["comparisons"]
+        )
+        sources_str = "; ".join(_e(s) for s in rc.get("baseline_sources", []))
+        rc_html = f"""
+        <div class="section">
+          <h2>Reality Check (외부 baseline 비교)</h2>
+          <div class="exec">{_e(rc.get('summary_text',''))}</div>
+          <table>
+            <tr><th>지표</th><th>시뮬</th><th>실제</th><th>비율</th><th>신뢰도</th></tr>
+            {rc_rows}
+          </table>
+          <p style="color:#64748b; font-size:13px; margin-top:8px;">
+            Baseline 출처: {sources_str}<br>
+            ⚠️ Baseline은 Google Merchandise Store / ZOZOTOWN 데이터로, 본 사이트와 사용자 구성이 다릅니다.
+            절대 수치가 아닌 <strong>상대 비교</strong> 용도로만 사용하세요.
+          </p>
+        </div>
+        """
 
     # Probability stats
     prob_stats = aggregation.get("conversion_probability_dist", {})
@@ -343,6 +428,10 @@ def render_cohort_html(
 
   {prob_html}
 </div>
+
+{llm_html}
+
+{rc_html}
 
 <div class="section">
   <h2>세그먼트 분기 진단</h2>

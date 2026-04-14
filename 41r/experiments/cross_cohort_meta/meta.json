@@ -1,0 +1,199 @@
+{
+  "n_cohorts_analyzed": 6,
+  "cohort_analyses": [
+    {
+      "site": "figma.com",
+      "url": "https://www.figma.com/pricing",
+      "task": "개인 사용자로서 적합한 플랜을 결정하고 가입 여부를 결정하라",
+      "n": 20,
+      "avg_outcome": 0.247,
+      "stdev_outcome": 0.094,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.407,
+        "research_depth": -0.168,
+        "privacy_sensitivity": 0.232,
+        "price_sensitivity": 0.157,
+        "visual_dependency": 0.017,
+        "tech_literacy": -0.345,
+        "social_proof_weight": -0.166
+      },
+      "source": "cohort_results/cohort_20260414_014556_9afedd_014707_cdc0.json"
+    },
+    {
+      "site": "29cm.co.kr",
+      "url": "https://www.29cm.co.kr",
+      "task": "새로운 봄 의류를 둘러보고, 마음에 드는 상품 1~2개를 찾아 장바구니 담기까지 결정해라",
+      "n": 20,
+      "avg_outcome": 0.501,
+      "stdev_outcome": 0.249,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.482,
+        "research_depth": -0.067,
+        "privacy_sensitivity": -0.061,
+        "price_sensitivity": -0.575,
+        "visual_dependency": -0.486,
+        "tech_literacy": -0.143,
+        "social_proof_weight": 0.023
+      },
+      "source": "cohort_results/cohort_20260414_015331_dcc14b_015440_2c2e.json"
+    },
+    {
+      "site": "class101.net",
+      "url": "https://class101.net",
+      "task": "관심 분야의 클래스를 찾고, 구독할지 결정해라. 가격과 커리큘럼을 비교해봐라",
+      "n": 20,
+      "avg_outcome": 0.245,
+      "stdev_outcome": 0.094,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.317,
+        "research_depth": -0.043,
+        "privacy_sensitivity": 0.282,
+        "price_sensitivity": -0.135,
+        "visual_dependency": 0.213,
+        "tech_literacy": -0.002,
+        "social_proof_weight": 0.266
+      },
+      "source": "cohort_results/cohort_20260414_015440_babb50_015550_773b.json"
+    },
+    {
+      "site": "ohou.se",
+      "url": "https://ohou.se",
+      "task": "거실에 둘 러그 또는 조명을 찾아 구매 결정까지 진행해라. 콘텐츠/리뷰를 참고해라",
+      "n": 20,
+      "avg_outcome": 0.206,
+      "stdev_outcome": 0.175,
+      "trait_outcome_corr": {
+        "impulsiveness": -0.205,
+        "research_depth": -0.347,
+        "privacy_sensitivity": 0.401,
+        "price_sensitivity": -0.333,
+        "visual_dependency": -0.276,
+        "tech_literacy": 0.119,
+        "social_proof_weight": -0.403
+      },
+      "source": "cohort_results/cohort_20260414_015550_c9dd89_015700_f551.json"
+    },
+    {
+      "site": "webflow.com",
+      "url": "https://webflow.com/pricing",
+      "task": "개인 프리랜서로 웹사이트 제작 도구를 찾고 있다. 가격 페이지를 검토하고 적합한 플랜을 결정해라",
+      "n": 20,
+      "avg_outcome": 0.159,
+      "stdev_outcome": 0.165,
+      "trait_outcome_corr": {
+        "impulsiveness": 0.407,
+        "research_depth": -0.47,
+        "privacy_sensitivity": 0.046,
+        "price_sensitivity": -0.275,
+        "visual_dependency": -0.072,
+        "tech_literacy": -0.091,
+        "social_proof_weight": 0.037
+      },
+      "source": "cohort_results/cohort_20260414_015700_15664b_015814_1d4c.json"
+    },
+    {
+      "site": "glossier.com",
+      "url": "https://www.glossier.com",
+      "task": "해외 뷰티 브랜드의 메인 제품을 둘러보고, 마음에 드는 상품을 체크아웃까지 가는지 결정해라",
+      "n": 20,
+      "avg_outcome": 0.171,
+      "stdev_outcome": 0.076,
+      "trait_outcome_corr": {
+        "impulsiveness": -0.224,
+        "research_depth": -0.124,
+        "privacy_sensitivity": -0.2,
+        "price_sensitivity": -0.571,
+        "visual_dependency": 0.299,
+        "tech_literacy": -0.33,
+        "social_proof_weight": -0.174
+      },
+      "source": "cohort_results/cohort_20260414_015814_abb301_015920_e73b.json"
+    }
+  ],
+  "consistency": {
+    "n_cohorts": 6,
+    "trait_consistency": {
+      "price_sensitivity": {
+        "n_sites": 6,
+        "mean_corr": -0.289,
+        "stdev_corr": 0.278,
+        "direction_agreement": 0.83,
+        "positives": 1,
+        "negatives": 5,
+        "neutral": 0,
+        "interpretation": "강한 일관성 — 음의 영향 사이트 간 안정적"
+      },
+      "research_depth": {
+        "n_sites": 6,
+        "mean_corr": -0.203,
+        "stdev_corr": 0.169,
+        "direction_agreement": 0.83,
+        "positives": 0,
+        "negatives": 5,
+        "neutral": 1,
+        "interpretation": "강한 일관성 — 음의 영향 사이트 간 안정적"
+      },
+      "impulsiveness": {
+        "n_sites": 6,
+        "mean_corr": 0.197,
+        "stdev_corr": 0.323,
+        "direction_agreement": 0.67,
+        "positives": 4,
+        "negatives": 2,
+        "neutral": 0,
+        "interpretation": "중간 일관성"
+      },
+      "tech_literacy": {
+        "n_sites": 6,
+        "mean_corr": -0.132,
+        "stdev_corr": 0.182,
+        "direction_agreement": 0.67,
+        "positives": 1,
+        "negatives": 4,
+        "neutral": 1,
+        "interpretation": "중간 일관성"
+      },
+      "privacy_sensitivity": {
+        "n_sites": 6,
+        "mean_corr": 0.117,
+        "stdev_corr": 0.227,
+        "direction_agreement": 0.5,
+        "positives": 3,
+        "negatives": 2,
+        "neutral": 1,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.23)"
+      },
+      "social_proof_weight": {
+        "n_sites": 6,
+        "mean_corr": -0.07,
+        "stdev_corr": 0.23,
+        "direction_agreement": 0.5,
+        "positives": 1,
+        "negatives": 3,
+        "neutral": 2,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.23)"
+      },
+      "visual_dependency": {
+        "n_sites": 6,
+        "mean_corr": -0.051,
+        "stdev_corr": 0.296,
+        "direction_agreement": 0.5,
+        "positives": 2,
+        "negatives": 3,
+        "neutral": 1,
+        "interpretation": "⚠️ 사이트 의존적 — 부호 자주 뒤집힘 (stdev=0.30)"
+      }
+    },
+    "most_consistent_trait": "price_sensitivity",
+    "least_consistent_trait": "visual_dependency",
+    "site_outlier_scores": {
+      "glossier.com": 0.3,
+      "ohou.se": 0.289,
+      "29cm.co.kr": 0.244,
+      "class101.net": 0.228,
+      "figma.com": 0.203,
+      "webflow.com": 0.125
+    },
+    "biggest_outlier_site": "glossier.com"
+  }
+}

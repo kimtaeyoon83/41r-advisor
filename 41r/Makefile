@@ -12,7 +12,13 @@ help:
 	@echo "  make test-cov      - coverage 포함 test"
 	@echo "  make audit         - 모든 리포트 hallucination guard"
 	@echo "  make audit-trail   - 모든 리포트 audit trail 생성"
+	@echo "  make bootstrap-ci  - n=200 ablation bootstrap CI 재계산"
+	@echo "  make cate-demo     - CATE validator self-demo 재실행"
+	@echo "  make cross-cohort  - cross-cohort 메타 분석 재계산"
+	@echo "  make tag-reports   - 모든 리포트 자동 claim 태깅 (high-conf만)"
+	@echo "  make render-exec   - EXECUTIVE_REPORT 동적 갱신 (RC + CI + boxes)"
 	@echo "  make verify        - test + audit (release 전 검증)"
+	@echo "  make verify-all    - 전체 파이프라인 (분석 → render → tag → audit → test)"
 	@echo "  make clean         - cache, __pycache__, *.audit.md 정리"
 
 .PHONY: test
@@ -49,10 +55,40 @@ audit-trail:
 		fi; \
 	done
 
+.PHONY: bootstrap-ci
+bootstrap-ci:
+	$(PYTHON) experiments/ablation/bootstrap_ci.py
+
+.PHONY: cate-demo
+cate-demo:
+	$(PYTHON) experiments/cate_self_demo/run_self_demo.py
+
+.PHONY: cross-cohort
+cross-cohort:
+	$(PYTHON) -m modules.cross_cohort_meta
+
+.PHONY: tag-reports
+tag-reports:
+	@for f in reports/EXECUTIVE_REPORT.html reports/SIMPLE_REPORT.html reports/sample_report_v2.html; do \
+		if [ -f "$$f" ]; then \
+			echo "--- Tagging $$f ---"; \
+			$(PYTHON) -m modules.claim_tagger "$$f" --apply || true; \
+		fi; \
+	done
+
+.PHONY: render-exec
+render-exec:
+	$(PYTHON) scripts/render_executive.py
+
 .PHONY: verify
 verify: test audit
 	@echo ""
 	@echo "✓ All checks passed (release-ready)"
+
+.PHONY: verify-all
+verify-all: bootstrap-ci cate-demo cross-cohort render-exec tag-reports audit test
+	@echo ""
+	@echo "✓ Full pipeline verified (분석 → render → tag → audit → test)"
 
 .PHONY: clean
 clean:
