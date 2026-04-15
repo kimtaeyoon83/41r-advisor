@@ -93,9 +93,10 @@ def run_session(persona_id: str, url: str, task: str) -> SessionLog:
         generate_fn=_generate_plan,
     )
 
-    # 브라우저 세션 시작
+    # 브라우저 세션 시작. Pass session_id so browser_runner's SessionHandle
+    # matches agent_loop's SessionLog — unifies screenshot path + event log.
     runner = browser_runner.get_runner()
-    session = runner.start_session(url, persona_dict)
+    session = runner.start_session(url, {**persona_dict, "_session_id": session_id})
 
     log = SessionLog(
         session_id=session_id,

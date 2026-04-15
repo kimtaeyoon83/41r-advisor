@@ -91,7 +91,7 @@ class BrowserRunner:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         await self._wait_network_idle(page)
 
-        session_id = f"s_{uuid.uuid4().hex[:8]}"
+        session_id = persona_context.get("_session_id") or f"s_{uuid.uuid4().hex[:8]}"
         handle = SessionHandle(
             session_id=session_id,
             url=url,
@@ -558,7 +558,7 @@ class BrowserRunner:
     async def _get_state_async(self, handle: SessionHandle) -> PageState:
         page = handle._page
         a11y = await self._get_a11y_tree(page)
-        screenshot = await self._take_screenshot(page)
+        screenshot = await self._take_screenshot(page, handle.session_id, handle._turn)
 
         url = page.url
         title = await page.title()
@@ -573,13 +573,42 @@ class BrowserRunner:
             screenshot=screenshot,
         )
 
-    async def _take_screenshot(self, page) -> bytes | None:
-        """현재 viewport 스크린샷 캡처 (L3 관찰)."""
+    async def _take_screenshot(
+        self, page, session_id: str = "", turn: int = 0,
+    ) -> bytes | None:
+        """현재 viewport 스크린샷 캡처 (L3 관찰).
+
+        Returns PNG bytes. If workspace has ``save_screenshots=True``
+        (default) AND ``session_id`` is provided, also writes to
+        ``sessions/<session_id>/screenshots/turn_NN.png`` so downstream
+        uploaders (e.g. R2) can pick it up.
+        """
         try:
-            return await page.screenshot(type="png", full_page=False)
+            data = await page.screenshot(type="png", full_page=False)
         except Exception as e:
             logger.debug("Screenshot failed: %s", e)
             return None
+
+        if session_id:
+            try:
+                from persona_agent._internal.core.workspace import get_workspace
+                ws = get_workspace()
+                if getattr(ws, "save_screenshots", True):
+                    shots = ws.session_screenshots_dir(session_id)
+                    shots.mkdir(parents=True, exist_ok=True)
+                    path = shots / f"turn_{turn:02d}.png"
+                    path.write_bytes(data)
+                    log_event({
+                        "type": "screenshot_saved",
+                        "session_id": session_id,
+                        "turn": turn,
+                        "path": str(path),
+                        "bytes": len(data),
+                    })
+            except Exception:
+                logger.debug("screenshot persist failed (continuing)", exc_info=True)
+
+        return data
 
     def end_session(self, handle: SessionHandle) -> SessionLog:
         """세션 종료 + 로그 반환."""

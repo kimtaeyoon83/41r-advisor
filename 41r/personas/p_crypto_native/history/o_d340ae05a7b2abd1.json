@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 6, \"page_state\": \"Jupiter swap interface with Ultra V3 settings modal open. Displays advanced swap routing features including ShadowLane MEV protection, improved Iris router, and realtime slippage estimation. Users can choose between Ultra V3 (automatic optimization) and Manual swap modes.\", \"action\": \"click\", \"reason\": \"현재 Swap Settings 모달이 열려 있고 Ultra V3 탭이 활성화된 상태다. Plan Step 2b에 따라 슬리피지 0.1% 수동 설정을 위해 Manual 탭을 클릭해야 한다. Ultra V3는 RTSE 자동 슬리피지 모드이므로 수동 입력 불가 — Manual 전환이 선행 필수. 화면 상단 토글에서 'Manual' 버튼이 우측에 명확히 보인다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"진우는 Ultra V3 설명을 빠르게 훑고 'Manual이 수동 슬리피지 설정 탭이겠지'라며 즉각 클릭 — 망설임 없음.\"}",
+  "timestamp": "2026-04-15T10:29:13.035222+00:00",
+  "obs_id": "o_d340ae05a7b2abd1"
+}

@@ -25,10 +25,18 @@ class Workspace:
     prompts_dir: Path
     config_dir: Path
     reports_dir: Path
+    # Persist per-turn screenshots to sessions/<id>/screenshots/turn_NN.png.
+    # Consumers (e.g. 41rpm R2 uploader) read from there. Safe to disable
+    # when running text-only or offline analysis.
+    save_screenshots: bool = True
 
     @property
     def sessions_dir(self) -> Path:
         return self.root / "sessions"
+
+    def session_screenshots_dir(self, session_id: str) -> Path:
+        """Per-session screenshots dir. Caller should mkdir(parents=True)."""
+        return self.sessions_dir / session_id / "screenshots"
 
     @property
     def cohort_results_dir(self) -> Path:

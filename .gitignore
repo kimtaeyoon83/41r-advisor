@@ -33,7 +33,7 @@ htmlcov/
 41r/cache/
 41r/cohort_results/
 41r/events/*.jsonl
-41r/sessions/*.json
+41r/sessions/
 41r/metrics/dashboard.json
 
 # === 자동 생성 코호트 (재현 가능) ===

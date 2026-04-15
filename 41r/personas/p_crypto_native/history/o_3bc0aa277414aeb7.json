@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Jupiter 온체인 금융 플랫폼의 메인 페이지. A11y tree가 최소한으로만 제공됨.\", \"action\": \"wait\", \"reason\": \"스크린샷이 완전한 검정 화면으로, 페이지가 아직 로드 중이거나 렌더링 실패 상태다. 진우의 patience_seconds는 1.5초로 극도로 짧다. 1.5초 타임아웃으로 대기하고, 그 안에 콘텐츠가 나타나지 않으면 abort condition(페이지 로드 1.5초 초과) 발동으로 즉시 이탈 처리한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"$0.16549\", \"role\": \"StaticText\"}, {\"name\": \"$83.15\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $83.15 -3.63%\", \"role\": \"link\"}, {\"name\": \"SOL SOL $83.15 -3.6%\", \"role\": \"button\"}, {\"name\": \"$83.15\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.16549\", \"role\": \"InlineTextBox\"}, {\"name\": \"JUP JUP $0.16549 -2.4%\", \"role\": \"button\"}], \"removed\": [{\"name\": \"$83.16\", \"role\": \"InlineTextBox\"}, {\"name\": \"$83.16\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $83.16 -3.63%\", \"role\": \"link\"}, {\"name\": \"$0.16548\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL $83.16 -3.6%\", \"role\": \"button\"}, {\"name\": \"JUP JUP $0.16548 -2.4%\", \"role\": \"button\"}, {\"name\": \"$0.16548\", \"role\": \"InlineTextBox\"}]}, \"failure\": null, \"persona_sentiment\": \"진우는 이미 0.5초도 안 돼서 짜증 임계치에 근접 중 — '왜 아무것도 안 뜨냐, RPC 문제냐'\"}",
+  "timestamp": "2026-04-15T10:23:47.451836+00:00",
+  "obs_id": "o_3bc0aa277414aeb7"
+}

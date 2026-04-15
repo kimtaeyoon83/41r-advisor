@@ -1,0 +1,6 @@
+current: v001
+versions:
+  v001:
+    created: "2026-04-15"
+    author: persona_agent
+    message: "proto — hypothesis planner"

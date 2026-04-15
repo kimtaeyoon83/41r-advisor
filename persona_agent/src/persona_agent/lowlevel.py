@@ -13,6 +13,10 @@ breaking changes will be documented in the changelog.
 from persona_agent._internal.session.agent_loop import (
     run_session,
 )
+from persona_agent._internal.session.screenshots import (
+    list_session_screenshots,
+    session_screenshots_dir,
+)
 
 # Cohort
 from persona_agent._internal.cohort.cohort_runner import (
@@ -87,9 +91,21 @@ from persona_agent._internal.reports.review_agent import (
     evaluate as evaluate_session,
 )
 
+# Hypothesis planner (experimental, PR-14)
+from persona_agent._internal.hypothesis import (
+    plan_and_run_hypothesis,
+    plan_hypothesis,
+    rewrite_task_for_persona,
+    aggregate_verdict,
+    HypothesisPlan,
+    HypothesisVerdict,
+)
+
 __all__ = [
     # Session
     "run_session",
+    "list_session_screenshots",
+    "session_screenshots_dir",
     # Cohort
     "run_cohort",
     "aggregate_cohort",
@@ -131,4 +147,11 @@ __all__ = [
     "generate_report",
     "inspect_session",
     "evaluate_session",
+    # Hypothesis (experimental)
+    "plan_and_run_hypothesis",
+    "plan_hypothesis",
+    "rewrite_task_for_persona",
+    "aggregate_verdict",
+    "HypothesisPlan",
+    "HypothesisVerdict",
 ]

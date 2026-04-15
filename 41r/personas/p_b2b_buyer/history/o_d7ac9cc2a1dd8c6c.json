@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_b2b_buyer",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Solana 기반 온체인 금융의 홈. 주요 기능 및 서비스 소개 페이지\", \"action\": \"wait\", \"reason\": \"화면이 완전히 검은 상태로, 아직 페이지 콘텐츠가 렌더링되지 않은 것으로 판단된다. patience가 12초인 윤성호는 바로 이탈하지 않고 콘텐츠 로딩을 기다린다. 먼저 로딩 완료를 기다린 뒤 UI를 확인한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"SOL SOL So11…1112 $83.37 -3.17%\", \"role\": \"link\"}, {\"name\": \"JUP JUP $0.16646 -2.4%\", \"role\": \"button\"}, {\"name\": \"$83.37\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.16646\", \"role\": \"StaticText\"}, {\"name\": \"$0.16646\", \"role\": \"InlineTextBox\"}, {\"name\": \"$83.37\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL $83.37 -3.2%\", \"role\": \"button\"}], \"removed\": [{\"name\": \"$83.39\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.16692\", \"role\": \"StaticText\"}, {\"name\": \"$0.16692\", \"role\": \"InlineTextBox\"}, {\"name\": \"SOL SOL $83.39 -3.2%\", \"role\": \"button\"}, {\"name\": \"$83.39\", \"role\": \"StaticText\"}, {\"name\": \"JUP JUP $0.16692 -2.4%\", \"role\": \"button\"}, {\"name\": \"SOL SOL So11…1112 $83.39 -3.17%\", \"role\": \"link\"}]}, \"failure\": null, \"persona_sentiment\": \"기대도 불안도 아닌 중립 대기 상태 — '로딩 중이겠지, 5초 더 보자'는 실무적 판단.\"}",
+  "timestamp": "2026-04-15T10:50:42.583441+00:00",
+  "obs_id": "o_d7ac9cc2a1dd8c6c"
+}
