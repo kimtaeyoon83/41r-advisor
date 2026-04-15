@@ -490,6 +490,7 @@ def plan_and_run_hypothesis(
     mode: str = "text",
     task: str | None = None,
     max_workers: int = 5,
+    max_turns: int | None = None,
 ) -> HypothesisVerdict:
     """Full high-level pipeline: hypothesis → plan → per-persona tasks →
     runs → aggregated verdict.
@@ -510,6 +511,9 @@ def plan_and_run_hypothesis(
         hypothesis를 task로 사용.
     max_workers : int
         Parallel LLM calls (rewriter / predictor / evaluator).
+    max_turns : int, optional
+        Override per-session ``MAX_TURNS`` (browser mode only). Complex dApps
+        (Jupiter, Raydium) typically benefit from 20-30 vs the default 10.
     """
     if mode not in ("text", "browser"):
         raise ValueError(f"unknown mode: {mode!r}")
@@ -564,7 +568,10 @@ def plan_and_run_hypothesis(
         for pid in personas:
             logger.info("browser: running session for %s on %s", pid, url)
             try:
-                log = run_session(pid, url, actionable_task)
+                if max_turns is not None:
+                    log = run_session(pid, url, actionable_task, max_turns=max_turns)
+                else:
+                    log = run_session(pid, url, actionable_task)
                 session_logs[pid] = log
             except Exception:
                 logger.exception("browser session failed for %s", pid)

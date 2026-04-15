@@ -29,7 +29,13 @@ from persona_agent._internal.reports.prompt_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-MAX_TURNS = 10  # H1: 비용 최적화. v4-full에서 30으로 복원
+import os as _os
+
+# H1 default stays at 10 for cost control. Callers can pass max_turns=N to
+# run_session, or override globally via PERSONA_AGENT_MAX_TURNS env var.
+# Complex dApps (Jupiter, Raydium, etc.) typically need 20-30 turns to reach
+# a decision point.
+MAX_TURNS = int(_os.environ.get("PERSONA_AGENT_MAX_TURNS", "10"))
 
 
 def _extract_json(text: str) -> str:
@@ -70,8 +76,24 @@ class SessionLog:
     end_time: str = ""
 
 
-def run_session(persona_id: str, url: str, task: str) -> SessionLog:
-    """전체 세션 실행."""
+def run_session(
+    persona_id: str,
+    url: str,
+    task: str,
+    *,
+    max_turns: int | None = None,
+) -> SessionLog:
+    """전체 세션 실행.
+
+    Parameters
+    ----------
+    persona_id, url, task : basic inputs
+    max_turns : int, optional
+        Override the global ``MAX_TURNS`` for this session only. Useful when
+        calling on complex dApps that need deeper navigation (e.g. 20-30 for
+        Jupiter-like SPAs).
+    """
+    turn_limit = max_turns if max_turns is not None else MAX_TURNS
     session_id = f"s_{uuid.uuid4().hex[:8]}"
     start_time = datetime.now(timezone.utc).isoformat()
 
@@ -112,7 +134,7 @@ def run_session(persona_id: str, url: str, task: str) -> SessionLog:
     recent_obs: list[dict] = []
 
     try:
-        while not done and turn < MAX_TURNS:
+        while not done and turn < turn_limit:
             turn += 1
 
             # 1. Page state 수집 (L1 Meta + L2 A11y + L3 Screenshot)

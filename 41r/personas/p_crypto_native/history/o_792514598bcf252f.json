@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 7, \"page_state\": \"Jupiter settings dialog open on General tab. Users can configure default currency (SOL), explorer (Solscan), number format, RPC endpoint, and toggle token bar display.\", \"action\": \"click\", \"reason\": \"현재 Global Settings 모달이 다시 열려 있다. Plan Step 2에서 'Open settings' 클릭 후 Global Settings가 뜬 것 — recovery_note 조건 그대로: '모달 내용이 Global Settings이면 즉시 닫고 스왑 위젯 영역 내 다른 ⚙ 탐색'. 화면 우상단에 × 버튼이 명확히 보이므로 클릭해서 닫는다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"또 글로벌 설정이 떴다. 빨리 닫고 스왑 위젯 안에 있는 슬리피지 설정 버튼 찾아야지.\"}",
+  "timestamp": "2026-04-15T13:58:50.900804+00:00",
+  "obs_id": "o_792514598bcf252f"
+}

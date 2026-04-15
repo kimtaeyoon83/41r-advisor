@@ -1,9 +1,11 @@
 """Vision Clicker — 스크린샷 기반 요소 위치 식별.
 
-텍스트 셀렉터 대신 스크린샷을 LLM에게 보여주고,
-클릭할 위치의 좌표를 받아 mouse.click()으로 실행.
+텍스트 셀렉터 대신 스크린샷을 LLM에게 보여주고, 클릭할 위치의 좌표를 받아
+``page.mouse.click()``으로 실행. 언어/렌더링/컴포넌트 구조에 독립적.
 
-언어/렌더링/컴포넌트 구조에 독립적.
+PR-15: Claude ``tool_use`` API를 사용해 **JSON 출력을 강제**. 이전에는 텍스트
+기반 JSON 추출 중 Korean 문자·nested quote 등으로 파싱 실패가 잦았음 (F009).
+tool_use는 모델이 스키마를 어기면 API가 재시도하므로 훨씬 견고.
 """
 
 from __future__ import annotations
@@ -33,35 +35,59 @@ def _get_client() -> anthropic.Anthropic:
 
 _LOCATE_PROMPT = """당신은 웹 페이지 스크린샷에서 특정 요소의 위치를 찾는 전문가입니다.
 
-스크린샷 이미지와 찾아야 할 요소의 설명이 주어집니다.
-해당 요소의 클릭 가능한 중심점 좌표를 반환하세요.
+스크린샷 이미지와 찾아야 할 요소의 설명이 주어집니다. 해당 요소의 클릭 가능한
+중심점 좌표를 반환하세요.
 
 ## 규칙
-- 스크린샷 크기는 1280x800 픽셀입니다
-- 좌표는 (x, y) 형태로, 좌상단이 (0, 0)
-- 요소가 보이지 않으면 found: false
-- 여러 개 매칭되면 가장 눈에 띄는 것 (크기, 색상 대비)
-- 버튼이면 버튼의 중심을, 링크면 텍스트의 중심을 반환
+- 스크린샷 크기는 1280x800 픽셀입니다.
+- 좌표는 (x, y) 형태로, 좌상단이 (0, 0).
+- 요소가 보이지 않으면 ``found=false``로 보고.
+- 여러 개 매칭되면 가장 눈에 띄는 것 (크기, 색상 대비).
+- 버튼이면 버튼의 중심을, 링크면 텍스트의 중심을, input이면 입력 영역 중심을.
+- 입력 필드의 경우 placeholder 텍스트(예: "0.00")만 있어도 그 영역의 중심이 답.
 
-## 출력 (JSON만)
-```json
-{"found": true, "x": 640, "y": 400, "element_description": "검정색 배경 '요금제 선택' 버튼"}
-```
-또는
-```json
-{"found": false, "reason": "해당 요소가 화면에 보이지 않음"}
-```"""
+반드시 ``report_location`` 도구를 호출해서 결과를 보고하세요. 일반 텍스트 응답 금지.
+"""
+
+
+# Tool schema — 모델이 이 스키마를 벗어난 JSON을 만들 수 없음.
+_LOCATE_TOOL = {
+    "name": "report_location",
+    "description": "Report the located element's coordinates or that it is not found.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "found": {
+                "type": "boolean",
+                "description": "True if element was located; false otherwise.",
+            },
+            "x": {
+                "type": "integer",
+                "description": "Click x-coordinate (0..1280). Required when found=true.",
+            },
+            "y": {
+                "type": "integer",
+                "description": "Click y-coordinate (0..800). Required when found=true.",
+            },
+            "element_description": {
+                "type": "string",
+                "description": "Short description of the located element.",
+            },
+            "reason": {
+                "type": "string",
+                "description": "Why not found (only when found=false).",
+            },
+        },
+        "required": ["found"],
+    },
+}
 
 
 async def locate_element(page, target: str) -> dict | None:
     """스크린샷에서 타겟 요소의 좌표를 찾아 반환.
 
-    Args:
-        page: Playwright page 객체
-        target: 찾을 요소 설명 (자연어)
-
-    Returns:
-        {"x": int, "y": int, "element_description": str} 또는 None
+    Uses Claude's ``tool_use`` API. The model MUST call ``report_location``
+    with schema-validated fields; free-form prose is rejected.
     """
     try:
         screenshot = await page.screenshot(type="png", full_page=False)
@@ -69,41 +95,55 @@ async def locate_element(page, target: str) -> dict | None:
 
         client = _get_client()
         response = client.messages.create(
-            model="claude-haiku-4-5",  # 좌표 찾기는 Haiku로 충분, 비용 절약
-            max_tokens=200,
+            model="claude-haiku-4-5",
+            max_tokens=400,
             system=_LOCATE_PROMPT,
+            tools=[_LOCATE_TOOL],
+            tool_choice={"type": "tool", "name": "report_location"},
             messages=[{
                 "role": "user",
                 "content": [
                     {
                         "type": "image",
-                        "source": {"type": "base64", "media_type": "image/png", "data": b64},
+                        "source": {
+                            "type": "base64",
+                            "media_type": "image/png",
+                            "data": b64,
+                        },
                     },
                     {
                         "type": "text",
-                        "text": f"다음 요소를 찾아주세요: {target}",
+                        "text": f"다음 요소를 찾아 좌표를 보고하세요: {target}",
                     },
                 ],
             }],
         )
 
-        raw = ""
+        # Extract tool_use block
         for block in response.content:
-            if hasattr(block, "text"):
-                raw = block.text
-                break
+            if getattr(block, "type", None) == "tool_use" and getattr(block, "name", None) == "report_location":
+                result = dict(block.input)  # schema-validated by API
+                if result.get("found"):
+                    x, y = result.get("x"), result.get("y")
+                    if isinstance(x, int) and isinstance(y, int):
+                        # Clamp to viewport
+                        x = max(0, min(1279, x))
+                        y = max(0, min(799, y))
+                        result["x"], result["y"] = x, y
+                        logger.debug(
+                            "Vision locate: '%s' → (%d, %d) [%s]",
+                            target, x, y, result.get("element_description", ""),
+                        )
+                        return result
+                else:
+                    logger.debug(
+                        "Vision locate: '%s' → not found (%s)",
+                        target, result.get("reason", ""),
+                    )
+                    return None
 
-        # JSON 파싱
-        import re
-        m = re.search(r"\{.*\}", raw, re.DOTALL)
-        if m:
-            result = json.loads(m.group())
-            if result.get("found"):
-                logger.debug("Vision locate: '%s' → (%d, %d) [%s]",
-                           target, result["x"], result["y"], result.get("element_description", ""))
-                return result
-
-        logger.debug("Vision locate: '%s' → not found", target)
+        # Fallback: tool_use didn't fire (shouldn't happen with tool_choice set)
+        logger.warning("Vision locate: no tool_use block in response for '%s'", target)
         return None
 
     except Exception as e:
@@ -112,10 +152,7 @@ async def locate_element(page, target: str) -> dict | None:
 
 
 async def vision_click(page, target: str) -> str:
-    """스크린샷 기반으로 요소를 찾아 클릭.
-
-    Returns: 결과 설명 문자열
-    """
+    """스크린샷 기반으로 요소를 찾아 클릭."""
     result = await locate_element(page, target)
     if not result:
         raise ValueError(f"Vision locate failed: '{target}' not found on screen")

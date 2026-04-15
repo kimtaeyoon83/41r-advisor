@@ -188,8 +188,20 @@ class BrowserRunner:
                 return f"filled: {target} with {text}"
             except Exception as e:
                 logger.debug("Selector fill failed for '%s', trying vision: %s", target, e)
-            from persona_agent._internal.session.vision_clicker import vision_fill
-            return await vision_fill(page, target, text)
+            # 2차: Vision fill
+            try:
+                from persona_agent._internal.session.vision_clicker import vision_fill
+                return await vision_fill(page, target, text)
+            except Exception as e:
+                logger.debug("Vision fill failed for '%s', trying JS fallback: %s", target, e)
+            # 3차: JS injection fallback — 모든 입력 필드 강제 주사
+            # Jupiter 같은 canvas/contenteditable 기반 input 대응.
+            try:
+                return await self._js_fallback_fill(page, text)
+            except Exception as e:
+                raise ValueError(
+                    f"fill '{target}' with '{text}' failed via selector, vision, and JS fallback: {e}"
+                )
 
         elif action == "select":
             target = params.get("target", "")
@@ -572,6 +584,55 @@ class BrowserRunner:
             scroll_hint="more below" if has_more else None,
             screenshot=screenshot,
         )
+
+    async def _js_fallback_fill(self, page, text: str) -> str:
+        """JS로 페이지의 모든 input/textarea/contenteditable을 찾아 가장
+        '주요한' 것에 값을 주입. Canvas/SVG-rendered input이나 React controlled
+        component에도 대응하기 위해 React synthetic event도 dispatch."""
+        js_template = """(value) => {
+            const candidates = Array.from(document.querySelectorAll(
+                'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), [contenteditable="true"], [role="textbox"], [role="spinbutton"]'
+            ));
+            // 화면에 보이는 것만
+            const visible = candidates.filter(el => {
+                const r = el.getBoundingClientRect();
+                return r.width > 0 && r.height > 0 && r.bottom >= 0 && r.top <= innerHeight;
+            });
+            if (!visible.length) return {ok: false, reason: 'no visible input/editable'};
+            // 가장 큰 것을 선택 (주 입력 필드일 가능성 높음)
+            visible.sort((a, b) => {
+                const ra = a.getBoundingClientRect();
+                const rb = b.getBoundingClientRect();
+                return (rb.width * rb.height) - (ra.width * ra.height);
+            });
+            const target = visible[0];
+            target.focus();
+            // React/Vue controlled component를 위한 native setter 우회
+            const proto = target.tagName === 'TEXTAREA'
+                ? HTMLTextAreaElement.prototype
+                : HTMLInputElement.prototype;
+            const setter = Object.getOwnPropertyDescriptor(proto, 'value');
+            if (setter && setter.set && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+                setter.set.call(target, value);
+            } else if (target.isContentEditable) {
+                target.textContent = value;
+            } else {
+                target.value = value;
+            }
+            target.dispatchEvent(new Event('input', {bubbles: true}));
+            target.dispatchEvent(new Event('change', {bubbles: true}));
+            return {
+                ok: true,
+                tag: target.tagName,
+                type: target.type || 'n/a',
+                rect: target.getBoundingClientRect().toJSON(),
+            };
+        }"""
+        result = await page.evaluate(js_template, text)
+        if not result.get("ok"):
+            raise ValueError(f"JS fallback: {result.get('reason', 'unknown')}")
+        logger.info("JS fallback fill: tag=%s, type=%s", result.get("tag"), result.get("type"))
+        return f"js_filled: tag={result.get('tag')} with '{text}'"
 
     async def _take_screenshot(
         self, page, session_id: str = "", turn: int = 0,

@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 3, \"page_state\": \"Jupiter settings dialog showing global configuration options. Users can customize default currency, explorer preference, number formatting, and RPC endpoints. Terminal and Portfolio tabs also available.\", \"action\": \"click\", \"reason\": \"현재 Global Settings 모달이 열려 있어 스왑 UI 접근이 차단된 상태다. Plan Step 1에 따라 이 모달을 닫고 스왑 위젯 내 별도 Swap Settings(⚙) 아이콘으로 재접근해야 한다. 화면 우상단에 × 닫기 버튼이 명확히 보인다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"Global Settings인 걸 확인. 슬리피지는 여기 없음. 빨리 닫고 스왑 설정 찾아야지.\"}",
+  "timestamp": "2026-04-15T13:55:46.788134+00:00",
+  "obs_id": "o_345966299a0cea35"
+}

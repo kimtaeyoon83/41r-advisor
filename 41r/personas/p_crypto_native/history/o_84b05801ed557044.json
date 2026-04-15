@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 15, \"page_state\": \"Jupiter DEX landing page with active SOL→USDC swap interface. Promotes 5 core products: opinion trading, leveraged perps, yield strategies, and crypto transfer links.\", \"action\": \"scroll\", \"reason\": \"현재 화면에는 스왑 위젯(Rate, Platform Fee, Route)과 토큰 리스트가 보이지만, Settings/Gear 아이콘이 보이지 않는다. 스왑 위젯 상단(입력 필드 위)에 Settings 버튼이 있을 가능성이 높으므로 위로 스크롤해서 위젯 상단 전체를 확인해야 한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"$0.10023\", \"role\": \"InlineTextBox\"}, {\"name\": \"$83.63\", \"role\": \"StaticText\"}, {\"name\": \"$83.63\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.10023\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $83.63 -4.57%\", \"role\": \"link\"}, {\"name\": \"SOL SOL $83.63 -4.6%\", \"role\": \"button\"}], \"removed\": [{\"name\": \"SOL SOL $83.64 -4.6%\", \"role\": \"button\"}, {\"name\": \"SOL SOL So11…1112 $83.64 -4.57%\", \"role\": \"link\"}, {\"name\": \"$0.10024\", \"role\": \"StaticText\"}, {\"name\": \"$0.10024\", \"role\": \"InlineTextBox\"}, {\"name\": \"$83.64\", \"role\": \"InlineTextBox\"}, {\"name\": \"$83.64\", \"role\": \"StaticText\"}]}, \"failure\": null, \"persona_sentiment\": \"Settings 버튼이 어디 있는지 안 보여서 짜증남 — 위로 올려보면 있겠지.\"}",
+  "timestamp": "2026-04-15T14:05:15.588661+00:00",
+  "obs_id": "o_84b05801ed557044"
+}
