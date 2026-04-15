@@ -1,0 +1,10 @@
+current: v002
+versions:
+  v001:
+    created: "2026-04-13"
+    author: freddie
+    message: "초판 — MID+advisor 기본 결정 (A11y tree 기반)"
+  v002:
+    created: "2026-04-13"
+    author: freddie
+    message: "Vision Mode — 스크린샷 기반 판단으로 전환"

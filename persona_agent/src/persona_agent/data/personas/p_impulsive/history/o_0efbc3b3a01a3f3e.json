@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Figma의 다양한 플랜과 가격 정보를 제시하고, 애드온 및 기능 비교표를 통해 사용자가 최적의 구성을 선택하도록 유도하는 B2B SaaS 가격 페이지.\", \"action\": \"read\", \"reason\": \"가격 페이지가 이미 로드되어 있고, Plans 섹션에 플랜명과 가격이 있다. 민수는 숫자와 플랜 이름만 빠르게 스캔하는 타입이므로 Plans 영역을 바로 읽는다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"오, 가격 페이지 바로 떴네. 얼마인지 바로 보자.\"}",
+  "timestamp": "2026-04-13T08:12:06.425212+00:00",
+  "obs_id": "o_0efbc3b3a01a3f3e"
+}

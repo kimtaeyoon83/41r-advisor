@@ -1,0 +1,17 @@
+namespaces:
+  plans:
+    ttl_seconds: 86400  # 24h, 측정 후 조정
+    key_pattern: "hash(persona_template + task + url_pattern)"
+  page_summaries:
+    ttl_seconds: 3600   # 1h
+    key_pattern: "hash(url + dom_hash)"
+  tool_selections:
+    ttl_seconds: 3600   # 1h
+    key_pattern: "hash(page_state_summary + decision)"
+
+invalidate_on:
+  prompt_version_change: true
+  persona_soul_change: true
+  ttl_expiry: true
+not_invalidate_on:
+  reflection_added: false

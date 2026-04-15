@@ -3,7 +3,7 @@
 
 PYTHON := .venv/bin/python3
 PYTEST := $(PYTHON) -m pytest
-GUARD := $(PYTHON) -m modules.hallucination_guard
+GUARD := $(PYTHON) -m persona_agent._internal.integrity.hallucination_guard
 
 .PHONY: help
 help:
@@ -28,10 +28,10 @@ test:
 .PHONY: test-cov
 test-cov:
 	$(PYTEST) tests/ \
-		--cov=modules.persona_store \
-		--cov=modules.version_manager \
-		--cov=modules.cohort_report \
-		--cov=modules.hallucination_guard \
+		--cov=persona_agent._internal.persona.persona_store \
+		--cov=persona_agent._internal.reports.version_manager \
+		--cov=persona_agent._internal.cohort.cohort_report \
+		--cov=persona_agent._internal.integrity.hallucination_guard \
 		--cov-report=term
 
 .PHONY: audit
@@ -65,14 +65,14 @@ cate-demo:
 
 .PHONY: cross-cohort
 cross-cohort:
-	$(PYTHON) -m modules.cross_cohort_meta
+	$(PYTHON) -m persona_agent._internal.analysis.cross_cohort_meta
 
 .PHONY: tag-reports
 tag-reports:
 	@for f in reports/EXECUTIVE_REPORT.html reports/SIMPLE_REPORT.html reports/sample_report_v2.html; do \
 		if [ -f "$$f" ]; then \
 			echo "--- Tagging $$f ---"; \
-			$(PYTHON) -m modules.claim_tagger "$$f" --apply || true; \
+			$(PYTHON) -m persona_agent._internal.integrity.claim_tagger "$$f" --apply || true; \
 		fi; \
 	done
 

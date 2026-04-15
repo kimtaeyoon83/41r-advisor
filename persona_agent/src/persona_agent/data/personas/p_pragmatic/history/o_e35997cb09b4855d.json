@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 8, \"page_state\": \"Figma의 구독 요금제를 비교·선택하는 페이지. 제품별(Figma/FigJam) 및 시트 수 기반 가격 옵션 제시, 전체 기능 비교표 및 업계 주요 고객사 신뢰도 표시.\", \"action\": \"click\", \"reason\": \"준혁은 turn 3~7에 걸쳐 Professional 플랜($16/월 풀시트, per-seat, 연간 기준)과 팀 5명 적용 시 연간 $960이라는 ROI 계산을 완료했다. 현재 화면에서 프로페셔널 열의 '→ 요금제 선택' 버튼이 검정 배경으로 다른 플랜들(스타터: 흰 배경 테두리, 오거니제이션/엔터프라이즈: 검정이지만 '영업팀에 문의' 또는 '요금제 선택')과 시각적으로 명확히 구분된다. 결정 지체 이유가 없으므로 plan step 5 실행.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"분석 끝, 결정 끝 — Professional $16×5×12=$960/년은 팀 예산 내 합리적, 클릭만 남았다.\"}",
+  "timestamp": "2026-04-14T04:54:39.062475+00:00",
+  "obs_id": "o_e35997cb09b4855d"
+}

@@ -1,0 +1,83 @@
+{
+  "n_total": 5,
+  "n_converted": 0,
+  "n_abandoned": 0,
+  "n_partial": 5,
+  "n_unknown": 0,
+  "conversion_rate": 0.0,
+  "conversion_rate_ci95": [
+    0.0,
+    0.434
+  ],
+  "engagement": {
+    "avg_turns": 5.6,
+    "median_turns": 6,
+    "sample_n": 5
+  },
+  "drop_point_histogram": {
+    "뉴스 섹션 이후 흥미 감소 및 이탈": 1,
+    "뉴스 섹션 텍스트 기사 열람 시도 후": 1,
+    "뉴스 클릭 후 광고성 기사 또는 유료 콘텐츠 진입 시점": 1,
+    "관심 뉴스 클릭 후 광고성 콘텐츠 또는 출처 불명 기사 확인 시점": 1,
+    "관심 기사 클릭 후 외부 언론사 페이지로 이동했을 때 낯선 레이아웃에 당황하거나, 네이버 메인의 정보 과잉으로 인해 원하는 섹션 탐색 중 이탈": 1
+  },
+  "frustration_frequency": {
+    "메인 페이지에 광고·프로모션 배너가 많아 실질 정보 밀도가 낮다고 느낌": 1,
+    "연예·오락 중심 알고리즘 추천 콘텐츠가 IT 팀장 관심사와 미스매치": 1,
+    "원하는 전문 정보(기술·산업 뉴스)를 찾으려면 메인에서 직접 도달하기 어렵고 추가 클릭이 필요함": 1,
+    "감성적 카피나 클릭베이트성 헤드라인이 과장되어 있어 신뢰도 하락 유발": 1,
+    "네이버 메인의 정보 밀도가 너무 높아 원하는 콘텐츠 위치 파악에 인지 부하 발생": 1,
+    "기사 진입 시 텍스트 위주 레이아웃으로 시각적 만족감 저하": 1,
+    "팝업 또는 Push 알림 동의 요청 등 진입 장벽 요소 출현 시 즉각 짜증": 1,
+    "광고성 콘텐츠와 실제 뉴스가 섞여 있어 원하는 정보 필터링에 피로감 누적": 1,
+    "스크롤 3회 이상 해도 흥미로운 시각 콘텐츠 없으면 앱 종료 충동 발생": 1,
+    "광고성 기사가 일반 뉴스와 구분이 불명확할 때 불쾌감 발생": 1
+  },
+  "trait_outcome_correlations": {
+    "_target": "conversion_probability",
+    "impulsiveness": -0.365,
+    "research_depth": 0.619,
+    "privacy_sensitivity": 0.33,
+    "price_sensitivity": 0.756,
+    "visual_dependency": -0.585,
+    "tech_literacy": -0.15,
+    "social_proof_weight": -0.203
+  },
+  "conversion_probability_dist": {
+    "mean": 0.504,
+    "median": 0.45,
+    "stdev": 0.078,
+    "min": 0.45,
+    "max": 0.62
+  },
+  "reality_check": {
+    "baseline_sources": [
+      "GA4 Merchandise Store (2020-11~2021-01)",
+      "Open Bandit ZOZOTOWN sample"
+    ],
+    "comparisons": [
+      {
+        "label": "전환율 (vs GA4 mobile)",
+        "sim": 0.0,
+        "real": 0.0216,
+        "factor": 0.0,
+        "trust": "✅ 신뢰 가능"
+      },
+      {
+        "label": "평균 페이지뷰 (vs GA4 mobile)",
+        "sim": 5.6,
+        "real": 3.74,
+        "factor": 1.5,
+        "trust": "✅ 신뢰 가능"
+      },
+      {
+        "label": "장바구니 도달률 (vs GA4)",
+        "sim": 1.0,
+        "real": 0.047,
+        "factor": 21.3,
+        "trust": "🔴 매우 over (절대 수치 사용 금지)"
+      }
+    ],
+    "summary_text": "⚠️ 1/3 메트릭이 실제보다 over-estimate. 절대 수치 사용 시 disclaimer 필수."
+  }
+}

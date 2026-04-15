@@ -6,16 +6,32 @@ from unittest.mock import patch
 
 import pytest
 
-from modules import persona_store
+from persona_agent._internal.persona import persona_store
 
 
 @pytest.fixture
 def tmp_personas_dir(monkeypatch, tmp_path):
-    """임시 personas/ 디렉토리로 모듈 격리."""
+    """임시 personas/ 디렉토리로 모듈 격리.
+
+    PR-8 이후: workspace.builtin_personas_dir도 tmp로 빼야 실 레포
+    `41r/personas/`가 overlay read에 끼어들지 않는다.
+    """
+    from persona_agent import Workspace, configure, get_workspace
     pdir = tmp_path / "personas"
     pdir.mkdir()
+    prev = get_workspace()
+    ws = Workspace(
+        root=tmp_path,
+        personas_dir=pdir,
+        builtin_personas_dir=pdir,  # 테스트에선 builtin도 tmp로 고정
+        prompts_dir=tmp_path / "prompts",
+        config_dir=tmp_path / "config",
+        reports_dir=tmp_path / "reports",
+    )
+    configure(ws)
     monkeypatch.setattr(persona_store, "_PERSONAS_DIR", pdir)
-    return pdir
+    yield pdir
+    configure(prev)
 
 
 def test_create_persona_creates_dirs(tmp_personas_dir):

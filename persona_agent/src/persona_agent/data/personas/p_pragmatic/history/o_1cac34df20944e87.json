@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 7, \"page_state\": \"Figma의 다양한 요금제와 가격 정보를 제품별/시트별로 비교할 수 있는 페이지. 모든 기능을 비교표로 확인하고, 요금제 관련 FAQ를 제공.\", \"action\": \"click\", \"reason\": \"준혁은 이미 turn 3~6에 걸쳐 Professional 플랜 가격($16/월 풀시트, per-seat)과 팀 5명 기준 연간 $960 ROI 계산을 완료했다. 화면에서 프로페셔널 열의 검정 배경 '→ 요금제 선택' 버튼이 다른 플랜(스타터: 흰 배경, 오거니제이션/엔터프라이즈: 검정 배경이지만 '영업팀에 문의')과 달리 자신이 선택할 수 있는 유료 플랜 CTA로 가장 명확하다. plan step 5 실행 — 더 이상 지체 없이 클릭.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"가격·기능 분석 모두 끝났다 — Professional $16/월×5명×12개월=$960/년은 팀 예산 내 합리적 수준, 이제 클릭만 하면 된다.\"}",
+  "timestamp": "2026-04-14T04:54:07.000002+00:00",
+  "obs_id": "o_1cac34df20944e87"
+}

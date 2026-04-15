@@ -8,12 +8,13 @@ from dotenv import load_dotenv
 # .env 로드
 load_dotenv()
 
-from modules.persona_store import create_persona, read_persona, list_personas
-from modules.browser_runner import get_runner
-from modules.agent_loop import run_session
-from modules.report_gen import generate_report
-from modules.review_agent import inspect, evaluate
-from core.events_log import read_events
+from persona_agent.lowlevel import (
+    create_persona, read_persona, list_personas,
+    run_session, generate_report,
+    inspect_session as inspect, evaluate_session as evaluate,
+)
+from persona_agent._internal.session.browser_runner import get_runner
+from persona_agent._internal.core.events_log import read_events
 
 
 def setup_personas():

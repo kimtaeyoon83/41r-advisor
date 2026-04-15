@@ -13,10 +13,10 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 load_dotenv()
 
-from modules.persona_store import create_persona, list_personas
-from modules.agent_loop import run_session
-from modules.report_gen import generate_report
-from modules.review_agent import inspect, evaluate
+from persona_agent.lowlevel import (
+    create_persona, list_personas, run_session, generate_report,
+    inspect_session as inspect, evaluate_session as evaluate,
+)
 
 
 # === 페르소나 정의 ===

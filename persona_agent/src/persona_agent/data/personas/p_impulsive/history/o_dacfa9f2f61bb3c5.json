@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_impulsive",
+  "persona_version": "v002",
+  "content": "{\"turn\": 4, \"page_state\": \"Figma 공식 요금제 페이지. Free/Professional/Organization 플랜 비교, 제품별(Design/Dev) 시트 선택, 전체 기능 비교 테이블 제공. 신뢰하는 주요 고객 사례 포함.\", \"action\": \"click\", \"reason\": \"화면에 4개 플랜 카드가 모두 보이고, 프로페셔널 칼럼의 검정 배경 '요금제 선택' 버튼이 명확하게 눈에 들어온다. 민수는 이미 $16/월 Professional 플랜을 선택하기로 마음먹었고, 결정 레이턴시 0.5초 — 버튼이 시야에 들어온 순간 바로 누른다. 더 읽을 필요 없음.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"버튼 드디어 보인다! $16 Professional — 바로 클릭. 고민 없음.\"}",
+  "timestamp": "2026-04-13T11:29:58.944692+00:00",
+  "obs_id": "o_dacfa9f2f61bb3c5"
+}

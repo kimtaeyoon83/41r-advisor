@@ -24,9 +24,7 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from modules.benchmark_loader import get_baseline
+from persona_agent.lowlevel import get_baseline
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger(__name__)

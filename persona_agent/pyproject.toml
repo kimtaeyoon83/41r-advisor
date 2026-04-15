@@ -1,0 +1,44 @@
+[project]
+name = "persona-agent"
+version = "0.2.0.dev0"
+description = "Calibrated-persona analysis engine — segment divergence diagnostics for A/B candidates"
+requires-python = ">=3.11"
+readme = "README.md"
+dependencies = [
+    "anthropic>=0.52.0",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+browser = ["playwright>=1.49.0"]
+reports = ["weasyprint>=62.0"]
+analysis = ["numpy>=1.26", "scipy>=1.11"]
+benchmark = ["pandas>=2.0"]
+all = [
+    "playwright>=1.49.0",
+    "weasyprint>=62.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/persona_agent"]
+# data/ subdir is included automatically since it lives inside the package.
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_senior",
+  "persona_version": "v002",
+  "content": "{\"turn\": 1, \"page_state\": \"Figma pricing page offering multiple plan tiers with seat selection. Includes add-on services, comprehensive feature comparison table, FAQs, and logos of trusted enterprise customers.\", \"action\": \"read\", \"reason\": \"영숙은 신중하고 시각 의존도가 높은 시니어 유저다. 처음 보는 영문 페이지에서 우선 전체 레이아웃을 파악하려 한다. 화면에 'Starter - Free', 'Professional $16/mo', 'Organization $55/mo', 'Enterprise $90/mo' 등 플랜 구조가 보이므로, 먼저 이 정보를 천천히 읽어 무료 플랜이 있는지, 가격이 얼마인지 파악해야 한다. plan step 1~2에 해당하는 초기 정보 파악 단계.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"영문 페이지라 긴장되지만 'Starter - Free'라는 단어가 눈에 들어와 일단 관심이 생김. 한국어가 없어 조금 불안하지만 아직 포기할 정도는 아님.\"}",
+  "timestamp": "2026-04-14T04:51:15.591930+00:00",
+  "obs_id": "o_9538587640e2d06b"
+}

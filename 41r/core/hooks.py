@@ -1,75 +1,18 @@
-"""Hooks — lifecycle 이벤트 + 모니터링."""
+"""Deprecated location. Import from persona_agent._internal.core.hooks instead.
 
-from __future__ import annotations
+Kept during the PR-3→PR-7 migration window. Will be deleted once the
+external service has cut over to persona_agent.
+"""
+import warnings
 
-import logging
-import time
-from datetime import datetime, timezone
+warnings.warn(
+    f"{__name__} is a compatibility shim; import from persona_agent._internal.core.hooks instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
-from core import events_log
+from persona_agent._internal.core.hooks import *  # noqa: F401,F403,E402
+from persona_agent._internal.core.hooks import __dict__ as _src_dict  # noqa: E402
 
-logger = logging.getLogger(__name__)
-
-
-# 세션별 시작 시간 (in-memory tracking)
-_session_starts: dict[str, float] = {}
-
-
-def pre_session_start(session_id: str, persona_id: str, url: str) -> None:
-    """세션 시작 hook. 시작 시간 기록 + 이벤트 로그."""
-    _session_starts[session_id] = time.time()
-    events_log.append({
-        "type": "hook_fired",
-        "hook": "pre_session_start",
-        "session_id": session_id,
-        "persona": persona_id,
-        "url": url,
-    })
-
-
-def post_session_end(session_id: str, outcome: str | None = None, total_turns: int | None = None) -> None:
-    """세션 종료 후 자동 인스펙션 + 메트릭 기록."""
-    duration_sec = None
-    if session_id in _session_starts:
-        duration_sec = round(time.time() - _session_starts.pop(session_id), 2)
-
-    events_log.append({
-        "type": "hook_fired",
-        "hook": "post_session_end",
-        "session_id": session_id,
-        "outcome": outcome,
-        "total_turns": total_turns,
-        "duration_sec": duration_sec,
-    })
-
-    try:
-        from modules import review_agent
-        review_agent.inspect(session_id)
-    except NotImplementedError:
-        logger.info("Review Agent not yet implemented, skipping auto-inspect")
-    except Exception:
-        logger.exception("post_session_end hook failed for session %s", session_id)
-
-
-def post_cohort_complete(cohort_run_id: str, mode: str, n_completed: int, n_total: int) -> None:
-    """코호트 시뮬 완료 hook."""
-    events_log.append({
-        "type": "hook_fired",
-        "hook": "post_cohort_complete",
-        "cohort_run_id": cohort_run_id,
-        "mode": mode,
-        "n_completed": n_completed,
-        "n_total": n_total,
-        "completion_rate": round(n_completed / n_total, 3) if n_total else 0,
-    })
-
-
-def post_report_generated(report_id: str, kind: str, n_sessions: int) -> None:
-    """리포트 생성 완료 hook."""
-    events_log.append({
-        "type": "hook_fired",
-        "hook": "post_report_generated",
-        "report_id": report_id,
-        "kind": kind,
-        "n_sessions": n_sessions,
-    })
+# Expose private names too (tests monkeypatch _BASE_DIR, _PERSONAS_DIR, etc.)
+globals().update({k: v for k, v in _src_dict.items() if not k.startswith("__")})
