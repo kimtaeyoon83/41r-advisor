@@ -38,6 +38,33 @@ import os as _os
 MAX_TURNS = int(_os.environ.get("PERSONA_AGENT_MAX_TURNS", "10"))
 
 
+def _detect_repetition(turns: list[dict], window: int = 3) -> str | None:
+    """Recent `window` turns 모두 같은 (action, target)이면 경고 문자열 반환.
+
+    반환값은 decision_judge의 page_state에 주입되어 "이 접근은 막혔으니 다른
+    방향 시도" 같은 plan 조정을 유도한다. 41rpm의 stagehand는 이 문제를 내부
+    retry로 해결하지만, 우리는 explicit signal로 plan 프롬프트를 바꾸는 방식.
+    """
+    if len(turns) < window:
+        return None
+    recent = turns[-window:]
+    signatures: list[tuple[str, str]] = []
+    for t in recent:
+        tool = t.get("tool") or {}
+        action = tool.get("tool") or ""
+        target = (tool.get("params") or {}).get("target", "") or ""
+        # 같은 타겟 앞부분 30자 비교 — LLM 구절 조금 달라도 같은 의도면 잡음
+        signatures.append((action, target[:30]))
+    if len(set(signatures)) == 1 and signatures[0][0]:
+        action, target = signatures[0]
+        return (
+            f"⚠ 최근 {window}턴 동안 '{action}({target}...)' 동일 액션 반복. "
+            f"이 접근은 효과 없으므로 **완전히 다른 방향**을 시도하세요. "
+            f"예: 스크롤, 다른 네비게이션, wait 후 재시도, 또는 task 중단 판단."
+        )
+    return None
+
+
 def _extract_json(text: str) -> str:
     """LLM 응답에서 JSON 블록 추출. ```json ... ``` 또는 { ... } 감지."""
     if not text:
@@ -140,6 +167,15 @@ def run_session(
             # 1. Page state 수집 (L1 Meta + L2 A11y + L3 Screenshot)
             raw_state = runner.get_state(session)
             state_summary = _summarize_page(raw_state)
+
+            # PR-16: 반복 루프 탐지 — 최근 3턴이 같은 (action, target)이면
+            # decision_judge에 "이 접근은 효과 없다, 다른 방향 시도" 힌트 주입.
+            repetition_hint = _detect_repetition(log.turns)
+            if repetition_hint:
+                state_summary = {
+                    **state_summary,
+                    "_repetition_warning": repetition_hint,
+                }
 
             # 2. Decision (스크린샷 기반 Vision 판단)
             decision = _decide(persona_dict, plan, state_summary, recent_obs, raw_state.screenshot)

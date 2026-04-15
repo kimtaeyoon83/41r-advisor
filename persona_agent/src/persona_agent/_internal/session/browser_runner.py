@@ -117,7 +117,8 @@ class BrowserRunner:
     # --- 통합 액션 실행 ---
 
     async def _exec_action(self, handle: SessionHandle, action: str, **params) -> ActionResult:
-        """통합 액션 실행기. overlay 체크 + 액션 + diff 계산."""
+        """통합 액션 실행기. overlay 체크 + 액션 + settling + diff 계산."""
+        import asyncio
         import time
 
         page = handle._page
@@ -129,6 +130,18 @@ class BrowserRunner:
 
             before = await self._get_a11y_tree(page)
             raw_result = await self._dispatch(page, action, params, handle=handle)
+
+            # PR-16: Post-action settling wait — SPA 재렌더 시간 확보.
+            # navigate/click/fill 이후 React/Vue가 DOM 업데이트하기까지 기다림.
+            # 41rpm autotest.ts가 setTimeout(800ms) 패턴으로 사용한 것과 동일.
+            if action in ("click", "fill", "select", "navigate", "back"):
+                await asyncio.sleep(0.8)
+                # network idle 재확인 (lazy-loaded content)
+                try:
+                    await page.wait_for_load_state("networkidle", timeout=2000)
+                except Exception:
+                    pass  # timeout은 OK — 장기 streaming일 수 있음
+
             after = await self._get_a11y_tree(page)
 
             diff = self._compute_diff(before, after)
@@ -575,15 +588,48 @@ class BrowserRunner:
         url = page.url
         title = await page.title()
 
+        # PR-16: A11y tree가 빈약할 때 (SPA에서 흔함) JS로 nav/link discovery.
+        # 페르소나에게 "다음에 갈 수 있는 곳" 힌트 제공. 41rpm autotest.ts Phase A 패턴.
+        nav_hints: list[str] = []
+        if len(a11y) < 10:
+            try:
+                nav_hints = await self._discover_nav_hints(page)
+            except Exception:
+                logger.debug("nav discovery 실패 (무시)", exc_info=True)
+
         has_more = len(a11y) > 20
+        scroll_hint = None
+        if has_more:
+            scroll_hint = "more below"
+        elif nav_hints:
+            scroll_hint = f"nav options: {', '.join(nav_hints[:6])}"
+
         return PageState(
             url=url,
             title=title,
             a11y_tree=a11y,
             viewport_only=True,
-            scroll_hint="more below" if has_more else None,
+            scroll_hint=scroll_hint,
             screenshot=screenshot,
         )
+
+    async def _discover_nav_hints(self, page) -> list[str]:
+        """SPA 대응: anchor href + nav role=navigation item text 추출."""
+        return await page.evaluate("""() => {
+            const hints = new Set();
+            document.querySelectorAll('a[href]').forEach(a => {
+                const txt = (a.textContent || '').trim();
+                if (txt && txt.length > 1 && txt.length < 40) hints.add(txt);
+            });
+            document.querySelectorAll(
+                'nav [role="button"], [role="navigation"] button, header button, '
+                + 'nav li, [data-testid*="tab"], [role="tab"]'
+            ).forEach(el => {
+                const txt = (el.textContent || el.getAttribute('aria-label') || '').trim();
+                if (txt && txt.length > 1 && txt.length < 40) hints.add(txt);
+            });
+            return Array.from(hints).slice(0, 12);
+        }""")
 
     async def _js_fallback_fill(self, page, text: str) -> str:
         """JS로 페이지의 모든 input/textarea/contenteditable을 찾아 가장

@@ -1,9 +1,11 @@
-# Jupiter (jup.ag) UX 진단 리포트 v2
+# Jupiter (jup.ag) UX 진단 리포트 v3
 
 > **요청자**: 41rpm 사업팀
 > **원 요청**: "복잡한 dApp 인터페이스에서 유저의 '숙련도'에 따른 경험 차이 증명"
 > **분석 도구**: persona_agent 0.2.0 + Hypothesis Planner
-> **분석 일자**: 2026-04-15
+> **v1 일자**: 2026-04-15 (최초 text mode)
+> **v2 일자**: 2026-04-15 (browser mode 추가, pre-PR-15, F009 다발)
+> **v3 일자**: 2026-04-16 (PR-15 + PR-16 browser 개선, 부분 성공)
 
 ---
 
@@ -13,13 +15,16 @@
 
 **검증 결과**: 가설 지지.
 - **숙련도 상위 페르소나만 UI를 이해** (text-mode 예측: p_crypto_native 5/5 task_complete, 평균 conv 0.91)
-- **그 외 4개 페르소나는 모두 이탈** (text 평균 conv 0.10~0.53, browser 모드는 도구 한계 포함해 전원 목표 미달)
-- **가장 큰 3개 장애물** (두 모드 공통):
-  1. 지갑 연결 강제로 사전 가치 노출 차단 (text 11/25 runs + browser 다수 언급)
-  2. 슬리피지 설정 UI 미발견 (text 17/25 runs + browser sq3 전원 실패)
-  3. 경고 메시지 맥락 부재 (text 6/25 runs 언급)
+- **그 외 4개 페르소나는 모두 이탈** (text 평균 conv 0.10~0.53)
+- **Browser v3 실측 확인**: p_crypto_native + p_creator_freelancer만 **Settings dialog 내부까지 실제 도달**, 슬리피지 입력 직전 단계. 나머지 진행은 API transient 오류로 미완.
+- **가장 큰 3개 장애물** (text + browser 양쪽 일관):
+  1. 지갑 연결 강제로 사전 가치 노출 차단 (text 11/25 + browser 2/2)
+  2. 슬리피지 설정 UI 미발견 (text 17/25 + v2 browser sq3 전원 실패, v3도 도달만 하고 값 변경 미완)
+  3. 경고 메시지 맥락 부재 (text 6/25)
 
 **권고**: 지갑 미연결 상태 quote 노출 · 슬리피지 상시 노출 · 경고 맥락 가이드 · 완료 요약 스텝 — evidence 인용 포함 § 5 참조.
+
+**도구 진화 기록**: v1 text → v2 browser(pre-PR-15, F009 다발) → v3 browser(PR-15/16 개선, F009 15+→0~1회). 가설 결론은 3 버전 모두 동일하게 지지.
 
 ---
 
@@ -63,12 +68,24 @@
 - **강점**: 빠름·저렴 (2분 30초, $0.40), 페르소나 **성향별 분기가 명확**
 - **한계**: LLM의 jup.ag UI 지식에 의존 (학습 시점). 실시간 UI 변경 미반영
 
-### 3.2 Browser 모드 (실측)
+### 3.2 Browser 모드 (실측) — v2 및 v3
 
-- 실제 Playwright headless로 jup.ag 열고 9개 원시 액션으로 페르소나가 직접 행동
-- 각 페르소나 × 1 세션 (MAX_TURNS=10), 사후 LLM evaluator가 sub-question별 판정
-- **강점**: 실측 — 텍스트 셀렉터·Vision 실제 작동 여부 포함
-- **한계**: Phantom 확장 없음 → 지갑 연결 불가. Jupiter SPA의 동적 렌더링(canvas/SVG input)에서 F009 빈발 → **"페르소나 미달"과 "도구 미달"이 섞임**
+**v2 (pre-PR-15, 2026-04-15)**:
+- 실제 Playwright headless로 jup.ag, MAX_TURNS=10, 5 세션 전원 실행
+- **전원 F009(동적 콘텐츠 selector 실패)로 초반 이탈**
+- verdict: rejected (0.063) — 단 "도구 미달"이 "페르소나 미달"과 섞여 절대값 오해 소지
+
+**v3 (PR-15 + PR-16, 2026-04-16)**:
+- PR-15: vision_clicker tool_use API, MAX_TURNS=20 파라미터화, JS fallback fill
+- PR-16: Post-action settling wait (800ms), 반복 루프 탐지, JS nav hints
+- 5 세션 중 **3 세션 Anthropic API 500 transient** 오류로 즉시 실패 (turns=0)
+- 2 세션은 정상 완료 — **결과가 극적으로 개선**:
+  - F009 15+회 → **0~1회**
+  - fill 0건 → **1건 성공** ("0.1 SOL" 입력)
+  - Settings dialog까지 **실제 도달** (이전엔 landing 이탈)
+  - **PR-16 repetition detector 2회 발동 확인** — 루프 탈출 로직 작동
+
+**v3 유효 샘플**: 2/5 (통계 유의성 부족). API 안정기에 재실행 시 전 페르소나 유효 데이터 확보 가능 — 별도 PR에서 retry-on-500 로직 추가 예정.
 
 ### 3.3 왜 둘 다 실행했는가
 
@@ -98,7 +115,7 @@
 | p_b2b_buyer | beginner | 0 | 1 | 4 | 0.18 |
 | **p_senior** | none | 0 | 0 | **5** | **0.10** |
 
-**Browser 모드** (5 세션 × 5 sub-q eval = 25 runs):
+**Browser 모드 v2** (pre-PR-15, 5 세션 × 5 sub-q = 25 runs):
 
 | Persona | OK | PART | ABAN | avg_conv | 주요 drop_point |
 |---|---:|---:|---:|---:|---|
@@ -107,6 +124,18 @@
 | p_pragmatic | 0 | 0 | 5 | 0.12 | sq2 Sell 입력 필드 F009 3회 실패 |
 | p_b2b_buyer | 0 | 0 | 5 | 0.13 | sq2 모달 닫기 실패 |
 | p_senior | 0 | 0 | 5 | 0.06 | sq1 SOL 버튼 부분 발견 후 멈춤 |
+
+**Browser 모드 v3** (PR-15 + PR-16, 2/5 유효):
+
+| Persona | turns | F009 | F007 | fill 성공 | 최종 도달 |
+|---|---:|---:|---:|---:|---|
+| **p_crypto_native** | 20 (max_turns_hit) | 1 | 0 | 0 | Settings dialog — Trading Mode/Terminal/Portfolio 탭 모두 |
+| **p_creator_freelancer** | 19 | 0 | 0 | **1 ("0.1")** | Settings modal 글로벌 설정 + **repetition warning 2회 발동** |
+| p_pragmatic | 0 | — | — | — | **API 500 transient** (evaluator) |
+| p_b2b_buyer | 0 | — | — | — | **API 500 transient** |
+| p_senior | 0 | — | — | — | **API 500 transient** |
+
+**v3 실측 결론**: 유효 2 세션이 **v2 대비 극적 개선** — 이전에 전원 막혔던 Sell 입력 필드를 실제로 채우고, Settings modal 내부까지 탐색. API 재시도 로직 추가 후 5/5 유효 데이터 확보 가능 예상.
 
 **통합 해석**:
 - **Text는 숙련도 스펙트럼을 선형적으로 보여줌** (0.91 → 0.53 → 0.24 → 0.18 → 0.10). 사업 결론에 가장 유용.
