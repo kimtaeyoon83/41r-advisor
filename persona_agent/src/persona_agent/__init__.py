@@ -26,8 +26,10 @@ from persona_agent.errors import (
     PersonaError,
     PersonaExistsError,
     PersonaNotFoundError,
+    PersonaSchemaError,
     PlanError,
     ProvenanceError,
+    RelationError,
     SessionError,
     UntaggedClaimError,
     BrowserError,
@@ -89,4 +91,6 @@ __all__ = [
     "PersonaError",
     "PersonaNotFoundError",
     "PersonaExistsError",
+    "PersonaSchemaError",
+    "RelationError",
 ]

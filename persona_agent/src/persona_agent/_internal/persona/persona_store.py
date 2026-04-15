@@ -34,6 +34,13 @@ _PERSONAS_DIR = get_workspace().personas_dir
 
 _OBS_REQUIRED_FIELDS = {"persona_id", "persona_version", "content"}
 
+# Schema validation mode for read_persona. Override via:
+#   - env: PERSONA_AGENT_SCHEMA_MODE=off|warn|strict
+#   - code: persona_store.SCHEMA_MODE = "strict"
+# Default warn = log violations but keep working (backward-compatible).
+import os as _os
+SCHEMA_MODE: str = _os.environ.get("PERSONA_AGENT_SCHEMA_MODE", "warn")
+
 
 @dataclass
 class PersonaState:
@@ -171,6 +178,14 @@ def read_persona(persona_id: str, at_time: datetime | None = None) -> PersonaSta
     current_version = manifest.get("current", "v001")
     soul_path = soul_dir / f"{current_version}.md"
     soul_text = soul_path.read_text(encoding="utf-8")
+
+    # Schema validation (best-effort; deferred import to avoid circular load)
+    if SCHEMA_MODE != "off":
+        try:
+            from persona_agent._internal.persona.schema_validator import validate_soul
+            validate_soul(soul_text, mode=SCHEMA_MODE)
+        except ImportError:
+            pass  # schema_validator not yet available
 
     observations = _load_all_observations(persona_id)
     reflections = _load_all_reflections(persona_id)

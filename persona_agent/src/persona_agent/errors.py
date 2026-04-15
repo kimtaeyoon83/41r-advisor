@@ -92,3 +92,20 @@ class PersonaNotFoundError(PersonaError):
 
 class PersonaExistsError(PersonaError):
     """Cannot create persona: id already exists (including built-in collisions)."""
+
+
+class PersonaSchemaError(PersonaError):
+    """Persona soul YAML does not match the expected schema.
+
+    Carries ``violations`` — a list of {field, expected, actual} dicts — so
+    callers can report or auto-repair. In ``warn`` validation mode the
+    violations are logged; only ``strict`` mode raises this.
+    """
+
+    def __init__(self, message: str, violations: list[dict] | None = None) -> None:
+        super().__init__(message)
+        self.violations = violations or []
+
+
+class RelationError(PersonaError):
+    """Invalid or malformed persona relation entry."""

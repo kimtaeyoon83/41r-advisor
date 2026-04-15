@@ -37,6 +37,15 @@ from persona_agent._internal.persona.persona_generator import (
     CohortSpec,
     generate_cohort,
 )
+from persona_agent._internal.persona.relations import (
+    append_relation,
+    list_relations,
+    compute_similarity as compute_persona_similarity,
+)
+from persona_agent._internal.persona.schema_validator import (
+    validate_soul,
+    parse_soul_frontmatter,
+)
 
 # Integrity
 from persona_agent._internal.integrity.hallucination_guard import (
@@ -95,6 +104,12 @@ __all__ = [
     "persona_at",
     "CohortSpec",
     "generate_cohort",
+    # Relations + schema
+    "append_relation",
+    "list_relations",
+    "compute_persona_similarity",
+    "validate_soul",
+    "parse_soul_frontmatter",
     # Integrity
     "audit_report",
     "audit_numbers",

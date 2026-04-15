@@ -14,3 +14,4 @@ roles:
   review_consistency:   { tier: mid,  advisor: null }
   review_proposer:      { tier: mid,  advisor: null }
   review_regression:    { tier: mid,  advisor: null }
+  reflection_synthesis: { tier: mid,  advisor: null }

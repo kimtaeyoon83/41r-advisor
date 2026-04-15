@@ -1,0 +1,108 @@
+# Persona Schema v1 (aligned with existing built-in persona format)
+# Version: 1.0
+#
+# Validation modes (applied by persona_store on read):
+#   off    — no validation
+#   warn   — log violations, continue (default)
+#   strict — raise PersonaSchemaError on violations
+#
+# Env override: PERSONA_AGENT_SCHEMA_MODE
+#
+# This schema matches the format shipped in data/personas/p_* (v002). Future
+# bumps (v2+) should consolidate decision_speed → impulsiveness and add
+# explicit trait ontology classes. Until then: legacy-friendly.
+#
+schema_version: 1
+
+# --- Identity (top-level keys in frontmatter) ---
+identity:
+  name:
+    type: string
+    required: true
+  age:
+    type: integer
+    range: [0, 120]
+    required: true
+  age_group:
+    type: string
+    required: false
+    allowed: [teen, youth, adult, middle_aged, senior]
+  region:
+    type: string
+    required: false
+  occupation:
+    type: string
+    required: false
+
+# --- profile: 5 behavioral axes (nested under `profile:`) ---
+profile:
+  decision_speed:
+    type: float
+    range: [0.0, 1.0]
+    required: true
+    description: "의사결정 속도 (high=빠름/충동적, low=신중)"
+  research_depth:
+    type: float
+    range: [0.0, 1.0]
+    required: true
+    description: "정보 탐색 깊이"
+  privacy_sensitivity:
+    type: float
+    range: [0.0, 1.0]
+    required: true
+  price_sensitivity:
+    type: float
+    range: [0.0, 1.0]
+    required: true
+  visual_dependency:
+    type: float
+    range: [0.0, 1.0]
+    required: true
+
+# --- generation: 세대 / 테크 맥락 ---
+generation:
+  tech_literacy:
+    type: float
+    range: [0.0, 1.0]
+    required: false
+  device_preference:
+    type: string
+    required: false
+    allowed: [mobile, desktop, tablet]
+  social_proof_weight:
+    type: float
+    range: [0.0, 1.0]
+    required: false
+  brand_loyalty:
+    type: float
+    range: [0.0, 1.0]
+    required: false
+  ad_tolerance:
+    type: float
+    range: [0.0, 1.0]
+    required: false
+
+# --- timing: behavioral derived params ---
+timing:
+  patience_seconds:
+    type: float
+    range: [0.5, 30.0]
+    required: false
+  reading_wpm:
+    type: integer
+    range: [100, 800]
+    required: false
+  decision_latency_sec:
+    type: float
+    range: [0.1, 60.0]
+    required: false
+  loading_tolerance:
+    type: string
+    required: false
+    allowed: [strict, moderate, lenient]
+
+# Unknown top-level fields (e.g. frustration_triggers, trust_signals,
+# languages, device_types, expertise) are allowed — these carry LLM-
+# generated context and vary per persona. Schema only pins the axes.
+extensions:
+  allow_unknown_fields: true

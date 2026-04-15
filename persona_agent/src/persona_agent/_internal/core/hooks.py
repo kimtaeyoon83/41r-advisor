@@ -27,8 +27,13 @@ def pre_session_start(session_id: str, persona_id: str, url: str) -> None:
     })
 
 
-def post_session_end(session_id: str, outcome: str | None = None, total_turns: int | None = None) -> None:
-    """세션 종료 후 자동 인스펙션 + 메트릭 기록."""
+def post_session_end(
+    session_id: str,
+    outcome: str | None = None,
+    total_turns: int | None = None,
+    persona_id: str | None = None,
+) -> None:
+    """세션 종료 후 자동 인스펙션 + 메트릭 기록 + L2 reflection 자동 합성 트리거."""
     duration_sec = None
     if session_id in _session_starts:
         duration_sec = round(time.time() - _session_starts.pop(session_id), 2)
@@ -40,6 +45,7 @@ def post_session_end(session_id: str, outcome: str | None = None, total_turns: i
         "outcome": outcome,
         "total_turns": total_turns,
         "duration_sec": duration_sec,
+        "persona_id": persona_id,
     })
 
     try:
@@ -49,6 +55,22 @@ def post_session_end(session_id: str, outcome: str | None = None, total_turns: i
         logger.info("Review Agent not yet implemented, skipping auto-inspect")
     except Exception:
         logger.exception("post_session_end hook failed for session %s", session_id)
+
+    # L2 auto-reflection. Best-effort: any failure is logged + swallowed so
+    # the triggering session isn't penalized.
+    if persona_id:
+        try:
+            from persona_agent._internal.persona import reflection_engine
+            ref_id = reflection_engine.maybe_synthesize(persona_id)
+            if ref_id:
+                events_log.append({
+                    "type": "reflection_synthesized",
+                    "persona_id": persona_id,
+                    "ref_id": ref_id,
+                    "trigger": "post_session_end",
+                })
+        except Exception:
+            logger.exception("reflection auto-synthesis failed for %s", persona_id)
 
 
 def post_cohort_complete(cohort_run_id: str, mode: str, n_completed: int, n_total: int) -> None:

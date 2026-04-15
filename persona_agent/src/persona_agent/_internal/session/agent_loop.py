@@ -191,8 +191,13 @@ def run_session(persona_id: str, url: str, task: str) -> SessionLog:
 
         # Hook (deferred import to avoid circular dependency)
         try:
-            from core.hooks import post_session_end
-            post_session_end(session_id)
+            from persona_agent._internal.core.hooks import post_session_end
+            post_session_end(
+                session_id,
+                outcome=log.outcome,
+                total_turns=log.total_turns,
+                persona_id=persona_id,
+            )
         except Exception:
             logger.debug("post_session_end hook failed for %s", session_id, exc_info=True)
 
