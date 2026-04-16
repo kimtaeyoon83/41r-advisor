@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 4, \"page_state\": \"Token selection modal for swap pair. User is selecting which token to buy/sell. Shows popular tokens (SOL, USDC, USDT) and alternative tokens (jlUSDC, USD1, cbBTC, JLP) with search capability.\", \"action\": \"click\", \"reason\": \"현재 'Select Token' 모달이 열려 있고, 목록 최상단에 SOL (Solana, score 99)이 명확하게 보인다. 준혁은 실용주의자로 빠르게 원하는 항목을 찾아 클릭한다. SOL을 선택하면 Sell 토큰이 SOL로 설정된다.\", \"result_ok\": false, \"diff\": {}, \"failure\": {\"code\": \"F009\", \"name\": \"DynamicContent\", \"error\": \"Vision locate failed: 'SOL option in token list' not found on screen\"}, \"persona_sentiment\": \"준혁은 모달에서 SOL이 바로 보여 빠르게 클릭할 준비가 됨. 지체 없음.\"}",
+  "timestamp": "2026-04-16T03:00:06.618292+00:00",
+  "obs_id": "o_69bbf95cb8cd56ac"
+}

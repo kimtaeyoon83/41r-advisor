@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 5, \"page_state\": \"Token selection dialog for swap destination. User can browse tokens by category (Top/Cooking/Stocks) or search. Popular tokens pinned at top (SOL, USDC, USDT, JLP, JupUSD).\", \"action\": \"click\", \"reason\": \"화면 상단 빠른 선택 영역에 SOL 버튼이 명확하게 보인다. 이전 턴에서 F009(Vision locate failed)가 발생했지만, 이는 리스트의 SOL 옵션을 찾으려 했기 때문이다. 이번엔 모달 상단 퀵셀렉트 버튼 중 'SOL' (파란 원형 아이콘)을 직접 클릭한다. 준혁은 실용주의자로 가장 눈에 띄는 버튼을 바로 클릭한다.\", \"result_ok\": false, \"diff\": {}, \"failure\": {\"code\": \"F009\", \"name\": \"DynamicContent\", \"error\": \"Vision locate failed: 'SOL button in the token quick-select row' not found on screen\"}, \"persona_sentiment\": \"준혁은 반복 실패에 약간 짜증나지만, 퀵셀렉트 버튼이 눈에 바로 보여 빠르게 시도 중\"}",
+  "timestamp": "2026-04-16T03:00:37.490628+00:00",
+  "obs_id": "o_05c03d1e519e855b"
+}

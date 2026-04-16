@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_crypto_native",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Jupiter landing page - minimal A11y tree suggests page is loading or heavily client-rendered\", \"action\": \"wait\", \"reason\": \"화면이 완전히 검은색으로, 페이지가 아직 로딩 중이다. jup.ag는 React 기반 SPA라 초기 렌더링에 시간이 걸린다. 진우의 patience는 1.5초지만 첫 진입이므로 네트워크 idle을 기다린 뒤 UI를 확인한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"SOL SOL So11…1112 $85.23 2.41%\", \"role\": \"link\"}, {\"name\": \"SOL SOL $85.23 2.4%\", \"role\": \"button\"}, {\"name\": \"$85.23\", \"role\": \"InlineTextBox\"}, {\"name\": \"$85.23\", \"role\": \"StaticText\"}], \"removed\": [{\"name\": \"$85.22\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL $85.22 2.4%\", \"role\": \"button\"}, {\"name\": \"$85.22\", \"role\": \"InlineTextBox\"}, {\"name\": \"SOL SOL So11…1112 $85.22 2.41%\", \"role\": \"link\"}]}, \"failure\": null, \"persona_sentiment\": \"로딩 중인 화면에 약간 불만이지만, 첫 접속이므로 잠깐 대기 결정.\"}",
+  "timestamp": "2026-04-16T02:51:22.683177+00:00",
+  "obs_id": "o_0b4e125905b1e490"
+}

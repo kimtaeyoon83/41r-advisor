@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 1, \"page_state\": \"Jupiter is a Solana-based DeFi platform with multiple finance primitives. Primary navigation shows core products: Swap, Terminal, Perps, Lend, Predict.\", \"action\": \"wait\", \"reason\": \"화면이 완전히 검정색으로 보인다. 페이지가 아직 로딩 중이거나 렌더링 전 상태다. page_state에 따르면 Jupiter 랜딩 페이지이므로 잠깐 대기 후 콘텐츠가 나타나는지 확인한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"SOL SOL $85.14 2%\", \"role\": \"button\"}, {\"name\": \"SOL SOL So11…1112 $85.14 1.99%\", \"role\": \"link\"}, {\"name\": \"$85.14\", \"role\": \"StaticText\"}, {\"name\": \"$85.14\", \"role\": \"InlineTextBox\"}], \"removed\": [{\"name\": \"SOL SOL $85.16 2%\", \"role\": \"button\"}, {\"name\": \"SOL SOL So11…1112 $85.16 1.99%\", \"role\": \"link\"}, {\"name\": \"$85.16\", \"role\": \"InlineTextBox\"}, {\"name\": \"$85.16\", \"role\": \"StaticText\"}]}, \"failure\": null, \"persona_sentiment\": \"준혁은 화면이 까맣게 보여 당황했지만, 잠깐 기다리면 로딩될 거라 생각하며 참을성 있게 대기 중\"}",
+  "timestamp": "2026-04-16T02:57:21.222746+00:00",
+  "obs_id": "o_9e970395eb3af521"
+}

@@ -327,7 +327,9 @@ def run_session(
         logger.exception("Session %s failed at turn %d", session_id, turn)
         log.outcome = "error"
     else:
-        log.outcome = "task_complete" if done else "max_turns_hit"
+        # PR-19: patience_exceeded는 이미 설정됨. 덮어쓰지 말 것.
+        if not log.outcome:
+            log.outcome = "task_complete" if done else "max_turns_hit"
     finally:
         runner.end_session(session)
         log.total_turns = turn

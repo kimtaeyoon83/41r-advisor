@@ -1,4 +1,4 @@
-# Jupiter (jup.ag) UX 진단 리포트 v4
+# Jupiter (jup.ag) UX 진단 리포트 v5
 
 > **요청자**: 41rpm 사업팀
 > **원 요청**: "복잡한 dApp 인터페이스에서 유저의 '숙련도'에 따른 경험 차이 증명"
@@ -6,7 +6,8 @@
 > **v1**: 2026-04-15 (text mode)
 > **v2**: 2026-04-15 (browser, pre-PR-15, F009 다발 → 전원 이탈)
 > **v3**: 2026-04-16 (PR-15/16, 2/5 유효, 부분 성공)
-> **v4**: 2026-04-16 (PR-15/16/17/18 전 적용, **5/5 유효, p_senior task_complete**)
+> **v4**: 2026-04-16 (PR-15/16/17/18 전 적용, 5/5 유효, p_senior task_complete)
+> **v5**: 2026-04-16 (PR-15~20 전 적용 + patience 강제, **3/5 완료, 4th 세션 action-hang으로 중단**)
 
 ---
 
@@ -42,7 +43,19 @@
 
 **권고**: R1~R6 유지 (§ 5 참조). 특히 R2(슬리피지 상시 노출)는 v4에서도 가장 큰 시간 소비 구간.
 
-**도구 진화 기록**: v1(text) → v2(browser, F009 15+, 전원 이탈) → v3(2/5 유효, 부분 성공) → **v4(5/5 유효, 1건 완료, F009→7)**. **4 PR 누적으로 browser 모드가 실전 usable 수준 도달.**
+**도구 진화 기록**: v1(text) → v2(browser, F009 15+, 전원 이탈) → v3(2/5 유효, 부분 성공) → v4(5/5 유효, 1건 완료, F009→7) → **v5(3/5 완료, patience 작동 확인, 4th action hang — PR-21 per-action timeout 필요)**.
+
+**v5 결과 간단 요약**:
+- p_crypto_native: 2턴에 patience 소진 (patience_seconds=1.5, budget=90s). **PR-19 작동 확인** ✅
+- p_creator_freelancer: 4턴에 patience 소진 (budget=?)
+- p_pragmatic: 8턴에 patience 소진 (budget=360s ≈ 6분). 6 OK actions, 1 fill, 2 F009
+- p_b2b_buyer: **action hang** (57분간 응답 없음, 수동 종료)
+- p_senior: 실행 못함
+
+**v5 주요 발견**:
+1. **PR-19 patience 의도대로 작동** — 단일 LLM 턴이 너무 길어도 세션 수준 budget으로 이탈. text 예측("빠르게 이탈")에 수렴.
+2. **outcome 레이블 버그** — patience_exceeded가 max_turns_hit로 덮어써지던 문제 발견·수정.
+3. **action-level hang 가능성** — `runner.run_action`이 Playwright 내부에서 hang할 때 patience check이 탈출 못 함. PR-21 per-action timeout 필요.
 
 ---
 
