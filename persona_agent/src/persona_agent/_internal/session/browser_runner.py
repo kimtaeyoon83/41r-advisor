@@ -332,6 +332,18 @@ class BrowserRunner:
             except Exception:
                 continue
 
+        # PR-20: JS smart discovery — visible text/aria-label/data-testid로 매칭.
+        # Playwright 기본 selector가 SPA 동적 콘텐츠를 못 잡을 때의 보완.
+        try:
+            locator = await self._js_smart_find(page, target, clean_target)
+            if locator:
+                selector_memory.record_success(url, target, "js_smart", clean_target)
+                selector_memory.record_strategy(url, target, "js_smart")
+                logger.debug("Selector resolved: '%s' via js_smart", target)
+                return locator
+        except Exception:
+            logger.debug("js_smart 전략 실패 for '%s'", target, exc_info=True)
+
         # 모든 기본 전략 실패 → A11y tree에서 가장 유사한 요소 찾기
         try:
             locator = await self._resolve_from_a11y(page, target, clean_target)
@@ -630,6 +642,83 @@ class BrowserRunner:
             });
             return Array.from(hints).slice(0, 12);
         }""")
+
+    async def _js_smart_find(self, page, target: str, clean_target: str):
+        """PR-20: JS로 visible 텍스트 / aria-label / data-testid / placeholder
+        매칭하여 Playwright locator 반환. SPA 동적 콘텐츠에서 표준 Playwright
+        selector가 못 잡는 요소를 구해줌.
+
+        Jupiter의 canvas/React input 등에 효과적. Stagehand의 observe()와
+        유사한 접근.
+        """
+        # JS에서 매칭되는 요소의 고유 selector를 만들어 반환
+        selector = await page.evaluate("""(args) => {
+            const target = args.target.toLowerCase();
+            const clean = args.clean.toLowerCase();
+            const candidates = document.querySelectorAll(
+                'button, a, input, textarea, select, [role="button"], [role="tab"], '
+                + '[role="link"], [role="textbox"], [role="combobox"], [role="spinbutton"], '
+                + '[contenteditable="true"], [data-testid], [aria-label]'
+            );
+            let bestScore = 0;
+            let bestEl = null;
+            for (const el of candidates) {
+                const rect = el.getBoundingClientRect();
+                if (rect.width <= 0 || rect.height <= 0) continue;
+                if (rect.bottom < 0 || rect.top > innerHeight) continue;
+
+                const texts = [
+                    (el.textContent || '').trim().toLowerCase(),
+                    (el.getAttribute('aria-label') || '').toLowerCase(),
+                    (el.getAttribute('placeholder') || '').toLowerCase(),
+                    (el.getAttribute('data-testid') || '').toLowerCase(),
+                    (el.getAttribute('title') || '').toLowerCase(),
+                    (el.getAttribute('alt') || '').toLowerCase(),
+                ];
+                let score = 0;
+                for (const t of texts) {
+                    if (!t) continue;
+                    if (t === clean || t === target) { score = 100; break; }
+                    if (t.includes(clean) || clean.includes(t)) score = Math.max(score, 60);
+                    if (t.includes(target) || target.includes(t)) score = Math.max(score, 50);
+                    // partial word match
+                    const words = clean.split(/\\s+/);
+                    const matched = words.filter(w => w.length > 2 && t.includes(w)).length;
+                    if (matched > 0) score = Math.max(score, 20 + matched * 10);
+                }
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestEl = el;
+                }
+            }
+            if (!bestEl || bestScore < 20) return null;
+            // Build a unique selector
+            if (bestEl.id) return '#' + CSS.escape(bestEl.id);
+            const dt = bestEl.getAttribute('data-testid');
+            if (dt) return '[data-testid="' + dt + '"]';
+            const al = bestEl.getAttribute('aria-label');
+            if (al) return '[aria-label="' + al + '"]';
+            // fallback: nth-child path
+            function selectorOf(el) {
+                if (el.id) return '#' + CSS.escape(el.id);
+                const parent = el.parentElement;
+                if (!parent) return el.tagName.toLowerCase();
+                const siblings = Array.from(parent.children);
+                const idx = siblings.indexOf(el) + 1;
+                return selectorOf(parent) + ' > ' + el.tagName.toLowerCase() + ':nth-child(' + idx + ')';
+            }
+            return selectorOf(bestEl);
+        }""", {"target": target, "clean": clean_target})
+
+        if not selector:
+            return None
+        locator = page.locator(selector).first
+        try:
+            if await locator.is_visible(timeout=2000):
+                return locator
+        except Exception:
+            pass
+        return None
 
     async def _js_fallback_fill(self, page, text: str) -> str:
         """JS로 페이지의 모든 input/textarea/contenteditable을 찾아 가장

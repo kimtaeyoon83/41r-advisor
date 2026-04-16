@@ -38,6 +38,34 @@ import os as _os
 MAX_TURNS = int(_os.environ.get("PERSONA_AGENT_MAX_TURNS", "10"))
 
 
+import time
+import yaml as _yaml
+
+# PR-19: patience_seconds × PATIENCE_MULTIPLIER = 세션 예산 (초).
+# 60x = p_impulsive(2s)→2분, p_senior(15s)→15분.
+PATIENCE_MULTIPLIER = float(_os.environ.get("PERSONA_AGENT_PATIENCE_MULTIPLIER", "60"))
+
+
+def _get_patience_budget(soul_text: str) -> float | None:
+    """Soul YAML frontmatter에서 timing.patience_seconds를 읽어
+    세션-level patience budget (초) 반환. 없으면 None (제한 없음)."""
+    try:
+        import re
+        m = re.match(r"^---\s*\n(.*?)\n---\s*\n", soul_text, re.DOTALL)
+        if not m:
+            return None
+        data = _yaml.safe_load(m.group(1))
+        if not isinstance(data, dict):
+            return None
+        timing = data.get("timing") or {}
+        ps = timing.get("patience_seconds")
+        if isinstance(ps, (int, float)) and ps > 0:
+            return ps * PATIENCE_MULTIPLIER
+    except Exception:
+        pass
+    return None
+
+
 _FALLBACK_BREAK_ACTIONS = [
     {"tool": "scroll", "params": {"direction": "down"}},
     {"tool": "scroll", "params": {"direction": "up"}},
@@ -161,6 +189,7 @@ def run_session(
     turn_limit = max_turns if max_turns is not None else MAX_TURNS
     session_id = f"s_{uuid.uuid4().hex[:8]}"
     start_time = datetime.now(timezone.utc).isoformat()
+    session_clock_start = time.time()
 
     # 페르소나 로드
     persona = persona_store.read_persona(persona_id)
@@ -171,6 +200,11 @@ def run_session(
         "observations": persona.observations[-5:],  # 최근 5개
         "reflections": persona.reflections,
     }
+
+    # PR-19: Persona patience budget — soul의 timing.patience_seconds × 60.
+    # p_impulsive (2s) → 120s = 2분, p_senior (15s) → 900s = 15분.
+    # 초과 시 자동 abandon → text 예측(인지 이탈)에 수렴.
+    patience_budget_sec = _get_patience_budget(persona.soul_text)
 
     # Plan 단계 (1회, 캐시 우선)
     plan = plan_cache.get_or_generate(
@@ -200,6 +234,16 @@ def run_session(
 
     try:
         while not done and turn < turn_limit:
+            # PR-19: patience check — 세션 경과 > patience budget → 자동 abandon
+            elapsed_sec = time.time() - session_clock_start
+            if patience_budget_sec and elapsed_sec > patience_budget_sec:
+                logger.info(
+                    "PR-19 patience exceeded: %s used %.0fs > budget %.0fs — auto-abandon",
+                    persona_id, elapsed_sec, patience_budget_sec,
+                )
+                log.outcome = "patience_exceeded"
+                break
+
             turn += 1
 
             # 1. Page state 수집 (L1 Meta + L2 A11y + L3 Screenshot)
