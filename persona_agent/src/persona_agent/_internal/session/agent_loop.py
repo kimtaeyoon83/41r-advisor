@@ -38,6 +38,44 @@ import os as _os
 MAX_TURNS = int(_os.environ.get("PERSONA_AGENT_MAX_TURNS", "10"))
 
 
+_FALLBACK_BREAK_ACTIONS = [
+    {"tool": "scroll", "params": {"direction": "down"}},
+    {"tool": "scroll", "params": {"direction": "up"}},
+    {"tool": "wait", "params": {"timeout": 2.0}},
+    {"tool": "read", "params": {"region": ""}},
+]
+
+
+def _force_break_repetition(tool: dict, turns: list[dict]) -> dict:
+    """반복이 감지된 상태에서 LLM이 여전히 같은 (action, target)을 선택하면
+    rotation 정책으로 강제 변경. tool dict를 반환 (원본 유지 또는 fallback)."""
+    if not isinstance(tool, dict):
+        return tool
+    action = tool.get("tool") or ""
+    target_prefix = (tool.get("params") or {}).get("target", "")[:30]
+
+    # 이전 N턴 시그니처 수집
+    recent_sigs: list[tuple[str, str]] = []
+    for t in turns[-3:]:
+        prev_tool = t.get("tool") or {}
+        recent_sigs.append((
+            prev_tool.get("tool") or "",
+            (prev_tool.get("params") or {}).get("target", "")[:30],
+        ))
+
+    # 현재 선택이 직전 N턴 중 하나와 동일하면 rotation
+    if (action, target_prefix) in recent_sigs:
+        # rotation: turns count로 fallback 인덱스 결정 (deterministic)
+        idx = len(turns) % len(_FALLBACK_BREAK_ACTIONS)
+        chosen = dict(_FALLBACK_BREAK_ACTIONS[idx])
+        logger.warning(
+            "PR-18 hard guardrail: LLM repeated (%s, %s); forcing %s",
+            action, target_prefix, chosen,
+        )
+        return chosen
+    return tool
+
+
 def _detect_repetition(turns: list[dict], window: int = 3) -> str | None:
     """Recent `window` turns 모두 같은 (action, target)이면 경고 문자열 반환.
 
@@ -182,6 +220,12 @@ def run_session(
 
             # 3. Tool selection
             tool = _select_tool(decision, state_summary)
+
+            # PR-18: Hard guardrail — 반복 경고가 발동된 상태에서 LLM이 여전히
+            # 같은 (action, target)을 선택하면 강제 변경. detector는 signal만
+            # 주지만, 일부 LLM 응답은 무시할 수 있어 코드 차원에서 차단.
+            if repetition_hint:
+                tool = _force_break_repetition(tool, log.turns)
 
             # 4. 행동 실행
             result = runner.run_action(session, tool)

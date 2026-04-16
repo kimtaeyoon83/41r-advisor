@@ -1,11 +1,12 @@
-"""Provider Router — 3-Tier LLM 라우팅 + Advisor tool 통합."""
+"""Provider Router — 3-Tier LLM 라우팅 + Advisor tool 통합 + retry wrapper."""
 
 from __future__ import annotations
 
 import logging
 import os
+import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import anthropic
 import yaml
@@ -22,6 +23,61 @@ _config: dict | None = None
 _client: anthropic.Anthropic | None = None
 _config_lock = threading.Lock()
 _client_lock = threading.Lock()
+
+
+# PR-17: Retry wrapper for transient LLM failures.
+# Anthropic SDK's built-in retry handles some cases but not Internal Server
+# Errors during peak load (observed: 3/5 Jupiter v3 sessions died with 500).
+_RETRY_MAX = int(os.environ.get("PERSONA_AGENT_LLM_RETRY_MAX", "4"))
+_RETRY_BASE_DELAY = float(os.environ.get("PERSONA_AGENT_LLM_RETRY_BASE_DELAY", "1.0"))
+
+
+def _is_retryable(exc: BaseException) -> bool:
+    """Return True for transient errors worth retrying."""
+    # Direct Anthropic exception classes
+    if isinstance(exc, (
+        anthropic.APITimeoutError,
+        anthropic.APIConnectionError,
+        anthropic.InternalServerError,
+        anthropic.RateLimitError,
+    )):
+        return True
+    # Other APIStatusError subclasses with retryable HTTP codes
+    if isinstance(exc, anthropic.APIStatusError):
+        status = getattr(exc, "status_code", None)
+        return status in (502, 503, 504, 529)
+    return False
+
+
+def _retry_delay(attempt: int, exc: BaseException) -> float:
+    """Exponential backoff. Rate limits get longer waits."""
+    if isinstance(exc, anthropic.RateLimitError):
+        # 5s, 10s, 20s, 40s — capped at 60s
+        return min(_RETRY_BASE_DELAY * 5 * (2 ** attempt), 60.0)
+    # Other transient: 1s, 2s, 4s, 8s — capped at 30s
+    return min(_RETRY_BASE_DELAY * (2 ** attempt), 30.0)
+
+
+def _create_with_retry(create_fn: Callable, **api_kwargs: Any) -> Any:
+    """Call ``create_fn`` (e.g. ``client.messages.create``) with retry on
+    transient failures. Re-raises the last exception if all retries exhausted
+    or if the error is not retryable."""
+    last_exc: BaseException | None = None
+    for attempt in range(_RETRY_MAX + 1):
+        try:
+            return create_fn(**api_kwargs)
+        except Exception as e:
+            last_exc = e
+            if attempt >= _RETRY_MAX or not _is_retryable(e):
+                raise
+            delay = _retry_delay(attempt, e)
+            logger.warning(
+                "LLM call failed (%s: %s), retry %d/%d after %.1fs",
+                type(e).__name__, str(e)[:140], attempt + 1, _RETRY_MAX, delay,
+            )
+            time.sleep(delay)
+    # Defensive — loop above either returns or raises
+    raise last_exc  # type: ignore[misc]
 
 
 def _load_config() -> dict:
@@ -116,7 +172,8 @@ def call(
     # advisor tool 사용 시 beta header 필요
     if tier_config["advisor"]:
         try:
-            response = client.beta.messages.create(
+            response = _create_with_retry(
+                client.beta.messages.create,
                 betas=["advisor-tool-2026-03-01"],
                 **api_kwargs,
             )
@@ -126,9 +183,9 @@ def call(
             api_kwargs["tools"] = [t for t in api_kwargs.get("tools", []) if not (isinstance(t, dict) and t.get("type") == "advisor_20260301")]
             if not api_kwargs["tools"]:
                 api_kwargs.pop("tools", None)
-            response = client.messages.create(**api_kwargs)
+            response = _create_with_retry(client.messages.create, **api_kwargs)
     else:
-        response = client.messages.create(**api_kwargs)
+        response = _create_with_retry(client.messages.create, **api_kwargs)
 
     return {
         "content": _extract_text(response),
