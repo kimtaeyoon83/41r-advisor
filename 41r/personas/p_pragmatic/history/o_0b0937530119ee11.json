@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 18, \"page_state\": \"Jupiter swap interface with advanced settings dialog open. Users can configure swap parameters including slippage tolerance, broadcast mode, priority fees, and select between Ultra V3 (recommended) or Manual mode for custom parameter control.\", \"action\": \"fill\", \"reason\": \"화면에 Manual 탭이 활성화된 상태로 Swap Settings 다이얼로그가 열려 있고, Max Slippage 행에 0.5%, 1%, 그리고 커스텀 입력 필드(0.00%)가 보인다. 준혁은 슬리피지를 0.1%로 설정하는 것이 목표이므로 커스텀 입력 필드에 직접 0.1을 입력한다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"$0.084812\", \"role\": \"StaticText\"}, {\"name\": \"0.10  %\", \"role\": \"InlineTextBox\"}, {\"name\": \"0.10  %\", \"role\": \"StaticText\"}, {\"name\": \"0.00%\", \"role\": \"textbox\", \"value\": \"0.10  %\"}, {\"name\": \"$0.084812\", \"role\": \"InlineTextBox\"}], \"removed\": [{\"name\": \"$0.084835\", \"role\": \"InlineTextBox\"}, {\"name\": \"0.00%\", \"role\": \"textbox\"}, {\"name\": \"$0.084835\", \"role\": \"StaticText\"}]}, \"failure\": null, \"persona_sentiment\": \"준혁은 드디어 슬리피지 커스텀 입력 필드를 발견해 안도감을 느끼며 신속히 0.1을 입력하려는 상태.\"}",
+  "timestamp": "2026-04-16T01:42:29.837551+00:00",
+  "obs_id": "o_0b0937530119ee11"
+}

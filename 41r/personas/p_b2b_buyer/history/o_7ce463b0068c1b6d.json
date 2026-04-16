@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_b2b_buyer",
+  "persona_version": "v001",
+  "content": "{\"turn\": 1, \"page_state\": \"Jupiter는 온체인 금융의 홈으로 소개되는 웹3 플랫폼입니다. 현재 viewport에서 확인 가능한 구체적인 상호작용 요소는 A11y tree에 포함되지 않았습니다.\", \"action\": \"wait\", \"reason\": \"화면이 완전히 검은색으로, 아무것도 렌더링되지 않은 상태다. 페이지가 아직 로딩 중이거나 JS 번들이 실행되지 않은 것으로 판단된다. 윤성호는 patient 타입(로딩 허용 5초)이므로 잠시 기다려 UI가 나타나기를 기다린다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"$0.16999\", \"role\": \"InlineTextBox\"}, {\"name\": \"SOL SOL $84.9 1.2%\", \"role\": \"button\"}, {\"name\": \"JUP JUP $0.16999 2.4%\", \"role\": \"button\"}, {\"name\": \"$0.16999\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $84.9 1.19%\", \"role\": \"link\"}, {\"name\": \"$84.9\", \"role\": \"InlineTextBox\"}, {\"name\": \"$84.9\", \"role\": \"StaticText\"}], \"removed\": [{\"name\": \"$0.16984\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $84.88 1.19%\", \"role\": \"link\"}, {\"name\": \"$0.16984\", \"role\": \"InlineTextBox\"}, {\"name\": \"$84.88\", \"role\": \"InlineTextBox\"}, {\"name\": \"$84.88\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL $84.88 1.2%\", \"role\": \"button\"}, {\"name\": \"JUP JUP $0.16984 2.4%\", \"role\": \"button\"}]}, \"failure\": null, \"persona_sentiment\": \"아직 화면이 안 뜨네. 잠깐 기다려보자. DeFi 사이트는 JS 무거운 경우가 많으니.\"}",
+  "timestamp": "2026-04-16T01:44:27.572961+00:00",
+  "obs_id": "o_7ce463b0068c1b6d"
+}

@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_pragmatic",
+  "persona_version": "v002",
+  "content": "{\"turn\": 1, \"page_state\": \"Jupiter - 온체인 금융 플랫폼의 메인 랜딩 페이지. 서비스 소개 및 사용자 진입점 제공.\", \"action\": \"wait\", \"reason\": \"화면이 완전히 검은색으로 표시되고 있어 페이지가 아직 로드 중이거나 렌더링이 완료되지 않은 상태다. 준혁의 loading_tolerance는 moderate(~5초)이므로 잠시 대기 후 페이지가 나타나길 기다린다.\", \"result_ok\": true, \"diff\": {\"added\": [{\"name\": \"$84.77\", \"role\": \"StaticText\"}, {\"name\": \"$0.16932\", \"role\": \"InlineTextBox\"}, {\"name\": \"SOL SOL So11…1112 $84.77 1.17%\", \"role\": \"link\"}, {\"name\": \"$84.77\", \"role\": \"InlineTextBox\"}, {\"name\": \"SOL SOL $84.77 1.2%\", \"role\": \"button\"}, {\"name\": \"$0.16932\", \"role\": \"StaticText\"}, {\"name\": \"JUP JUP $0.16932 2.1%\", \"role\": \"button\"}], \"removed\": [{\"name\": \"$84.76\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL So11…1112 $84.76 1.17%\", \"role\": \"link\"}, {\"name\": \"$84.76\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.16938\", \"role\": \"InlineTextBox\"}, {\"name\": \"$0.16938\", \"role\": \"StaticText\"}, {\"name\": \"SOL SOL $84.76 1.2%\", \"role\": \"button\"}, {\"name\": \"JUP JUP $0.16938 2.1%\", \"role\": \"button\"}]}, \"failure\": null, \"persona_sentiment\": \"준혁은 화면이 검게 뜨는 것을 보며 '로딩이 늦네' 하는 짧은 불편함을 느끼지만, moderate tolerance 범위 내라 아직 이탈하지 않고 기다리고 있다.\"}",
+  "timestamp": "2026-04-16T01:27:20.137304+00:00",
+  "obs_id": "o_4cf43682978147b4"
+}

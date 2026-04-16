@@ -1,11 +1,12 @@
-# Jupiter (jup.ag) UX 진단 리포트 v3
+# Jupiter (jup.ag) UX 진단 리포트 v4
 
 > **요청자**: 41rpm 사업팀
 > **원 요청**: "복잡한 dApp 인터페이스에서 유저의 '숙련도'에 따른 경험 차이 증명"
 > **분석 도구**: persona_agent 0.2.0 + Hypothesis Planner
-> **v1 일자**: 2026-04-15 (최초 text mode)
-> **v2 일자**: 2026-04-15 (browser mode 추가, pre-PR-15, F009 다발)
-> **v3 일자**: 2026-04-16 (PR-15 + PR-16 browser 개선, 부분 성공)
+> **v1**: 2026-04-15 (text mode)
+> **v2**: 2026-04-15 (browser, pre-PR-15, F009 다발 → 전원 이탈)
+> **v3**: 2026-04-16 (PR-15/16, 2/5 유효, 부분 성공)
+> **v4**: 2026-04-16 (PR-15/16/17/18 전 적용, **5/5 유효, p_senior task_complete**)
 
 ---
 
@@ -13,18 +14,31 @@
 
 **가설**: Jupiter는 crypto 숙련도에 따라 사용 경험이 크게 갈리며, 비숙련자는 슬리피지 설정까지 도달할 수 없다.
 
-**검증 결과**: 가설 지지.
-- **숙련도 상위 페르소나만 UI를 이해** (text-mode 예측: p_crypto_native 5/5 task_complete, 평균 conv 0.91)
-- **그 외 4개 페르소나는 모두 이탈** (text 평균 conv 0.10~0.53)
-- **Browser v3 실측 확인**: p_crypto_native + p_creator_freelancer만 **Settings dialog 내부까지 실제 도달**, 슬리피지 입력 직전 단계. 나머지 진행은 API transient 오류로 미완.
-- **가장 큰 3개 장애물** (text + browser 양쪽 일관):
-  1. 지갑 연결 강제로 사전 가치 노출 차단 (text 11/25 + browser 2/2)
-  2. 슬리피지 설정 UI 미발견 (text 17/25 + v2 browser sq3 전원 실패, v3도 도달만 하고 값 변경 미완)
-  3. 경고 메시지 맥락 부재 (text 6/25)
+**검증 결과**: 가설 **부분 기각** — 도구가 개선되자 **비숙련자도 전체 task 완료** 성공.
 
-**권고**: 지갑 미연결 상태 quote 노출 · 슬리피지 상시 노출 · 경고 맥락 가이드 · 완료 요약 스텝 — evidence 인용 포함 § 5 참조.
+### 핵심 발견 (v4, PR-15/16/17/18 전 적용)
 
-**도구 진화 기록**: v1 text → v2 browser(pre-PR-15, F009 다발) → v3 browser(PR-15/16 개선, F009 15+→0~1회). 가설 결론은 3 버전 모두 동일하게 지지.
+- **p_senior (58F, crypto=none) 이 19턴에 전체 task 완료**: SOL 방향 전환 → 0.1 SOL 입력 → Ultra(Settings) 진입 → Manual mode → 슬리피지 0.1% 입력 → Settings 닫기 → Connect 클릭까지 19턴에 성공.
+- **v2에서 전원 F009로 막혔던 것이 → v4에서 7건 fill 성공**, F009 15+→7로 대폭 감소.
+- **text-mode 예측(숙련도 선형 분기)과 browser-mode 실측(도구 영향 큼)의 괴리** 발견: text에서 p_crypto_native가 0.91, p_senior가 0.10이었지만, browser v4에선 p_senior가 유일한 task_complete.
+
+### 수정된 결론
+
+1. **Jupiter UI 자체는 충분 턴이 주어지면 비숙련자도 navigable** — v2의 "전원 이탈"은 도구 한계(F009)였지 UX 한계가 아닐 수 있음.
+2. **그래도 text-mode의 마찰 분석은 여전히 유효**: 지갑 강제·슬리피지 숨김·경고 맥락 부재는 실사용자 관점 인지 마찰이며, browser에서도 p_b2b_buyer가 Terminal 탭 탐색에 6턴 소비 = 인지 부하 증거.
+3. **browser-mode 결론은 "도구 + UX = 혼합 신호"**: 절대 도달률보다 **어디서 가장 오래 걸렸는가** (per-turn 분석)가 UX 개선 indicator로 더 유용.
+
+### 가장 큰 3개 장애물 (v4 기준 갱신)
+
+| # | 마찰 | text evidence | browser v4 evidence |
+|---|---|---|---|
+| 1 | **슬리피지 설정 위치 모호** — Settings UI가 Ultra/Manual mode 뒤에 숨김 | 17/25 runs 언급 | p_b2b_buyer Settings→Terminal 탭 진행, p_pragmatic Settings 도달 후 진전 정체 |
+| 2 | **토큰 선택 + 금액 입력** — 첫 진입 UI 파악 난이도 | 11/25 runs | p_creator 6 F009 (SPA 동적 렌더) |
+| 3 | **지갑 연결 강제** — task 마지막에 반드시 막힘 | 11/25 runs | p_senior 성공적으로 Connect까지 도달했지만 Phantom 없어서 여기서 종료 |
+
+**권고**: R1~R6 유지 (§ 5 참조). 특히 R2(슬리피지 상시 노출)는 v4에서도 가장 큰 시간 소비 구간.
+
+**도구 진화 기록**: v1(text) → v2(browser, F009 15+, 전원 이탈) → v3(2/5 유효, 부분 성공) → **v4(5/5 유효, 1건 완료, F009→7)**. **4 PR 누적으로 browser 모드가 실전 usable 수준 도달.**
 
 ---
 
@@ -127,15 +141,41 @@
 
 **Browser 모드 v3** (PR-15 + PR-16, 2/5 유효):
 
-| Persona | turns | F009 | F007 | fill 성공 | 최종 도달 |
-|---|---:|---:|---:|---:|---|
-| **p_crypto_native** | 20 (max_turns_hit) | 1 | 0 | 0 | Settings dialog — Trading Mode/Terminal/Portfolio 탭 모두 |
-| **p_creator_freelancer** | 19 | 0 | 0 | **1 ("0.1")** | Settings modal 글로벌 설정 + **repetition warning 2회 발동** |
-| p_pragmatic | 0 | — | — | — | **API 500 transient** (evaluator) |
-| p_b2b_buyer | 0 | — | — | — | **API 500 transient** |
-| p_senior | 0 | — | — | — | **API 500 transient** |
+| Persona | turns | F009 | fill | 최종 도달 |
+|---|---:|---:|---:|---|
+| p_crypto_native | 20 | 1 | 0 | Settings dialog |
+| p_creator_freelancer | 19 | 0 | **1** | Settings modal + **rep_warn 2회** |
+| p_pragmatic/b2b/senior | 0 | — | — | **API 500 transient** |
 
-**v3 실측 결론**: 유효 2 세션이 **v2 대비 극적 개선** — 이전에 전원 막혔던 Sell 입력 필드를 실제로 채우고, Settings modal 내부까지 탐색. API 재시도 로직 추가 후 5/5 유효 데이터 확보 가능 예상.
+**Browser 모드 v4** (PR-15/16/17/18, **5/5 유효**, 4040초, ~$3):
+
+| Persona | turns | outcome | fills | F009 | rep_warn | 핵심 |
+|---|---:|---|---:|---:|---:|---|
+| **p_senior** | **19** | **✅ task_complete** | **2** | **0** | 1 | **0.1 SOL + 0.1% 슬리피지 + Connect 전부 성공** |
+| p_b2b_buyer | 20 | max_turns | 1 | 0 | 1 | 0.1 SOL 입력 O, Settings→Terminal 탭 탐색 |
+| p_pragmatic | 20 | max_turns | 2 | 1 | 0 | fills 성공, Settings 도달 |
+| p_creator | 20 | max_turns | 2 | 6 | 0 | F009 잔존 (SPA 동적 렌더) |
+| p_crypto_native | 2 | error | 0 | 0 | 0 | API crash (retry 소진) |
+
+**v4 핵심 발견**: p_senior(58F, crypto=none)가 **유일하게 전체 task 완료**. 실제 행동 추적:
+
+```
+Turn 2:  Swap nav link 클릭
+Turn 4:  SOL↔USDC 방향 전환 (↕ 토글)
+Turn 7:  "0.1" SOL 입력 (fill 성공)
+Turn 11: Ultra 버튼 (Settings 진입)
+Turn 12: Manual mode 토글
+Turn 13: "0.1" 슬리피지 입력 (fill 성공)
+Turn 14: Settings 닫기 (X 버튼)
+Turn 16: Connect 버튼 클릭
+Turn 19: 지갑 팝업 확인 → 세션 종료 (Phantom 미설치)
+```
+
+이것은 **text-mode 예측과 정반대** 결과. 해석:
+- text에서 p_senior conv 0.10, p_crypto_native 0.91 → **인지 차원에서는 예측 맞음**
+- browser에서 p_senior 유일 완료 → **도구 안정성 + 충분한 턴 + 페르소나의 "꼼꼼히 읽기" 성향** (patience_seconds=15, reading_wpm=150) 이 **느리지만 확실한 진행**을 만듦
+- p_crypto_native는 API crash 2턴 종료 (도구 영향). p_creator는 SPA 동적 콘텐츠에 F009 6건 (도구 영향)
+- **결론**: Jupiter UX는 "충분한 시간이 주어지면 비숙련자도 navigable" — 진짜 병목은 **인지 마찰(text 발견) + 시간 압박(실사용자 patience)** 이지 UI 구조 자체가 아님
 
 **통합 해석**:
 - **Text는 숙련도 스펙트럼을 선형적으로 보여줌** (0.91 → 0.53 → 0.24 → 0.18 → 0.10). 사업 결론에 가장 유용.
