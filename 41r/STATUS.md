@@ -1,7 +1,7 @@
-# 41R Persona Market — 현재 상태 (2026-04-14, Phase L+1+X+Y 완료)
+# 41R Persona Market — 현재 상태 (2026-04-16, Phase L+1+X+Y+Z 완료)
 
-> **프로젝트 단계**: H1 기술 검증 완료 + Bench 공개 + 공개 분석 콘텐츠 준비, H1 시장 검증 대기
-> **누적 비용**: ~$50 (시스템 개발 + Ablation 2회 + 외부 데이터 + 메타 분석 + 3 SaaS 코호트)
+> **프로젝트 단계**: H1 기술 검증 완료 + Bench 공개 + 공개 분석 콘텐츠 + persona_agent 패키지 추출 + dApp 진단 파일럿 완료, H1 시장 검증 대기
+> **누적 비용**: ~$62 (시스템 개발 + Ablation 2회 + 외부 데이터 + 메타 분석 + 3 SaaS 코호트 + Jupiter v1~v6 ~$12)
 > **GitHub**: https://github.com/kimtaeyoon83/41r-advisor
 
 ---
@@ -108,10 +108,11 @@
 | `reports/sample_report_v2.html` | 사업팀 — 종합 진단 + Reality Check | 32KB |
 | `reports/index.html` | 모든 리포트 인덱스 대시보드 | 14KB |
 
-### 9개 사이트 코호트 진단 (Cross-cohort 입력)
+### 10개 사이트 코호트 진단 (Cross-cohort 입력)
 - **5 기존 (이커머스/콘텐츠)**: 29CM, 클래스101, 오늘의집, Webflow, Glossier
 - **3 신규 SaaS (Phase Y)**: Notion, Linear, Figma 가격 페이지
-- ⚠️ text mode 시뮬 (실측 cross-check 0건) — 가설 수준
+- **1 dApp 파일럿 (Phase Z)**: Jupiter (jup.ag) — 5 유저 타입 × 5 관찰 지점, 시뮬+실측+predicate 채점 통합
+- ⚠️ 대부분 시뮬 (실측 cross-check 0건) — 가설 수준. Jupiter만 실측 30 세션 누적.
 
 ### Bench (Phase X — 학술/외부 공개)
 | 문서 | 내용 |
@@ -127,6 +128,20 @@
 | `experiments/public_analysis/SAAS_PRICING_COHORTS.md` | Notion/Linear/Figma 진단 (긴 분석) |
 | `experiments/public_analysis/social_post.md` | LinkedIn/X/Show HN 발행 초안 3종 |
 | `experiments/public_analysis/run_saas_cohorts.py` | 재현 가능 코호트 실행 스크립트 |
+
+### dApp 진단 파일럿 (Phase Z — 2026-04-16)
+| 문서 | 내용 |
+|---|---|
+| `experiments/public_analysis/JUPITER_UX_DIAGNOSIS.md` | **최종 리포트 템플릿** (방법론 용어 없이, 사업 활용 중심) |
+| `experiments/public_analysis/jupiter_v6_verdict.json` | 시뮬+실측 집계 (5 유저 × 5 관찰 지점 = 25 runs) |
+| `experiments/public_analysis/jupiter_v6_predicate_scores.json` | 30 세션별 persona_faithfulness 상세 |
+| `experiments/public_analysis/jupiter_v5_verdict.json` | 이전 라운드 비교용 |
+| `experiments/public_analysis/jupiter_audit.py` | 수치 자동 감사 스크립트 |
+
+**Jupiter 파일럿 핵심 발견**:
+- 숙련도별 도달률 스펙트럼 확인 (0.91 → 0.53 → 0.24 → 0.18 → 0.10)
+- 공통 병목 3개: 슬리피지 설정 메뉴(17/25) · 지갑 연결 강요(11/25) · 경고 맥락 부재(6/25)
+- Persona faithfulness: p_senior 0.87 / p_crypto_native 0.50 — **숙련자 세션이 가장 낮음** (도구·LLM 한계 신호)
 
 ### 검증 문서
 | 문서 | 내용 |
@@ -155,17 +170,27 @@
 
 ---
 
-## 5. 커밋 히스토리 (이 세션)
+## 5. 커밋 히스토리 (최근 세션)
 
+### 이전 세션 (Phase L+1~Y)
 | 커밋 | 주요 변경 |
 |---|---|
 | `85fdb4e` | Initial commit — 시스템 + 페르소나 + 기존 5 사이트 코호트 |
 | `26d1a63` | Phase L — 외부 데이터셋 + n=200 ablation 통계 입증 |
 | `4d5dedf` | H1 가설 피벗 v2 (외부 피드백 반영) |
-| `7414a8a` | SIMPLE_REPORT 초안 (마케팅톤 과다) |
-| `3f6e06d` | SIMPLE_REPORT 재작성 (담담한 톤) |
-| `63887ca` | SIMPLE_REPORT 외부 데이터 검증 상세화 |
 | `5f7956e` | SIMPLE_REPORT 외부 데이터 실제 샘플 추가 |
+| `f27c108` | Phase L+1 — Bootstrap CI + CATE + Cross-cohort Meta |
+| `cbd8d9f` | Phase X+Y — Persona Bench 공개 + 3 SaaS 가격 분석 |
+
+### Phase Z — persona_agent 패키지 추출 + dApp 파일럿 (이번 세션)
+| 커밋 | 주요 변경 |
+|---|---|
+| PR-1~6 누적 | `persona_agent/` 패키지 스켈레톤 + Workspace 주입 + 모듈 이동 + 파사드 + tests 이동 + Settings/extras 확립 |
+| `89fa597` | PR-21 per-action timeout + Browser 모드 전체 리뷰 문서 |
+| `ba48976` | PR-22 Predicate-based scoring framework (13 tests 신규) |
+| `ccc2857` | Jupiter v6 — PR-21 효과 검증 (55분 hang 재현 없음) + predicate 필요성 재확인 |
+| `a0dc0c0` | PR-22 적용 — 5개 페르소나에 predicates 추가 + v6 30 세션 채점 |
+| `81fef64` → `0a0aee3` | `JUPITER_UX_DIAGNOSIS.md` 최종본 (방법론 용어 제거 + 추측 수치 삭제) |
 
 ---
 

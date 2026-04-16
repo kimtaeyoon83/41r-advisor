@@ -1,10 +1,10 @@
-# Browser Mode Review — PR-15 ~ PR-21 누적 현황
+# Browser Mode Review — PR-15 ~ PR-22 누적 현황
 
-> 최종 업데이트: 2026-04-16 (PR-21 per-action timeout 반영)
+> 최종 업데이트: 2026-04-16 (PR-22 predicate scoring 적용 + Jupiter v6 검증 완료)
 
 persona_agent 0.2.0의 browser 모드(`run_session(mode="browser")`)가 PR-15부터
-PR-21까지 누적 7개 PR로 SPA-친화적으로 진화. 본 문서는 **현재 capability 한눈에 보기**
-+ **남은 한계** + **다음 단계 후보**를 정리.
+PR-22까지 누적 8개 PR로 SPA-친화적으로 진화 + 신뢰도 정량 측정 프레임워크 확립.
+본 문서는 **현재 capability 한눈에 보기** + **남은 한계** + **다음 단계 후보**를 정리.
 
 ---
 
@@ -59,13 +59,15 @@ run_session(persona_id, url, task, max_turns=20)
 | **PR-18** | Plan 프롬프트 강화 + hard guardrail | Settings close 반복 루프 | 단위 테스트 통과, 실전 영향 미측정 |
 | **PR-19** | Persona patience 기반 auto-abandon | "도구가 오래 시도 → 성공" artifact | v5: 저patience 2~8턴 이탈 |
 | **PR-20** | JS smart selector (DOM scoring) | Playwright 기본 selector가 SPA input 못 잡음 | v5: p_senior 19→15턴 단축 |
-| **PR-21** | Per-action timeout (60s 기본, F010) | runner.run_action 내부 hang 탈출 불가 | 단위 테스트 4건, 실전 적용 대기 |
+| **PR-21** | Per-action timeout (60s 기본, F010) | runner.run_action 내부 hang 탈출 불가 | 단위 테스트 4건, v6에서 55분 hang 재현 없음 확인 |
+| **PR-22** | Predicate-based scoring framework | text·browser 통합 측정 + 신뢰도 게이트 | 단위 테스트 13건, Jupiter v6 30 세션 채점 완료 |
 
 **누적 효과** (Jupiter 기준):
 - v2 (pre-PR-15): 5/5 전원 이탈, F009 15+회, fill 0건
 - v4 (PR-15~18): 5/5 유효, 1건 task_complete, F009 7회, fill 7건
 - v5 (PR-15~20): 5/5 유효, 1건 task_complete, F009 6회, fill 3건, **patience 강제로 text 예측 수렴**
-- v6 (PR-15~21): **예상** — p_b2b_buyer Turn 1 55분 hang 같은 문제 재발 방지
+- v6 (PR-15~21): **25 runs 전원 완주, Turn 1 hang 재현 없음, task_complete 1건**
+- v6 + PR-22 적용: **persona_faithfulness 정량 확인** — p_senior 0.87 (트레이트 일치) vs p_crypto_native 0.50 (왜곡). 도구가 숙련자 트레이트를 override함을 수치로 증명.
 
 ---
 
@@ -113,14 +115,32 @@ run_session(persona_id, url, task, max_turns=20)
 - **Jupiter v6 실행** — PR-21 per-action timeout 포함. v5의 p_b2b_buyer Turn 1 hang 재발 여부 확인. 완전한 5/5 유효 데이터 기대.
 - **다른 dApp** (Raydium, Orca) — Jupiter와 비교. 같은 cohort로 "어느 dApp이 비숙련자에게 덜 어려운가" 진단.
 
-### 5.2 측정 프레임워크 개선 (중기, 1~2주)
+### 5.2 측정 프레임워크 개선 (완료 — PR-22)
 
-- **Predicate-based scoring** — text와 browser를 통합 측정.
-  - 페르소나 spec에서 "verifiable predicate" 추출
-    - 예: p_impulsive — "첫 3초에 CTA 발견 못하면 abandon"
-    - 예: p_senior — "'위험'이나 '수수료' 같은 신뢰 트리거 확인 없이 진행 안 함"
-  - 세션 로그를 predicate로 채점 → "페르소나가 자기답게 행동했는가" 점수
-  - browser 성공/실패와 독립적인 UX 품질 지표
+✅ **Predicate-based scoring** — text·browser 통합 측정.
+- 페르소나 soul YAML에 `predicates: [{id, type, rule, description}]` 필드 추가
+- rule-based (빠름·무료) + llm-based (복잡 맥락) 하이브리드
+- 세션 로그를 predicate로 채점 → `persona_faithfulness` (passed / total - skipped)
+- **신뢰도 게이트**: faithfulness < 0.7 세션은 진단 근거에서 제외 또는 보조로만
+
+**Jupiter v6 적용 결과 (2026-04-16)**:
+
+| Persona | faithfulness | 해석 |
+|---|---:|---|
+| p_senior | 0.87 | 트레이트 일치 |
+| p_b2b_buyer | 0.80 | 트레이트 일치 |
+| p_pragmatic | 0.67 | 중간 |
+| p_creator_freelancer | 0.60 | 중간 |
+| p_crypto_native | **0.50** | **트레이트 왜곡** |
+
+**핵심 통찰**: p_crypto_native의 낮은 faithfulness는 **"숙련자 페르소나가 20턴·1000초 세션을 진행한다"는 browser 결과가 트레이트와 맞지 않음**을 정량 증명. 도구·LLM이 페르소나 트레이트를 override하고 역할 연기로 진행한 증거.
+
+**활용 규칙**:
+- faithfulness ≥ 0.8: 진단 근거로 신뢰 가능
+- 0.7 ≤ faithfulness < 0.8: 보조 증거, text mode cross-check 필수
+- faithfulness < 0.7: 진단 근거에서 제외
+
+**공개 API**: `from persona_agent.lowlevel import score_session_predicates, PredicateResult, ScoreResult`
 
 ### 5.3 도구 경쟁력 확장 (장기, 2~4주)
 
@@ -146,11 +166,33 @@ run_session(persona_id, url, task, max_turns=20)
   - `vision_clicker.py` (PR-15 tool_use)
 - LLM router: `_internal/core/provider_router.py` (PR-17 retry)
 - 프롬프트: `data/prompts/agent/decision_judge/v002.md` (PR-18 루프 탈출 규칙)
-- 테스트: `persona_agent/tests/test_{action_timeout,patience_budget,repetition_*,provider_router_retry}.py`
+- 테스트: `persona_agent/tests/test_{action_timeout,patience_budget,repetition_*,provider_router_retry,predicate_scorer}.py`
+- Predicate 프레임워크: `_internal/analysis/predicate_scorer.py` + `tests/test_predicate_scorer.py` (13건)
 
 실전 사용 시:
 ```bash
 export PERSONA_AGENT_MAX_TURNS=20
 export PERSONA_AGENT_ACTION_TIMEOUT=60  # PR-21
 export PERSONA_AGENT_PATIENCE_MULTIPLIER=60  # PR-19
+```
+
+페르소나 soul에 predicates 추가 (PR-22 활용):
+```yaml
+---
+name: 예시 페르소나
+predicates:
+  - id: quick_ui_grasp
+    type: rule
+    rule: "turn_count < 10"
+    description: "숙련자는 10턴 내 결판"
+---
+```
+
+세션 채점:
+```python
+from persona_agent.lowlevel import score_session_predicates
+result = score_session_predicates("p_crypto_native", session_log)
+if result.persona_faithfulness < 0.7:
+    # 이 세션은 페르소나답지 않음 — 진단 근거에서 제외 고려
+    ...
 ```
