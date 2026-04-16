@@ -1,0 +1,729 @@
+{
+  "hypothesis": "Jupiter(jup.ag)에서 0.1 SOL을 USDC로 스왑하고 슬리피지를 0.1%로 변경하는 태스크를 줬을 때, crypto 숙련도에 따라 페르소나가 어디서 막히고 어디까지 도달하는가?",
+  "url": "https://jup.ag",
+  "quantitative": {
+    "hypothesis_support_score": 0.075,
+    "verdict_label": "rejected",
+    "per_subq_scores": {
+      "sq1": {
+        "score": 0.0,
+        "n": 5,
+        "positive": 0,
+        "detail": "5개 런 전원 abandoned / conv ≤ 0.15. 30초 내 SOL→USDC 폼 설정 성공 사례 0건"
+      },
+      "sq2": {
+        "score": 0.0,
+        "n": 5,
+        "positive": 0,
+        "detail": "5개 런 전원 abandoned / conv 0.0~0.15. 0.1 SOL 수량 입력 완료 및 단위 토글 상호작용 성공 사례 0건"
+      },
+      "sq3": {
+        "score": 0.0,
+        "n": 5,
+        "positive": 0,
+        "detail": "5개 런 전원 abandoned / conv 0.0~0.05. 슬리피지 설정 UI 진입 성공 사례 0건"
+      },
+      "sq4": {
+        "score": 0.0,
+        "n": 5,
+        "positive": 0,
+        "detail": "5개 런 전원 abandoned / conv 0.0~0.15. 슬리피지 경고 모달 도달 사례 0건"
+      },
+      "sq5": {
+        "score": 0.1,
+        "n": 5,
+        "positive": 0.5,
+        "detail": "p_pragmatic만 task_complete(conv 0.85)이나 로그 해상도 낮음(action='?' 반복). 나머지 4개 런 abandoned. 실질 성공 0.5건으로 보수 산정"
+      }
+    },
+    "top_frictions": [
+      {
+        "text": "토큰 셀렉터 동적 콘텐츠 렌더링 지연 / USDC 옵션 시각적 위치 파악 실패 (F009 DynamicContent error)",
+        "mentions": 8,
+        "affected_personas": [
+          "p_creator_freelancer",
+          "p_senior",
+          "p_b2b_buyer",
+          "p_pragmatic"
+        ]
+      },
+      {
+        "text": "슬리피지 설정 진입점(⚙ 아이콘 / Settings) 미발견 — 스왑 폼 내 위치 인식 불가",
+        "mentions": 7,
+        "affected_personas": [
+          "p_crypto_native",
+          "p_creator_freelancer",
+          "p_pragmatic",
+          "p_b2b_buyer",
+          "p_senior"
+        ]
+      },
+      {
+        "text": "세션 조기 종료(patience_exceeded) — 반복 탐색 중 방향 상실 후 이탈",
+        "mentions": 6,
+        "affected_personas": [
+          "p_crypto_native",
+          "p_creator_freelancer",
+          "p_b2b_buyer",
+          "p_senior",
+          "p_pragmatic"
+        ]
+      }
+    ]
+  },
+  "narrative": {
+    "headline": "전 페르소나 코호트에서 태스크 완료율 ~4% — Jupiter 스왑+슬리피지 조정 플로우는 crypto 숙련도와 무관하게 현재 상태로 사실상 완료 불가",
+    "body": "25개 런 중 명시적 task_complete는 p_pragmatic:sq5 단 1건(conv 0.85)이며, 이마저 액션 로그 해상도가 낮아(action='?' 9턴 반복) 실제 완료로 확증하기 어렵다. 가설이 전제한 '숙련도별 차별적 이탈 지점' 패턴은 관찰되지 않았다 — crypto_native(p_crypto_native)도 sq1~sq5 전 단계에서 2턴 내 이탈하여 초심자와 동일한 landing page 수준에서 막혔다. 공통 1차 장벽은 USDC 토큰 셀렉터의 동적 콘텐츠 렌더링 지연(F009)으로, p_creator_freelancer:sq1·sq3, p_senior:sq1~sq5, p_b2b_buyer:sq2 등 8개 런에서 반복 확인된다. 2차 장벽은 슬리피지 설정 진입점 비가시성으로, 슬리피지 관련 sub-question(sq3·sq4) 25개 중 성공률 0%를 기록했다. 세션 품질 이슈(짧은 턴, action='?' 다수)가 일부 결과를 과소 추정했을 가능성이 있으나, 방향성은 명확히 '태스크 실패'다.",
+    "recommendations": [
+      "USDC 토큰 셀렉터 드롭다운에 스켈레톤 로더 및 검색 디바운싱 적용 — p_creator_freelancer:sq1(turn 4 F009), p_senior:sq1(turn 8 F009), p_b2b_buyer:sq2에서 동일 렌더링 실패가 반복됨. USDG·USDC 시각적 구분 강화(배지·로고 크기 확대)도 병행 필요",
+      "슬리피지 설정 ⚙ 아이콘을 스왑 위젯 상단에 레이블(텍스트 'Slippage')과 함께 항상 노출 — p_crypto_native:sq3(아이콘 미인식), p_b2b_buyer:sq3(18턴 탐색 후 미발견), p_pragmatic:sq3(9턴 탐색 후 미발견) 모두 아이콘 위치 인식 실패. 현재 아이콘-only UI는 숙련자에게도 비가시적",
+      "랜딩 페이지에 '스왑 시작하기' 온보딩 힌트(단계 표시 또는 포커스 하이라이트) 추가 — p_crypto_native:sq1(watchlist/positions로 이탈), p_b2b_buyer:sq1(18턴 비구조 탐색), p_pragmatic:sq1(9턴 탐색 후 폼 미발견) 모두 랜딩 페이지에서 스왑 폼 진입점 자체를 놓침",
+      "슬리피지 0.1% 경고 문구를 더 일찍, 인라인으로 노출 — sq4 5개 런 전원 경고 모달 도달 전 이탈. 경고를 슬리피지 입력 필드 바로 아래 실시간 표시하면 도달 가능성 상승 예상 (현재는 모달 내부에만 존재)",
+      "세션 로깅 품질 개선 필요 (테스트 인프라) — p_pragmatic:sq3·sq5, p_crypto_native 전 sub-q에서 action='?'/'' 기록이 분석 신뢰도를 저하시킴. 재실험 시 구체적 click target·input value 로깅 필수"
+    ]
+  },
+  "evidence_trail": {
+    "supporting": [
+      "p_pragmatic:sq5 — outcome=task_complete, conv=0.85; '지갑 연결 상태 유지, 9턴 전체 완료, 최종 CTA 영역 노출(Rewards/JUP 표시)'. 유일한 긍정 신호이나 action 로그 해상도 낮음",
+      "p_b2b_buyer:sq1 — turn 12에서 'Simple Swap Widget 발견' 기록 → 18턴 끝에 위젯 도달 자체는 가능함을 시사 (단, 30초 기준 초과)"
+    ],
+    "contradicting": [
+      "p_crypto_native:sq1 — conv=0.15, drop=landing_page_token_selector; '2턴 만에 watchlist/positions로 이탈, 30초 기준 미충족' — crypto 숙련자도 sq1 실패",
+      "p_crypto_native:sq3 — conv=0.05, drop=settings_icon_미발견; '슬리피지 설정 UI 탐색 시도 없음, turn 2에서 지갑/포지션 UI로 전환' — 숙련자의 슬리피지 진입점 인식 실패",
+      "p_creator_freelancer:sq1 — conv=0.15, drop=token_selector(USDC locating); 'turn 4 F009 DynamicContent error, USDG vs USDC 혼동 가능성' — 동적 렌더링 이슈가 UX 장벽의 기술적 원인임을 명시",
+      "p_senior:sq1 — conv=0.15, drop=USDC_option_not_located; 'turn 8 F009/Vision locate failed, 18턴 patience_exceeded' — 시니어 페르소나의 반복 실패 및 완전 이탈",
+      "p_b2b_buyer:sq3 — conv=0.0, drop=slippage_settings_not_accessed; '18턴 반복 스캔 후 Settings/⚙ 아이콘 발견 시도 없음' — 슬리피지 UI 비가시성 극명",
+      "p_pragmatic:sq3 — conv=0.0, drop=슬리피지_설정_UI_진입_전; '9턴 반복 탐색 중 Platform Fee·Chart만 감지, 슬리피지 관련 UI 요소 미탐지' — task_complete 라벨 불구 실질 sq3 미충족",
+      "p_senior:sq5 — conv=0.15, drop=USDC_token_selection; 'turn 8 DynamicContent F009 이후 Portfolio로 이탈, 태스크 재진행 의지 상실, 최종 CTA 미도달'"
+    ]
+  },
+  "plan": {
+    "hypothesis": "Jupiter(jup.ag)에서 0.1 SOL을 USDC로 스왑하고 슬리피지를 0.1%로 변경하는 태스크를 줬을 때, crypto 숙련도에 따라 페르소나가 어디서 막히고 어디까지 도달하는가?",
+    "url": "https://jup.ag",
+    "sub_questions": [
+      {
+        "id": "sq1",
+        "text": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+        "observable_signals": [
+          "drop_point=landing hero / token selector",
+          "time_to_action < 30s",
+          "outcome=progressed OR abandoned",
+          "conversion_probability on swap form found"
+        ],
+        "target_traits": {
+          "crypto_literacy": "0.2 ~ 1.0 (전 구간 커버 — 노비 vs 숙련자 대비)",
+          "tech_savviness": ">0.4",
+          "impulsiveness": "0.3 ~ 0.8"
+        },
+        "rationale": "스왑 폼 발견 자체가 첫 번째 마찰 지점. 노비 유저는 'Input/Output 토큰 선택 UI'가 직관적이지 않으면 여기서 이탈. 숙련자는 30초 이내 설정 완료 기준으로 UI 명확성 측정 가능."
+      },
+      {
+        "id": "sq2",
+        "text": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+        "observable_signals": [
+          "drop_point=amount input field",
+          "confusion_signal=unit toggle interaction",
+          "outcome=progressed OR error_loop",
+          "time_on_field > 15s → friction flag"
+        ],
+        "target_traits": {
+          "crypto_literacy": "<0.5 (노비~중급 — 단위 혼동 취약 구간)",
+          "attention_to_detail": ">0.5",
+          "price_sensitivity": ">0.6"
+        },
+        "rationale": "Jupiter는 SOL/USD 단위 토글이 존재하며, 노비 유저가 '0.1'이 SOL인지 USD인지 헷갈리는 것이 전형적 마찰. 입력 필드 체류 시간이 friction의 proxy signal."
+      },
+      {
+        "id": "sq3",
+        "text": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+        "observable_signals": [
+          "drop_point=settings icon / slippage input",
+          "outcome=task_completed OR abandoned",
+          "conversion_probability on slippage set",
+          "time_to_slippage_change (숙련자 <20s, 노비 >60s 예상)"
+        ],
+        "target_traits": {
+          "crypto_literacy": "0.1 ~ 1.0 (전 구간 — 핵심 분기점)",
+          "research_depth": ">0.5",
+          "tech_savviness": ">0.3"
+        },
+        "rationale": "슬리피지 변경은 이 태스크의 핵심 난이도 변수. 숙련자는 설정 아이콘을 즉시 인식하나, 노비는 '슬리피지'라는 용어 자체를 모르거나 UI 진입점을 찾지 못해 이탈할 가능성이 높음. crypto_literacy 수준에 따른 drop_point 분기가 가장 선명하게 나타나는 지점."
+      },
+      {
+        "id": "sq4",
+        "text": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+        "observable_signals": [
+          "drop_point=slippage warning modal",
+          "outcome=abandoned OR override_and_proceed",
+          "risk_aversion_signal=warning 확인 후 설정값 되돌림",
+          "conversion_probability after warning seen"
+        ],
+        "target_traits": {
+          "crypto_literacy": ">0.5 (경고 해석 능력 필요)",
+          "risk_tolerance": "0.2 ~ 0.9 (저위험 회피 vs 고위험 감수 대비)",
+          "cautiousness": ">0.6"
+        },
+        "rationale": "낮은 슬리피지는 거래 실패 가능성을 높이므로 Jupiter가 경고를 표시할 수 있음. 이 경고가 노비에게는 '중단' 신호로, 숙련자에게는 'DeFi 메커니즘 이해 하에 감수'로 다르게 작용. 리스크 해석력 차이가 outcome을 결정."
+      },
+      {
+        "id": "sq5",
+        "text": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+        "observable_signals": [
+          "drop_point=wallet connect prompt OR confirm button",
+          "outcome=task_completed OR abandoned_at_final_step",
+          "conversion_probability at CTA",
+          "friction_count=wallet UX steps"
+        ],
+        "target_traits": {
+          "crypto_literacy": "0.1 ~ 1.0",
+          "impulsiveness": ">0.5 (최종 확인 단계 이탈 방지)",
+          "tech_savviness": ">0.4"
+        },
+        "rationale": "지갑 미연결 상태라면 연결 플로우 자체가 추가 마찰. 모든 앞 단계를 통과해도 최종 CTA 직전 이탈은 흔함. 숙련자는 자동 진행, 노비는 'Phantom/Solflare 선택'에서 혼란 가능. 전체 퍼널의 최종 conversion_probability 측정에 해당."
+      }
+    ],
+    "recommended_cohort": [],
+    "aggregate_plan": "5개 sub-question 각각에 대해 페르소나 N명의 outcome(progressed / abandoned / task_completed)과 drop_point를 집계. crypto_literacy 0~0.4(노비) / 0.4~0.7(중급) / 0.7~1.0(숙련자) 3구간으로 코호트 분리 후 구간별 task_completion_rate 산출. 전체 완료율 50% 이상, 숙련자 구간 80% 이상이면 'UX는 숙련자 친화적' 채택. 노비 구간 drop_point 최빈값이 sq3(슬리피지)에 집중되면 '용어 설명 / UI 가시성 개선 필요' 인사이트로 도출.",
+    "recommended_mode": "text"
+  },
+  "runs": [
+    {
+      "persona_id": "p_crypto_native",
+      "sub_question_id": "sq2",
+      "task": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "amount input field (pre-entry)",
+      "frustration_points": [
+        "Incomplete turn logs prevent direct observation of unit toggle confusion",
+        "No time-on-field measurement available (friction proxy signal unavailable)",
+        "User did not reach input field interaction phase"
+      ],
+      "key_behaviors": [
+        "Session terminated after 2 turns with no clear input action",
+        "SOL price display ($85.28) visible but no interaction with amount field",
+        "Navigation elements (Watchlist, Positions) suggest user scattered attention"
+      ],
+      "reasoning": "Session ended prematurely (2 turns) before amount input could be tested. While SOL/USD unit ambiguity is the target friction point for crypto-novice personas, absence of field interaction prevents assessment. Navigation to unrelated UI elements (Watchlist) suggests either task abandonment or interface disorientation prior to amount entry. Cannot confirm sq2 completion status.",
+      "error": null
+    },
+    {
+      "persona_id": "p_crypto_native",
+      "sub_question_id": "sq4",
+      "task": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.0,
+      "drop_point": "initial_session_navigation",
+      "frustration_points": [
+        "세션 데이터 불완전 - 실제 사용자 행동 추적 불가",
+        "슬리피지 경고 모달 도달 전 종료",
+        "turn 1-2에서 토큰 선택 단계 추정되나 진행 상황 불명확"
+      ],
+      "key_behaviors": [
+        "세션 시작 후 2턴만 기록됨",
+        "구체적인 action/target 정보 부재 ('?' 기록)",
+        "Jupiter 슬리피지 설정 단계 도달 실패"
+      ],
+      "reasoning": "세션 기록이 sub_question(슬리피지 0.1% 경고 해석 및 진행 의향)에 도달하기 전 중단됨. 슬리피지 설정 단계 자체에 진입한 증거 없음. 데이터 부족으로 persona의 crypto_literacy나 risk_tolerance 판단 불가.",
+      "error": null
+    },
+    {
+      "persona_id": "p_crypto_native",
+      "sub_question_id": "sq1",
+      "task": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "landing_page_token_selector",
+      "frustration_points": [
+        "토큰 입출력 선택 폼의 불명확한 네비게이션",
+        "30초 내 스왑 폼 완성 실패",
+        "watchlist/positions 메뉴로 우발적 이동 (의도 이탈)"
+      ],
+      "key_behaviors": [
+        "페이지 진입 후 토큰 선택 UI 상호작용 시도",
+        "SOL 잔액($85.28) 인식",
+        "2회 턴 이후 세션 종료"
+      ],
+      "reasoning": "유저가 landing page에서 SOL 자산을 인식했으나, 스왑 입력 폼(SOL→USDC 설정)까지 진행하지 못함. 2턴만에 'Show Top Token Bar' 영역으로 산만해지며 명시적 이탈. 30초 기준 미충족. Crypto-native 페르소나임에도 UI 직관성 부족으로 초기 진입 장벽 존재.",
+      "error": null
+    },
+    {
+      "persona_id": "p_crypto_native",
+      "sub_question_id": "sq3",
+      "task": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.05,
+      "drop_point": "settings icon / slippage input 진입점 미발견",
+      "frustration_points": [
+        "슬리피지 설정 진입점(⚙ 아이콘 또는 Settings)을 인식하지 못함",
+        "초기 2턴 내에 swap 메인 흐름에서 벗어나 관련 없는 UI 탐색",
+        "세션이 조기 종료(patience_exceeded) — 노비 수준의 방향 상실"
+      ],
+      "key_behaviors": [
+        "Turn 1: 토큰 가격 정보 확인 (SOL $85.28)",
+        "Turn 2: 지갑/포지션 UI 탐색으로 방향 전환",
+        "슬리피지 설정 UI 탐색 시도 없음"
+      ],
+      "reasoning": "세션이 2턴만에 종료되었고, 턴들이 슬리피지 설정과 무관한 토큰/포지션 정보 탐색만 기록됨. sub_question의 관찰 신호인 '설정 아이콘 발견' 및 '슬리피지 입력 변경'이 전혀 관찰되지 않음. crypto_literacy 저수준 페르소나로 추정되며, drop_point는 '진입점 미발견 + 조기 이탈'.",
+      "error": null
+    },
+    {
+      "persona_id": "p_crypto_native",
+      "sub_question_id": "sq5",
+      "task": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "wallet_connect_or_pre_swap_interface",
+      "frustration_points": [
+        "세션이 조기 종료됨 - 'patience_exceeded' 플래그",
+        "스왑 폼 작성(0.1 SOL, USDC, 슬리피지 0.1%) 완료 여부 불명",
+        "지갑 연결 플로우 진입 전 이탈 가능성 높음"
+      ],
+      "key_behaviors": [
+        "세션이 2턴만 기록됨 (매우 짧은 인터랙션)",
+        "SOL 잔액 정보($85.28)는 표시되었으나 스왑 인터페이스 진입 불명확",
+        "지갑 연결 상태 및 최종 CTA(Swap 버튼)까지의 명시적 진행 없음"
+      ],
+      "reasoning": "sub_question은 '최종 Swap 버튼까지 도달 후 지갑 연결 및 확인 플로우 완료'를 요구하나, 세션은 초기 UI 탐색(토큰 선택 근처) 수준에서 조기 중단됨. 최종 CTA 도달 증거 부재. conversion_probability는 극히 낮음.",
+      "error": null
+    },
+    {
+      "persona_id": "p_creator_freelancer",
+      "sub_question_id": "sq4",
+      "task": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.05,
+      "drop_point": "Token selection step (before slippage warning modal reached)",
+      "frustration_points": [
+        "Failed to locate USDC token option in swap interface",
+        "Never reached slippage configuration UI — critical blocker before sub_q assessment",
+        "Session terminated due to repeated vision locate failures",
+        "No evidence of warning interpretation capability tested"
+      ],
+      "key_behaviors": [
+        "Session initiated with exploratory actions (turn 1-2)",
+        "Token option detection attempted (turn 3)",
+        "Vision-based UI location failed at USDC token selection (turn 4, F009 error)",
+        "Session patience exceeded after 5 turns without progressing to slippage settings"
+      ],
+      "reasoning": "Sub-question sq4 (슬리피지 경고 해석 & 진행 의향) 평가 불가. 세션은 토큰 선택 단계에서 정체되어 슬리피지 설정/경고 modal에 도달하지 못함. Task flow 초기 단계의 UI 인식 오류로 인해 페르소나의 risk tolerance나 crypto literacy를 측정할 기회 자체가 없었음.",
+      "error": null
+    },
+    {
+      "persona_id": "p_creator_freelancer",
+      "sub_question_id": "sq3",
+      "task": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.05,
+      "drop_point": "슬리피지 설정 UI 진입 전 — USDC 토큰 선택 단계에서 이탈",
+      "frustration_points": [
+        "동적 콘텐츠 렌더링 지연으로 인한 UI 요소 탐지 실패",
+        "토큰 선택 단계 완료 전 세션 중단 — 슬리피지 설정 도달 불가",
+        "명확한 오류 메시지 부재로 사용자 인식 불가"
+      ],
+      "key_behaviors": [
+        "Turn 1-3: 토큰 선택 UI 탐색 시도 (차트, 옵션 요소 감지)",
+        "Turn 4: USDC 토큰 옵션 위치 결정 실패 (Vision locate error)",
+        "Turn 5: 6.4초 대기 후 세션 종료 (recovery 불가)"
+      ],
+      "reasoning": "페르소나는 슬리피지 설정 UI에 도달하기 전 토큰 선택 단계에서 차단됨. sq3의 관찰 신호(settings icon 발견, 슬리피지 0.1% 변경)는 전혀 충족되지 않음. 본 세션은 기술적 장애(dynamic content detection)로 인한 abandoned이며, crypto_literacy 수준별 슬리피지 난이도 분기를 평가할 수 없음.",
+      "error": null
+    },
+    {
+      "persona_id": "p_creator_freelancer",
+      "sub_question_id": "sq1",
+      "task": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "token_selector — USDC 옵션 로케이션 실패 (turn 4, F009 DynamicContent)",
+      "frustration_points": [
+        "토큰 셀렉터에서 목표 토큰(USDC) 시각적 인식 불가",
+        "드롭다운 내 여러 토큰 옵션 간 구분 어려움 (USDG vs USDC 혼동 가능성)",
+        "Turn 4 실패 후 회복 시도 없음 — 세션 종료 (patience_exceeded)"
+      ],
+      "key_behaviors": [
+        "초기 페이지 로드 후 토큰 선택기 UI 탐색 시도 (turn 1~3)",
+        "USDG 등 대체 토큰 옵션 감지됨 (turn 3)",
+        "USDC 정확 타겟팅 실패 — 동적 콘텐츠 렌더링 지연 또는 UI 요소 위치 불일치"
+      ],
+      "reasoning": "페르소나는 30초 내 스왑 폼 진입에는 성공했으나, 'SOL → USDC' 입력 설정 단계에서 토큰 셀렉터 UI의 동적 콘텐츠 로딩 이슈로 정확한 토큰 선택 불가. 노비 유저의 전형적 이탈점: 유사명 토큰 과다 + 낮은 UI 명확성 = 인지 부하 초과.",
+      "error": null
+    },
+    {
+      "persona_id": "p_creator_freelancer",
+      "sub_question_id": "sq2",
+      "task": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "amount input field + token selection (USDC locating)",
+      "frustration_points": [
+        "Inability to locate/select correct USDC token in dropdown (F009 error)",
+        "No evidence of 0.1 SOL amount input before token selection failure",
+        "Persona appears to have skipped amount entry and jumped to token selection (wrong order?)",
+        "Vision system failed to find USDC option — suggests UI layout confusion or wrong dropdown state"
+      ],
+      "key_behaviors": [
+        "Turn 1: Initial page load detected with price display ($0.17204)",
+        "Turn 2: Passive wait (2.8s) — no clear interaction with amount field",
+        "Turn 3: Token option interaction attempted (USDG appeared) — suggesting dropdown navigation",
+        "Turn 4: Critical failure — Vision locate failed for 'USDC token option in the to[...]' → confused token selection",
+        "Turn 5: Recovery attempt with 6.4s latency, but no success signal"
+      ],
+      "reasoning": "SQ2 requires precise 0.1 SOL input + unit clarity. Session shows persona never clearly completed amount input field (no direct interaction log). Failed at token selection (turn 4: F009 DynamicContent failure), never reaching slippage toggle. Outcome: abandoned before core amount input validation. Crypto literacy issue evident: persona jumped to 'to' token before confirming 'from' amount.",
+      "error": null
+    },
+    {
+      "persona_id": "p_creator_freelancer",
+      "sub_question_id": "sq5",
+      "task": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "Token selection phase (USDC 토큰 옵션 선택 단계) — 최종 Swap 버튼 도달 실패",
+      "frustration_points": [
+        "동적 콘텐츠 렌더링 지연 — USDC 토큰 옵션 가시성 부족",
+        "UI 요소 탐지 실패 (F009 DynamicContent) — 페르소나가 클릭할 대상을 찾을 수 없음",
+        "인내심 초과 — 5턴 내에 token selection 완료 불가능"
+      ],
+      "key_behaviors": [
+        "초기 페이지 로딩 성공 (turn 1-2)",
+        "토큰 옵션 드롭다운 상호작용 시도 (turn 3)",
+        "UI 요소 위치 실패로 인한 이탈 (turn 4: Vision locate failed)",
+        "회복 시도 없음 — 5턴 후 세션 종료"
+      ],
+      "reasoning": "지갑 연결 전 단계에서 토큰 선택 UI 장애로 중단. 최종 Swap 버튼 도달 불가 → sub-q 미충족. 슬리피지 변경도 미실행. Crypto 숙련도와 무관하게 UX 장애가 primacy. 부분 진행(턴 1-3)이 있으나 명시적 이탈 신호(patience_exceeded) 등으로 task_complete 불가.",
+      "error": null
+    },
+    {
+      "persona_id": "p_pragmatic",
+      "sub_question_id": "sq2",
+      "task": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "amount_input_field",
+      "frustration_points": [
+        "Unclear navigation pattern — 9 turns without direct swap form engagement",
+        "No evidence of amount field focus or text input",
+        "Unit toggle confusion point never reached; user may have abandoned before critical friction zone",
+        "Generic ? actions suggest bot/automated activity or incomplete session capture"
+      ],
+      "key_behaviors": [
+        "Session contains only generic page navigation queries (?)",
+        "No explicit interaction with amount input field detected",
+        "No SOL/USD unit toggle interaction observed",
+        "Turns 1-9 show page state changes but no targeted input action",
+        "Platform Fee ($8.5226) and JUP reward elements visible but swap amount entry absent"
+      ],
+      "reasoning": "세션은 Jupiter 페이지 로드 후 일반 네비게이션만 수행하며 sq2의 핵심 신호(amount input field 포커스, SOL/USD 토글 상호작용)가 전혀 나타나지 않음. 0.1 SOL 입력과 단위 혼동 구간에 도달하지 못함 → abandoned.",
+      "error": null
+    },
+    {
+      "persona_id": "p_pragmatic",
+      "sub_question_id": "sq1",
+      "task": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.05,
+      "drop_point": "landing_page_exploration",
+      "frustration_points": [
+        "SOL → USDC 스왑 폼 위치 미발견",
+        "액션 타겟이 명확하지 않은 상태로 반복 탐색",
+        "input/output 토큰 선택 UI에 도달하지 못함",
+        "시간 소모 (turn 2,8,9 각 2.6초+) 후 진전 없음"
+      ],
+      "key_behaviors": [
+        "페이지 진입 후 9턴 모두 '?' 액션 반복 (탐색/스캔 행동)",
+        "토큰 선택 폼 설정 시도 없음",
+        "Platform Fee, Rewards, JUP 등 부가 UI 요소만 감지",
+        "30초 내 스왑 입력 폼 진입 실패"
+      ],
+      "reasoning": "세션은 task_complete 기록이나, sub_q1(30초 내 SOL→USDC 폼 독립 설정)는 완전히 미충족. 9턴이 모두 '?' 탐색이며 토큰 선택 UI 접근 증거 부재. 랜딩 페이지 탐색 단계에서 이탈한 것으로 판단. 숙련도 낮은 페르소나 기준 UI 명확성 부족 시사.",
+      "error": null
+    },
+    {
+      "persona_id": "p_pragmatic",
+      "sub_question_id": "sq3",
+      "task": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.0,
+      "drop_point": "슬리피지 설정 UI 진입 전 — 세션 종료",
+      "frustration_points": [
+        "세션 데이터 불완전성 — action/target 필드가 '?'/''로 기록되어 의도 파악 불가",
+        "슬리피지 설정 UI 진입점 미발견 — 사용자가 Settings 아이콘을 찾지 못했거나 인식하지 못함",
+        "9턴 반복 탐색이 실제 '슬리피지 찾기' 노력인지 또는 다른 태스크 수행 중인지 모호"
+      ],
+      "key_behaviors": [
+        "9턴 동안 반복적인 '?' 액션만 기록 (의도 불명확)",
+        "Platform Fee, Rewards, Chart 등 주변 UI 요소만 탐지",
+        "슬리피지 관련 UI 요소(⚙ Settings 아이콘, Slippage input) 미탐지",
+        "대상 설정값(0.1%) 입력 시도 없음"
+      ],
+      "reasoning": "세션이 task_complete로 표기되었으나, 슬리피지 변경(sub_q3)의 직접 증거가 전무함. 턴 로그는 Chart/Rewards 등 주변 요소만 추적하며, 슬리피지 설정 관련 diff가 없음. 데이터 불완전성으로 인해 실제 성공 여부 판단 불가 → 보수적으로 abandoned 처리. crypto_literacy 불확인 상태에서 UI 진입점 미발견은 노비 특성 일치.",
+      "error": null
+    },
+    {
+      "persona_id": "p_pragmatic",
+      "sub_question_id": "sq5",
+      "task": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+      "outcome": "task_complete",
+      "conversion_probability": 0.85,
+      "drop_point": null,
+      "frustration_points": [
+        "세션 로그 action/target 필드 비어있음 — 실제 클릭/입력 추적 불명확",
+        "턴 1~9 모두 '?' 액션으로 기록 → 자동화 또는 수동 스크롤만 감지된 것으로 추정",
+        "슬리피지 0.1% 변경 완료 여부 직접 증거 없음 (UI 노출만 확인)"
+      ],
+      "key_behaviors": [
+        "지갑 연결 상태 유지 (명시적 wallet disconnect 없음)",
+        "9 턴 전체 완료 — 최종 CTA 도달",
+        "슬리피지 조정 UI 노출 (Platform Fee, Rate 표시 감지)",
+        "탭 전환 안정적 (Watchlist/Positions/Recent, Rewards 모두 정상 로드)"
+      ],
+      "reasoning": "세션 완료(outcome=task_complete) + 9 턴 전체 통과 + 지갑 연결 상태 유지 + 최종 CTA 영역 노출(Rewards/JUP 표시) 모두 확인. 다만 로그 해상도 낮아(action 상세 미기록) 슬리피지 직접 입력·Swap 버튼 클릭 재확인 필요. 이탈점 없고 지갑 UX 마찰 최소로 추정.",
+      "error": null
+    },
+    {
+      "persona_id": "p_pragmatic",
+      "sub_question_id": "sq4",
+      "task": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "slippage_warning_modal (or earlier - insufficient session data)",
+      "frustration_points": [
+        "Vague action logging prevents clear identification of slippage adjustment step",
+        "Absence of modal interaction data suggests either: (a) user did not reach slippage input, (b) warning was not displayed, or (c) session recording failed to capture critical UI state",
+        "No transaction finalization evidence despite task_complete label in session header"
+      ],
+      "key_behaviors": [
+        "Session shows 9 turns with generic '?' actions lacking specificity",
+        "No explicit slippage setting interaction detected in recorded turns",
+        "Page navigation observed (Platform Fee, Watchlist, Rewards, JUP tokens) but no swap confirmation",
+        "No evidence of warning modal encounter or override decision"
+      ],
+      "reasoning": "Session claims task_complete but turn logs show fragmented navigation without explicit slippage warning encounter. Sub-question sq4 requires observable warning interpretation + proceed/abandon decision. Current data lacks this critical signal. Interpreted as abandoned at pre-warning stage due to insufficient behavioral trace of the warning modal itself.",
+      "error": null
+    },
+    {
+      "persona_id": "p_b2b_buyer",
+      "sub_question_id": "sq2",
+      "task": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "amount_input_field_or_token_selection",
+      "frustration_points": [
+        "No clear progression toward amount input field after initial navigation",
+        "Excessive price/token information scanning before executing core task",
+        "Lack of decisive action on swap widget (turn 12 references 'Simple Swap Widget' but no input follows)",
+        "Session abandonment before slippage adjustment step (sq3)"
+      ],
+      "key_behaviors": [
+        "Session shows 15 turns with mostly UI scanning (? actions)",
+        "No explicit amount input (0.1 SOL) detected in turn logs",
+        "Multiple token/price exploration turns (turns 7-9: price checks, token options)",
+        "Session terminated with 'patience_exceeded' — user did not complete swap",
+        "Turn durations 2.7-3.1s suggest passive browsing, not active input engagement"
+      ],
+      "reasoning": "User navigated Jupiter UI but never demonstrated explicit 0.1 SOL input or unit toggle interaction. 18 turns of passive scanning (?) without amount entry signal suggests cognitive overload or confusion about entry point. 'Patience exceeded' outcome indicates task abandonment before sq2 completion. Crypto novice behavior profile matches (scattered exploration vs. focused task execution).",
+      "error": null
+    },
+    {
+      "persona_id": "p_b2b_buyer",
+      "sub_question_id": "sq4",
+      "task": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.05,
+      "drop_point": "slippage_configuration_stage",
+      "frustration_points": [
+        "session_terminated_before_reaching_slippage_warning",
+        "18_turns_of_reconnaissance_without_task_advancement",
+        "no_interaction_with_swap_parameters_visible",
+        "patience_exceeded_indicates_cognitive_overload_or_ui_friction"
+      ],
+      "key_behaviors": [
+        "repeated_scanning_actions_without_targeted_clicks",
+        "no_evidence_of_slippage_modal_engagement",
+        "browsing_multiple_UI_elements_without_progression",
+        "navigation_to_portfolio_and_watchlist_suggests_context_loss"
+      ],
+      "reasoning": "세션은 Jupiter UI를 18턴 동안 스캔했지만 슬리피지 설정 단계에 도달하지 못함. 경고 해석(sq4 핵심)은 관찰되지 않았으며, 'patience_exceeded' 결과는 crypto 미숙한 페르소나가 swap 인터페이스 복잡도에서 이탈했음을 시사. 0.1% 슬리피지 경고 노출 불가.",
+      "error": null
+    },
+    {
+      "persona_id": "p_b2b_buyer",
+      "sub_question_id": "sq3",
+      "task": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.0,
+      "drop_point": "slippage_settings_not_accessed",
+      "frustration_points": [
+        "슬리피지 설정 UI를 찾지 못함 — Settings/⚙ 아이콘의 위치 또는 가시성 문제",
+        "기본 스왑 UI 내에서 슬리피지 옵션을 명시적으로 인식하지 못함",
+        "18턴 반복 스캔 후 진전 없음 — 사용자가 인내심 초과"
+      ],
+      "key_behaviors": [
+        "18턴 동안 페이지 탐색 및 UI 요소 스캔만 반복",
+        "Settings/⚙ 아이콘 발견 시도 없음",
+        "슬리피지 입력 필드에 도달하지 못함",
+        "토큰 선택, 가격 정보 탐색에만 집중",
+        "설정 진입점 미발견 후 정체"
+      ],
+      "reasoning": "페르소나는 스왑 페이지 내에서만 맴돌며 Settings 아이콘 또는 슬리피지 설정 메뉴에 접근하지 못했다. crypto 노비 특성상 슬리피지 용어 인식 및 UI 진입점 발견 실패. 핵심 sub-question(sq3)의 완전한 태스크 수행 불가 → outcome=abandoned.",
+      "error": null
+    },
+    {
+      "persona_id": "p_b2b_buyer",
+      "sub_question_id": "sq1",
+      "task": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "token_selector_input / swap_form_configuration",
+      "frustration_points": [
+        "토큰 Input 필드 위치 파악 실패 — 페이지 구조 이해 부족",
+        "SOL→USDC 방향 설정 불가 — 토큰 선택기(token selector) UI가 직관적이지 않음",
+        "슬리피지 조정 진입 전 조기 이탈 — 기본 스왑 폼 자체에서 막힘",
+        "반복적인 탐색으로 인한 시간 소비 — 30초 기준 대폭 초과"
+      ],
+      "key_behaviors": [
+        "페이지 진입 후 초기 탐색 (turn 1-3: SOL 가격 정보 확인)",
+        "토큰 선택 UI 반복 탐색 (turn 5-11: Platform Fee, 가격 변동률, 포트폴리오 섹션 클릭)",
+        "Simple Swap Widget 발견 (turn 12)",
+        "30초 이내 완료 실패 — 18턴에 걸쳐 진행되었고 명확한 스왑 입력 설정 증거 없음"
+      ],
+      "reasoning": "페르소나는 Jupiter 랜딩 페이지에 진입했으나 스왑 입력 폼(SOL→USDC 토큰 선택)을 30초 내 독립적으로 설정하지 못했습니다. 18턴의 비구조적 탐색 끝 'patience_exceeded'로 세션 종료. 토큰 선택기 UI의 낮은 발견성이 핵심 마찰점. crypto 숙련도 0.2~0.4대 노비 사용자로 추정됩니다.",
+      "error": null
+    },
+    {
+      "persona_id": "p_b2b_buyer",
+      "sub_question_id": "sq5",
+      "task": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "wallet_connect_prompt OR pre_swap_confirmation",
+      "frustration_points": [
+        "지갑 미연결 상태에서 swap 준비 단계 진행 불가",
+        "UI 탐색만 반복되고 실제 input 필드 상호작용 없음 (action='?' 사용)",
+        "최종 확인/연결 플로우 진입 실패",
+        "patience_exceeded 상태로 세션 종료"
+      ],
+      "key_behaviors": [
+        "18턴 동안 반복적인 UI 탐색 (action='?')",
+        "slippage 설정 관련 UI 요소 감지 (turn 5-8)",
+        "Simple Swap Widget 발견 (turn 12)",
+        "최종 3턴(13-15)에서 응답 없음 (duration_ms 3초대, diff 변화 없음)"
+      ],
+      "reasoning": "페르소나가 jup.ag 인터페이스까지 도달했으나, 실제 swap 실행 직전 지갑 연결 및 최종 확인 단계에서 이탈. 18턴의 탐색만 반복되고 '?' 액션으로는 의도된 태스크 진행 불가. 최종 CTA('Swap' 버튼)에 도달하지 못함. sub_question의 핵심인 '최종 Swap 버튼까지 도달'은 미충족.",
+      "error": null
+    },
+    {
+      "persona_id": "p_senior",
+      "sub_question_id": "sq2",
+      "task": "0.1 SOL 수량을 입력란에 정확히 입력하고 금액 단위(SOL vs USD toggle)를 혼동하지 않는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "amount input field (SOL quantity entry)",
+      "frustration_points": [
+        "USDC token selection failed (turn 8) — UI navigation obstacle",
+        "Extended browsing of price/portfolio info suggests wandering behavior post-failure",
+        "No explicit amount input field interaction detected in turn logs",
+        "Apparent loss of task focus (wealth display, rate info browsing)"
+      ],
+      "key_behaviors": [
+        "Session navigated to Jupiter swap interface (turns 1-7)",
+        "Attempted token selection but failed to locate USDC option (turn 8: F009 DynamicContent error)",
+        "Recovered and browsed portfolio/price info (turns 9-15)",
+        "No evidence of successful 0.1 SOL quantity input",
+        "Session ended after 18 turns without completing amount entry"
+      ],
+      "reasoning": "Persona abandoned task at token selection stage, never reaching the amount input field (sq2 target). Turn 8 F009 error on USDC location, followed by unfocused navigation, indicates low crypto literacy person gave up before critical sq2 step. Conversion probability low (0.15) due to pre-requisite failure.",
+      "error": null
+    },
+    {
+      "persona_id": "p_senior",
+      "sub_question_id": "sq1",
+      "task": "페이지 최초 진입 후 30초 이내에 'SOL → USDC' 스왑 입력 폼을 독립적으로 찾아 설정할 수 있는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "token_selector / USDC_option_not_located",
+      "frustration_points": [
+        "Turn 8: USDC 토큰 옵션 검색 실패 (F009 / Vision locate failed)",
+        "30초 초과 이후에도 스왑 폼 미완성 — 총 18턴(약 45-50초 추정)",
+        "동적 콘텐츠(modal/dropdown) 렌더링 지연으로 인한 위치 파악 곤란",
+        "토큰 선택기 UI 직관성 부족 — 노비 유저 관점 명확한 진입점 부재"
+      ],
+      "key_behaviors": [
+        "Landing page 진입 후 SOL 토큰 정보 탐색 (turn 1-5)",
+        "토큰 선택 UI 상호작용 시도 (turn 7 onwards)",
+        "반복적 쿼리 패턴 — 동일 액션 재시도 (turn 9-15)",
+        "USDC 옵션 검색 실패 후 페이지 재탐색"
+      ],
+      "reasoning": "페르소나가 SOL 입력은 인식했으나(turn 10: textbox value='8.532528'), USDC 아웃풋 토큰 선택 단계에서 차단됨. Turn 8 명시적 실패(F009 / Vision locate) 이후 15턴까지 지속적 재시도 → 페이지 구조 미파악 + 토큰 선택기 접근성 문제. 30초 이내 독립적 설정 달성 실패 → sub_question 불통과.",
+      "error": null
+    },
+    {
+      "persona_id": "p_senior",
+      "sub_question_id": "sq3",
+      "task": "슬리피지 설정 UI(Settings 또는 ⚙ 아이콘)를 발견하고 0.1%로 변경하는 데 성공하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.0,
+      "drop_point": "slippage_settings_icon_not_located",
+      "frustration_points": [
+        "USDC 옵션 선택 실패 (turn 8: 'USDC token option in the modal' 감지 불가)",
+        "UI 진입점 혼동 — 슬리피지 설정 위치 인지 실패",
+        "반복적인 페이지 스캔으로 탈진 (18턴, 'patience_exceeded')",
+        "명시적 슬리피지 관련 액션 기록 없음"
+      ],
+      "key_behaviors": [
+        "18개 턴에 걸쳐 반복적인 페이지 스캔 (turn 1~15)",
+        "SOL/USDC 스왑 입력 단계는 진행 (turn 10: SOL 금액 입력 감지)",
+        "turn 8에서 USDC 토큰 선택 실패 (DynamicContent 에러)",
+        "슬리피지 설정 UI 탐색 시도 없음",
+        "Settings 또는 ⚙ 아이콘 클릭 기록 부재"
+      ],
+      "reasoning": "페르소나는 기본 스왑 흐름(SOL 입력)까지는 진행했으나 USDC 선택 단계에서 막혔고, 슬리피지 설정 UI(⚙ 아이콘/Settings)를 발견하거나 접근하지 못함. 18턴의 patience 한계 도달 후 완전 이탈. sub_q3 실패.",
+      "error": null
+    },
+    {
+      "persona_id": "p_senior",
+      "sub_question_id": "sq4",
+      "task": "슬리피지 0.1% 설정 시 나타나는 경고(예: 'Transaction may fail' 등)를 해석하고 그럼에도 진행 의향을 유지하는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "slippage_configuration_stage — 목표 슬리피지 0.1% 설정 전 세션 종료",
+      "frustration_points": [
+        "USDC 토큰 선택 단계에서 UI 로케이션 실패 (turn 8 — 동적 콘텐츠 감지 오류)",
+        "토큰 모달 네비게이션 어려움 — 다중 시도 후에도 목표 옵션 미선택",
+        "슬리피지 설정 인터페이스 도달 불가 — 핵심 태스크 단계 미도달"
+      ],
+      "key_behaviors": [
+        "초기 탐색: Jupiter 플랫폼 로드 및 가격 정보 확인 (turn 1-7)",
+        "토큰 선택 시도: SOL/USDC 페어 식별 (turn 4-5, 10)",
+        "UI 요소 접근 실패: USDC 토큰 옵션 선택 불가 (turn 8 — F009 에러)",
+        "금액 입력: 0.1 SOL 트랜잭션 시뮬레이션 시작 (turn 10-14)",
+        "환율 확인: 1 SOL ≈ 85.43 USDC 실시간 조회 (turn 15)",
+        "진행 중단: 슬리피지 경고 모달 도달 전 세션 종료"
+      ],
+      "reasoning": "페르소나는 초기 탐색과 금액 입력까지 진행했으나, USDC 선택 실패(turn 8)와 UI 네비게이션 막힘으로 인해 슬리피지 경고 모달 자체에 도달하지 못함. 따라서 sub_question의 핵심 신호(경고 해석 및 진행 의향)를 측정할 수 없음. 'patience_exceeded' 이유로 18턴 후 세션 종료 → crypto 숙련도와 관계없이 UX 장벽이 먼저 작동.",
+      "error": null
+    },
+    {
+      "persona_id": "p_senior",
+      "sub_question_id": "sq5",
+      "task": "최종 'Swap' 버튼까지 도달했을 때 지갑 연결 상태 및 확인 플로우에서 이탈 없이 태스크 완료 의향을 보이는가",
+      "outcome": "abandoned",
+      "conversion_probability": 0.15,
+      "drop_point": "USDC token selection / slippage adjustment phase — 지갑 연결 전 UI 탐색 단계에서 이탈",
+      "frustration_points": [
+        "USDC token selector의 동적 콘텐츠 감지 실패 — 모달/드롭다운 상호작용 불명확",
+        "Turn 1-7 반복 루프: 가격 변동 표시만 갱신되고 태스크 진행 감각 부재",
+        "지갑 연결 단계 도달 전 탈락 — 최종 CTA('Swap' 버튼)에 도달하지 못함",
+        "UI 로딩/상태 변화에 대한 피드백 부족으로 인한 방향성 상실"
+      ],
+      "key_behaviors": [
+        "Turn 1-7: 반복적인 탐색 및 대기 (2.8~2.9초 duration)",
+        "Turn 8: USDC token 옵션 선택 실패 (DynamicContent F009 error)",
+        "Turn 9+: Portfolio로 이탈, 원래 태스크 플로우 복귀 없음",
+        "Total 18 turns → outcome='patience_exceeded': 사용자 또는 시스템 인내 한계 도달"
+      ],
+      "reasoning": "세션은 swap 입력(SOL $85+) 단계까지 진행했으나 USDC 선택에서 동적 콘텐츠 파싱 실패. 이후 Portfolio로 이탈하며 태스크 재진행 의지 상실. 최종 'Swap' CTA와 지갑 연결 플로우에 도달하지 못했으므로 sq5(지갑 연결 및 최종 확인 플로우) 평가 불가. 노비 페르소나의 전형적 조기 이탈 패턴 — 기술적 마찰 + 낮은 인내심.",
+      "error": null
+    }
+  ]
+}

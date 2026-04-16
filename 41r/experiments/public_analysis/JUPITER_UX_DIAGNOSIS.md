@@ -1,4 +1,4 @@
-# Jupiter (jup.ag) UX 진단 리포트 v5
+# Jupiter (jup.ag) UX 진단 리포트 v6
 
 > **요청자**: 41rpm 사업팀
 > **원 요청**: "복잡한 dApp 인터페이스에서 유저의 '숙련도'에 따른 경험 차이 증명"
@@ -7,7 +7,8 @@
 > **v2**: 2026-04-15 (browser, pre-PR-15, F009 다발 → 전원 이탈)
 > **v3**: 2026-04-16 (PR-15/16, 2/5 유효, 부분 성공)
 > **v4**: 2026-04-16 (PR-15/16/17/18 전 적용, 5/5 유효, p_senior task_complete)
-> **v5**: 2026-04-16 (PR-15~20 전 적용 + patience 강제, **5/5 완료, p_senior task_complete, 대부분 patience 소진으로 빠른 이탈**)
+> **v5**: 2026-04-16 (PR-15~20 전 적용 + patience 강제, 5/5 완료, p_senior task_complete)
+> **v6**: 2026-04-16 (PR-15~21 전 적용 + per-action 60s timeout, **25 runs / 5 persona × 5 sub-q, 1건 task_complete, p_b2b_buyer 18턴 탐색 성공 — Turn 1 hang 재현 없음**)
 
 ---
 
@@ -63,6 +64,38 @@
 3. **v5 verdict score 0.108** (v4는 0.19) — patience 강제로 **더 엄격해진 평가**. 실사용자 경험에 더 가까움.
 4. **outcome 레이블 버그** — patience_exceeded가 max_turns_hit로 덮어써지던 문제 발견·수정.
 5. **설계 통찰**: browser 모드 score는 본질적으로 "페르소나 patience × 도구 안정성"이 결정. 진정한 UX 품질 측정 위해선 **patience와 인지 마찰을 분리하는 predicate-based 측정**(§ "향후 계획")이 필요함.
+
+---
+
+## v6 결과 (PR-21 per-action timeout 적용)
+
+**전체**: 25 runs (5 personas × 5 sub-questions), hypothesis_support_score **0.075**, verdict **rejected**.
+
+**outcome 분포**: task_complete 1건(p_pragmatic:sq5, conv 0.85) + abandoned 24건.
+
+**PR-21 효과 검증** — v5의 p_b2b_buyer Turn 1 55분 hang이 재현되지 않음:
+- v5: p_b2b_buyer Turn 1 `wait` action 55분 hang (runner 내부 hang, patience 탈출 불가)
+- v6: p_b2b_buyer:sq3 **18턴 탐색 후 설정 아이콘 미발견으로 abandoned** — per-action 60s timeout이 hang을 차단하고 세션이 정상적으로 진행됨
+
+**공통 장벽 (v4/v5 대비 일관 재확인)**:
+1. **USDC 토큰 셀렉터 F009** (8/25 runs) — p_creator_freelancer:sq1·sq3, p_senior:sq1~sq5, p_b2b_buyer:sq2. 동적 콘텐츠 렌더링 지연.
+2. **슬리피지 설정 아이콘 비가시성** (sq3·sq4 25건 중 성공 0건) — p_b2b_buyer 18턴·p_pragmatic 9턴 탐색 후에도 미발견.
+3. **Crypto-native도 2턴 내 이탈** — 숙련도 독립적 landing page 장벽. 가설이 전제한 "숙련도별 차별적 이탈 지점" 패턴이 **관찰되지 않음**.
+
+**v5 → v6 차이 핵심**:
+| 측면 | v5 (단일 태스크 × 5 persona) | v6 (sub-q 5개 × 5 persona = 25 runs) |
+|---|---|---|
+| 실행 규모 | 5 세션 | 25 세션 |
+| Turn 1 hang | p_b2b_buyer 55분 발생 | **0건** (PR-21) |
+| 분석 입도 | persona별 단일 결론 | persona × sub-question 매트릭스 |
+| 장벽 특정도 | 높음 (drop_point 집계) | **매우 높음** (sub-q별 failure mode) |
+| task_complete | 1건 (p_senior) | 1건 (p_pragmatic:sq5, action='?' 9턴으로 신뢰도 낮음) |
+
+**한계 — v6 결과 해석 시 주의**:
+- hypothesis_support_score 0.075는 "가설 기각"처럼 읽히지만, 실제로는 **도구가 slippage 설정 UI까지 도달 못해서 측정 실패** → UX 진단이 "측정 불가"에 가까움. browser mode의 한계가 재확인된 것.
+- 1건 task_complete도 action='?' 9턴 반복으로 신뢰도 낮음 → 실제 완료가 아닌 파싱 실패 가능성.
+
+**결론 (업데이트)**: v6은 **PR-21 per-action timeout이 hang 방지에 유효함을 확인**했지만, Jupiter 같은 복잡 SPA에서는 **browser mode 단독으로는 UX 진단이 불충분**. v5에서 제안한 **predicate-based 측정 (PR-22)**의 필요성을 재확인 — 페르소나 spec을 verifiable predicate으로 변환해 text·browser 양쪽을 통합 측정하는 접근이 본 시나리오에서 필수.
 
 ---
 
