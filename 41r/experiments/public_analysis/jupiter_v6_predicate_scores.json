@@ -1,0 +1,1303 @@
+{
+  "version": "v6",
+  "source": "jupiter_v6",
+  "per_session": [
+    {
+      "session_id": "s_6daf160e",
+      "persona_id": "p_senior",
+      "turn_count": 18,
+      "duration_sec": 927.373538,
+      "fills": 1,
+      "outcome": "patience_exceeded",
+      "predicates": {
+        "persona_id": "p_senior",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "patient_exploration",
+            "description": "차분히 탐색 (patience 15s*60=900s budget, 최소 2분)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 120' → True"
+          },
+          {
+            "id": "cautious_fills",
+            "description": "복잡한 dApp에서 2개 이상 필드 거의 안 채움 (tech_literacy 0.3)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          },
+          {
+            "id": "reads_carefully",
+            "description": "라벨·설명을 확인 (reading_wpm 150, 느림)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_c62f36b6",
+      "persona_id": "p_b2b_buyer",
+      "turn_count": 18,
+      "duration_sec": 743.036526,
+      "fills": 1,
+      "outcome": "patience_exceeded",
+      "predicates": {
+        "persona_id": "p_b2b_buyer",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "long_evaluation",
+            "description": "B2B 평가는 8턴 이상 or 5분 이상 탐색",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 8 OR duration_sec >= 300' → True"
+          },
+          {
+            "id": "info_gathering",
+            "description": "정보 수집 집약 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_impulsive_fill",
+            "description": "신중 — 2개 이상 필드 연속 작성 안 함 (research_depth 0.85)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_e86c2b85",
+      "persona_id": "p_pragmatic",
+      "turn_count": 9,
+      "duration_sec": 407.804695,
+      "fills": 1,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → True"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_cdbfed39",
+      "persona_id": "p_creator_freelancer",
+      "turn_count": 5,
+      "duration_sec": 220.422816,
+      "fills": 1,
+      "outcome": "patience_exceeded",
+      "predicates": {
+        "persona_id": "p_creator_freelancer",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "moderate_pace",
+            "description": "중간 속도 탐색 — 너무 빠르지도 느리지도 않음",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 3 AND turn_count < 15' → True"
+          },
+          {
+            "id": "selective_reading",
+            "description": "가격·라이선스 관련 정보는 최소 1회 확인",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 1' → True"
+          },
+          {
+            "id": "visual_first",
+            "description": "스크롤로 전체 구성 훑기 (visual_dependency 0.85 반영)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='has_action('scroll')' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_874988ae",
+      "persona_id": "p_crypto_native",
+      "turn_count": 2,
+      "duration_sec": 102.486986,
+      "fills": 0,
+      "outcome": "patience_exceeded",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → True"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → True"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_9d9a80c9",
+      "persona_id": "p_senior",
+      "turn_count": 15,
+      "duration_sec": 627.315949,
+      "fills": 2,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_senior",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "patient_exploration",
+            "description": "차분히 탐색 (patience 15s*60=900s budget, 최소 2분)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 120' → True"
+          },
+          {
+            "id": "cautious_fills",
+            "description": "복잡한 dApp에서 2개 이상 필드 거의 안 채움 (tech_literacy 0.3)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          },
+          {
+            "id": "reads_carefully",
+            "description": "라벨·설명을 확인 (reading_wpm 150, 느림)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_a4a90492",
+      "persona_id": "p_b2b_buyer",
+      "turn_count": 1,
+      "duration_sec": 3374.785775,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_b2b_buyer",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "long_evaluation",
+            "description": "B2B 평가는 8턴 이상 or 5분 이상 탐색",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 8 OR duration_sec >= 300' → True"
+          },
+          {
+            "id": "info_gathering",
+            "description": "정보 수집 집약 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_impulsive_fill",
+            "description": "신중 — 2개 이상 필드 연속 작성 안 함 (research_depth 0.85)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_7176bcc1",
+      "persona_id": "p_pragmatic",
+      "turn_count": 8,
+      "duration_sec": 376.247982,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → True"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_332cb56d",
+      "persona_id": "p_creator_freelancer",
+      "turn_count": 4,
+      "duration_sec": 195.276176,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_creator_freelancer",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "moderate_pace",
+            "description": "중간 속도 탐색 — 너무 빠르지도 느리지도 않음",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 3 AND turn_count < 15' → True"
+          },
+          {
+            "id": "selective_reading",
+            "description": "가격·라이선스 관련 정보는 최소 1회 확인",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 1' → False"
+          },
+          {
+            "id": "visual_first",
+            "description": "스크롤로 전체 구성 훑기 (visual_dependency 0.85 반영)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='has_action('scroll')' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_7d2fffa7",
+      "persona_id": "p_crypto_native",
+      "turn_count": 2,
+      "duration_sec": 107.274072,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → True"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → True"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_7d6f6ce3",
+      "persona_id": "p_senior",
+      "turn_count": 19,
+      "duration_sec": 816.587742,
+      "fills": 2,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_senior",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "patient_exploration",
+            "description": "차분히 탐색 (patience 15s*60=900s budget, 최소 2분)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 120' → True"
+          },
+          {
+            "id": "cautious_fills",
+            "description": "복잡한 dApp에서 2개 이상 필드 거의 안 채움 (tech_literacy 0.3)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          },
+          {
+            "id": "reads_carefully",
+            "description": "라벨·설명을 확인 (reading_wpm 150, 느림)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_543061ff",
+      "persona_id": "p_b2b_buyer",
+      "turn_count": 20,
+      "duration_sec": 737.006214,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_b2b_buyer",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "long_evaluation",
+            "description": "B2B 평가는 8턴 이상 or 5분 이상 탐색",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 8 OR duration_sec >= 300' → True"
+          },
+          {
+            "id": "info_gathering",
+            "description": "정보 수집 집약 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_impulsive_fill",
+            "description": "신중 — 2개 이상 필드 연속 작성 안 함 (research_depth 0.85)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_dfd706f7",
+      "persona_id": "p_pragmatic",
+      "turn_count": 20,
+      "duration_sec": 999.021082,
+      "fills": 2,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → True"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_a64a8108",
+      "persona_id": "p_creator_freelancer",
+      "turn_count": 20,
+      "duration_sec": 1044.238843,
+      "fills": 2,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_creator_freelancer",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "moderate_pace",
+            "description": "중간 속도 탐색 — 너무 빠르지도 느리지도 않음",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 3 AND turn_count < 15' → False"
+          },
+          {
+            "id": "selective_reading",
+            "description": "가격·라이선스 관련 정보는 최소 1회 확인",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 1' → True"
+          },
+          {
+            "id": "visual_first",
+            "description": "스크롤로 전체 구성 훑기 (visual_dependency 0.85 반영)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='has_action('scroll')' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_db298562",
+      "persona_id": "p_crypto_native",
+      "turn_count": 2,
+      "duration_sec": 180.275644,
+      "fills": 0,
+      "outcome": "error",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → True"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → True"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_ae660cf4",
+      "persona_id": "p_senior",
+      "turn_count": 0,
+      "duration_sec": 7.739058,
+      "fills": 0,
+      "outcome": "error",
+      "predicates": {
+        "persona_id": "p_senior",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "patient_exploration",
+            "description": "차분히 탐색 (patience 15s*60=900s budget, 최소 2분)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 120' → False"
+          },
+          {
+            "id": "cautious_fills",
+            "description": "복잡한 dApp에서 2개 이상 필드 거의 안 채움 (tech_literacy 0.3)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          },
+          {
+            "id": "reads_carefully",
+            "description": "라벨·설명을 확인 (reading_wpm 150, 느림)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_67b80302",
+      "persona_id": "p_b2b_buyer",
+      "turn_count": 0,
+      "duration_sec": 7.547419,
+      "fills": 0,
+      "outcome": "error",
+      "predicates": {
+        "persona_id": "p_b2b_buyer",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "long_evaluation",
+            "description": "B2B 평가는 8턴 이상 or 5분 이상 탐색",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 8 OR duration_sec >= 300' → False"
+          },
+          {
+            "id": "info_gathering",
+            "description": "정보 수집 집약 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_impulsive_fill",
+            "description": "신중 — 2개 이상 필드 연속 작성 안 함 (research_depth 0.85)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_cb811a70",
+      "persona_id": "p_pragmatic",
+      "turn_count": 0,
+      "duration_sec": 9.006498,
+      "fills": 0,
+      "outcome": "error",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0,
+        "persona_faithfulness": 0.0,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → False"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_047a5c51",
+      "persona_id": "p_creator_freelancer",
+      "turn_count": 19,
+      "duration_sec": 807.256773,
+      "fills": 1,
+      "outcome": "error",
+      "predicates": {
+        "persona_id": "p_creator_freelancer",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "moderate_pace",
+            "description": "중간 속도 탐색 — 너무 빠르지도 느리지도 않음",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 3 AND turn_count < 15' → False"
+          },
+          {
+            "id": "selective_reading",
+            "description": "가격·라이선스 관련 정보는 최소 1회 확인",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 1' → True"
+          },
+          {
+            "id": "visual_first",
+            "description": "스크롤로 전체 구성 훑기 (visual_dependency 0.85 반영)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='has_action('scroll')' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_3ce6acec",
+      "persona_id": "p_crypto_native",
+      "turn_count": 20,
+      "duration_sec": 1280.518464,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0,
+        "persona_faithfulness": 0.0,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → False"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → False"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_e2fa3d40",
+      "persona_id": "p_crypto_native",
+      "turn_count": 20,
+      "duration_sec": 1012.670244,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0,
+        "persona_faithfulness": 0.0,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → False"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → False"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_9f81e1a7",
+      "persona_id": "p_senior",
+      "turn_count": 10,
+      "duration_sec": 444.35953,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_senior",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "patient_exploration",
+            "description": "차분히 탐색 (patience 15s*60=900s budget, 최소 2분)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 120' → True"
+          },
+          {
+            "id": "cautious_fills",
+            "description": "복잡한 dApp에서 2개 이상 필드 거의 안 채움 (tech_literacy 0.3)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          },
+          {
+            "id": "reads_carefully",
+            "description": "라벨·설명을 확인 (reading_wpm 150, 느림)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_04da9b92",
+      "persona_id": "p_b2b_buyer",
+      "turn_count": 10,
+      "duration_sec": 479.205251,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_b2b_buyer",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "long_evaluation",
+            "description": "B2B 평가는 8턴 이상 or 5분 이상 탐색",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 8 OR duration_sec >= 300' → True"
+          },
+          {
+            "id": "info_gathering",
+            "description": "정보 수집 집약 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_impulsive_fill",
+            "description": "신중 — 2개 이상 필드 연속 작성 안 함 (research_depth 0.85)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='fills <= 2' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_d5b9c975",
+      "persona_id": "p_pragmatic",
+      "turn_count": 10,
+      "duration_sec": 391.683785,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → True"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_66ddae41",
+      "persona_id": "p_creator_freelancer",
+      "turn_count": 10,
+      "duration_sec": 464.087916,
+      "fills": 1,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_creator_freelancer",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "moderate_pace",
+            "description": "중간 속도 탐색 — 너무 빠르지도 느리지도 않음",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 3 AND turn_count < 15' → True"
+          },
+          {
+            "id": "selective_reading",
+            "description": "가격·라이선스 관련 정보는 최소 1회 확인",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 1' → True"
+          },
+          {
+            "id": "visual_first",
+            "description": "스크롤로 전체 구성 훑기 (visual_dependency 0.85 반영)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='has_action('scroll')' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_0393f388",
+      "persona_id": "p_crypto_native",
+      "turn_count": 10,
+      "duration_sec": 695.452792,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_crypto_native",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "quick_ui_grasp",
+            "description": "숙련자는 10턴 내 결판 — 빨리 움직이거나 빨리 이탈",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count < 10' → False"
+          },
+          {
+            "id": "minimal_reading",
+            "description": "설명 거의 안 읽음 (read 액션 3회 미만)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') < 3' → True"
+          },
+          {
+            "id": "fast_session",
+            "description": "3분 내 결판",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='duration_sec < 180' → False"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_9767dd3e",
+      "persona_id": "p_pragmatic",
+      "turn_count": 2,
+      "duration_sec": 61.089451,
+      "fills": 0,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → False"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_f709b314",
+      "persona_id": "p_pragmatic",
+      "turn_count": 3,
+      "duration_sec": 76.899395,
+      "fills": 0,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "persona_faithfulness": 0.667,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → False"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_b80b51a5",
+      "persona_id": "p_pragmatic",
+      "turn_count": 4,
+      "duration_sec": 181.937465,
+      "fills": 0,
+      "outcome": "task_complete",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "persona_faithfulness": 0.333,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → False"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": false,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → False"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    },
+    {
+      "session_id": "s_2bb1d928",
+      "persona_id": "p_pragmatic",
+      "turn_count": 10,
+      "duration_sec": 331.742139,
+      "fills": 0,
+      "outcome": "max_turns_hit",
+      "predicates": {
+        "persona_id": "p_pragmatic",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "persona_faithfulness": 1.0,
+        "predicates": [
+          {
+            "id": "deliberate_evaluation",
+            "description": "실용주의자는 충분히 탐색 — 5턴 이상 평가",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='turn_count >= 5' → True"
+          },
+          {
+            "id": "reads_specs",
+            "description": "기능·스펙 확인 (read 2회 이상)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='action_count('read') >= 2' → True"
+          },
+          {
+            "id": "no_rushed_abandon",
+            "description": "1분 이내 이탈 안 함 (성급한 판단 금물)",
+            "type": "rule",
+            "passed": true,
+            "evidence": [],
+            "reasoning": "rule='duration_sec >= 60' → True"
+          }
+        ]
+      }
+    }
+  ],
+  "aggregates": {
+    "p_senior": {
+      "passed": 13,
+      "total": 15,
+      "skipped": 0,
+      "faithfulness": 0.867,
+      "n_sessions": 5
+    },
+    "p_b2b_buyer": {
+      "passed": 12,
+      "total": 15,
+      "skipped": 0,
+      "faithfulness": 0.8,
+      "n_sessions": 5
+    },
+    "p_pragmatic": {
+      "passed": 18,
+      "total": 27,
+      "skipped": 0,
+      "faithfulness": 0.667,
+      "n_sessions": 9
+    },
+    "p_creator_freelancer": {
+      "passed": 9,
+      "total": 15,
+      "skipped": 0,
+      "faithfulness": 0.6,
+      "n_sessions": 5
+    },
+    "p_crypto_native": {
+      "passed": 9,
+      "total": 18,
+      "skipped": 0,
+      "faithfulness": 0.5,
+      "n_sessions": 6
+    }
+  }
+}

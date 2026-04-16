@@ -97,6 +97,25 @@
 
 **결론 (업데이트)**: v6은 **PR-21 per-action timeout이 hang 방지에 유효함을 확인**했지만, Jupiter 같은 복잡 SPA에서는 **browser mode 단독으로는 UX 진단이 불충분**. v5에서 제안한 **predicate-based 측정 (PR-22)**의 필요성을 재확인 — 페르소나 spec을 verifiable predicate으로 변환해 text·browser 양쪽을 통합 측정하는 접근이 본 시나리오에서 필수.
 
+### PR-22 적용 결과 — Persona Faithfulness 정량 측정
+
+5개 페르소나 soul에 verifiable predicate 3개씩 추가(트레이트 기반: 탐색 속도, 읽기 빈도, fill 패턴 등). v6의 30개 세션에 적용 → **"페르소나답게 행동했는가"** 점수 산출:
+
+| Persona | faithfulness | n | 해석 |
+|---|---:|---:|---|
+| p_senior | **0.87** | 5 | 차분히 읽고·최소 fill — 시니어 트레이트 일치 |
+| p_b2b_buyer | **0.80** | 5 | 8턴+ 긴 평가 — B2B 구매자 트레이트 일치 |
+| p_pragmatic | 0.67 | 9 | 중간 — 일부 세션 과도하게 짧음 |
+| p_creator_freelancer | 0.60 | 5 | 중간 — scroll 부재 세션 다수 |
+| **p_crypto_native** | **0.50** | 6 | **숙련자답지 않음** (20턴·1000초 세션 2개) |
+
+**핵심 발견**:
+- **browser mode는 페르소나 충실도를 왜곡한다**는 가설이 정량 확인. p_crypto_native(patience 1.5s → 90s budget, "10턴 내 결판" 기대)는 실제로 20턴 세션 2개 발생 — 도구가 페르소나 트레이트를 무시하고 LLM이 "역할 연기"로 진행한 증거.
+- p_senior의 높은 faithfulness(0.87)는 "시니어답게 천천히·조심히" 트레이트가 browser mode의 느린 진행과 우연히 일치 — 트레이트가 도구의 한계와 overlap될 때만 측정이 성립.
+- **사업 활용**: faithfulness < 0.7인 세션은 진단 근거에서 제외하거나 보조 증거로만 사용. text mode 결과와 cross-check 필수.
+
+**원본 결과**: `41r/experiments/public_analysis/jupiter_v6_predicate_scores.json` (30 세션 × predicate 상세).
+
 ---
 
 ## 1. 가설 (Hypothesis)
