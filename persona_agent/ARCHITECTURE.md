@@ -441,10 +441,14 @@ class SessionLog:
 
 ---
 
-## 11. 실행 흐름
+## 11. 실행 흐름 — **두 모드는 서로 다른 것을 측정한다**
 
-### 11.1 Text 모드 (run_cohort, mode="text")
+> **중요**: Text와 Browser는 교차 검증이 아닌 **보완 관계**. 동일 가설에 대해
+> text 결과와 browser 결과가 다를 수 있으며, 이는 모순이 아님 (§ 11.3 참조).
+
+### 11.1 Text 모드 — **Primary: 페르소나 인지 진단**
 LLM이 페르소나 프로필 + URL/task로 행동을 **한 번에 예측**. 실 브라우저 없음.
+**"이 사람이 이 사이트에서 뭘 느끼고, 어디서 포기할까?"** 에 대한 답.
 
 ```
 CohortRunner
@@ -458,10 +462,12 @@ CohortRunner
 
 **비용**: ~1,200 input + 1,000 output 토큰/페르소나 × Sonnet 4.6 ≈ **$0.02/페르소나**.
 **속도**: 5 페르소나 병렬 ≈ **20초**.
-**주의**: observation을 append하지 **않음** (실측 없이 예측만).
+**사업 가치**: 세그먼트 분기 진단, UX 마찰 지점, 개선 권고.
+**한계**: LLM 지식 기준, 실시간 UI 미반영. 그러나 **페르소나 성향 분기의 일관성은 높음**.
 
-### 11.2 Browser 모드 (run_session / run_cohort mode="browser")
+### 11.2 Browser 모드 — **Secondary: UI 접근성 감사**
 Playwright로 실제 사이트 조작, 턴마다 LLM이 plan → action 결정.
+**"이 UI가 프로그래밍적으로/보조 기술로 조작 가능한가?"** 에 대한 답.
 
 ```
 agent_loop.run_session
@@ -478,8 +484,23 @@ agent_loop.run_session
 ```
 
 **9 원시 액션**: `click`, `fill`, `select`, `scroll`, `wait`, `read`, `navigate`, `back`, `close_tab`.
-**비용**: ~5,000 input + 3,000 output 토큰/턴 × 4~10턴 ≈ **$0.20~0.50/세션**.
-**속도**: 2~5분/세션.
+**비용**: ~5,000 input + 3,000 output 토큰/턴 × 4~20턴 ≈ **$0.20~$1.00/세션**.
+**속도**: 2~10분/세션 (MAX_TURNS 가변, env `PERSONA_AGENT_MAX_TURNS` 또는 `run_session(max_turns=N)`).
+**사업 가치**: F009(dynamic content) 발생 = **접근성 취약 신호**. 성공 = UI 구조 navigable.
+**한계**: 도구 성능이 결과에 직접 영향. **browser 결과의 절대 score를 UX 품질로 해석하지 말 것**.
+
+### 11.3 왜 text와 browser 결과가 다를 수 있는가
+
+text에서 p_senior conv=0.10, browser에서 p_senior task_complete — 이런 괴리가 발생합니다.
+
+| | Text | Browser |
+|---|---|---|
+| p_senior 0.10 (abandoned) | **"인지적으로 어렵다"** — 맞음. 실제 58세는 Jupiter를 열고 포기할 것. | |
+| p_senior task_complete (19턴) | | **"UI 구조는 navigable"** — 맞음. 자동화 도구가 천천히 시도하면 도달 가능. |
+
+**둘 다 맞습니다. 다른 질문에 답하는 중이기 때문입니다.**
+- text 결과를 **사업 진단**에 사용하세요 (인지 마찰, 세그먼트 분기)
+- browser 결과를 **기술 감사**에 사용하세요 (접근성, 자동화 친화도)
 
 ---
 

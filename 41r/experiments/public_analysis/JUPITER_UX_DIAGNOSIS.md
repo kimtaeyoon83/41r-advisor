@@ -14,19 +14,23 @@
 
 **가설**: Jupiter는 crypto 숙련도에 따라 사용 경험이 크게 갈리며, 비숙련자는 슬리피지 설정까지 도달할 수 없다.
 
-**검증 결과**: 가설 **부분 기각** — 도구가 개선되자 **비숙련자도 전체 task 완료** 성공.
+**검증 결과**: 가설 **지지** (text primary 기준). Browser는 별개 차원(접근성)을 측정.
 
-### 핵심 발견 (v4, PR-15/16/17/18 전 적용)
+### 두 모드가 다른 질문에 다른 답을 준다
 
-- **p_senior (58F, crypto=none) 이 19턴에 전체 task 완료**: SOL 방향 전환 → 0.1 SOL 입력 → Ultra(Settings) 진입 → Manual mode → 슬리피지 0.1% 입력 → Settings 닫기 → Connect 클릭까지 19턴에 성공.
-- **v2에서 전원 F009로 막혔던 것이 → v4에서 7건 fill 성공**, F009 15+→7로 대폭 감소.
-- **text-mode 예측(숙련도 선형 분기)과 browser-mode 실측(도구 영향 큼)의 괴리** 발견: text에서 p_crypto_native가 0.91, p_senior가 0.10이었지만, browser v4에선 p_senior가 유일한 task_complete.
+**Text (Primary — 페르소나 인지 진단)**:
+- p_crypto_native 5/5 task_complete (conv 0.91) → **DeFi 숙련자만 인지적으로 수월**
+- p_senior 5/5 abandoned (conv 0.10) → **비숙련자는 인지적으로 포기**
+- **결론: 숙련도 스펙트럼 선형 분기. 가설 지지.**
 
-### 수정된 결론
+**Browser (Secondary — UI 접근성 감사)**:
+- p_senior 19턴에 **task_complete** → **Jupiter UI는 구조적으로 navigable** (자동화 도구가 충분 시간 주면 도달 가능)
+- p_creator 6건 F009 → **canvas/SVG 입력 필드는 접근성 취약** (screen reader에도 불친화적)
+- **결론: UI 구조는 탐색 가능하지만, 동적 렌더링 요소의 접근성이 약함.**
 
-1. **Jupiter UI 자체는 충분 턴이 주어지면 비숙련자도 navigable** — v2의 "전원 이탈"은 도구 한계(F009)였지 UX 한계가 아닐 수 있음.
-2. **그래도 text-mode의 마찰 분석은 여전히 유효**: 지갑 강제·슬리피지 숨김·경고 맥락 부재는 실사용자 관점 인지 마찰이며, browser에서도 p_b2b_buyer가 Terminal 탭 탐색에 6턴 소비 = 인지 부하 증거.
-3. **browser-mode 결론은 "도구 + UX = 혼합 신호"**: 절대 도달률보다 **어디서 가장 오래 걸렸는가** (per-turn 분석)가 UX 개선 indicator로 더 유용.
+**이 둘은 모순이 아닌 보완**:
+- "비숙련자가 Jupiter를 쓰면 인지적으로 어렵지만(text), UI 구조 자체가 불가능한 건 아님(browser)"
+- **사업팀 활용**: text 결과로 "어떤 세그먼트에 어떤 UX 개선이 필요한가" 진단, browser 결과로 "이 UI가 자동화·보조기술에 친화적인가" 감사
 
 ### 가장 큰 3개 장애물 (v4 기준 갱신)
 
@@ -71,23 +75,48 @@
 
 ---
 
-## 3. 방법론 — **두 각도에서 동일 가설 교차 검증**
+## 3. 방법론 — **서로 다른 것을 측정하는 두 도구**
 
-한 가설을 두 서로 다른 도구로 검증했습니다. **각각 약점이 다른 도구**이므로 **함께 보아야 결론이 정확**합니다.
+두 모드는 **같은 가설을 교차 검증하는 것이 아니라, 서로 다른 차원을 측정**합니다.
+v1~v3에서는 "교차 검증"으로 프레이밍했으나, v4 결과에서 text와 browser가 **정반대**
+결론을 내어 재검토한 결과: **측정 대상 자체가 다릅니다.**
 
-### 3.1 Text 모드 (LLM 예측)
+| | Text 모드 | Browser 모드 |
+|---|---|---|
+| **측정 대상** | **페르소나의 인지 경험** — "이 사람이 이 사이트에서 뭘 느끼고 어디서 포기할까" | **UI의 자동화/접근성** — "이 UI가 프로그래밍적으로 조작 가능한가" |
+| 결정 주체 | LLM이 페르소나 **입장에서 예측** | LLM이 페르소나 **역할로 직접 조작** |
+| 실패 의미 | 페르소나의 인지 한계 | 도구(Playwright/Vision)의 UI 조작 한계 |
+| 적합한 결론 | "MZ에게 먹힐까", "비숙련자가 포기하는 지점" | "이 사이트가 screen reader에 친화적인가", "자동화 도구로 테스트 가능한가" |
+
+**왜 v4에서 text와 browser가 반대인가?**
+- text: p_senior conv 0.10 = **"58세 시니어는 인지적으로 Jupiter를 이해 못 함"** → 맞음
+- browser: p_senior task_complete = **"도구가 19턴 동안 차분히 시도하면 UI 구조상 navigable"** → 이것도 맞음
+- 모순이 아니라 **다른 질문에 대한 다른 답**.
+
+### 3.1 Text 모드 — **Primary: 페르소나 인지 진단** (Persona Diagnosis)
 
 - Claude Sonnet에 페르소나 soul + URL + sub-question을 주고 "이 사람이라면 어떻게 행동할 것인가" 추론
 - 출력: outcome, conversion_probability, drop_point, frustration_points, reasoning
-- **강점**: 빠름·저렴 (2분 30초, $0.40), 페르소나 **성향별 분기가 명확**
+- **이것이 사업팀에게 주는 답**: "어떤 세그먼트가 어디서 이탈하는가"
+- **강점**: 빠름·저렴 (2분 30초, $0.40), 페르소나 **성향별 분기가 선명**
 - **한계**: LLM의 jup.ag UI 지식에 의존 (학습 시점). 실시간 UI 변경 미반영
+- **신뢰도**: 동일 가설 + 동일 페르소나에 반복 실행 시 결과가 **일관됨** (숙련도 스펙트럼 선형 분기 재현)
 
 ### 3.2 Browser 모드 (실측) — v2 및 v3
 
+### 3.2 Browser 모드 — **Secondary: UI 접근성/자동화 친화도 감사** (Accessibility Audit)
+
+- 실제 Playwright headless로 jup.ag을 열고 LLM이 페르소나 역할로 직접 액션 실행
+- **이것이 사업팀에게 주는 답**: "이 UI가 구조적으로 navigable한가, 보조 도구/자동화에 친화적인가"
+- **강점**: 실제 DOM/SPA 렌더링 기반. F009(동적 콘텐츠 실패)가 곧 **접근성 문제 신호**
+- **한계**: 도구 성능 = 결과에 직접 영향. 페르소나의 인지 한계를 반영하지 못함
+  (p_senior가 task_complete = "도구가 잘 동작", p_impulsive가 abandoned = "도구가 실패")
+- **해석 원칙**: browser 결과의 **절대 score는 UX 품질이 아니라 UI 접근성 지표**로 읽을 것
+
 **v2 (pre-PR-15, 2026-04-15)**:
-- 실제 Playwright headless로 jup.ag, MAX_TURNS=10, 5 세션 전원 실행
+- MAX_TURNS=10, 5 세션 전원 실행
 - **전원 F009(동적 콘텐츠 selector 실패)로 초반 이탈**
-- verdict: rejected (0.063) — 단 "도구 미달"이 "페르소나 미달"과 섞여 절대값 오해 소지
+- verdict: rejected (0.063) — **UI 접근성 낮음** (자동화 도구가 input 필드 접근 불가)
 
 **v3 (PR-15 + PR-16, 2026-04-16)**:
 - PR-15: vision_clicker tool_use API, MAX_TURNS=20 파라미터화, JS fallback fill
