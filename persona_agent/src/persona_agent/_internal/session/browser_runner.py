@@ -13,6 +13,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os as _os
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -117,7 +118,39 @@ class BrowserRunner:
     # --- 통합 액션 실행 ---
 
     async def _exec_action(self, handle: SessionHandle, action: str, **params) -> ActionResult:
-        """통합 액션 실행기. overlay 체크 + 액션 + settling + diff 계산."""
+        """통합 액션 실행기. overlay 체크 + 액션 + settling + diff 계산.
+
+        PR-21: 전체 액션 실행을 asyncio.wait_for로 감싸 **per-action timeout**
+        적용. Turn 1의 wait action이 55분 걸렸던 v5 버그 재발 방지.
+        기본 60s, env PERSONA_AGENT_ACTION_TIMEOUT 로 조정 가능.
+        """
+        import asyncio
+        import time
+
+        timeout_sec = float(_os.environ.get("PERSONA_AGENT_ACTION_TIMEOUT", "60"))
+
+        try:
+            return await asyncio.wait_for(
+                self._exec_action_inner(handle, action, **params),
+                timeout=timeout_sec,
+            )
+        except asyncio.TimeoutError:
+            logger.warning(
+                "Action %s exceeded %.0fs timeout — classified as F010 ActionTimeout",
+                action, timeout_sec,
+            )
+            return ActionResult(
+                ok=False,
+                failure={
+                    "code": "F010",
+                    "name": "ActionTimeout",
+                    "error": f"action '{action}' timed out after {timeout_sec:.0f}s",
+                },
+                duration_ms=timeout_sec * 1000,
+            )
+
+    async def _exec_action_inner(self, handle: SessionHandle, action: str, **params) -> ActionResult:
+        """실제 action 실행 내부 함수. _exec_action의 timeout wrapper 아래."""
         import asyncio
         import time
 
@@ -132,15 +165,12 @@ class BrowserRunner:
             raw_result = await self._dispatch(page, action, params, handle=handle)
 
             # PR-16: Post-action settling wait — SPA 재렌더 시간 확보.
-            # navigate/click/fill 이후 React/Vue가 DOM 업데이트하기까지 기다림.
-            # 41rpm autotest.ts가 setTimeout(800ms) 패턴으로 사용한 것과 동일.
             if action in ("click", "fill", "select", "navigate", "back"):
                 await asyncio.sleep(0.8)
-                # network idle 재확인 (lazy-loaded content)
                 try:
                     await page.wait_for_load_state("networkidle", timeout=2000)
                 except Exception:
-                    pass  # timeout은 OK — 장기 streaming일 수 있음
+                    pass
 
             after = await self._get_a11y_tree(page)
 
