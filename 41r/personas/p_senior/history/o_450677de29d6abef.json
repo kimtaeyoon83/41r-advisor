@@ -1,0 +1,7 @@
+{
+  "persona_id": "p_senior",
+  "persona_version": "v002",
+  "content": "{\"turn\": 15, \"page_state\": \"Wallet connection dialog is open. User needs to select a wallet to proceed with token swap (SOL → USDC). Jupiter Mobile wallet is highlighted as the recommended option.\", \"action\": \"close_tab\", \"reason\": \"영숙은 Turn 13-14에서 이미 이 팝업을 두 번 읽었다. 화면에는 'Jupiter Wallet(NEW!/Recommended)'과 'Jupiter Mobile(QR코드)' 두 옵션만 보인다. 영숙은 지갑 개념 자체를 모르는 58세 시니어로, 'Jupiter Wallet이 뭔지', 'QR코드를 어떻게 찍는지' 전혀 알 수 없다. Plan Step 7이 이미 완료(진행 불가 확정)되었고, 다음 단계는 Step 8(세션 종료)이다. 이 상태에서 추가 액션은 무의미하며 abandon code A002(cognitive_overload / auth_barrier)에 해당한다.\", \"result_ok\": true, \"diff\": {\"added\": [], \"removed\": []}, \"failure\": null, \"persona_sentiment\": \"영숙은 '도대체 뭘 눌러야 하는지 모르겠다. Jupiter Wallet? QR코드? 이건 나한테 맞는 게 아닌 것 같다'며 완전히 포기 상태로 탭을 닫는다.\"}",
+  "timestamp": "2026-04-16T04:10:05.220585+00:00",
+  "obs_id": "o_450677de29d6abef"
+}

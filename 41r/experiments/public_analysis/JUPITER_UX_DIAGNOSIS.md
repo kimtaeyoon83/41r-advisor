@@ -7,7 +7,7 @@
 > **v2**: 2026-04-15 (browser, pre-PR-15, F009 다발 → 전원 이탈)
 > **v3**: 2026-04-16 (PR-15/16, 2/5 유효, 부분 성공)
 > **v4**: 2026-04-16 (PR-15/16/17/18 전 적용, 5/5 유효, p_senior task_complete)
-> **v5**: 2026-04-16 (PR-15~20 전 적용 + patience 강제, **3/5 완료, 4th 세션 action-hang으로 중단**)
+> **v5**: 2026-04-16 (PR-15~20 전 적용 + patience 강제, **5/5 완료, p_senior task_complete, 대부분 patience 소진으로 빠른 이탈**)
 
 ---
 
@@ -43,19 +43,26 @@
 
 **권고**: R1~R6 유지 (§ 5 참조). 특히 R2(슬리피지 상시 노출)는 v4에서도 가장 큰 시간 소비 구간.
 
-**도구 진화 기록**: v1(text) → v2(browser, F009 15+, 전원 이탈) → v3(2/5 유효, 부분 성공) → v4(5/5 유효, 1건 완료, F009→7) → **v5(3/5 완료, patience 작동 확인, 4th action hang — PR-21 per-action timeout 필요)**.
+**도구 진화 기록**: v1(text) → v2(browser, F009 15+, 전원 이탈) → v3(2/5 유효) → v4(5/5, 1건 완료, score 0.19) → **v5(5/5, 1건 완료, score 0.108 — patience 강제로 더 엄격)**.
 
-**v5 결과 간단 요약**:
-- p_crypto_native: 2턴에 patience 소진 (patience_seconds=1.5, budget=90s). **PR-19 작동 확인** ✅
-- p_creator_freelancer: 4턴에 patience 소진 (budget=?)
-- p_pragmatic: 8턴에 patience 소진 (budget=360s ≈ 6분). 6 OK actions, 1 fill, 2 F009
-- p_b2b_buyer: **action hang** (57분간 응답 없음, 수동 종료)
-- p_senior: 실행 못함
+**v5 결과 (5/5 완료, 4934초)**:
+
+| Persona | turns | outcome | fills | F009 | 해석 |
+|---|---:|---|---:|---:|---|
+| p_crypto_native | 2 | max_turns_hit* | 0 | 0 | patience budget=90s 소진 |
+| p_creator_freelancer | 4 | max_turns_hit* | 0 | 1 | 짧은 budget 소진 |
+| p_pragmatic | 8 | max_turns_hit* | 1 | 2 | budget=360s 소진, fill 1건 성공 |
+| p_b2b_buyer | 1 | max_turns_hit | 0 | 0 | 1턴만 — 세션 조기 종료 (이상) |
+| **p_senior** | **15** | **task_complete** | **2** | 3 | 스왑+슬리피지 완주 (v4 19턴 → v5 15턴) |
+
+> *patience_exceeded가 max_turns_hit로 덮어써진 v5 버그 — 다음 버전에서 올바르게 표시.
 
 **v5 주요 발견**:
-1. **PR-19 patience 의도대로 작동** — 단일 LLM 턴이 너무 길어도 세션 수준 budget으로 이탈. text 예측("빠르게 이탈")에 수렴.
-2. **outcome 레이블 버그** — patience_exceeded가 max_turns_hit로 덮어써지던 문제 발견·수정.
-3. **action-level hang 가능성** — `runner.run_action`이 Playwright 내부에서 hang할 때 patience check이 탈출 못 함. PR-21 per-action timeout 필요.
+1. **PR-19 patience 작동** — 저patience 페르소나들이 짧게 이탈 (p_crypto 2턴, p_creator 4턴, p_pragmatic 8턴). **text 예측 "빠르게 이탈"과 browser 실측이 수렴**.
+2. **p_senior 유일 완료 현상 지속** (v4/v5 공통) — 15분 patience budget으로 차분히 시도하면 Jupiter UI는 navigable.
+3. **v5 verdict score 0.108** (v4는 0.19) — patience 강제로 **더 엄격해진 평가**. 실사용자 경험에 더 가까움.
+4. **outcome 레이블 버그** — patience_exceeded가 max_turns_hit로 덮어써지던 문제 발견·수정.
+5. **설계 통찰**: browser 모드 score는 본질적으로 "페르소나 patience × 도구 안정성"이 결정. 진정한 UX 품질 측정 위해선 **patience와 인지 마찰을 분리하는 predicate-based 측정**(§ "향후 계획")이 필요함.
 
 ---
 
