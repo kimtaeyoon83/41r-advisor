@@ -81,6 +81,11 @@ from persona_agent._internal.analysis.benchmark_loader import (
     get_baseline,
     diagnose_cohort,
 )
+from persona_agent._internal.analysis.predicate_scorer import (
+    score_session_predicates,
+    PredicateResult,
+    ScoreResult,
+)
 
 # Reports
 from persona_agent._internal.reports.report_gen import (
@@ -143,6 +148,9 @@ __all__ = [
     "render_meta_markdown",
     "get_baseline",
     "diagnose_cohort",
+    "score_session_predicates",
+    "PredicateResult",
+    "ScoreResult",
     # Reports
     "generate_report",
     "inspect_session",
