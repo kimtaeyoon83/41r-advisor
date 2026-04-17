@@ -8,15 +8,22 @@ from pathlib import Path
 
 from persona_agent._internal.core.workspace import get_workspace
 
-_EVENTS_DIR = get_workspace().events_dir
+_EVENTS_DIR: Path | None = None
+
+
+def _get_events_dir() -> Path:
+    global _EVENTS_DIR
+    if _EVENTS_DIR is None:
+        _EVENTS_DIR = get_workspace().events_dir
+    return _EVENTS_DIR
 
 
 def _ensure_dir() -> None:
-    _EVENTS_DIR.mkdir(parents=True, exist_ok=True)
+    _get_events_dir().mkdir(parents=True, exist_ok=True)
 
 
 def _today_file() -> Path:
-    return _EVENTS_DIR / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}.jsonl"
+    return _get_events_dir() / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}.jsonl"
 
 
 def append(event: dict) -> None:

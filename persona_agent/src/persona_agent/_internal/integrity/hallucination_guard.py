@@ -7,7 +7,7 @@
 4. p-value 패턴 발견 시 원본 데이터로 scipy 재계산 후 비교
 
 사용법:
-    from modules.hallucination_guard import audit_report
+    from persona_agent.integrity import audit_report
     audit_report("reports/sample_report_v2.html",
                  ground_truth_dirs=["reports/", "experiments/ablation/"])
 """

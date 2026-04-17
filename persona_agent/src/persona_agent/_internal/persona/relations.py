@@ -18,10 +18,10 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Iterable
 
 from persona_agent.errors import PersonaNotFoundError, RelationError
 from persona_agent._internal.core.cache import content_hash

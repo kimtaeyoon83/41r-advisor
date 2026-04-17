@@ -33,9 +33,30 @@ from persona_agent._internal.core.workspace import get_workspace
 
 logger = logging.getLogger(__name__)
 
-_BASE = get_workspace().root
-_COHORT_DIR = get_workspace().cohort_results_dir
-_OUT_DIR = get_workspace().experiments_dir / "cross_cohort_meta"
+_BASE: Path | None = None
+_COHORT_DIR: Path | None = None
+_OUT_DIR: Path | None = None
+
+
+def _get_base() -> Path:
+    global _BASE
+    if _BASE is None:
+        _BASE = get_workspace().root
+    return _BASE
+
+
+def _get_cohort_dir() -> Path:
+    global _COHORT_DIR
+    if _COHORT_DIR is None:
+        _COHORT_DIR = get_workspace().cohort_results_dir
+    return _COHORT_DIR
+
+
+def _get_out_dir() -> Path:
+    global _OUT_DIR
+    if _OUT_DIR is None:
+        _OUT_DIR = get_workspace().experiments_dir / "cross_cohort_meta"
+    return _OUT_DIR
 
 
 def _pearson(x: list[float], y: list[float]) -> float:
@@ -117,7 +138,7 @@ def analyze_cohort(cohort_path: Path) -> dict:
         "avg_outcome": round(statistics.mean(outcomes), 3),
         "stdev_outcome": round(statistics.stdev(outcomes), 3) if n > 1 else 0,
         "trait_outcome_corr": correlations,
-        "source": str(cohort_path.relative_to(_BASE)) if cohort_path.is_relative_to(_BASE) else str(cohort_path),
+        "source": str(cohort_path.relative_to(_get_base())) if cohort_path.is_relative_to(_get_base()) else str(cohort_path),
     }
 
 
@@ -202,7 +223,7 @@ def _interpret_consistency(agreement: float, mean_corr: float, stdev: float) -> 
 
 def run(cohort_pattern: str = "cohort_2026*.json", min_n: int = 10) -> dict:
     """전체 cross-cohort 분석 실행."""
-    paths = sorted(Path(p) for p in glob.glob(str(_COHORT_DIR / cohort_pattern)))
+    paths = sorted(Path(p) for p in glob.glob(str(_get_cohort_dir() / cohort_pattern)))
     logger.info("Scanning %d cohort files...", len(paths))
 
     analyses = []
@@ -260,16 +281,16 @@ def render_markdown(meta: dict) -> str:
         mc = cons["trait_consistency"][cons["most_consistent_trait"]]
         lines.append(f"- ✅ **가장 일관된 trait**: `{cons['most_consistent_trait']}` "
                      f"(direction={mc['direction_agreement']:.2f}, mean_corr={mc['mean_corr']:+.3f})")
-        lines.append(f"  → 이 trait의 영향은 사이트 종류와 무관 — **페르소나 핵심 차원**으로 검증됨")
+        lines.append("  → 이 trait의 영향은 사이트 종류와 무관 — **페르소나 핵심 차원**으로 검증됨")
     if cons.get("least_consistent_trait"):
         lc = cons["trait_consistency"][cons["least_consistent_trait"]]
         lines.append(f"- ⚠️ **가장 비일관된 trait**: `{cons['least_consistent_trait']}` "
                      f"(direction={lc['direction_agreement']:.2f})")
-        lines.append(f"  → 사이트 의존적. 본 trait는 site context와 함께 해석 필요")
+        lines.append("  → 사이트 의존적. 본 trait는 site context와 함께 해석 필요")
     if cons.get("biggest_outlier_site"):
         score = cons["site_outlier_scores"][cons["biggest_outlier_site"]]
         lines.append(f"- 🔵 **가장 outlier한 사이트**: `{cons['biggest_outlier_site']}` (avg distance={score:.3f})")
-        lines.append(f"  → 다른 사이트들과 trait 영향 패턴이 가장 다름. 해당 사이트의 특수성 살펴볼 가치")
+        lines.append("  → 다른 사이트들과 trait 영향 패턴이 가장 다름. 해당 사이트의 특수성 살펴볼 가치")
     lines.append("")
 
     lines.append("## 4. CPO 발송 자료 활용")
@@ -278,7 +299,7 @@ def render_markdown(meta: dict) -> str:
     lines.append(f"- {meta['n_cohorts_analyzed']}개 서로 다른 사이트 (이커머스, SaaS, 콘텐츠 등)")
     high_consistency = [t for t, info in cons["trait_consistency"].items() if info["direction_agreement"] >= 0.8]
     lines.append(f"- {len(high_consistency)}개 trait가 사이트 간 80%+ 방향 일관")
-    lines.append(f"- → \"우리 페르소나는 site-agnostic — 한 사이트 검증이 다른 사이트로 전이 가능\" 주장 가능")
+    lines.append("- → \"우리 페르소나는 site-agnostic — 한 사이트 검증이 다른 사이트로 전이 가능\" 주장 가능")
     lines.append("")
 
     lines.append("## 5. 한계")
@@ -301,12 +322,12 @@ def main():
     parser.add_argument("--min-n", type=int, default=10)
     args = parser.parse_args()
 
-    _OUT_DIR.mkdir(parents=True, exist_ok=True)
+    _get_out_dir().mkdir(parents=True, exist_ok=True)
 
     meta = run(cohort_pattern=args.pattern, min_n=args.min_n)
 
-    json_path = _OUT_DIR / "meta.json"
-    md_path = _OUT_DIR / "REPORT.md"
+    json_path = _get_out_dir() / "meta.json"
+    md_path = _get_out_dir() / "REPORT.md"
 
     with open(json_path, "w") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)

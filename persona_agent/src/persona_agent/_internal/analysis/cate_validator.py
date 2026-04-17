@@ -17,7 +17,7 @@ H2 진입 시 핵심 모듈:
 양쪽 모두 41R 예측과 비교한 일치도(matching score) 출력.
 
 사용:
-    from modules.cate_validator import validate_predictions
+    from persona_agent.analysis import validate_predictions
     result = validate_predictions(
         ab_data=[
             {"user_id": "u1", "variant": "A", "outcome": 1, "segment": "impulsive"},
@@ -38,7 +38,6 @@ import math
 import random
 from collections import defaultdict
 from dataclasses import dataclass
-from pathlib import Path
 
 logger = logging.getLogger(__name__)
 

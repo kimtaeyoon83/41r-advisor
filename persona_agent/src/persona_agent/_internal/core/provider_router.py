@@ -15,7 +15,14 @@ from persona_agent._internal.core.workspace import get_workspace
 
 logger = logging.getLogger(__name__)
 
-_ROUTING_PATH = get_workspace().config_dir / "llm_routing" / "routing.yaml"
+_ROUTING_PATH: Path | None = None
+
+
+def _get_routing_path() -> Path:
+    global _ROUTING_PATH
+    if _ROUTING_PATH is None:
+        _ROUTING_PATH = get_workspace().config_dir / "llm_routing" / "routing.yaml"
+    return _ROUTING_PATH
 
 import threading
 
@@ -86,7 +93,7 @@ def _load_config() -> dict:
         return _config
     with _config_lock:
         if _config is None:
-            with open(_ROUTING_PATH) as f:
+            with open(_get_routing_path()) as f:
                 _config = yaml.safe_load(f)
     return _config
 

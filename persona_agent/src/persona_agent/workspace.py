@@ -9,7 +9,6 @@ from persona_agent._internal.core.workspace import (
     Workspace,
     configure,
     get_workspace,
-    _reset_for_tests,
 )
 
 __all__ = ["Workspace", "configure", "get_workspace"]

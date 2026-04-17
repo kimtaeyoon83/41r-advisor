@@ -24,7 +24,14 @@ from persona_agent._internal.core.cache import content_hash
 from persona_agent._internal.core.events_log import append as log_event
 from persona_agent._internal.core.workspace import get_workspace
 
-_BASE_DIR = get_workspace().root
+_BASE_DIR: Path | None = None
+
+
+def _get_base_dir() -> Path:
+    global _BASE_DIR
+    if _BASE_DIR is None:
+        _BASE_DIR = get_workspace().root
+    return _BASE_DIR
 
 
 def _read_manifest(dir_path: Path) -> dict:
@@ -65,8 +72,8 @@ def save_version(path: str, content: str, author: str, message: str) -> str:
 
     Returns: 생성된 버전 ID (예: 'v016')
     """
-    dir_path = (_BASE_DIR / path).resolve()
-    if not dir_path.is_relative_to(_BASE_DIR.resolve()):
+    dir_path = (_get_base_dir() / path).resolve()
+    if not dir_path.is_relative_to(_get_base_dir().resolve()):
         raise ValueError(f"Path traversal rejected: {path}")
     dir_path.mkdir(parents=True, exist_ok=True)
 
@@ -104,7 +111,7 @@ def save_version(path: str, content: str, author: str, message: str) -> str:
 
 def get_current(path: str) -> str:
     """현재 활성 버전의 콘텐츠 반환."""
-    dir_path = _BASE_DIR / path
+    dir_path = _get_base_dir() / path
     manifest = _read_manifest(dir_path)
     current = manifest.get("current")
     if not current:
@@ -117,7 +124,7 @@ def get_current(path: str) -> str:
 
 def get_version(path: str, version: str) -> str:
     """특정 버전의 콘텐츠 반환."""
-    dir_path = _BASE_DIR / path
+    dir_path = _get_base_dir() / path
     ext = _detect_ext(dir_path)
     file_path = dir_path / f"{version}{ext}"
     if not file_path.exists():
@@ -127,7 +134,7 @@ def get_version(path: str, version: str) -> str:
 
 def rollback(path: str, to_version: str, reason: str) -> None:
     """manifest.current를 지정 버전으로 변경. 파일은 삭제하지 않음."""
-    dir_path = _BASE_DIR / path
+    dir_path = _get_base_dir() / path
     manifest = _read_manifest(dir_path)
 
     if to_version not in manifest.get("versions", {}):
@@ -155,8 +162,8 @@ def get_lineage(report_id: str) -> dict:
 
     # Hot Zone 모든 영역 스캔: agent/, report/, review/
     scan_roots = [
-        _BASE_DIR / "prompts" / "agent",
-        _BASE_DIR / "prompts" / "report",
+        _get_base_dir() / "prompts" / "agent",
+        _get_base_dir() / "prompts" / "report",
     ]
 
     for root in scan_roots:
@@ -184,7 +191,7 @@ def get_lineage(report_id: str) -> dict:
             lineage[key] = {
                 "version": current,
                 "hash": file_hash,
-                "path": str(prompt_dir.relative_to(_BASE_DIR)),
+                "path": str(prompt_dir.relative_to(_get_base_dir())),
             }
 
     return lineage
@@ -195,7 +202,7 @@ def get_current_version_info(path: str) -> dict:
 
     Returns: {"version": "v002", "hash": "abc123...", "path": "prompts/agent/xxx"}
     """
-    dir_path = _BASE_DIR / path
+    dir_path = _get_base_dir() / path
     if not dir_path.exists():
         return {"version": None, "hash": "", "path": path}
 

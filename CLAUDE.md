@@ -5,15 +5,27 @@
 41R Persona Market — AI 페르소나 기반 **세그먼트 분기 진단** 시스템.
 캘리브레이션된 페르소나가 실제 브라우저에서 제품을 사용하고, "**어떤 사람 타입이 어떻게 다르게 반응하는지**" 진단 리포트를 생성한다.
 
-**현재 상태 (2026-04-16)**: H1.1 marginal value 통계 입증 완료 (n=200, p=0.000009). 시장 검증(F1) 대기. **persona_agent 0.2.0 패키지 추출 완료** (PR-15~22, browser mode 강화 + predicate scoring). Jupiter dApp 공개 분석(v1~v6) 완료.
+**현재 상태 (2026-04-17)**: H1.1 marginal value 통계 입증 완료 (n=200, p=0.000009). 시장 검증(F1) 대기. **persona_agent 0.2.0 모듈화 100% 완료** — 도메인별 public sub-module 7개 (`session`, `cohort`, `persona`, `analysis`, `integrity`, `reports`, `hypothesis`), 레거시 `41r/modules/` shim 완전 제거. Jupiter dApp 공개 분석(v1~v6) 완료.
 
 **핵심 문서**: `41R-Constitution.md` (구조), `41R-Slice-H1.md` (현재 범위), `41R-Browser-Testing-Playbook.md` (행동 규칙), `41r/STATUS.md` (현재 상태), `41r/reports/EXECUTIVE_REPORT.html` (사업팀용), `persona_agent/BROWSER_MODE_REVIEW.md` (도구 진화), `41r/experiments/public_analysis/JUPITER_UX_DIAGNOSIS.md` (최종 리포트 템플릿)
 
 ## 코드 위치
 
 ```
-41r/                          메인 코드 디렉토리 (여기서 python3 실행)
-  modules/                    M1~M7 + 코호트 + 벤치마크 로더 + 할루시네이션 가드
+persona_agent/                SaaS가 import할 패키지 (v0.2.0)
+  src/persona_agent/
+    session.py                세션 실행 API
+    cohort.py                 코호트 실행/리포트 API
+    persona.py                페르소나 CRUD/생성/관계 API
+    analysis.py               CATE/벤치마크/predicate 분석 API
+    integrity.py              할루시네이션 가드/claim 태깅/provenance API
+    reports.py                리포트 생성/리뷰 API
+    hypothesis.py             가설 계획/실행 API
+    lowlevel.py               전체 re-export (레거시 호환)
+    _internal/                비공개 구현 (7개 도메인)
+  tests/                      pytest unit tests (156건)
+
+41r/                          운영 환경 (여기서 python3 실행)
   core/                       Provider Router, Cache, Events Log, Hooks, Metrics
   prompts/agent/              Hot Zone 프롬프트 (agent/ + report/)
   config/research/            LLM 라우팅, 캐시 설정
@@ -155,12 +167,22 @@ Browser mode는 도구·LLM 한계로 페르소나 트레이트를 왜곡할 수
 - **게이트 규칙**: `persona_faithfulness < 0.7` 세션은 진단 근거에서 **제외** 또는 보조 증거로만
 - **Text mode 결과와 cross-check 필수**: faithfulness 낮으면 text 결과 우선 채택
 
-### persona_agent 0.2.0 패키지
+### persona_agent 0.2.0 패키지 (모듈화 100% 완료)
 
 - **위치**: `/home/kimtayoon/myrepo/41r-advisor/persona_agent/`
-- **SaaS가 import할 대상** — 41r/modules는 레거시, 새 코드는 persona_agent/에
-- **공개 API**: `from persona_agent.lowlevel import run_session, run_cohort, score_session_predicates, plan_and_run_hypothesis, ...`
-- **41r/modules/* → shim**: deprecation warning 남김, PR-4에서 hub 이동 완료
+- **SaaS가 import할 대상** — `41r/modules/` 완전 삭제됨 (shim 0개)
+- **공개 API — 도메인별 sub-module**:
+  ```python
+  from persona_agent.session import run_session
+  from persona_agent.cohort import run_cohort, generate_cohort_report
+  from persona_agent.persona import create_persona, CohortSpec, generate_cohort
+  from persona_agent.analysis import score_session_predicates, get_baseline
+  from persona_agent.integrity import audit_report, verify_chain
+  from persona_agent.reports import generate_report
+  from persona_agent.hypothesis import plan_and_run_hypothesis
+  ```
+- **`persona_agent.lowlevel`**: 전체 41개 함수 flat re-export (레거시 호환, 신규 코드에서는 도메인별 import 권장)
+- **`_internal/` 직접 import 금지** (외부 소비자) — 패키지 내부 테스트만 예외
 - **환경 변수**:
   - `PERSONA_AGENT_MAX_TURNS=20` (SPA 대응)
   - `PERSONA_AGENT_ACTION_TIMEOUT=60` (PR-21 per-action hang 방지)
@@ -324,6 +346,7 @@ reload_config()
 - **Browser mode 7 PR 누적** (PR-15 vision tool_use · PR-16 settling+rep detector · PR-17 API retry · PR-18 hard guardrail · PR-19 patience budget · PR-20 JS smart selector · PR-21 per-action timeout)
 - **PR-22 Predicate 스코어링** (신뢰도 게이트 정량화) + 5개 페르소나에 predicates 필드 적용
 - **Jupiter 공개 분석 v1~v6** + 최종 리포트 (`JUPITER_UX_DIAGNOSIS.md`, 사업 활용용)
+- **모듈화 100%**: 도메인별 public sub-module 7개 생성, `41r/modules/` shim 21개 완전 삭제, 버전 0.2.0 릴리스, 테스트 205개 전통과
 
 ### ⏳ 사용자 결정 대기
 - **F1**: CPO 5~10명 발송 결정 → 시장 검증 시작

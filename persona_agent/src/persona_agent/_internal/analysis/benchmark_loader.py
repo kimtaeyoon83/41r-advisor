@@ -5,7 +5,7 @@
 - Open Bandit (ZOZOTOWN): item-level CTR 분포
 
 사용:
-    from modules.benchmark_loader import get_baseline
+    from persona_agent.analysis import get_baseline
     bl = get_baseline()
     print(bl.expected_pageviews_per_session(device='mobile'))  # 3.74
     print(bl.expected_conversion_rate(device='mobile'))        # 0.01393
@@ -41,8 +41,22 @@ def _pd():
 
 logger = logging.getLogger(__name__)
 
-_GA4_DIR = get_workspace().experiments_dir / "datasets" / "ga4_sample"
-_OBP_DIR = get_workspace().experiments_dir / "datasets" / "open_bandit"
+_GA4_DIR: Path | None = None
+_OBP_DIR: Path | None = None
+
+
+def _get_ga4_dir() -> Path:
+    global _GA4_DIR
+    if _GA4_DIR is None:
+        _GA4_DIR = get_workspace().experiments_dir / "datasets" / "ga4_sample"
+    return _GA4_DIR
+
+
+def _get_obp_dir() -> Path:
+    global _OBP_DIR
+    if _OBP_DIR is None:
+        _OBP_DIR = get_workspace().experiments_dir / "datasets" / "open_bandit"
+    return _OBP_DIR
 
 
 @dataclass
@@ -67,7 +81,7 @@ def load_ga4() -> dict:
     result = {}
     for stem in ["q1_funnel_drop", "q2_device_metrics", "q3_country_conversion",
                  "q4_session_metrics", "q5_hour_conversion"]:
-        path = _GA4_DIR / f"{stem}.csv"
+        path = _get_ga4_dir() / f"{stem}.csv"
         if path.exists():
             result[stem] = _pd().read_csv(path)
         else:
@@ -77,7 +91,7 @@ def load_ga4() -> dict:
 
 def load_open_bandit() -> Optional["pd.DataFrame"]:
     """Open Bandit sample CSV 로드."""
-    path = _OBP_DIR / "sample_all.csv"
+    path = _get_obp_dir() / "sample_all.csv"
     if not path.exists():
         return None
     return _pd().read_csv(path, index_col=0)

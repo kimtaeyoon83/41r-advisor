@@ -28,9 +28,15 @@ from persona_agent._internal.core.cache import content_hash
 from persona_agent._internal.core.events_log import append as log_event
 from persona_agent._internal.core.workspace import get_workspace
 
-# Primary write-target (workspace). Kept as module-level attribute for
-# monkeypatch compatibility with legacy tests.
-_PERSONAS_DIR = get_workspace().personas_dir
+# Primary write-target (workspace). Module-level attribute for monkeypatch compat.
+_PERSONAS_DIR: Path | None = None
+
+
+def _get_personas_dir() -> Path:
+    global _PERSONAS_DIR
+    if _PERSONAS_DIR is None:
+        _PERSONAS_DIR = get_workspace().personas_dir
+    return _PERSONAS_DIR
 
 _OBS_REQUIRED_FIELDS = {"persona_id", "persona_version", "content"}
 
@@ -69,9 +75,10 @@ class PersonaSnapshot:
 def _persona_roots() -> list[Path]:
     """Return read roots in priority order: workspace first, then builtin."""
     ws = get_workspace()
-    roots = [_PERSONAS_DIR]  # write-target (module attr, monkeypatch-friendly)
+    pdir = _get_personas_dir()
+    roots = [pdir]
     builtin = getattr(ws, "builtin_personas_dir", None)
-    if builtin and Path(builtin).resolve() != _PERSONAS_DIR.resolve():
+    if builtin and Path(builtin).resolve() != pdir.resolve():
         roots.append(Path(builtin))
     return roots
 
@@ -102,7 +109,7 @@ def _find_dir(persona_id: str, *subpath: str) -> Path | None:
 def _writable_subdir(persona_id: str, subpath: str) -> Path:
     """Return workspace-local ``persona_id/<subpath>``, creating it on demand.
     Raises ValueError on path traversal."""
-    p = _safe_subpath(_PERSONAS_DIR, persona_id, subpath)
+    p = _safe_subpath(_get_personas_dir(), persona_id, subpath)
     if p is None:
         raise ValueError(f"Invalid persona_id: {persona_id}")
     p.mkdir(parents=True, exist_ok=True)

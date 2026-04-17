@@ -22,7 +22,7 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 try:
-    from persona_agent._internal.analysis.benchmark_loader import diagnose_cohort, get_baseline
+    from persona_agent._internal.analysis.benchmark_loader import diagnose_cohort
     _BENCHMARK_AVAILABLE = True
 except ImportError as e:
     logger.warning("benchmark_loader 사용 불가 (%s) — Reality Check 비활성화", e)
@@ -30,7 +30,14 @@ except ImportError as e:
 
 from persona_agent._internal.core.workspace import get_workspace
 
-_REPORTS_DIR = get_workspace().reports_dir
+_REPORTS_DIR: Path | None = None
+
+
+def _get_reports_dir() -> Path:
+    global _REPORTS_DIR
+    if _REPORTS_DIR is None:
+        _REPORTS_DIR = get_workspace().reports_dir
+    return _REPORTS_DIR
 
 
 def _wilson_ci(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -245,7 +252,7 @@ def render_cohort_html(
     if report_id is None:
         report_id = f"cohort_rpt_{datetime.now(timezone.utc).strftime('%Y%m%d')}_{uuid.uuid4().hex[:6]}"
 
-    report_dir = _REPORTS_DIR / report_id
+    report_dir = _get_reports_dir() / report_id
     report_dir.mkdir(parents=True, exist_ok=True)
 
     _e = html.escape

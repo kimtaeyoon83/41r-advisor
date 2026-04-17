@@ -10,7 +10,7 @@ import pytest
 def test_version_is_exposed():
     import persona_agent
 
-    assert persona_agent.__version__ == "0.2.0.dev0"
+    assert persona_agent.__version__ == "0.2.0"
 
 
 def test_public_api_surface():
@@ -22,6 +22,16 @@ def test_public_api_surface():
         "Workspace",
         "configure",
         "get_workspace",
+        # Domain sub-modules (lazy)
+        "session",
+        "cohort",
+        "persona",
+        "analysis",
+        "integrity",
+        "reports",
+        "hypothesis",
+        "lowlevel",
+        # Errors
         "PersonaAgentError",
         "ConfigurationError",
         "MissingExtraError",
@@ -71,7 +81,7 @@ def test_get_workspace_without_configure_and_no_cwd_layout_raises(
     """With no explicit configure() AND a CWD that doesn't look like a 41r
     layout (no personas/ + prompts/ siblings), get_workspace() must error."""
     from persona_agent import ConfigurationError, get_workspace
-    from persona_agent.workspace import _reset_for_tests
+    from persona_agent._internal.core.workspace import _reset_for_tests
 
     _reset_for_tests()
     monkeypatch.chdir(tmp_path)
@@ -81,7 +91,7 @@ def test_get_workspace_without_configure_and_no_cwd_layout_raises(
 
 def test_configure_then_get(tmp_path: Path):
     from persona_agent import Workspace, configure, get_workspace
-    from persona_agent.workspace import _reset_for_tests
+    from persona_agent._internal.core.workspace import _reset_for_tests
 
     _reset_for_tests()
     ws = Workspace(
@@ -97,6 +107,19 @@ def test_configure_then_get(tmp_path: Path):
     assert got is ws
     assert got.sessions_dir == tmp_path / "sessions"
     assert got.cache_dir == tmp_path / "cache"
+
+
+def test_submodule_import_without_configure(monkeypatch, tmp_path: Path):
+    """SaaS embedding: sub-modules must import without configured workspace."""
+    from persona_agent._internal.core.workspace import _reset_for_tests
+
+    _reset_for_tests()
+    monkeypatch.chdir(tmp_path)
+    import importlib
+
+    for mod_name in ("session", "cohort", "persona", "analysis", "integrity", "reports", "hypothesis"):
+        mod = importlib.import_module(f"persona_agent.{mod_name}")
+        assert mod is not None
 
 
 def test_load_settings_requires_api_key(monkeypatch, tmp_path: Path):

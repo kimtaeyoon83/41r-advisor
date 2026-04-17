@@ -63,7 +63,7 @@ def _load_schema(version: int) -> dict:
         if ws.config_dir:
             candidates.append(Path(ws.config_dir).parent / "schemas" / "persona_schema" / filename)
     except Exception:
-        pass
+        logging.getLogger(__name__).debug("workspace not configured, using bundled schema only", exc_info=True)
     # bundled (always available)
     import persona_agent as _pa
     candidates.append(Path(_pa.__file__).parent / "data" / "schemas" / "persona_schema" / filename)

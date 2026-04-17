@@ -10,7 +10,7 @@
 - personas/cohort_<run_id>/cohort_meta.json
 
 사용법:
-    from modules.persona_generator import CohortSpec, generate_cohort
+    from persona_agent.persona import CohortSpec, generate_cohort
     spec = CohortSpec(
         segment_name="20대 여성 직장인",
         size=30,
@@ -33,7 +33,7 @@ import json
 import logging
 import random
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -41,7 +41,14 @@ from persona_agent._internal.core.workspace import get_workspace
 
 logger = logging.getLogger(__name__)
 
-_PERSONAS_DIR = get_workspace().personas_dir
+_PERSONAS_DIR: Path | None = None
+
+
+def _get_personas_dir() -> Path:
+    global _PERSONAS_DIR
+    if _PERSONAS_DIR is None:
+        _PERSONAS_DIR = get_workspace().personas_dir
+    return _PERSONAS_DIR
 
 
 @dataclass
@@ -258,7 +265,7 @@ def generate_cohort(spec: CohortSpec) -> str:
     # run_id
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     run_id = f"cohort_{ts}_{uuid.uuid4().hex[:6]}"
-    cohort_dir = _PERSONAS_DIR / run_id
+    cohort_dir = _get_personas_dir() / run_id
     cohort_dir.mkdir(parents=True, exist_ok=True)
 
     persona_ids = []
@@ -345,7 +352,6 @@ versions:
 
 
 if __name__ == "__main__":
-    import sys
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 
     # 데모: 20대 여성 직장인 20명

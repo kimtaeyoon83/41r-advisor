@@ -15,21 +15,23 @@ from __future__ import annotations
 
 import json
 import logging
+import os as _os
 import re
+import time
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
+
+import yaml as _yaml
 
 from persona_agent._internal.core import events_log
 from persona_agent._internal.core.provider_router import call as llm_call
+from persona_agent._internal.core.workspace import get_workspace as _get_workspace
 from persona_agent._internal.persona import persona_store
 from persona_agent._internal.session import browser_runner, plan_cache
 from persona_agent._internal.reports.prompt_loader import load_prompt
 
 logger = logging.getLogger(__name__)
-
-import os as _os
 
 # H1 default stays at 10 for cost control. Callers can pass max_turns=N to
 # run_session, or override globally via PERSONA_AGENT_MAX_TURNS env var.
@@ -37,9 +39,6 @@ import os as _os
 # a decision point.
 MAX_TURNS = int(_os.environ.get("PERSONA_AGENT_MAX_TURNS", "10"))
 
-
-import time
-import yaml as _yaml
 
 # PR-19: patience_seconds × PATIENCE_MULTIPLIER = 세션 예산 (초).
 # 60x = p_impulsive(2s)→2분, p_senior(15s)→15분.
@@ -62,7 +61,7 @@ def _get_patience_budget(soul_text: str) -> float | None:
         if isinstance(ps, (int, float)) and ps > 0:
             return ps * PATIENCE_MULTIPLIER
     except Exception:
-        pass
+        logger.warning("Failed to parse patience_budget from soul YAML", exc_info=True)
     return None
 
 
@@ -545,15 +544,21 @@ def _build_observation(
     }
 
 
-from persona_agent._internal.core.workspace import get_workspace as _get_workspace
-_SESSIONS_DIR = _get_workspace().sessions_dir
+_SESSIONS_DIR: None = None
+
+
+def _get_sessions_dir():
+    global _SESSIONS_DIR
+    if _SESSIONS_DIR is None:
+        _SESSIONS_DIR = _get_workspace().sessions_dir
+    return _SESSIONS_DIR
 
 
 def _save_session_log(log: SessionLog) -> None:
     """세션 로그를 sessions/ 디렉토리에 저장 (immutable)."""
-    _SESSIONS_DIR.mkdir(parents=True, exist_ok=True)
+    _get_sessions_dir().mkdir(parents=True, exist_ok=True)
 
-    path = _SESSIONS_DIR / f"{log.session_id}.json"
+    path = _get_sessions_dir() / f"{log.session_id}.json"
     data = {
         "session_id": log.session_id,
         "persona_id": log.persona_id,

@@ -125,7 +125,6 @@ class BrowserRunner:
         기본 60s, env PERSONA_AGENT_ACTION_TIMEOUT 로 조정 가능.
         """
         import asyncio
-        import time
 
         timeout_sec = float(_os.environ.get("PERSONA_AGENT_ACTION_TIMEOUT", "60"))
 
@@ -170,7 +169,7 @@ class BrowserRunner:
                 try:
                     await page.wait_for_load_state("networkidle", timeout=2000)
                 except Exception:
-                    pass
+                    logger.debug("networkidle wait timed out (transient, continuing)", exc_info=True)
 
             after = await self._get_a11y_tree(page)
 
@@ -747,7 +746,7 @@ class BrowserRunner:
             if await locator.is_visible(timeout=2000):
                 return locator
         except Exception:
-            pass
+            logger.debug("locator visibility check failed (probe, continuing)", exc_info=True)
         return None
 
     async def _js_fallback_fill(self, page, text: str) -> str:

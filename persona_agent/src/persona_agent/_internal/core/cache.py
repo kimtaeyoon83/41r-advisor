@@ -11,8 +11,23 @@ import yaml
 
 from persona_agent._internal.core.workspace import get_workspace
 
-_CACHE_DIR = get_workspace().cache_dir
-_CONFIG_PATH = get_workspace().config_dir / "cache" / "cache_config.yaml"
+_CACHE_DIR: Path | None = None
+_CONFIG_PATH: Path | None = None
+
+
+def _get_cache_dir() -> Path:
+    global _CACHE_DIR
+    if _CACHE_DIR is None:
+        _CACHE_DIR = get_workspace().cache_dir
+    return _CACHE_DIR
+
+
+def _get_config_path() -> Path:
+    global _CONFIG_PATH
+    if _CONFIG_PATH is None:
+        _CONFIG_PATH = get_workspace().config_dir / "cache" / "cache_config.yaml"
+    return _CONFIG_PATH
+
 
 import threading
 
@@ -31,13 +46,13 @@ def _load_config() -> dict:
         return _cache_config
     with _config_lock:
         if _cache_config is None:
-            with open(_CONFIG_PATH) as f:
+            with open(_get_config_path()) as f:
                 _cache_config = yaml.safe_load(f)
     return _cache_config
 
 
 def _namespace_dir(namespace: str) -> Path:
-    d = _CACHE_DIR / namespace
+    d = _get_cache_dir() / namespace
     d.mkdir(parents=True, exist_ok=True)
     return d
 

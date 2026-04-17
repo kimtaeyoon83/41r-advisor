@@ -31,7 +31,14 @@ from persona_agent._internal.integrity.hallucination_guard import (
 )
 from persona_agent._internal.core.workspace import get_workspace
 
-_BASE = get_workspace().root
+_BASE: Path | None = None
+
+
+def _get_base() -> Path:
+    global _BASE
+    if _BASE is None:
+        _BASE = get_workspace().root
+    return _BASE
 _DEFAULT_GT_DIRS = [
     "reports/",
     "experiments/ablation/",
@@ -109,7 +116,7 @@ def suggest_tags(report_path: str | Path,
 
         # 프로젝트 루트 기준 상대 경로
         try:
-            rel_path = str(Path(path).relative_to(_BASE))
+            rel_path = str(Path(path).relative_to(_get_base()))
         except ValueError:
             rel_path = path
 

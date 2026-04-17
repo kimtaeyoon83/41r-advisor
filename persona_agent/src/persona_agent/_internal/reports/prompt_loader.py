@@ -9,8 +9,22 @@ import yaml
 
 from persona_agent._internal.core.workspace import get_workspace
 
-_PROMPTS_DIR = get_workspace().prompts_dir
-_SHARED_DIR = _PROMPTS_DIR / "_shared"
+_PROMPTS_DIR: Path | None = None
+_SHARED_DIR: Path | None = None
+
+
+def _get_prompts_dir() -> Path:
+    global _PROMPTS_DIR
+    if _PROMPTS_DIR is None:
+        _PROMPTS_DIR = get_workspace().prompts_dir
+    return _PROMPTS_DIR
+
+
+def _get_shared_dir() -> Path:
+    global _SHARED_DIR
+    if _SHARED_DIR is None:
+        _SHARED_DIR = _get_prompts_dir() / "_shared"
+    return _SHARED_DIR
 
 # playbook reference → 공용 스니펫 파일 매핑
 _REFERENCE_MAP = {
@@ -31,8 +45,8 @@ def load_prompt(prompt_path: str) -> str:
     Returns:
         frontmatter 제거 후 references 주입된 최종 프롬프트 텍스트
     """
-    dir_path = (_PROMPTS_DIR / prompt_path).resolve()
-    if not dir_path.is_relative_to(_PROMPTS_DIR.resolve()):
+    dir_path = (_get_prompts_dir() / prompt_path).resolve()
+    if not dir_path.is_relative_to(_get_prompts_dir().resolve()):
         raise ValueError(f"Invalid prompt path: {prompt_path}")
     manifest_path = dir_path / "manifest.yaml"
 
@@ -61,8 +75,8 @@ def load_prompt(prompt_path: str) -> str:
 
 def load_prompt_with_meta(prompt_path: str) -> tuple[dict, str]:
     """프롬프트 + frontmatter 메타데이터 반환."""
-    dir_path = (_PROMPTS_DIR / prompt_path).resolve()
-    if not dir_path.is_relative_to(_PROMPTS_DIR.resolve()):
+    dir_path = (_get_prompts_dir() / prompt_path).resolve()
+    if not dir_path.is_relative_to(_get_prompts_dir().resolve()):
         raise ValueError(f"Invalid prompt path: {prompt_path}")
     manifest_path = dir_path / "manifest.yaml"
 
@@ -105,7 +119,7 @@ def _load_references(references: list[str]) -> list[str]:
     for ref in references:
         filename = _REFERENCE_MAP.get(ref)
         if filename:
-            path = _SHARED_DIR / filename
+            path = _get_shared_dir() / filename
             if path.exists():
                 snippets.append(path.read_text(encoding="utf-8").strip())
     return snippets

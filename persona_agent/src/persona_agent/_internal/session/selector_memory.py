@@ -14,9 +14,16 @@ from urllib.parse import urlparse
 
 from persona_agent._internal.core.workspace import get_workspace
 
-_MEMORY_DIR = get_workspace().cache_dir / "selector_memory"
+_MEMORY_DIR: Path | None = None
 
 logger = logging.getLogger(__name__)
+
+
+def _get_memory_dir() -> Path:
+    global _MEMORY_DIR
+    if _MEMORY_DIR is None:
+        _MEMORY_DIR = get_workspace().cache_dir / "selector_memory"
+    return _MEMORY_DIR
 
 
 def _site_key(url: str) -> str:
@@ -26,8 +33,9 @@ def _site_key(url: str) -> str:
 
 
 def _memory_path(url: str) -> Path:
-    _MEMORY_DIR.mkdir(parents=True, exist_ok=True)
-    return _MEMORY_DIR / f"{_site_key(url)}.json"
+    d = _get_memory_dir()
+    d.mkdir(parents=True, exist_ok=True)
+    return d / f"{_site_key(url)}.json"
 
 
 def load_memory(url: str) -> dict:

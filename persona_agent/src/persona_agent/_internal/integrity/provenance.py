@@ -10,7 +10,7 @@ H2 단계에서 CPO 감사 요구 대응:
   - 블록체인 없이 (Constitution §12: 벡터 DB / 블록체인 금지) tamper-evident 보장
 
 사용:
-    from modules.provenance import record, verify_chain
+    from persona_agent.integrity import record, verify_chain
 
     entry_id = record({
         "type": "cohort_report",
@@ -38,7 +38,14 @@ from persona_agent._internal.core.workspace import get_workspace
 
 logger = logging.getLogger(__name__)
 
-_LOG_PATH = get_workspace().cache_dir / "provenance_chain.jsonl"
+_LOG_PATH: Path | None = None
+
+
+def _get_log_path() -> Path:
+    global _LOG_PATH
+    if _LOG_PATH is None:
+        _LOG_PATH = get_workspace().cache_dir / "provenance_chain.jsonl"
+    return _LOG_PATH
 _SECRET_ENV = "PROVENANCE_HMAC_SECRET"
 
 
@@ -59,9 +66,9 @@ def _compute_hmac(prev_hash: str, payload_json: str) -> str:
 
 def _last_hash() -> str:
     """체인의 마지막 hash. 없으면 genesis (0x00...)."""
-    if not _LOG_PATH.exists():
+    if not _get_log_path().exists():
         return "0" * 64
-    with open(_LOG_PATH, "rb") as f:
+    with open(_get_log_path(), "rb") as f:
         try:
             f.seek(-2, os.SEEK_END)
             while f.read(1) != b"\n":
@@ -83,7 +90,7 @@ def record(data: dict) -> str:
     Returns:
         entry_id (UUID hex)
     """
-    _LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _get_log_path().parent.mkdir(parents=True, exist_ok=True)
 
     entry_id = uuid.uuid4().hex
     prev_hash = _last_hash()
@@ -98,7 +105,7 @@ def record(data: dict) -> str:
     entry_hash = _compute_hmac(prev_hash, payload_json)
 
     full_entry = {**payload, "hash": entry_hash}
-    with open(_LOG_PATH, "a", encoding="utf-8") as f:
+    with open(_get_log_path(), "a", encoding="utf-8") as f:
         f.write(json.dumps(full_entry, ensure_ascii=False) + "\n")
 
     logger.debug("Provenance: %s (prev=%s..., hash=%s...)",
@@ -114,11 +121,11 @@ def verify_chain() -> tuple[bool, int | None]:
         ok=True면 broken_at_line=None.
         ok=False면 broken_at_line=처음 어긋난 line 번호 (1-based).
     """
-    if not _LOG_PATH.exists():
+    if not _get_log_path().exists():
         return True, None
 
     prev_hash = "0" * 64
-    with open(_LOG_PATH, encoding="utf-8") as f:
+    with open(_get_log_path(), encoding="utf-8") as f:
         for i, line in enumerate(f, start=1):
             if not line.strip():
                 continue
@@ -145,9 +152,9 @@ def verify_chain() -> tuple[bool, int | None]:
 
 def list_entries(limit: int = 20) -> list[dict]:
     """최근 entries 조회 (감사용)."""
-    if not _LOG_PATH.exists():
+    if not _get_log_path().exists():
         return []
-    with open(_LOG_PATH, encoding="utf-8") as f:
+    with open(_get_log_path(), encoding="utf-8") as f:
         lines = [json.loads(line) for line in f if line.strip()]
     return lines[-limit:]
 
@@ -161,7 +168,7 @@ if __name__ == "__main__":
     if cmd == "verify":
         ok, broken = verify_chain()
         if ok:
-            print(f"✅ Provenance chain verified: {_LOG_PATH}")
+            print(f"✅ Provenance chain verified: {_get_log_path()}")
             print(f"   Total entries: {len(list_entries(limit=10**9))}")
         else:
             print(f"🔴 Chain broken at line {broken}")

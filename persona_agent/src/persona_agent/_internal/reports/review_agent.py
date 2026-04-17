@@ -23,17 +23,37 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 from persona_agent._internal.core import events_log
-from persona_agent._internal.core.cache import content_hash
 from persona_agent._internal.core.workspace import get_workspace
 
-_SESSIONS_DIR = get_workspace().sessions_dir
-_PROPOSALS_DIR = get_workspace().experiments_dir / "proposals"
-_GOLDEN_DIR = get_workspace().experiments_dir / "golden_sessions"
+_SESSIONS_DIR: Path | None = None
+_PROPOSALS_DIR: Path | None = None
+_GOLDEN_DIR: Path | None = None
+
+
+def _get_sessions_dir() -> Path:
+    global _SESSIONS_DIR
+    if _SESSIONS_DIR is None:
+        _SESSIONS_DIR = get_workspace().sessions_dir
+    return _SESSIONS_DIR
+
+
+def _get_proposals_dir() -> Path:
+    global _PROPOSALS_DIR
+    if _PROPOSALS_DIR is None:
+        _PROPOSALS_DIR = get_workspace().experiments_dir / "proposals"
+    return _PROPOSALS_DIR
+
+
+def _get_golden_dir() -> Path:
+    global _GOLDEN_DIR
+    if _GOLDEN_DIR is None:
+        _GOLDEN_DIR = get_workspace().experiments_dir / "golden_sessions"
+    return _GOLDEN_DIR
 
 
 def _load_session(session_id: str) -> dict:
     """세션 로그 파일 로드."""
-    path = _SESSIONS_DIR / f"{session_id}.json"
+    path = _get_sessions_dir() / f"{session_id}.json"
     if not path.exists():
         raise FileNotFoundError(f"Session {session_id} not found")
     with open(path) as f:
@@ -214,7 +234,7 @@ def propose(session_id: str, finding: str) -> str:
 
     Returns: proposal_id
     """
-    _PROPOSALS_DIR.mkdir(parents=True, exist_ok=True)
+    _get_proposals_dir().mkdir(parents=True, exist_ok=True)
 
     proposal_id = f"prop_{uuid.uuid4().hex[:8]}"
     proposal = {
@@ -238,7 +258,7 @@ def propose(session_id: str, finding: str) -> str:
             "change": "modal/overlay 체크 단계를 판단 프로세스에 추가",
         })
 
-    path = _PROPOSALS_DIR / f"{proposal_id}.json"
+    path = _get_proposals_dir() / f"{proposal_id}.json"
     with open(path, "w") as f:
         json.dump(proposal, f, ensure_ascii=False, indent=2)
 
@@ -260,9 +280,9 @@ def compare(version_a: str, version_b: str, on: str = "golden") -> dict:
         version_b: 프롬프트 버전 B (예: 'v002')
         on: 비교 기준 ('golden' = golden_sessions)
     """
-    _GOLDEN_DIR.mkdir(parents=True, exist_ok=True)
+    _get_golden_dir().mkdir(parents=True, exist_ok=True)
 
-    golden_sessions = list(_GOLDEN_DIR.glob("*.json"))
+    golden_sessions = list(_get_golden_dir().glob("*.json"))
 
     if not golden_sessions:
         return {
@@ -386,7 +406,7 @@ def cli_main():
 
 def _approve_proposal(proposal_id: str) -> None:
     """proposal 승인 → Version Manager를 통해 prompts/ 적용."""
-    path = _PROPOSALS_DIR / f"{proposal_id}.json"
+    path = _get_proposals_dir() / f"{proposal_id}.json"
     if not path.exists():
         print(f"Proposal {proposal_id} not found")
         return

@@ -13,7 +13,7 @@ import pytest
 from persona_agent import Workspace, configure
 from persona_agent._internal.persona import persona_store
 from persona_agent._internal.reports import version_manager
-from persona_agent.workspace import _reset_for_tests
+from persona_agent._internal.core.workspace import _reset_for_tests
 
 
 @pytest.fixture

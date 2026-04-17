@@ -1,6 +1,6 @@
 [project]
 name = "persona-agent"
-version = "0.2.0.dev0"
+version = "0.2.0"
 description = "Calibrated-persona analysis engine — segment divergence diagnostics for A/B candidates"
 requires-python = ">=3.11"
 readme = "README.md"

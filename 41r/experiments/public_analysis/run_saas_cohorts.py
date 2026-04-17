@@ -18,9 +18,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from core.cache import cache_disabled
-from modules.persona_generator import CohortSpec, generate_cohort
-from modules.cohort_runner import run_cohort
-from modules.cohort_report import generate_cohort_report
+from persona_agent.persona import CohortSpec, generate_cohort
+from persona_agent.cohort import run_cohort, generate_cohort_report
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 logger = logging.getLogger(__name__)

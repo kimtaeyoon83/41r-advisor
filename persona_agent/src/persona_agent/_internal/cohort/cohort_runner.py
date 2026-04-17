@@ -29,15 +29,28 @@ from pathlib import Path
 
 from persona_agent._internal.core.provider_router import call as llm_call
 from persona_agent._internal.core.workspace import get_workspace
-from persona_agent._internal.persona.persona_store import read_persona
 
 # multiprocessing fork 시 41r 모듈 path 보장
 _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 
 logger = logging.getLogger(__name__)
 
-_PERSONAS_DIR = get_workspace().personas_dir
-_COHORT_RESULTS_DIR = get_workspace().cohort_results_dir
+_PERSONAS_DIR: Path | None = None
+_COHORT_RESULTS_DIR: Path | None = None
+
+
+def _get_personas_dir() -> Path:
+    global _PERSONAS_DIR
+    if _PERSONAS_DIR is None:
+        _PERSONAS_DIR = get_workspace().personas_dir
+    return _PERSONAS_DIR
+
+
+def _get_cohort_results_dir() -> Path:
+    global _COHORT_RESULTS_DIR
+    if _COHORT_RESULTS_DIR is None:
+        _COHORT_RESULTS_DIR = get_workspace().cohort_results_dir
+    return _COHORT_RESULTS_DIR
 
 
 TEXT_MODE_SYSTEM = """당신은 UX 행동 예측 전문가입니다.
@@ -60,7 +73,7 @@ TEXT_MODE_SYSTEM = """당신은 UX 행동 예측 전문가입니다.
 
 def _load_cohort_personas(cohort_run_id: str) -> list[tuple[str, dict]]:
     """코호트 메타 + 각 페르소나 soul 텍스트 로드."""
-    cohort_dir = _PERSONAS_DIR / cohort_run_id
+    cohort_dir = _get_personas_dir() / cohort_run_id
     meta_path = cohort_dir / "cohort_meta.json"
     if not meta_path.exists():
         raise FileNotFoundError(f"Cohort not found: {cohort_run_id}")
@@ -291,9 +304,9 @@ def run_cohort(
     }
 
     # 결과 저장
-    _COHORT_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    _get_cohort_results_dir().mkdir(parents=True, exist_ok=True)
     out_id = f"{cohort_run_id}_{datetime.now(timezone.utc).strftime('%H%M%S')}_{uuid.uuid4().hex[:4]}"
-    out_path = _COHORT_RESULTS_DIR / f"{out_id}.json"
+    out_path = _get_cohort_results_dir() / f"{out_id}.json"
     with open(out_path, "w") as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
 

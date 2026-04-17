@@ -19,7 +19,14 @@ from persona_agent._internal.reports.report_analyzer import analyze_sessions
 
 logger = logging.getLogger(__name__)
 
-_REPORTS_DIR = get_workspace().reports_dir
+_REPORTS_DIR: Path | None = None
+
+
+def _get_reports_dir() -> Path:
+    global _REPORTS_DIR
+    if _REPORTS_DIR is None:
+        _REPORTS_DIR = get_workspace().reports_dir
+    return _REPORTS_DIR
 
 
 def generate_report(
@@ -32,7 +39,7 @@ def generate_report(
     Returns: report_id
     """
     report_id = f"rpt_{datetime.now(timezone.utc).strftime('%Y%m%d')}_{uuid.uuid4().hex[:6]}"
-    report_dir = _REPORTS_DIR / report_id
+    report_dir = _get_reports_dir() / report_id
     report_dir.mkdir(parents=True, exist_ok=True)
     generated_at = datetime.now(timezone.utc).isoformat()
 
