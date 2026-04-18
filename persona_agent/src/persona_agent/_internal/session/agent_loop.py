@@ -21,6 +21,7 @@ import time
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from typing import Literal
 
 import yaml as _yaml
 
@@ -166,6 +167,99 @@ class SessionLog:
     total_turns: int = 0
     start_time: str = ""
     end_time: str = ""
+    duration_sec: float = 0.0
+    mode: str = "browser"
+
+
+_TEXT_MODE_SYSTEM = """당신은 UX 행동 예측 전문가입니다.
+
+주어진 AI 페르소나가 특정 URL의 제품을 사용하며 주어진 태스크를 수행할 때의 행동을 예측하세요.
+
+## 출력 (JSON만)
+```json
+{
+  "outcome": "task_complete" | "abandoned" | "partial",
+  "predicted_turns": 정수 (1~15, engagement proxy),
+  "drop_point": "이탈한 단계 또는 null",
+  "key_behaviors": ["주요 행동 1", "주요 행동 2"],
+  "frustration_points": ["마찰 1"],
+  "conversion_probability": 0.0~1.0,
+  "reasoning": "2~3문장 근거"
+}
+```"""
+
+
+def _run_text_session(persona_id: str, url: str, task: str) -> SessionLog:
+    """LLM-only 행동 예측 — 브라우저 없이 페르소나 프로필만으로 결과 추정.
+
+    반환 SessionLog는 browser mode와 동일 스키마를 따르며, turns[0]에 예측
+    핵심을 저장한다. tool 필드는 None (실제 실행 없음).
+    """
+    session_id = f"s_{uuid.uuid4().hex[:8]}"
+    start_time = datetime.now(timezone.utc).isoformat()
+    clock_start = time.time()
+
+    persona = persona_store.read_persona(persona_id)
+    log = SessionLog(
+        session_id=session_id,
+        persona_id=persona_id,
+        url=url,
+        task=task,
+        start_time=start_time,
+        mode="text",
+    )
+
+    user_msg = (
+        f"## 페르소나\n{persona.soul_text}\n\n"
+        f"## URL\n{url}\n\n"
+        f"## 태스크\n{task}\n\n"
+        "이 페르소나가 위 URL에서 태스크를 수행할 때의 행동과 결과를 예측해주세요.\n"
+        "페르소나의 성향 프로필에 근거한 구체적 예측이 필요합니다."
+    )
+
+    try:
+        response = llm_call(
+            "review_proposer",
+            [{"role": "user", "content": user_msg}],
+            system=_TEXT_MODE_SYSTEM,
+            max_tokens=1024,
+        )
+        raw = response.get("content", "")
+        start = raw.find("{")
+        end = raw.rfind("}") + 1
+        if start >= 0 and end > start:
+            prediction = json.loads(raw[start:end])
+        else:
+            prediction = {"outcome": "error", "reasoning": raw[:200]}
+
+        log.outcome = str(prediction.get("outcome", "unknown"))
+        predicted_turns = prediction.get("predicted_turns", 1)
+        try:
+            log.total_turns = max(1, int(predicted_turns))
+        except (TypeError, ValueError):
+            log.total_turns = 1
+        log.turns = [{
+            "turn": 1,
+            "observation": {"summary": prediction.get("reasoning", "")},
+            "decision": {
+                "key_behaviors": prediction.get("key_behaviors", []),
+                "frustration_points": prediction.get("frustration_points", []),
+                "drop_point": prediction.get("drop_point"),
+                "conversion_probability": prediction.get("conversion_probability", 0.0),
+                "predicted_turns": log.total_turns,
+            },
+            "tool": None,
+        }]
+        log.plan = {"mode": "text", "prediction_tokens": response.get("usage", {})}
+    except Exception:
+        logger.exception("Text session %s failed", session_id)
+        log.outcome = "error"
+    finally:
+        log.end_time = datetime.now(timezone.utc).isoformat()
+        log.duration_sec = round(time.time() - clock_start, 3)
+        _save_session_log(log)
+
+    return log
 
 
 def run_session(
@@ -173,6 +267,7 @@ def run_session(
     url: str,
     task: str,
     *,
+    mode: Literal["text", "browser"] = "browser",
     max_turns: int | None = None,
 ) -> SessionLog:
     """전체 세션 실행.
@@ -180,11 +275,18 @@ def run_session(
     Parameters
     ----------
     persona_id, url, task : basic inputs
-    max_turns : int, optional
-        Override the global ``MAX_TURNS`` for this session only. Useful when
-        calling on complex dApps that need deeper navigation (e.g. 20-30 for
-        Jupiter-like SPAs).
+    mode : {"text", "browser"}, default "browser"
+        - "browser": Playwright 세션으로 실제 액션 실행 (비용/시간 큼)
+        - "text": LLM-only 예측 (빠르고 저렴, 스크린샷 없음)
+        기본값은 0.2.x 호환 유지를 위해 "browser". 1.0에서 "text"로 전환 검토.
+    max_turns : int, optional (browser mode에서만 사용)
+        Override the global ``MAX_TURNS`` for this session only.
     """
+    if mode == "text":
+        return _run_text_session(persona_id, url, task)
+    if mode != "browser":
+        raise ValueError(f"invalid mode: {mode!r} (expected 'text' or 'browser')")
+
     turn_limit = max_turns if max_turns is not None else MAX_TURNS
     session_id = f"s_{uuid.uuid4().hex[:8]}"
     start_time = datetime.now(timezone.utc).isoformat()
@@ -333,6 +435,7 @@ def run_session(
         runner.end_session(session)
         log.total_turns = turn
         log.end_time = datetime.now(timezone.utc).isoformat()
+        log.duration_sec = round(time.time() - session_clock_start, 3)
 
         # 세션 로그 저장
         _save_session_log(log)
@@ -570,6 +673,8 @@ def _save_session_log(log: SessionLog) -> None:
         "total_turns": log.total_turns,
         "start_time": log.start_time,
         "end_time": log.end_time,
+        "duration_sec": log.duration_sec,
+        "mode": log.mode,
     }
     with open(path, "w") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
