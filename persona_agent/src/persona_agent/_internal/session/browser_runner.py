@@ -23,6 +23,56 @@ from persona_agent._internal.core.events_log import append as log_event
 logger = logging.getLogger(__name__)
 
 
+# Anthropic vision costing scales with image dimensions (roughly
+# width × height / 750 tokens, capped at 1568 on the long side). The
+# default 1280×800 viewport therefore bills ~1365 tokens per turn,
+# which in a 10-turn session on Sonnet adds up to ~4¢ of vision alone.
+# Capping the long side at 900px cuts that by ~50% at negligible
+# fidelity loss for button / label identification.
+_VISION_MAX_DIM = int(_os.environ.get("PERSONA_AGENT_VISION_MAX_DIM", "900"))
+
+
+def _maybe_downscale_for_vision(raw_png: bytes) -> bytes:
+    """Downscale a PNG screenshot so vision-model tokens stay predictable.
+
+    Env overrides:
+      PERSONA_AGENT_VISION_MAX_DIM=0     → disable (ship original bytes)
+      PERSONA_AGENT_VISION_MAX_DIM=N     → cap long side to N pixels
+
+    Pillow is optional — if missing we log once and return the original
+    bytes, so turning this off is as simple as uninstalling pillow.
+    """
+    if _VISION_MAX_DIM <= 0 or not raw_png:
+        return raw_png
+    try:
+        from io import BytesIO
+        from PIL import Image
+    except Exception:
+        if not getattr(_maybe_downscale_for_vision, "_warned", False):
+            logger.warning(
+                "Pillow not installed — skipping vision downscale. "
+                "Install via persona-agent[browser] to enable.",
+            )
+            _maybe_downscale_for_vision._warned = True  # type: ignore[attr-defined]
+        return raw_png
+
+    try:
+        with Image.open(BytesIO(raw_png)) as im:
+            w, h = im.size
+            longest = max(w, h)
+            if longest <= _VISION_MAX_DIM:
+                return raw_png  # already small enough
+            ratio = _VISION_MAX_DIM / longest
+            new_size = (round(w * ratio), round(h * ratio))
+            resized = im.resize(new_size, Image.Resampling.LANCZOS)
+            buf = BytesIO()
+            resized.save(buf, format="PNG", optimize=True)
+            return buf.getvalue()
+    except Exception as e:
+        logger.debug("vision downscale failed, using original: %s", e)
+        return raw_png
+
+
 @dataclass
 class PageState:
     url: str = ""
@@ -804,15 +854,20 @@ class BrowserRunner:
         """현재 viewport 스크린샷 캡처 (L3 관찰).
 
         Returns PNG bytes. If workspace has ``save_screenshots=True``
-        (default) AND ``session_id`` is provided, also writes to
+        (default) AND ``session_id`` is provided, also writes the
+        **original** (pre-resize) PNG to
         ``sessions/<session_id>/screenshots/turn_NN.png`` so downstream
-        uploaders (e.g. R2) can pick it up.
+        uploaders (e.g. R2) and human reviewers see the full-fidelity
+        capture. The returned bytes are optionally downscaled for the
+        vision-model pipeline — see ``_maybe_downscale_for_vision``.
         """
         try:
             data = await page.screenshot(type="png", full_page=False)
         except Exception as e:
             logger.debug("Screenshot failed: %s", e)
             return None
+
+        raw_bytes = data
 
         if session_id:
             try:
@@ -822,18 +877,23 @@ class BrowserRunner:
                     shots = ws.session_screenshots_dir(session_id)
                     shots.mkdir(parents=True, exist_ok=True)
                     path = shots / f"turn_{turn:02d}.png"
-                    path.write_bytes(data)
+                    path.write_bytes(raw_bytes)
                     log_event({
                         "type": "screenshot_saved",
                         "session_id": session_id,
                         "turn": turn,
                         "path": str(path),
-                        "bytes": len(data),
+                        "bytes": len(raw_bytes),
                     })
             except Exception:
                 logger.debug("screenshot persist failed (continuing)", exc_info=True)
 
-        return data
+        # Return the (possibly) downscaled bytes for decision_judge —
+        # Anthropic vision tokens scale with pixel count, and the
+        # default 1280×800 viewport uses ~1365 tokens/image. Dropping
+        # to 900px on the long side roughly halves that at negligible
+        # fidelity cost for UI-element identification.
+        return _maybe_downscale_for_vision(raw_bytes)
 
     def end_session(self, handle: SessionHandle) -> SessionLog:
         """세션 종료 + 로그 반환."""

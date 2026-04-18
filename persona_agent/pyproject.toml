@@ -11,12 +11,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-browser = ["playwright>=1.49.0"]
+browser = ["playwright>=1.49.0", "Pillow>=10.0"]
 reports = ["weasyprint>=62.0"]
 analysis = ["numpy>=1.26", "scipy>=1.11"]
 benchmark = ["pandas>=2.0"]
 all = [
     "playwright>=1.49.0",
+    "Pillow>=10.0",
     "weasyprint>=62.0",
     "numpy>=1.26",
     "scipy>=1.11",
