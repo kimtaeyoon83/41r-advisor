@@ -21,7 +21,7 @@ import time
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Literal
+from typing import Any, Literal
 
 import yaml as _yaml
 
@@ -549,33 +549,71 @@ def _decide(
     else:
         page_state_for_llm = state
 
-    context_text = json.dumps({
-        "persona": {
-            "soul": persona.get("soul_text", "")[:500],
-            "recent_observations": [o.get("content", "") for o in recent_obs[-3:]],
-        },
+    # Split the context into a STABLE prefix (unchanged across all
+    # turns of this session) and a PER-TURN variable portion.
+    # Anthropic prompt caching charges cache_read at 10% of the normal
+    # input price, so marking the stable prefix with
+    # cache_control=ephemeral turns ~2-3k "duplicated" tokens per turn
+    # into a ~10¢ one-time write + near-free reads for the rest of the
+    # session (cache TTL 5 min — a single run fits comfortably).
+    # Disable via PERSONA_AGENT_PROMPT_CACHE=0 if you need to isolate.
+    stable_text = json.dumps({
+        "persona_soul": persona.get("soul_text", "")[:500],
         "plan": plan,
+    }, ensure_ascii=False)
+    variable_text = json.dumps({
+        "recent_observations": [o.get("content", "") for o in recent_obs[-3:]],
         "page_state": page_state_for_llm,
     }, ensure_ascii=False)
+    use_cache = _os.environ.get("PERSONA_AGENT_PROMPT_CACHE", "1") != "0"
 
-    # Vision: 스크린샷 + 텍스트 컨텍스트를 함께 전달
+    # Build the user message as structured blocks so we can mark the
+    # stable prefix for caching. The Anthropic SDK accepts this list
+    # form and falls back to legacy single-string when cache_control
+    # is absent, so disabling caching still works.
     if screenshot:
         import base64
         b64 = base64.b64encode(screenshot).decode("utf-8")
+        stable_block = {
+            "type": "text",
+            "text": stable_text,
+        }
+        if use_cache:
+            stable_block["cache_control"] = {"type": "ephemeral"}
         user_content = [
+            stable_block,
             {
                 "type": "image",
                 "source": {"type": "base64", "media_type": "image/png", "data": b64},
             },
             {
                 "type": "text",
-                "text": f"위 스크린샷은 현재 페이지의 실제 화면입니다. 이 화면을 '보고' 판단하세요.\n\n{context_text}",
+                "text": f"위 스크린샷은 현재 페이지의 실제 화면입니다. 이 화면을 '보고' 판단하세요.\n\n{variable_text}",
             },
         ]
     else:
-        user_content = context_text
+        stable_block = {
+            "type": "text",
+            "text": stable_text,
+        }
+        if use_cache:
+            stable_block["cache_control"] = {"type": "ephemeral"}
+        user_content = [
+            stable_block,
+            {"type": "text", "text": variable_text},
+        ]
 
-    response = llm_call("decision_judge", [{"role": "user", "content": user_content}], system=system_prompt)
+    # System prompt is also stable across the whole session — mark it
+    # cached too. Anthropic accepts system as a list of blocks with
+    # cache_control, same rules as message-content blocks.
+    if use_cache:
+        system_param: Any = [
+            {"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}},
+        ]
+    else:
+        system_param = system_prompt
+
+    response = llm_call("decision_judge", [{"role": "user", "content": user_content}], system=system_param)
 
     raw = response.get("content") or ""
     try:
