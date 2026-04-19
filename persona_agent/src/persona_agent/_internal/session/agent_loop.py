@@ -484,14 +484,26 @@ def _generate_plan(persona: dict, task: str, url: str) -> dict:
         }
 
 
+_A11Y_NODES = int(_os.environ.get("PERSONA_AGENT_A11Y_NODES", "20"))
+
+
 def _summarize_page(raw_state: browser_runner.PageState) -> dict:
-    """[LOW] page_summarizer로 페이지 요약."""
+    """[LOW] page_summarizer로 페이지 요약.
+
+    Only the first ``PERSONA_AGENT_A11Y_NODES`` nodes (default 20) of
+    the accessibility tree are sent to the summariser — beyond that
+    the nodes are typically off-screen footer/nav items that don't
+    help the decision this turn, and inflating the summariser's
+    input directly inflates its output that gets carried into
+    decision_judge every turn. Pre-tuning this cap was 50 and that
+    turn-level text context grew past 12k tokens on complex SPAs.
+    """
     system_prompt = load_prompt("agent/page_summarizer")
 
     state_text = json.dumps({
         "url": raw_state.url,
         "title": raw_state.title,
-        "a11y_tree": raw_state.a11y_tree[:50],  # 토큰 제한
+        "a11y_tree": raw_state.a11y_tree[:_A11Y_NODES],
         "viewport_only": raw_state.viewport_only,
         "scroll_hint": raw_state.scroll_hint,
     }, ensure_ascii=False)
@@ -517,13 +529,33 @@ def _decide(
     """[MID] decision_judge로 다음 행동 결정. 스크린샷이 있으면 Vision 모드."""
     system_prompt = load_prompt("agent/decision_judge")
 
+    # When the screenshot is attached, the visual layout / content is
+    # already conveyed by the image — the text context only has to
+    # carry what the LLM *needs* to emit a valid action (Playwright
+    # selector). We drop ``content_summary`` (prose description of the
+    # page, duplicated by the image) and ``key_elements`` (static text
+    # that the model can re-read from pixels) and keep only the
+    # structured interactive-element list. Typical savings: 4-10k
+    # input tokens per turn on complex SPAs. Override with
+    # PERSONA_AGENT_COMPACT_VISION_STATE=0 to restore the full dict.
+    if screenshot and _os.environ.get("PERSONA_AGENT_COMPACT_VISION_STATE", "1") != "0":
+        page_state_for_llm = {
+            "url": state.get("url"),
+            "page_type": state.get("page_type"),
+            "interactive_elements": state.get("interactive_elements") or [],
+            # keep a single-line scroll hint if the summary produced one
+            "scroll_hint": state.get("scroll_hint"),
+        }
+    else:
+        page_state_for_llm = state
+
     context_text = json.dumps({
         "persona": {
             "soul": persona.get("soul_text", "")[:500],
             "recent_observations": [o.get("content", "") for o in recent_obs[-3:]],
         },
         "plan": plan,
-        "page_state": state,
+        "page_state": page_state_for_llm,
     }, ensure_ascii=False)
 
     # Vision: 스크린샷 + 텍스트 컨텍스트를 함께 전달
